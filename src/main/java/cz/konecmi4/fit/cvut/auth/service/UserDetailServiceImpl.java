@@ -5,6 +5,7 @@ import cz.konecmi4.fit.cvut.auth.model.User;
 import cz.konecmi4.fit.cvut.auth.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.authority.AuthorityUtils;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
@@ -14,6 +15,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 
 import java.util.HashSet;
+import java.util.Optional;
 import java.util.Set;
 
 @Service
@@ -24,17 +26,27 @@ public class UserDetailServiceImpl implements UserDetailsService {
     @Override
     @Transactional(readOnly=true)
     public UserDetails loadUserByUsername(String username){
-        User user = userRepository.findByUsername(username);
-        if(user==null) throw new UsernameNotFoundException(username);
+
+
+//        return userRepository.findByUsername(username)
+//                .map(user -> new org.springframework.security.core.userdetails.User(user.getUsername(), user.getPassword(),
+//                        AuthorityUtils.createAuthorityList("USER")
+//                ))
+//                .orElseThrow(() -> new UsernameNotFoundException("can't find"));
+
+        Optional<User> user = userRepository.findByUsername(username);
+        if(!user.isPresent()) throw new UsernameNotFoundException(username);
+
+        String name = user.get().getUsername();
 
         Set<GrantedAuthority> grantedAuthorities = new HashSet<>();
-        for(Role role : user.getRoles()){
+        for(Role role : user.get().getRoles()){
             grantedAuthorities.add(new SimpleGrantedAuthority(role.getName()));
         }
 
         return new org.springframework.security.core.userdetails.User(
-                user.getUsername(),
-                user.getPassword(),
+                user.get().getUsername(),
+                user.get().getPassword(),
                 grantedAuthorities);
     }
 }

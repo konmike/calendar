@@ -1,3 +1,167 @@
 html,body{
   font-family: Calibri,Arial,serif;
+  margin: 0;
+  padding: 0;
+}
+
+header{
+  background: rgb(255,255,255);
+  background: linear-gradient(0deg, rgba(255,255,255,1) 0%, rgba(255,215,0,1) 70%);
+  color: rgba(0, 68, 101,1);
+  text-align: center;
+  padding: 2rem 0;
+}
+
+.form--title{
+  margin: 0;
+  text-align: center;
+  text-transform: uppercase;
+  font-family: Verdana, Tahoma, serif;
+  font-size: 1.25rem;
+  font-weight: 900;
+  color: rgba(0, 68, 101,1);
+  padding-bottom: 1rem;
+}
+
+nav ul{
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  font-weight: 900;
+  text-transform: uppercase;
+  list-style-type: none;
+  margin: 0;
+  padding: 0;
+}
+
+nav ul li{
+  margin-right: 1rem;
+}
+
+nav ul li:last-child{
+  margin-right: 0;
+}
+
+nav a{
+  color: rgba(0, 68, 101,1);
+  transition: all 0.3s;
+}
+
+nav a:hover{
+  color: rgba(167, 0, 0, 1);
+}
+
+nav .active{
+  color: rgba(167, 0, 0, 1);
+}
+
+main{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+}
+
+form{
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: max-content;
+  padding: 1rem 2rem;
+}
+
+form .message{
+  margin-bottom: 1rem;
+  color: red;
+  font-weight: 900;
+}
+
+input::placeholder{
+  color: rgba(0, 68, 101,1);
+}
+
+input:focus{
+  outline: 1px solid rgba(255,215,0,1);
+  outline-offset: -2px;
+  box-shadow: 0 0 0 2pt rgba(255,215,0,1);
+}
+
+input[type="text"],input[type="password"]{
+  border: 1px solid rgba(255,215,0,1);
+  border-radius: 0.5rem;
+  padding: 0.7rem;
+  margin-bottom: 1rem;
+  color: rgba(0, 68, 101,1);
+}
+
+button,input[type="submit"]{
+  background: rgba(255,215,0,1);
+  color: rgba(0, 68, 101,1);
+  border: 0;
+  border-radius: 0.5rem;
+  padding: 0.7rem;
+  margin-bottom: 1rem;
+  font-weight: 900;
+  text-transform: uppercase;
+  cursor: pointer;
+}
+
+
+footer{
+  background: rgb(255,255,255);
+  /*background: linear-gradient(180deg, rgba(255,255,255,1) 0%, rgba(255,215,0,1) 70%);*/
+  color: rgba(0, 68, 101,1);
+  border-top: 1px solid rgba(255,215,0,1);
+  text-align: center;
+  font-weight: 900;
+  padding: 1rem 0 0.5rem 0;
+  margin-top: 1rem;
+  width: 100%;
+  max-width: 100%;
+  box-sizing: border-box;
+}
+
+footer a{
+  color: rgba(0, 68, 101,1);
+  transition: all 0.3s;
+}
+
+footer a:hover{
+  color: rgba(167, 0, 0, 1);
+}
+
+footer ul{
+  list-style-type: none;
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+  margin: 0;
+  padding: 0;
+}
+
+footer ul li:first-child{
+  margin-right: 1rem;
+}
+
+#logoutForm{
+  padding: 0;
+}
+
+#logoutForm input[type="submit"]{
+  text-transform: uppercase;
+  border: 0;
+  padding: 0;
+  margin: 0;
+  background: none;
+  font-family: Calibri,Arial,serif;
+  font-weight: 900;
+  font-size: inherit;
+  color: rgba(0, 68, 101,1);
+  cursor: pointer;
+  transition: all 0.3s;
+}
+
+#logoutForm input:hover{
+  color: rgba(167, 0, 0, 1);
 }

@@ -1,6 +1,7 @@
 package cz.konecmi4.fit.cvut.auth.model;
 
 import javax.persistence.*;
+import java.util.ArrayList;
 import java.util.Set;
 
 @Entity
@@ -19,6 +20,11 @@ public class User {
 
     @ManyToMany
     private Set<Role> roles;
+
+    @OneToMany(cascade = CascadeType.ALL)
+    private Set<Image> imageList;
+
+    private ArrayList checkImage;
 
     public Long getId() {
         return id;
@@ -58,5 +64,21 @@ public class User {
 
     public void setRoles(Set<Role> roles) {
         this.roles = roles;
+    }
+
+    public Set<Image> getImageList() {
+        return imageList;
+    }
+
+    public void setImageList(Set<Image> imageList) {
+        this.imageList = imageList;
+    }
+
+    public ArrayList getCheckImage() {
+        return checkImage;
+    }
+
+    public void setCheckImage(ArrayList checkImage) {
+        this.checkImage = checkImage;
     }
 }

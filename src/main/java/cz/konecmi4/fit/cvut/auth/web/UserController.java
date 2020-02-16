@@ -1,6 +1,7 @@
 package cz.konecmi4.fit.cvut.auth.web;
 
 import cz.konecmi4.fit.cvut.auth.model.User;
+import cz.konecmi4.fit.cvut.auth.repository.UserRepository;
 import cz.konecmi4.fit.cvut.auth.service.SecurityService;
 import cz.konecmi4.fit.cvut.auth.service.UserService;
 
@@ -20,6 +21,8 @@ import java.util.List;
 @Controller
 public class UserController {
     @Autowired
+    private UserRepository userRepository;
+    @Autowired
     private UserService userService;
 
     @Autowired
@@ -36,10 +39,16 @@ public class UserController {
     }
 
     @GetMapping("/user/update")
-    public String showFormForUpdate(@RequestParam("userId") int theId,
+    public String showFormForUpdate(@RequestParam("username") String username,
                                     Model theModel) {
-        User theUser = userService.getUser(theId);
-        theModel.addAttribute("user", theUser);
+        //User theUser = userService.getUser(theId);
+        User user;
+        try {
+            user = userService.findByUsername(username).orElseThrow(Exception::new);
+        }catch (Exception e){
+            return "redirect:/welcome";
+        }
+        theModel.addAttribute("user", user);
         return "update-form";
     }
 
@@ -50,6 +59,11 @@ public class UserController {
         if (bindingResult.hasErrors()) {
             return "update-form";
         }*/
+
+        System.out.println("Aktualizuji tohoto uživatele:");
+        System.out.println(theUser.getUsername());
+        System.out.println(theUser.getPassword());
+        System.out.println("==============================");
 
         userService.updateUser(theUser);
         return "redirect:/users/list";
@@ -101,10 +115,10 @@ public class UserController {
     @GetMapping("/login")
     public String login(Model model, String error, String logout) {
         if (error != null)
-            model.addAttribute("error", "Your username and password is invalid.");
+            model.addAttribute("error", "Vaše jméno a heslo jsou nesprávné.");
 
         if (logout != null)
-            model.addAttribute("message", "You have been logged out successfully.");
+            model.addAttribute("message", "Byli jste úspěšně odhlášeni.");
 
         return "login";
     }
@@ -119,6 +133,13 @@ public class UserController {
     public String adminhome(Model model)
     {
         return "admin/special";
+    }
+
+    @GetMapping("/admin/list-gallery")
+    public String showAllGallery(Model model)
+    {
+        model.addAttribute("users", userService.getUsers());
+        return "admin/list-users-image";
     }
 
     /*@RequestMapping(method = RequestMethod.GET)

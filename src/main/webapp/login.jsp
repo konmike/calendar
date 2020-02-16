@@ -8,40 +8,47 @@
 <%@ taglib prefix="spring" uri="http://www.springframework.org/tags" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
-
+<%@ taglib prefix="security" uri="http://www.springframework.org/security/tags" %>
 <c:set var="contextPath" value="${pageContext.request.contextPath}"/>
+<%@ page contentType="text/html" pageEncoding="UTF-8" %>
 
 <!DOCTYPE html>
-<html lang="en">
+<html lang="cs">
 <head>
     <meta charset="utf-8">
-    <title>Log in with your account</title>
+    <title>Přihlašovací formulář</title>
 
-<%--    <link href="${contextPath}/resources/css/bootstrap.min.css" rel="stylesheet">--%>
-<%--    <link href="${contextPath}/resources/css/common.css" rel="stylesheet">--%>
+    <link href="${contextPath}/resources/css/style.css" rel="stylesheet">
+    <link href="${contextPath}/resources/css/form.css" rel="stylesheet">
 </head>
 
+
 <body>
+<main>
+    <form:form method="POST" action="${contextPath}/login">
+            <span class="form--title">Přihlašovací formulář</span>
+            <span class="message">${message}</span>
+            <label for="username">
+                <input id="username" name="username" type="text" placeholder="Uživatelské jméno"
+                       autofocus="true"/>
+            </label>
 
-<div class="container">
-    <form method="POST" action="${contextPath}/login" class="form-signin">
-        <h2 class="form-heading">Log in</h2>
 
-        <div class="form-group ${error != null ? 'has-error' : ''}">
-            <span>${message}</span>
-            <input name="username" type="text" class="form-control" placeholder="Username"
-                   autofocus="true"/>
-            <input name="password" type="password" class="form-control" placeholder="Password"/>
+            <label for="password">
+                <input id="password" name="password" type="password" placeholder="Heslo"/>
+            </label>
             <span>${error}</span>
             <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}"/>
 
-            <button class="btn btn-lg btn-primary btn-block" type="submit">Log In</button>
-            <h4 class="text-center"><a href="${contextPath}/registration">Create an account</a></h4>
-        </div>
-    </form>
-</div>
+            <input type="submit" value="Přihlásit se" />
+    </form:form>
+</main>
+
+<footer>
+    <span>Ještě nemáte svůj účet? <a href="${contextPath}/registration">Registrace</a></span>
+</footer>
 
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>
-<script src="${contextPath}/resources/js/bootstrap.min.js"></script>
+
 </body>
 </html>
