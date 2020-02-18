@@ -53,7 +53,7 @@
     </nav>
 </header>
 <main>
-    <form:form method="post" action="${contextPath}/saveUser" modelAttribute="user" class="form-signin">
+    <form:form method="post" action="${contextPath}/updateUser" modelAttribute="user" class="form-signin">
         <span class="form--title">Editace uživatele</span>
 
         <form:hidden path="id" />

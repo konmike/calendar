@@ -37,7 +37,7 @@
             <label for="password">
                 <input id="password" name="password" type="password" placeholder="Heslo"/>
             </label>
-            <span>${error}</span>
+            <span class="message">${error}</span>
             <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}"/>
 
             <input type="submit" value="Přihlásit se" />

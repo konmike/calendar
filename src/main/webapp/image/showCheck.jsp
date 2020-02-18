@@ -57,7 +57,8 @@
 </header>
 
 <main>
-    <span class="form--title">Tvorba kalendáře</span>
+    <span class="form--title">Váš kalendář - ${cal.name}</span>
+    <span>${cal.year}</span>
     <%--    <c:forEach var="user" items="${user}">--%>
     <%--        <ul th:each="user : ${user}">--%>
     <%--            <h1 align="center">--%>
@@ -69,10 +70,12 @@
     <%--    <c:if test="${empty files}">--%>
     <%--        <h1>Je to prazdne... ERROR</h1>--%>
     <%--    </c:if>--%>
-    <c:forEach var="file" items="${files.checkImage}">
+
+<%--    TODO dodelat jmeno, rok --%>
+    <c:forEach var="file" items="${cal.selImage}">
         <ul>
             <li class="gallery">
-                <img src="${file}" height="200"/>
+                <img src="${file}" height="200" alt="${cal.name}"/>
             </li>
         </ul>
     </c:forEach>

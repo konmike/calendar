@@ -52,8 +52,8 @@ public class UserController {
         return "update-form";
     }
 
-    @PostMapping("/saveUser")
-    public String saveUser(@ModelAttribute("user") User theUser, BindingResult bindingResult) {
+    @PostMapping("/updateUser")
+    public String updateUser(@ModelAttribute("user") User theUser, BindingResult bindingResult) {
         /*userValidator.validate(theUser, bindingResult);
 
         if (bindingResult.hasErrors()) {
@@ -66,7 +66,24 @@ public class UserController {
         System.out.println("==============================");
 
         userService.updateUser(theUser);
-        return "redirect:/users/list";
+        return "redirect:/";
+    }
+
+    @PostMapping("/saveUser")
+    public String saveUser(@ModelAttribute("user") User theUser, BindingResult bindingResult) {
+        /*userValidator.validate(theUser, bindingResult);
+
+        if (bindingResult.hasErrors()) {
+            return "update-form";
+        }*/
+
+        System.out.println("Ukladam tohoto uživatele:");
+        System.out.println(theUser.getUsername());
+        System.out.println(theUser.getPassword());
+        System.out.println("==============================");
+
+        userService.saveUser(theUser);
+        return "redirect:/";
     }
 
     @GetMapping("/user/delete")
@@ -83,6 +100,11 @@ public class UserController {
 
     @PostMapping("/addNewUser")
     public String addNewUser(@ModelAttribute("userForm") User userForm, BindingResult bindingResult) {
+        System.out.println("Pridavam tohoto uživatele:");
+        System.out.println(userForm.getUsername());
+        System.out.println(userForm.getPassword());
+        System.out.println("==============================");
+
         userValidator.validate(userForm, bindingResult);
 
         if (bindingResult.hasErrors()) {
@@ -100,15 +122,20 @@ public class UserController {
     }
 
     @PostMapping("/registration")
-    public String registration(@ModelAttribute("userForm") User userForm, BindingResult bindingResult) {
-        userValidator.validate(userForm, bindingResult);
+    public String registration(@ModelAttribute("userForm") User user, BindingResult bindingResult) {
+        System.out.println("Registruji tohoto uživatele:");
+        System.out.println(user.getUsername());
+        System.out.println(user.getPassword());
+        System.out.println("==============================");
+
+        userValidator.validate(user, bindingResult);
 
         if (bindingResult.hasErrors()) {
             return "registration";
         }
 
-        userService.saveUser(userForm);
-        securityService.autoLogin(userForm.getUsername(), userForm.getPasswordConfirm());
+        userService.saveUser(user);
+        securityService.autoLogin(user.getUsername(), user.getPasswordConfirm());
         return "redirect:/welcome";
     }
 

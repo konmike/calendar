@@ -33,24 +33,24 @@
 </header>
 
 <main>
-    <form:form method="post" modelAttribute="userForm" class="form-signin">
+    <form:form method="post" modelAttribute="userForm" class="form-signin" action="/registration">
         <span class="form--title">Registrace nového uživatele</span>
         <form:hidden path="id" />
 
         <spring:bind path="username">
-                <form:input type="text" path="username" class="form-control" placeholder="Username"
+                <form:input type="text" path="username" class="form-control" placeholder="Uivatelské jméno"
                             autofocus="true" />
                 <form:errors path="username" />
         </spring:bind>
 
         <spring:bind path="password">
-                <form:input type="password" path="password" class="form-control" placeholder="Password" />
+                <form:input type="password" path="password" class="form-control" placeholder="Heslo" />
                 <form:errors path="password" />
         </spring:bind>
 
         <spring:bind path="passwordConfirm">
                 <form:input type="password" path="passwordConfirm" class="form-control"
-                            placeholder="Confirm your password" />
+                            placeholder="Potvrzení hesla" />
                 <form:errors path="passwordConfirm" />
         </spring:bind>
 
