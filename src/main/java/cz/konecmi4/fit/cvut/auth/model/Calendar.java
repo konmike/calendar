@@ -17,6 +17,14 @@ public class Calendar {
 
     //private String type;
 
+
+    public Calendar() {
+    }
+
+    public Calendar(ArrayList selImage) {
+        this.selImage = selImage;
+    }
+
     @Lob
     @Column
     private ArrayList selImage;

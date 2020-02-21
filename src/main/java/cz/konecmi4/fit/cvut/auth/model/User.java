@@ -19,6 +19,12 @@ public class User {
     @Transient
     private String passwordConfirm;
 
+    @Transient
+    private String newPassword;
+
+    @Transient
+    private String oldPassword;
+
     @ManyToMany
     private Set<Role> roles;
 
@@ -60,6 +66,22 @@ public class User {
 
     public void setPasswordConfirm(String passwordConfirm) {
         this.passwordConfirm = passwordConfirm;
+    }
+
+    public String getNewPassword() {
+        return newPassword;
+    }
+
+    public void setNewPassword(String newPassword) {
+        this.newPassword = newPassword;
+    }
+
+    public String getOldPassword() {
+        return oldPassword;
+    }
+
+    public void setOldPassword(String oldPassword) {
+        this.oldPassword = oldPassword;
     }
 
     public Set<Role> getRoles() {

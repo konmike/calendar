@@ -26,25 +26,23 @@
 <header>
     <nav>
         <ul>
-            <li>
-                <a href="${contextPath}/">Domů</a>
-            </li>
-            <li>
-                <c:url var="updateLink" value="/user/update">
-                    <c:param name="username" value="${pageContext.request.userPrincipal.name}" />
-                </c:url>
-                <span class="active">Editovat účet</span>
-            </li>
+            <security:authorize access="hasRole('ROLE_ADMIN')">
+                <li>
+                    <a href="${contextPath}/admin/">Domů</a>
+                </li>
+            </security:authorize>
+            <security:authorize access="!hasRole('ROLE_ADMIN')">
+                <li>
+                    <a href="${contextPath}/">Domů</a>
+                </li>
+            </security:authorize>
             <li>
                 <a href="${contextPath}/image/">Editace galerie</a>
             </li>
             <li>
-                <a href="${contextPath}/image/search?name=${pageContext.request.userPrincipal.name}">Zobrazit galerii</a>
+                <a href="${contextPath}/image/search?name=${pageContext.request.userPrincipal.name}">Tvorba kalendáře</a>
             </li>
             <security:authorize access="hasRole('ROLE_ADMIN')">
-                <li>
-                    <a href="${contextPath}/users/list">Editace uživatelů</a>
-                </li>
                 <li>
                     <a href="${contextPath}/admin/list-gallery">Editace galerií</a>
                 </li>
@@ -54,22 +52,25 @@
 </header>
 <main>
     <form:form method="post" action="${contextPath}/updateUser" modelAttribute="user" class="form-signin">
-        <span class="form--title">Editace uživatele</span>
+        <span class="form--title">Změnit heslo</span>
 
-        <form:hidden path="id" />
+        <form:hidden path="id"/>
+        <form:hidden path="username"/>
+        <form:hidden path="password"/>
+<%--        <form:hidden path="calendars"/>--%>
+<%--        <form:hidden path="imageList"/>--%>
 
-        <spring:bind path="username">
-            <div class="form-group ${status.error ? 'has-error' : ''}">
-                <form:input type="text" path="username" placeholder="Uživatelské jméno" autofocus="true" />
-                <form:errors path="username" />
+        <spring:bind path="oldPassword">
+            <div class="form-group">
+                <form:input path="oldPassword" type="password" id="oldPassword" name="oldPassword" placeholder="Původní heslo" value="" />
+                <form:errors path="oldPassword" />
             </div>
         </spring:bind>
 
-        <spring:bind path="password">
+        <spring:bind path="newPassword">
             <div class="form-group">
-                <label for="password">
-                    <input type="password" id="password" name="password" placeholder="Nové heslo" value="" />
-                </label>
+                <form:input path="newPassword" type="password" id="newPassword" name="newPassword" placeholder="Nové heslo" value="" />
+                <form:errors path="newPassword" />
             </div>
         </spring:bind>
 
@@ -93,6 +94,9 @@
                 <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}"/>
                 <input type="submit" value="Odhlásit se" />
             </form:form>
+        </li>
+        <li>
+            <span class="active">Změnit heslo</span>
         </li>
     </ul>
 </footer>

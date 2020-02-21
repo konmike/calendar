@@ -27,25 +27,23 @@
 <header>
     <nav>
         <ul>
-            <li>
-                <a href="${contextPath}/">Domů</a>
-            </li>
-            <li>
-                <c:url var="updateLink" value="/user/update">
-                    <c:param name="username" value="${pageContext.request.userPrincipal.name}" />
-                </c:url>
-                <a href="${updateLink}">Editovat účet</a>
-            </li>
+            <security:authorize access="hasRole('ROLE_ADMIN')">
+                <li>
+                    <a href="${contextPath}/admin/">Domů</a>
+                </li>
+            </security:authorize>
+            <security:authorize access="!hasRole('ROLE_ADMIN')">
+                <li>
+                    <a href="${contextPath}/">Domů</a>
+                </li>
+            </security:authorize>
             <li>
                 <span class="active">Editace galerie</span>
             </li>
             <li>
-                <a href="${contextPath}/image/search?name=${pageContext.request.userPrincipal.name}">Zobrazit galerii</a>
+                <a href="${contextPath}/image/search?name=${pageContext.request.userPrincipal.name}">Tvorba kalendáře</a>
             </li>
             <security:authorize access="hasRole('ROLE_ADMIN')">
-                <li>
-                    <a href="${contextPath}/users/list">Editace uživatelů</a>
-                </li>
                 <li>
                     <a href="${contextPath}/admin/list-gallery">Editace galerií</a>
                 </li>
@@ -97,6 +95,12 @@
                 <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}"/>
                 <input type="submit" value="Odhlásit se" />
             </form:form>
+        </li>
+        <li>
+            <c:url var="updateLink" value="/user/update">
+                <c:param name="username" value="${pageContext.request.userPrincipal.name}" />
+            </c:url>
+            <a href="${updateLink}">Změnit heslo</a>
         </li>
     </ul>
 </footer>

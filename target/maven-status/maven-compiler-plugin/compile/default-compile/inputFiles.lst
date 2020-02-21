@@ -1,6 +1,7 @@
 /home/mike/IdeaProjects/calendar/src/main/java/cz/konecmi4/fit/cvut/auth/model/Image.java
 /home/mike/IdeaProjects/calendar/src/main/java/cz/konecmi4/fit/cvut/auth/web/UserController.java
 /home/mike/IdeaProjects/calendar/src/main/java/cz/konecmi4/fit/cvut/auth/repository/CalendarRepository.java
+/home/mike/IdeaProjects/calendar/src/main/java/cz/konecmi4/fit/cvut/auth/web/CalendarController.java
 /home/mike/IdeaProjects/calendar/src/main/java/cz/konecmi4/fit/cvut/auth/model/Role.java
 /home/mike/IdeaProjects/calendar/src/main/java/cz/konecmi4/fit/cvut/auth/repository/ImageRepository.java
 /home/mike/IdeaProjects/calendar/src/main/java/cz/konecmi4/fit/cvut/auth/service/UserDetailServiceImpl.java
@@ -8,10 +9,12 @@
 /home/mike/IdeaProjects/calendar/src/main/java/cz/konecmi4/fit/cvut/auth/validator/UserValidator.java
 /home/mike/IdeaProjects/calendar/src/main/java/cz/konecmi4/fit/cvut/auth/model/Privilege.java
 /home/mike/IdeaProjects/calendar/src/main/java/cz/konecmi4/fit/cvut/auth/model/User.java
+/home/mike/IdeaProjects/calendar/src/main/java/cz/konecmi4/fit/cvut/auth/MyAuthenticationSuccessHandler.java
 /home/mike/IdeaProjects/calendar/src/main/java/cz/konecmi4/fit/cvut/auth/web/ImageController.java
 /home/mike/IdeaProjects/calendar/src/main/java/cz/konecmi4/fit/cvut/auth/service/SecurityServiceImpl.java
 /home/mike/IdeaProjects/calendar/src/main/java/cz/konecmi4/fit/cvut/auth/model/Calendar.java
 /home/mike/IdeaProjects/calendar/src/main/java/cz/konecmi4/fit/cvut/auth/repository/UserRepository.java
+/home/mike/IdeaProjects/calendar/src/main/java/cz/konecmi4/fit/cvut/auth/validator/UpdateUserValidator.java
 /home/mike/IdeaProjects/calendar/src/main/java/cz/konecmi4/fit/cvut/auth/service/UserServiceImpl.java
 /home/mike/IdeaProjects/calendar/src/main/java/cz/konecmi4/fit/cvut/auth/WebApplication.java
 /home/mike/IdeaProjects/calendar/src/main/java/cz/konecmi4/fit/cvut/auth/service/UserService.java

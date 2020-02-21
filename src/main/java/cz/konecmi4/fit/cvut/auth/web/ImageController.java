@@ -128,11 +128,11 @@ public class ImageController {
 
         //Calendar calendar = new Calendar();
 
-        user.setCheckImage(tmp);
+        //user.setCheckImage(tmp);
         //calendar.setSelImage(tmp);
 
 
-        System.out.println("Pred ulozenim do databaze:");
+        /*System.out.println("Pred ulozenim do databaze:");
         System.out.println(user.getCheckImage());
 
         //userRepository.save(user);
@@ -141,15 +141,15 @@ public class ImageController {
         for (Object o : tmp) {
             System.out.println(o);
         }
-        System.out.println("KONEC - Meta 32 pohyb... - KONEC");
+        System.out.println("KONEC - Meta 32 pohyb... - KONEC");*/
 
         model.addAttribute("user", user);
-        model.addAttribute("cal", new Calendar());
+        model.addAttribute("cal", new Calendar(tmp));
 
         return "image/findphoto";
     }
 
-    @RequestMapping("/showChecked")
+    /*@RequestMapping("/showChecked")
     public String showChecked(@ModelAttribute("cal") Calendar c, Principal principal) throws Exception
     {
         if(c.getSelImage().isEmpty()){
@@ -177,7 +177,7 @@ public class ImageController {
         userRepository.save(user);
 
         return "image/showCheck";
-    }
+    }*/
 
     @RequestMapping("/delete")
     public String findPhotos(Principal principal, @RequestParam("text") String text, String string) throws Exception {

@@ -26,25 +26,23 @@
 <header>
     <nav>
         <ul>
+            <security:authorize access="hasRole('ROLE_ADMIN')">
+            <li>
+                <a href="${contextPath}/admin/">Domů</a>
+            </li>
+            </security:authorize>
+            <security:authorize access="!hasRole('ROLE_ADMIN')">
             <li>
                 <a href="${contextPath}/">Domů</a>
             </li>
-            <li>
-                <c:url var="updateLink" value="/user/update">
-                    <c:param name="username" value="${pageContext.request.userPrincipal.name}" />
-                </c:url>
-                <a href="${updateLink}">Editovat účet</a>
-            </li>
+            </security:authorize>
             <li>
                 <a href="${contextPath}/image/">Editace galerie</a>
             </li>
             <li>
-                <span class="active">Zobrazit galerii</span>
+                <span class="active">Tvorba kalendáře</span>
             </li>
             <security:authorize access="hasRole('ROLE_ADMIN')">
-                <li>
-                    <a href="${contextPath}/users/list">Editace uživatelů</a>
-                </li>
                 <li>
                     <a href="${contextPath}/admin/list-gallery">Editace galerií</a>
                 </li>
@@ -62,7 +60,7 @@
 <%--        </ul>--%>
 <%--    </c:forEach>--%>
 
-    <form:form action="/image/showChecked" modelAttribute="cal" method="post">
+    <form:form action="${contextPath}/calendar/" modelAttribute="cal" method="post">
         <span class="form--title">Tvorba kalendáře</span>
         <form:label path="name" for="name">
             <form:input type="text" id="name" path="name" placeholder="Název kalendáře" />
@@ -73,8 +71,8 @@
         </label>
         </spring:bind>
         <span>Vyberte si 12 obrázků z vaší galerie:</span>
-        <ul th:each="file : ${user.checkImage}">
-            <c:forEach items="${user.checkImage}" var="file">
+        <ul th:each="file : ${cal.selImage}">
+            <c:forEach items="${cal.selImage}" var="file">
                 <li class="gallery">
                     <form:label path="selImage" for="${file}">
                         <form:checkbox path="selImage" value="${file}" id="${file}" />
@@ -106,6 +104,12 @@
                 <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}"/>
                 <input type="submit" value="Odhlásit se" />
             </form:form>
+        </li>
+        <li>
+            <c:url var="updateLink" value="/user/update">
+                <c:param name="username" value="${pageContext.request.userPrincipal.name}" />
+            </c:url>
+            <a href="${updateLink}">Změnit heslo</a>
         </li>
     </ul>
 </footer>

@@ -51,7 +51,7 @@ nav a:hover{
   color: rgba(167, 0, 0, 1);
 }
 
-nav .active{
+footer .active, nav .active{
   color: rgba(167, 0, 0, 1);
 }
 
@@ -76,11 +76,22 @@ form .message{
   font-weight: 900;
 }
 
+.form-group{
+  display: flex;
+  flex-direction: column;
+}
+.form-group span{
+  margin-bottom: 1rem;
+  color: red;
+  font-weight: 900;
+}
+
 input::placeholder{
   color: rgba(0, 68, 101,1);
 }
 
-input:focus{
+input[type="text"]:focus,
+input[type="password"]:focus{
   outline: 1px solid rgba(255,215,0,1);
   outline-offset: -2px;
   box-shadow: 0 0 0 2pt rgba(255,215,0,1);
@@ -140,8 +151,11 @@ footer ul{
   padding: 0;
 }
 
-footer ul li:first-child{
+footer ul li{
   margin-right: 1rem;
+}
+footer ul li:last-child{
+  margin-right: 0;
 }
 
 #logoutForm{
