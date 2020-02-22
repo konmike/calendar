@@ -6,10 +6,11 @@ html,body{
 
 header{
   background: rgb(255,255,255);
-  background: linear-gradient(0deg, rgba(255,255,255,1) 0%, rgba(255,215,0,1) 70%);
+  /*background: linear-gradient(0deg, rgba(255,255,255,1) 0%, rgba(255,215,0,1) 70%);*/
   color: rgba(0, 68, 101,1);
   text-align: center;
-  padding: 2rem 0;
+  padding: 0;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
 }
 
 .form--title{
@@ -24,14 +25,15 @@ header{
 }
 
 nav ul{
-  display: flex;
-  flex-direction: row;
-  justify-content: center;
-  font-weight: 900;
-  text-transform: uppercase;
-  list-style-type: none;
-  margin: 0;
-  padding: 0;
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    font-weight: 900;
+    text-transform: uppercase;
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+    line-height: 4rem;
 }
 
 nav ul li{
@@ -43,8 +45,9 @@ nav ul li:last-child{
 }
 
 nav a{
-  color: rgba(0, 68, 101,1);
-  transition: all 0.3s;
+    text-decoration: none;
+    color: rgba(0, 68, 101,1);
+    transition: all 0.3s;
 }
 
 nav a:hover{
@@ -62,7 +65,7 @@ main{
   flex-direction: column;
 }
 
-form{
+.form--login,.form--registration,.form--update{
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -70,6 +73,99 @@ form{
   padding: 1rem 2rem;
 }
 
+.form--search{
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  padding: 1rem 2rem;
+}
+
+.form--search .input--text{
+  margin: 0 1rem 0 0;
+}
+.form--search .input--submit{
+  margin: 0;
+}
+
+
+.form--upload-image{
+  display: flex;
+  flex-direction: column;
+  padding: 1rem 2rem;
+}
+.label--file{
+  position: relative;
+  display: inline-block;
+  cursor: pointer;
+  height: 2.5rem;
+}
+
+.input--file{
+  min-width: 14rem;
+  margin: 0;
+  filter: alpha(opacity=0);
+  opacity: 0;
+}
+
+.file--custom{
+  box-sizing: border-box;
+  position: absolute;
+  top: 0;
+  right: 0;
+  left: 0;
+  z-index: 5;
+  height: 2.5rem;
+  padding: .5rem 1rem;
+  line-height: 1.5;
+  color: rgba(0, 68, 101,1);
+  background-color: #fff;
+  border: 1px solid rgba(255,215,0,1);
+  border-radius: 0.5rem;
+  box-shadow: inset 0 0.2rem 0.4rem rgba(0,0,0,.05);
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+}
+
+.file--custom:after{
+  box-sizing: border-box;
+  content: "Vybrat obrázek...";
+}
+.file--custom:before{
+  box-sizing: border-box;
+  position: absolute;
+  top: -.075rem;
+  right: -.075rem;
+  bottom: -.075rem;
+  z-index: 6;
+  display: block;
+  content: "Vybrat";
+  height: 2.5rem;
+  padding: .5rem 1rem;
+  line-height: 1.5;
+  color: rgba(0, 68, 101,1);
+  font-weight: 900;
+  text-transform: uppercase;
+  background-color: transparent;
+  transition: all 0.3s;
+  border: 1px solid rgba(255,215,0,1);
+  border-radius: 0 0.5rem 0.5rem 0;
+}
+
+.file--custom:hover:before{
+  background-color: rgba(255,215,0,1);
+}
+
+.file-name{
+  padding-top: 1rem;
+  font-style: italic;
+  text-align: center;
+}
+
+.form--upload-image .input--submit{
+  margin-top: 1rem;
+}
 form .message{
   margin-bottom: 1rem;
   color: red;
@@ -86,18 +182,19 @@ form .message{
   font-weight: 900;
 }
 
-input::placeholder{
+.input::placeholder{
   color: rgba(0, 68, 101,1);
 }
 
-input[type="text"]:focus,
-input[type="password"]:focus{
+.input--text:focus,
+.input--number:focus,
+.input--password:focus{
   outline: 1px solid rgba(255,215,0,1);
   outline-offset: -2px;
   box-shadow: 0 0 0 2pt rgba(255,215,0,1);
 }
 
-input[type="text"],input[type="password"]{
+.input--text,.input--number,.input--password{
   border: 1px solid rgba(255,215,0,1);
   border-radius: 0.5rem;
   padding: 0.7rem;
@@ -105,19 +202,70 @@ input[type="text"],input[type="password"]{
   color: rgba(0, 68, 101,1);
 }
 
-button,input[type="submit"]{
-  background: rgba(255,215,0,1);
+.input--submit{
+  background: transparent;
   color: rgba(0, 68, 101,1);
-  border: 0;
+  border: 1px solid rgba(255,215,0,1);
   border-radius: 0.5rem;
   padding: 0.7rem;
   margin-bottom: 1rem;
+  font-family: Calibri, Arial, serif;
+  font-size: inherit;
   font-weight: 900;
   text-transform: uppercase;
   cursor: pointer;
+  transition: all 0.3s;
+}
+.input--submit:hover,.input--submit:focus{
+  background: rgba(255,215,0,1);
 }
 
 
+.list--gallery{
+  list-style-type: none;
+  padding: 0;
+}
+.list--gallery .list--item{
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  align-items: center;
+}
+.list--gallery img{
+  grid-column-start: 1;
+  grid-column-end: 3;
+  height: 200px;
+  justify-self: center;
+  margin: 0.5rem 0;
+}
+.list--gallery a,.form--delete-image .input--submit{
+  font-family: Calibri, Arial, serif;
+  font-weight: 900;
+  color: rgba(0, 68, 101,1);
+  text-transform: uppercase;
+  transition: all 0.3s;
+  padding: 0.5rem;
+  border-radius: 0;
+  border: 0;
+  justify-self: center;
+}
+.list--gallery a:hover,.form--delete-image .input--submit:hover{
+  background: rgba(255,215,0,1);
+}
+.list--gallery a{
+  text-decoration: none;
+}
+.form--delete-image .input--submit{
+  margin-bottom: 0;
+  justify-self: start;
+  background: transparent;
+  font-size: inherit;
+  cursor: pointer;
+}
+.form--delete-image{
+  width: min-content;
+  width: -moz-min-content;
+  justify-self: center;
+}
 footer{
   background: rgb(255,255,255);
   /*background: linear-gradient(180deg, rgba(255,255,255,1) 0%, rgba(255,215,0,1) 70%);*/

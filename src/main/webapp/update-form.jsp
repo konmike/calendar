@@ -51,7 +51,7 @@
     </nav>
 </header>
 <main>
-    <form:form method="post" action="${contextPath}/updateUser" modelAttribute="user" class="form-signin">
+    <form:form method="post" action="${contextPath}/updateUser" modelAttribute="user" class="form form--update">
         <span class="form--title">Změnit heslo</span>
 
         <form:hidden path="id"/>
@@ -62,26 +62,26 @@
 
         <spring:bind path="oldPassword">
             <div class="form-group">
-                <form:input path="oldPassword" type="password" id="oldPassword" name="oldPassword" placeholder="Původní heslo" value="" />
+                <form:input path="oldPassword" type="password" autofocus="autofocus" id="oldPassword" name="oldPassword" class="input input--password" placeholder="Původní heslo" value="" />
                 <form:errors path="oldPassword" />
             </div>
         </spring:bind>
 
         <spring:bind path="newPassword">
             <div class="form-group">
-                <form:input path="newPassword" type="password" id="newPassword" name="newPassword" placeholder="Nové heslo" value="" />
+                <form:input path="newPassword" type="password" id="newPassword" name="newPassword" class="input input--password" placeholder="Nové heslo" value="" />
                 <form:errors path="newPassword" />
             </div>
         </spring:bind>
 
         <spring:bind path="passwordConfirm">
             <div class="form-group ${status.error ? 'has-error' : ''}">
-                <form:input type="password" path="passwordConfirm" placeholder="Potvrzení nového hesla" />
+                <form:input type="password" path="passwordConfirm" class="input input--password" placeholder="Potvrzení nového hesla" />
                 <form:errors path="passwordConfirm" />
             </div>
         </spring:bind>
 
-        <form:button>Aktualizovat údaje</form:button>
+        <form:button class="input input--submit">Aktualizovat údaje</form:button>
     </form:form>
 </main>
 <footer>

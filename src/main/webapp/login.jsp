@@ -25,22 +25,22 @@
 
 <body>
 <main>
-    <form:form method="POST" action="${contextPath}/login">
+    <form:form method="POST" action="${contextPath}/login" class="form form--login">
             <span class="form--title">Přihlašovací formulář</span>
             <span class="message">${message}</span>
             <label for="username">
-                <input id="username" name="username" type="text" placeholder="Uživatelské jméno"
-                       autofocus="true"/>
+                <input id="username" name="username" type="text" class="input input--text" placeholder="Uživatelské jméno"
+                       autofocus="autofocus"/>
             </label>
 
 
             <label for="password">
-                <input id="password" name="password" type="password" placeholder="Heslo"/>
+                <input id="password" name="password" type="password" class="input input--password" placeholder="Heslo"/>
             </label>
             <span class="message">${error}</span>
             <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}"/>
 
-            <input type="submit" value="Přihlásit se" />
+            <input type="submit" value="Přihlásit se" class="input input--submit" />
     </form:form>
 </main>
 

@@ -60,14 +60,14 @@
 <%--        </ul>--%>
 <%--    </c:forEach>--%>
 
-    <form:form action="${contextPath}/calendar/" modelAttribute="cal" method="post">
+    <form:form action="${contextPath}/calendar/" modelAttribute="cal" class="form form--calendar" method="post">
         <span class="form--title">Tvorba kalendáře</span>
         <form:label path="name" for="name">
-            <form:input type="text" id="name" path="name" placeholder="Název kalendáře" />
+            <form:input type="text" id="name" path="name" class="input input--text" placeholder="Název kalendáře" />
         </form:label>
         <spring:bind path="year">
         <label for="year">
-            <form:input type="number" path="year" id="year" placeholder="Rok" />
+            <form:input type="number" path="year" id="year" class="input input--number" placeholder="Rok" />
         </label>
         </spring:bind>
         <span>Vyberte si 12 obrázků z vaší galerie:</span>
@@ -75,13 +75,13 @@
             <c:forEach items="${cal.selImage}" var="file">
                 <li class="gallery">
                     <form:label path="selImage" for="${file}">
-                        <form:checkbox path="selImage" value="${file}" id="${file}" />
+                        <form:checkbox path="selImage" value="${file}" id="${file}" class="input input--checkbox" />
                         <img src="${file}" height="200" />
                     </form:label>
                 </li>
             </c:forEach>
         </ul>
-        <form:button>Vytvořit kalendář</form:button>
+        <form:button class="input input--submit">Vytvořit kalendář</form:button>
     </form:form>
 
     <c:if test="${not empty user.calendars}">

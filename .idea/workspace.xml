@@ -2,50 +2,27 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="a76148f6-2d7e-435a-9628-52ee37d787b8" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/src/main/java/cz/konecmi4/fit/cvut/auth/MyAuthenticationSuccessHandler.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/cz/konecmi4/fit/cvut/auth/validator/UpdateUserValidator.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/cz/konecmi4/fit/cvut/auth/web/CalendarController.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/webapp/resources/css/simple-lightbox.css" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/webapp/resources/js/script.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/webapp/resources/js/simple-lightbox.jquery.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/cz/konecmi4/fit/cvut/auth/WebSecurityConfig.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/cz/konecmi4/fit/cvut/auth/WebSecurityConfig.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/cz/konecmi4/fit/cvut/auth/model/Calendar.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/cz/konecmi4/fit/cvut/auth/model/Calendar.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/cz/konecmi4/fit/cvut/auth/model/User.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/cz/konecmi4/fit/cvut/auth/model/User.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/cz/konecmi4/fit/cvut/auth/repository/UserRepository.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/cz/konecmi4/fit/cvut/auth/repository/UserRepository.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/cz/konecmi4/fit/cvut/auth/service/UserService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/cz/konecmi4/fit/cvut/auth/service/UserService.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/cz/konecmi4/fit/cvut/auth/service/UserServiceImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/cz/konecmi4/fit/cvut/auth/service/UserServiceImpl.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/cz/konecmi4/fit/cvut/auth/web/ImageController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/cz/konecmi4/fit/cvut/auth/web/ImageController.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/cz/konecmi4/fit/cvut/auth/web/UserController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/cz/konecmi4/fit/cvut/auth/web/UserController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/validation.properties" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/validation.properties" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/webapp/admin/list-users-image.jsp" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/webapp/admin/list-users-image.jsp" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/webapp/admin/list-users.jsp" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/webapp/admin/welcome.jsp" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/webapp/admin/special.jsp" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/webapp/admin/welcome.jsp" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/webapp/admin/welcome.jsp" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/webapp/image/findphoto.jsp" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/webapp/image/findphoto.jsp" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/webapp/image/showCheck.jsp" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/webapp/image/showCheck.jsp" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/webapp/image/upload.jsp" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/webapp/image/upload.jsp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/webapp/login.jsp" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/webapp/login.jsp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/webapp/registration.jsp" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/webapp/registration.jsp" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/webapp/resources/css/style.css" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/webapp/resources/css/style.css" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/webapp/update-form.jsp" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/webapp/update-form.jsp" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/webapp/welcome.jsp" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/webapp/welcome.jsp" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/application.properties" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/cz/konecmi4/fit/cvut/auth/WebApplication.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/cz/konecmi4/fit/cvut/auth/WebSecurityConfig.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/cz/konecmi4/fit/cvut/auth/model/Calendar.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/cz/konecmi4/fit/cvut/auth/model/Image.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/cz/konecmi4/fit/cvut/auth/model/Privilege.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/cz/konecmi4/fit/cvut/auth/model/Role.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/cz/konecmi4/fit/cvut/auth/model/User.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/cz/konecmi4/fit/cvut/auth/repository/CalendarRepository.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/cz/konecmi4/fit/cvut/auth/repository/ImageRepository.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/cz/konecmi4/fit/cvut/auth/repository/RoleRepository.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/cz/konecmi4/fit/cvut/auth/repository/UserRepository.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/cz/konecmi4/fit/cvut/auth/service/SecurityService.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/cz/konecmi4/fit/cvut/auth/service/SecurityServiceImpl.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/cz/konecmi4/fit/cvut/auth/service/UserDetailServiceImpl.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/cz/konecmi4/fit/cvut/auth/service/UserService.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/cz/konecmi4/fit/cvut/auth/service/UserServiceImpl.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/cz/konecmi4/fit/cvut/auth/validator/UserValidator.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/cz/konecmi4/fit/cvut/auth/web/ImageController.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/cz/konecmi4/fit/cvut/auth/web/UserController.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/validation.properties" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/maven-status/maven-compiler-plugin/compile/default-compile/createdFiles.lst" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/maven-status/maven-compiler-plugin/compile/default-compile/inputFiles.lst" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/maven-status/maven-compiler-plugin/testCompile/default-testCompile/inputFiles.lst" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/cz/konecmi4/fit/cvut/auth/repository/UserRepository.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/cz/konecmi4/fit/cvut/auth/repository/UserRepository.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/cz/konecmi4/fit/cvut/auth/service/UserService.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/cz/konecmi4/fit/cvut/auth/service/UserService.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/cz/konecmi4/fit/cvut/auth/service/UserServiceImpl.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/cz/konecmi4/fit/cvut/auth/service/UserServiceImpl.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/cz/konecmi4/fit/cvut/auth/web/ImageController.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/cz/konecmi4/fit/cvut/auth/web/ImageController.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/cz/konecmi4/fit/cvut/auth/web/UserController.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/cz/konecmi4/fit/cvut/auth/web/UserController.class" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -105,6 +82,7 @@
         <option value="SCSS File" />
         <option value="Interface" />
         <option value="Class" />
+        <option value="JavaScript File" />
       </list>
     </option>
   </component>
@@ -124,7 +102,7 @@
     <property name="SHARE_PROJECT_CONFIGURATION_FILES" value="true" />
     <property name="WebServerToolWindowFactoryState" value="false" />
     <property name="aspect.path.notification.shown" value="true" />
-    <property name="last_opened_file_path" value="$USER_HOME$/Stažené/image-gallery-master" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$/src/main/webapp/resources/css" />
     <property name="list.type.of.created.stylesheet" value="SCSS" />
     <property name="node.js.detected.package.eslint" value="true" />
     <property name="node.js.detected.package.tslint" value="true" />
@@ -136,7 +114,12 @@
     <property name="settings.editor.selected.configurable" value="File.Encoding" />
   </component>
   <component name="RecentsManager">
+    <key name="CopyFile.RECENT_KEYS">
+      <recent name="$PROJECT_DIR$/src/main/webapp/resources/css" />
+      <recent name="$PROJECT_DIR$/src/main/webapp/resources/js" />
+    </key>
     <key name="MoveFile.RECENT_KEYS">
+      <recent name="$PROJECT_DIR$/src/main/webapp/resources" />
       <recent name="$PROJECT_DIR$/src/main/webapp" />
     </key>
   </component>
@@ -178,12 +161,12 @@
           <expand>
             <path>
               <item name="services root" type="e789fda9:ObjectUtils$Sentinel" />
-              <item name="com.intellij.execution.services.ServiceModel$ServiceGroupNode@db70c83e" type="7427dc5b:ServiceModel$ServiceGroupNode" />
+              <item name="com.intellij.execution.services.ServiceModel$ServiceGroupNode@5c689ecb" type="7427dc5b:ServiceModel$ServiceGroupNode" />
             </path>
             <path>
               <item name="services root" type="e789fda9:ObjectUtils$Sentinel" />
-              <item name="com.intellij.execution.services.ServiceModel$ServiceGroupNode@db70c83e" type="7427dc5b:ServiceModel$ServiceGroupNode" />
-              <item name="com.intellij.execution.services.ServiceModel$ServiceNode@43242963" type="9fbbdea:ServiceModel$ServiceNode" />
+              <item name="com.intellij.execution.services.ServiceModel$ServiceGroupNode@5c689ecb" type="7427dc5b:ServiceModel$ServiceGroupNode" />
+              <item name="com.intellij.execution.services.ServiceModel$ServiceNode@75577415" type="9fbbdea:ServiceModel$ServiceNode" />
             </path>
           </expand>
           <select />
@@ -215,7 +198,8 @@
       <workItem from="1581764201112" duration="26697000" />
       <workItem from="1581859011348" duration="14084000" />
       <workItem from="1582055003997" duration="13784000" />
-      <workItem from="1582187586486" duration="13377000" />
+      <workItem from="1582187586486" duration="13658000" />
+      <workItem from="1582362698729" duration="21044000" />
     </task>
     <servers />
   </component>

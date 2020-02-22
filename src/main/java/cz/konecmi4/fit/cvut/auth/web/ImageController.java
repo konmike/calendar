@@ -100,7 +100,7 @@ public class ImageController {
         stringList.add(new Image(imagePath));
         Files.copy(file.getInputStream(), this.rootLocation.resolve(imagePath));
 
-        userRepository.save(user);
+        //userRepository.save(user);
 
         return "redirect:/image/";
     }
@@ -180,17 +180,28 @@ public class ImageController {
     }*/
 
     @RequestMapping("/delete")
-    public String findPhotos(Principal principal, @RequestParam("text") String text, String string) throws Exception {
+    public String findPhotos(Principal principal, @RequestParam("name") String name, String string) throws Exception {
 
         User user = userRepository.findByUsername(principal.getName()).orElseThrow(() -> new Exception());
 
-        text = text.substring(text.lastIndexOf("/"));
-        text = this.rootLocation + text;
+        name = name.substring(name.lastIndexOf("/"));
+        name = this.rootLocation + name;
 
-        Image image = imageRepository.findByName(text);
+        System.out.println(name);
+
+        Image image = imageRepository.findByName(name);
+
+        System.out.println(image.getId());
+        System.out.println(image.getName());
+
+        System.out.println("Pred smazanim");
+        System.out.println(user.getImageList());
 
         user.getImageList().remove(image);
+        System.out.println("Po smazanim");
+        System.out.println(user.getImageList());
 
+        imageRepository.deleteById(image.getId());
         userRepository.save(user);
 
         return "redirect:/image/";

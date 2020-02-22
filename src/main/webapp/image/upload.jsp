@@ -20,6 +20,7 @@
     <title>Editace galerie</title>
 
     <link href="${contextPath}/resources/css/style.css" rel="stylesheet">
+    <link href="${contextPath}/resources/css/simple-lightbox.css" rel="stylesheet">
     <link href="${contextPath}/resources/css/form.css" rel="stylesheet">
 </head>
 
@@ -53,36 +54,38 @@
 </header>
 
 <main>
-    <form:form method="post" modelAttribute="files" enctype="multipart/form-data" action="/image/">
+    <form:form method="post" modelAttribute="files" enctype="multipart/form-data" class="form form--upload-image" action="/image/">
             <span class="form--title">Editace galerie</span>
-            <label for="file">Nahrát soubor:
-                    <input type="file" id="file" name="file" />
+            <label for="file" class="label label--file">
+                <input type="file" id="file" name="file" class="input input--file" />
+                <span class="file--custom"></span>
             </label>
 
                     <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}" />
-                    <input type="submit" value="Nahrát" />
+                    <input type="submit" class="input input--submit" value="Nahrát" />
     </form:form>
 
-    <div th:each="file : ${files}">
-        <div class="gallery">
-            <c:forEach var="file" items="${files}">
-                <a target="_blank" href="${file}">
-                    <img src="${file}" height="200"  alt="image"/>
-                </a>
+    <ul class="list list--gallery">
+        <c:forEach var="file" items="${files}">
+        <li class="list--item">
+            <img src="${file}" height="200" alt="image"/>
+            <a href="${file}">Zvětšit</a>
 
-                <form:form action="/image/delete" method="POST">
 
-<%--                <input type="text" value="${file}" name="text" readonly="true" />--%>
-                    <input type="hidden" name="${_csrf.parameterName}"
-                           value="${_csrf.token}" />
 
-                    <input type="submit" value="Smazat" />
+            <form:form action="/image/delete" method="POST" class="form form--delete-image">
 
-                </form:form>
+                <input type="hidden" value="${file}" name="name" readonly="readonly" />
+                <input type="hidden" name="${_csrf.parameterName}"
+                       value="${_csrf.token}" />
 
-            </c:forEach>
-        </div>
-    </div>
+                <input type="submit" class="input input--submit" value="Smazat" />
+
+            </form:form>
+        </li>
+        </c:forEach>
+    </ul>
+
 </main>
 
 <footer>
@@ -105,7 +108,14 @@
     </ul>
 </footer>
 
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+<script src="${contextPath}/resources/js/script.js"></script>
+<script src="${contextPath}/resources/js/simple-lightbox.jquery.js"></script>
+<script>
+    (function($) {
+        $('.gallery a').simpleLightbox({ /* options */ });
+    })( jQuery );
+</script>
 
 </body>
 </html>

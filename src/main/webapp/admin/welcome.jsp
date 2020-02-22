@@ -26,7 +26,7 @@
     <nav>
         <ul>
             <li>
-                <span>Domů</span>
+                <span class="active">Domů</span>
             </li>
             <li>
                 <a href="${contextPath}/image/">Editace galerie</a>
@@ -44,10 +44,22 @@
 </header>
 
 <main>
-    <ul>
+    <form action="${contextPath}/admin" class="form form--search">
+        <label for="search">
+            <input type="text" class="input input--text input--search" autofocus id="search" name="name" placeholder="Hledání uživatele" />
+        </label>
+        <input type="submit" value="Hledat" class="input input--submit" />
+    </form>
+    <table class="table table--users">
+        <thead>
+        <tr>
+            <th>Id</th>
+            <th>Jméno</th>
+            <th>Editace</th>
+        </tr>
+        </thead>
+        <tbody>
         <c:forEach var="user" items="${users}">
-
-            <li>${user.id} - ${user.username}</li>
 
             <c:url var="updateLink" value="/user/update">
                 <c:param name="username" value="${user.username}" />
@@ -57,13 +69,18 @@
                 <c:param name="userId" value="${user.id}" />
             </c:url>
 
-            <a href="${updateLink}">Update</a>
-            |
-            <a href="${deleteLink}"
-               onclick="if (!(confirm('Are you sure you want to delete this customer?'))) return false">Delete</a>
-
+            <tr>
+                <td>${user.id}</td>
+                <td>${user.username}</td>
+                <td>
+                    <a href="${updateLink}">Úpravy</a>/
+                    <a href="${deleteLink}"
+                       onclick="if (!(confirm('Are you sure you want to delete this customer?'))) return false">Smazat</a>
+                </td>
+            </tr>
         </c:forEach>
-    </ul>
+        </tbody>
+    </table>
 </main>
 
 <footer>

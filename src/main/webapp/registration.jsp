@@ -33,28 +33,28 @@
 </header>
 
 <main>
-    <form:form method="post" modelAttribute="userForm" class="form-signin" action="/registration">
+    <form:form method="post" modelAttribute="userForm" class="form form--registration" action="/registration">
         <span class="form--title">Registrace nového uživatele</span>
         <form:hidden path="id" />
 
         <spring:bind path="username">
-                <form:input type="text" path="username" class="form-control" placeholder="Uivatelské jméno"
+                <form:input type="text" path="username" class="input input--text" placeholder="Uivatelské jméno"
                             autofocus="true" />
                 <form:errors path="username" />
         </spring:bind>
 
         <spring:bind path="password">
-                <form:input type="password" path="password" class="form-control" placeholder="Heslo" />
+                <form:input type="password" path="password" class="input input--password" placeholder="Heslo" />
                 <form:errors path="password" />
         </spring:bind>
 
         <spring:bind path="passwordConfirm">
-                <form:input type="password" path="passwordConfirm" class="form-control"
+                <form:input type="password" path="passwordConfirm" class="input input--password"
                             placeholder="Potvrzení hesla" />
                 <form:errors path="passwordConfirm" />
         </spring:bind>
 
-        <form:button>Registrovat</form:button>
+        <form:button class="input input--submit">Registrovat</form:button>
     </form:form>
 
 </main>

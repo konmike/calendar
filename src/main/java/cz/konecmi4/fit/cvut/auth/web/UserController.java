@@ -112,7 +112,7 @@ public class UserController {
         return "redirect:/";
     }
 
-    @PostMapping("/user/delete")
+    @GetMapping("/user/delete")
     public String deleteUser(@RequestParam("userId") int theId) {
         userService.deleteUser(theId);
         return "redirect:/users/list";
@@ -182,10 +182,10 @@ public class UserController {
     }
 
 
-    @GetMapping("/admin/")
-    public String adminhome(Model model)
+    @GetMapping("/admin")
+    public String adminhome(Model model, @RequestParam(defaultValue = "") String name)
     {
-        model.addAttribute("users", userService.getUsers());
+        model.addAttribute("users", userService.getUser(name));
         return "admin/welcome";
     }
 
