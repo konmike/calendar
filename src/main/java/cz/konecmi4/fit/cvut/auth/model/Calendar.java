@@ -2,6 +2,7 @@ package cz.konecmi4.fit.cvut.auth.model;
 
 import javax.persistence.*;
 import java.util.ArrayList;
+import java.util.List;
 import java.util.Set;
 
 @Entity
@@ -21,13 +22,13 @@ public class Calendar {
     public Calendar() {
     }
 
-    public Calendar(ArrayList selImage) {
+    public Calendar(ArrayList<String> selImage) {
         this.selImage = selImage;
     }
 
     @Lob
     @Column
-    private ArrayList selImage;
+    private ArrayList<String> selImage;
 
     public Long getId() {
         return id;

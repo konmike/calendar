@@ -92,6 +92,9 @@ main{
   display: flex;
   flex-direction: column;
   padding: 1rem 2rem;
+  grid-column-start: 1;
+  grid-column-end: 3;
+  align-items: center;
 }
 .label--file{
   position: relative;
@@ -327,3 +330,31 @@ footer ul li:last-child{
 #logoutForm input:hover{
   color: rgba(167, 0, 0, 1);
 }
+
+/* CALENDAR CREATE PAGE */
+div.calendar{
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  justify-items: center;
+}
+
+div.item{
+  width: max-content;
+  /* width: 200px; */
+  height: 100px;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+}
+div.item--1{
+  background: red;
+}
+div.item--2{
+  background: green;
+}
+div.item--3{
+  background: yellow;
+}
+
+
+/* ======= END CALENDAR CREATE PAGE ======= */

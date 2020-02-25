@@ -100,7 +100,7 @@ public class ImageController {
         stringList.add(new Image(imagePath));
         Files.copy(file.getInputStream(), this.rootLocation.resolve(imagePath));
 
-        //userRepository.save(user);
+        userRepository.save(user);
 
         return "redirect:/image/";
     }
@@ -119,11 +119,11 @@ public class ImageController {
             return "redirect:/image/find";
         }
 
-        ArrayList tmp = user.getImageList().stream()
+        ArrayList<String> tmp = user.getImageList().stream()
                 .map(image -> this.rootLocation.resolve(image.getName()))
                 .map(path -> MvcUriComponentsBuilder
                         .fromMethodName(ImageController.class, "serveFile", path.getFileName().toString()).build()
-                        .toString()).collect(Collectors.toCollection((Supplier<ArrayList>) ArrayList::new));
+                        .toString()).collect(Collectors.toCollection((Supplier<ArrayList<String>>) ArrayList::new));
 
 
         //Calendar calendar = new Calendar();

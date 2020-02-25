@@ -2,7 +2,7 @@ package cz.konecmi4.fit.cvut.auth.validator;
 
 import cz.konecmi4.fit.cvut.auth.model.User;
 import cz.konecmi4.fit.cvut.auth.service.UserService;
-import org.omg.CosNaming.NamingContextPackage.NotEmpty;
+//import org.omg.CosNaming.NamingContextPackage.NotEmpty;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import org.springframework.validation.Errors;
