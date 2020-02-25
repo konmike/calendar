@@ -120,7 +120,7 @@
                 </div>
             </label>
             <label for="item2">
-                <input type="checkbox" id="item2" />
+                <form:checkbox path="selImage" id="item2"/>
                 <div class="item item--2" ondragenter="return dragEnter(event)"
                      ondrop="return dragDrop(event)"
                      ondragover="return dragOver(event)">

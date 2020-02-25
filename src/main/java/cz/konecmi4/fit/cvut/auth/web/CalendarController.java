@@ -37,7 +37,6 @@ public class CalendarController {
         System.out.println(c.getYear());
         System.out.println(c.getSelImage());
         System.out.println("==== END Kalendaris ====");*/
-
         calendarRepository.save(c);
 
         User user = userRepository.findByUsername(principal.getName()).orElseThrow(() -> new Exception());
@@ -49,5 +48,11 @@ public class CalendarController {
         userRepository.save(user);
 
         return "image/showCheck";
+    }
+
+    @RequestMapping("/create")
+    public String createCalendar(@ModelAttribute("cal") Calendar c){
+
+        return "calendar";
     }
 }
