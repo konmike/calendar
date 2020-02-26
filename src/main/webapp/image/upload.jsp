@@ -21,11 +21,11 @@
 
     <link href="${contextPath}/resources/css/style.css" rel="stylesheet">
     <link href="${contextPath}/resources/css/simple-lightbox.css" rel="stylesheet">
-    <link href="${contextPath}/resources/css/form.css" rel="stylesheet">
+<%--    <link href="${contextPath}/resources/css/form.css" rel="stylesheet">--%>
 </head>
 <script>
     function dragStart(ev) {
-        ev.dataTransfer.effectAllowed='move';
+        ev.dataTransfer.effectAllowed='copyMove';
         ev.dataTransfer.setData("Text", ev.target.getAttribute('id'));
         ev.dataTransfer.setDragImage(ev.target,100,100);
         return true;
@@ -39,7 +39,15 @@
     }
     function dragDrop(ev) {
         var data = ev.dataTransfer.getData("Text");
-        ev.target.prepend(document.getElementById(data));
+
+        var nodeCopy = document.getElementById(data).cloneNode(true);
+        nodeCopy.id = "newId"; /* We cannot use the same ID */
+        ev.target.appendChild(nodeCopy);
+
+        ev.target.prepend(document.getElementById(nodeCopy.id));
+        var src = document.getElementById(nodeCopy.id).getAttribute("src");
+        ev.target.previousElementSibling.previousElementSibling.setAttribute("checked", "checked");
+        ev.target.previousElementSibling.previousElementSibling.setAttribute("value", src);
         ev.stopPropagation();
         return false;
     }
@@ -110,31 +118,33 @@
             </c:forEach>
         </ul>
 
-        <form:form method="post" action="/calendar/create" class="form--create-calendar">
-            <label for="item1">
-                <input type="checkbox" id="item1"/>
+        <form:form method="post" action="/calendar/create" modelAttribute="cal" class="form--create-calendar">
+            <form:label path="selImage" for="item1">
+                <form:checkbox path="selImage" id="item1" value=""/>
                 <div class="item item--1" ondragenter="return dragEnter(event)"
                      ondrop="return dragDrop(event)"
                      ondragover="return dragOver(event)">
                     <span>1 2 3 4 5 6 7 8 9 10 11 12 13 14 15 16 17 18 19 20 21 22 23 24 25 26 27 28 29 30</span>
                 </div>
-            </label>
-            <label for="item2">
-                <form:checkbox path="selImage" id="item2"/>
+            </form:label>
+            <form:label path="selImage" for="item2">
+                <form:checkbox path="selImage" id="item2" value=""/>
                 <div class="item item--2" ondragenter="return dragEnter(event)"
                      ondrop="return dragDrop(event)"
                      ondragover="return dragOver(event)">
                     <span>1 2 3 4 5 6 7 8 9 10 11 12 13 14 15 16 17 18 19 20 21 22 23 24 25 26 27 28 29 30</span>
                 </div>
-            </label>
-            <label for="item3">
-                <input type="checkbox" id="item3" />
+            </form:label>
+            <form:label path="selImage" for="item3">
+                <form:checkbox path="selImage" id="item3" value="" />
                 <div class="item item--3" ondragenter="return dragEnter(event)"
                      ondrop="return dragDrop(event)"
                      ondragover="return dragOver(event)">
                     <span>1 2 3 4 5 6 7 8 9 10 11 12 13 14 15 16 17 18 19 20 21 22 23 24 25 26 27 28 29 30</span>
                 </div>
-            </label>
+            </form:label>
+            <input type="hidden" name="${_csrf.parameterName}"
+                   value="${_csrf.token}" />
             <input type="submit" class="input input--submit" value="Vytvořit" />
         </form:form>
 <%--    <ul class="list list--gallery">--%>

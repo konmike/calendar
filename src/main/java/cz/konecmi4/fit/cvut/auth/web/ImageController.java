@@ -63,6 +63,7 @@ public class ImageController {
 
 
         model.addAttribute("files", stringss);
+        model.addAttribute("cal", new Calendar());
 
         return "image/upload";
     }
@@ -99,6 +100,8 @@ public class ImageController {
         Set<Image> stringList = user.getImageList();
         stringList.add(new Image(imagePath));
         Files.copy(file.getInputStream(), this.rootLocation.resolve(imagePath));
+
+
 
         userRepository.save(user);
 

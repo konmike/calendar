@@ -63,11 +63,11 @@ public class Calendar {
 //    }
 
 
-    public ArrayList getSelImage() {
+    public ArrayList<String> getSelImage() {
         return selImage;
     }
 
-    public void setSelImage(ArrayList selImage) {
+    public void setSelImage(ArrayList<String> selImage) {
         this.selImage = selImage;
     }
 }
