@@ -38,12 +38,14 @@
         event.preventDefault();
     }
     function dragDrop(ev) {
+        //var autoId = 1;
         var data = ev.dataTransfer.getData("Text");
 
         var nodeCopy = document.getElementById(data).cloneNode(true);
-        nodeCopy.id = "newId"; /* We cannot use the same ID */
+        nodeCopy.id = "im" + Math.ceil(Math.random() * 1000); /* We cannot use the same ID */
         ev.target.appendChild(nodeCopy);
 
+        //console.log()
         ev.target.prepend(document.getElementById(nodeCopy.id));
         var src = document.getElementById(nodeCopy.id).getAttribute("src");
         ev.target.previousElementSibling.previousElementSibling.setAttribute("checked", "checked");

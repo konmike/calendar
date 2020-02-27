@@ -341,7 +341,7 @@ div.calendar{
 div.item{
   width: max-content;
   /* width: 200px; */
-  height: 100px;
+  min-height: 100px;
   display: flex;
   flex-direction: column;
   justify-content: flex-end;

@@ -1,8 +1,10 @@
 package cz.konecmi4.fit.cvut.auth.web;
 
 import cz.konecmi4.fit.cvut.auth.model.Calendar;
+import cz.konecmi4.fit.cvut.auth.model.Image;
 import cz.konecmi4.fit.cvut.auth.model.User;
 import cz.konecmi4.fit.cvut.auth.repository.CalendarRepository;
+import cz.konecmi4.fit.cvut.auth.repository.ImageRepository;
 import cz.konecmi4.fit.cvut.auth.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -30,6 +32,9 @@ public class CalendarController {
 
     @Autowired
     UserRepository userRepository;
+
+    @Autowired
+    ImageRepository imageRepository;
 
     private Path rootLocation;
 
@@ -68,36 +73,75 @@ public class CalendarController {
 
 
     @PostMapping("/create")
-    public String createCalendar(@ModelAttribute("cal") Calendar c) throws IOException {
+    public String createCalendar(@ModelAttribute("cal") Calendar c, Principal principal) throws Exception {
         ArrayList<String> arrayList = new ArrayList<>();
+        String imagePath = "";
 
         if(c.getSelImage().isEmpty()){
             System.out.println("Je to prazdny, fakt, nekecam...");
         }else {
+            if(c.getSelImage().get(1).contains("data")) {
+                for (Object o : c.getSelImage()) {
 
-            for (Object o : c.getSelImage()) {
-                System.out.println(o);
+                    //System.out.println(o);
 
-                String tmp = o.toString();
-                System.out.println("tmp:" + tmp);
+                    String tmp = o.toString();
+                    //System.out.println("tmp:" + tmp);
 
-                String[] strings = tmp.split(",");
+                /*String[] strings = tmp.split(",");
                 String two = strings[1];
                 System.out.println("two:" + two);
                 for (String string : strings) {
                     System.out.print(string);
                 }
-                arrayList.add(strings[1]);
-                /*String uuid = UUID.randomUUID().toString();
-                System.out.println("uuid:" + uuid);
-                String[] strings = tmp.split(",");
-                String one = strings[0];
-                System.out.println("one:" + one);
-                String two = strings[1];
-                System.out.println("two:" + two);
-                String extension;
+                arrayList.add(strings[1]);*/
 
-                switch (strings[0]) {//check image's extension
+                    String uuid = UUID.randomUUID().toString();
+                    System.out.println("uuid:" + uuid);
+                    String[] strings = tmp.split(",");
+                    System.out.println("Velikost parsovani: " + strings.length);
+//                String one = strings[0];
+//                System.out.println("one:" + one);
+//                String two = strings[1];
+//                System.out.println("two:" + two);
+                    String extension;
+//TODO funkce na priponu
+                    switch (strings[0]) {//check image's extension
+                        case "data:image/jpeg;base64":
+                            extension = "jpeg";
+                            break;
+                        case "data:image/png;base64":
+                            extension = "png";
+                            break;
+                        default://should write cases for more images types
+                            extension = "jpg";
+                            break;
+                    }
+                    System.out.println("extension:" + extension);
+
+                    imagePath = this.rootLocation.resolve(uuid).toString();
+                    System.out.println("imagePath:" + imagePath);
+
+//                    System.out.println("String parse:" + strings[1]);
+
+                    byte[] data = Base64.getDecoder().decode(strings[1]);
+
+                    System.out.println("Konvertovani dat: success");
+
+                    InputStream inputStream = new ByteArrayInputStream(data);
+                    System.out.println("Inputstream: success");
+
+                    arrayList.add(imagePath);
+                    Image image = new Image(imagePath);
+                    imageRepository.save(image);
+                    Files.copy(inputStream, this.rootLocation.resolve(imagePath));
+
+                }
+            }else{
+                String uuid = UUID.randomUUID().toString();
+                String extension;
+//TODO presunout do funkce
+                switch (c.getSelImage().get(0)) {//check image's extension
                     case "data:image/jpeg;base64":
                         extension = "jpeg";
                         break;
@@ -110,32 +154,37 @@ public class CalendarController {
                 }
                 System.out.println("extension:" + extension);
 
-                String imagePath = this.rootLocation.resolve(uuid).toString();
+                imagePath = this.rootLocation.resolve(uuid).toString();
                 System.out.println("imagePath:" + imagePath);
 
-                System.out.println("String parse:" + strings[1]);
+                byte[] data = Base64.getDecoder().decode(c.getSelImage().get(1));
 
-                byte[] data = Base64.getDecoder().decode(strings[1]);;
                 System.out.println("Konvertovani dat: success");
 
                 InputStream inputStream = new ByteArrayInputStream(data);
                 System.out.println("Inputstream: success");
 
+                arrayList.add(imagePath);
+                Image image = new Image(imagePath);
+                imageRepository.save(image);
                 Files.copy(inputStream, this.rootLocation.resolve(imagePath));
-                arrayList.add(imagePath);*/
             }
         }
-
         System.out.println("Zapisujeme, success!");
 
-        for (String s:arrayList) {
+        /*for (String s:arrayList) {
             System.out.println(s);
-        }
+        }*/
+
+        User user = userRepository.findByUsername(principal.getName()).orElseThrow(() -> new Exception());
 
         c.setSelImage(arrayList);
-
         calendarRepository.save(c);
 
-        return "redirect:/admin/welcome";
+        Set<Calendar> tmp = user.getCalendars();
+        tmp.add(c);
+        userRepository.save(user);
+
+        return "redirect:/admin/";
     }
 }
