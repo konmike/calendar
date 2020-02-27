@@ -8,6 +8,8 @@ import cz.konecmi4.fit.cvut.auth.repository.ImageRepository;
 import cz.konecmi4.fit.cvut.auth.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -119,7 +121,7 @@ public class CalendarController {
                     }
                     System.out.println("extension:" + extension);
 
-                    imagePath = this.rootLocation.resolve(uuid).toString();
+                    imagePath = this.rootLocation.resolve(uuid + "." + extension).toString();
                     System.out.println("imagePath:" + imagePath);
 
 //                    System.out.println("String parse:" + strings[1]);
@@ -154,7 +156,7 @@ public class CalendarController {
                 }
                 System.out.println("extension:" + extension);
 
-                imagePath = this.rootLocation.resolve(uuid).toString();
+                imagePath = this.rootLocation.resolve(uuid + "." + extension).toString();
                 System.out.println("imagePath:" + imagePath);
 
                 byte[] data = Base64.getDecoder().decode(c.getSelImage().get(1));
@@ -178,6 +180,8 @@ public class CalendarController {
 
         User user = userRepository.findByUsername(principal.getName()).orElseThrow(() -> new Exception());
 
+        System.out.println(c.getName());
+
         c.setSelImage(arrayList);
         calendarRepository.save(c);
 
@@ -186,5 +190,17 @@ public class CalendarController {
         userRepository.save(user);
 
         return "redirect:/admin/";
+    }
+
+    @GetMapping("/myCalendars")
+    public String getCalendars(Model model, Principal principal) throws Exception
+    {
+        User user = userRepository.findByUsername(principal.getName()).orElseThrow(() -> new Exception());
+
+        Set<Calendar> calSet = user.getCalendars();
+
+        model.addAttribute("calendars",calSet);
+
+        return "/my-calendars";
     }
 }

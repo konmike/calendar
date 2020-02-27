@@ -88,10 +88,147 @@ main{
 }
 
 
+
+form .message{
+  margin-bottom: 1rem;
+  color: red;
+  font-weight: 900;
+}
+
+.form-group{
+  display: flex;
+  flex-direction: column;
+}
+.form-group span{
+  margin-bottom: 1rem;
+  color: red;
+  font-weight: 900;
+}
+
+.input::placeholder{
+  color: rgba(0, 68, 101,1);
+}
+
+.input--text:focus,
+.input--number:focus,
+.input--password:focus{
+  outline: 1px solid rgba(255,215,0,1);
+  outline-offset: -2px;
+  box-shadow: 0 0 0 2pt rgba(255,215,0,1);
+}
+
+.input--text,.input--number,.input--password{
+  border: 1px solid rgba(255,215,0,1);
+  border-radius: 0.5rem;
+  padding: 0.7rem;
+  margin-bottom: 1rem;
+  color: rgba(0, 68, 101,1);
+}
+
+.input--submit{
+  background: transparent;
+  color: rgba(0, 68, 101,1);
+  border: 1px solid rgba(255,215,0,1);
+  border-radius: 0.5rem;
+  padding: 0.7rem;
+  margin-bottom: 1rem;
+  font-family: Calibri, Arial, serif;
+  font-size: inherit;
+  font-weight: 900;
+  text-transform: uppercase;
+  cursor: pointer;
+  transition: all 0.3s;
+}
+.input--submit:hover,.input--submit:focus{
+  background: rgba(255,215,0,1);
+}
+
+
+
+footer{
+  background: rgb(255,255,255);
+  /*background: linear-gradient(180deg, rgba(255,255,255,1) 0%, rgba(255,215,0,1) 70%);*/
+  color: rgba(0, 68, 101,1);
+  border-top: 1px solid rgba(255,215,0,1);
+  text-align: center;
+  font-weight: 900;
+  padding: 1rem 0 0.5rem 0;
+  margin-top: 1rem;
+  width: 100%;
+  max-width: 100%;
+  box-sizing: border-box;
+}
+
+footer a{
+  color: rgba(0, 68, 101,1);
+  transition: all 0.3s;
+}
+
+footer a:hover{
+  color: rgba(167, 0, 0, 1);
+}
+
+footer ul{
+  list-style-type: none;
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+  margin: 0;
+  padding: 0;
+}
+
+footer ul li{
+  margin-right: 1rem;
+}
+footer ul li:last-child{
+  margin-right: 0;
+}
+
+#logoutForm{
+  padding: 0;
+}
+
+#logoutForm input[type="submit"]{
+  text-transform: uppercase;
+  border: 0;
+  padding: 0;
+  margin: 0;
+  background: none;
+  font-family: Calibri,Arial,serif;
+  font-weight: 900;
+  font-size: inherit;
+  color: rgba(0, 68, 101,1);
+  cursor: pointer;
+  transition: all 0.3s;
+}
+
+#logoutForm input:hover{
+  color: rgba(167, 0, 0, 1);
+}
+
+/* CALENDAR CREATE PAGE */
+.section{
+
+}
+.section--calendar-create{
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+}
+.sidebox{
+  padding: 0 1rem;
+}
+.sidebox--calendar-preview{
+
+}
+.sidebox--upload-image{
+
+}
+
 .form--upload-image{
   display: flex;
   flex-direction: column;
-  padding: 1rem 2rem;
+  padding: 0;
   grid-column-start: 1;
   grid-column-end: 3;
   align-items: center;
@@ -160,73 +297,18 @@ main{
   background-color: rgba(255,215,0,1);
 }
 
-.file-name{
-  padding-top: 1rem;
-  font-style: italic;
-  text-align: center;
-}
-
 .form--upload-image .input--submit{
   margin-top: 1rem;
 }
-form .message{
-  margin-bottom: 1rem;
-  color: red;
-  font-weight: 900;
-}
-
-.form-group{
-  display: flex;
-  flex-direction: column;
-}
-.form-group span{
-  margin-bottom: 1rem;
-  color: red;
-  font-weight: 900;
-}
-
-.input::placeholder{
-  color: rgba(0, 68, 101,1);
-}
-
-.input--text:focus,
-.input--number:focus,
-.input--password:focus{
-  outline: 1px solid rgba(255,215,0,1);
-  outline-offset: -2px;
-  box-shadow: 0 0 0 2pt rgba(255,215,0,1);
-}
-
-.input--text,.input--number,.input--password{
-  border: 1px solid rgba(255,215,0,1);
-  border-radius: 0.5rem;
-  padding: 0.7rem;
-  margin-bottom: 1rem;
-  color: rgba(0, 68, 101,1);
-}
-
-.input--submit{
-  background: transparent;
-  color: rgba(0, 68, 101,1);
-  border: 1px solid rgba(255,215,0,1);
-  border-radius: 0.5rem;
-  padding: 0.7rem;
-  margin-bottom: 1rem;
-  font-family: Calibri, Arial, serif;
-  font-size: inherit;
-  font-weight: 900;
-  text-transform: uppercase;
-  cursor: pointer;
-  transition: all 0.3s;
-}
-.input--submit:hover,.input--submit:focus{
-  background: rgba(255,215,0,1);
-}
-
 
 .list--gallery{
   list-style-type: none;
-  padding: 0;
+  padding: 0 0 1rem 0;
+  min-height: 200px;
+  border: 0.1rem solid rgba(0, 68, 101,1);
+}
+.list--gallery h3{
+  padding-left: 1rem;
 }
 .list--gallery .list--item{
   display: grid;
@@ -269,92 +351,24 @@ form .message{
   width: -moz-min-content;
   justify-self: center;
 }
-footer{
-  background: rgb(255,255,255);
-  /*background: linear-gradient(180deg, rgba(255,255,255,1) 0%, rgba(255,215,0,1) 70%);*/
-  color: rgba(0, 68, 101,1);
-  border-top: 1px solid rgba(255,215,0,1);
-  text-align: center;
-  font-weight: 900;
-  padding: 1rem 0 0.5rem 0;
-  margin-top: 1rem;
-  width: 100%;
-  max-width: 100%;
-  box-sizing: border-box;
-}
 
-footer a{
-  color: rgba(0, 68, 101,1);
-  transition: all 0.3s;
-}
-
-footer a:hover{
-  color: rgba(167, 0, 0, 1);
-}
-
-footer ul{
-  list-style-type: none;
+.form--calendar-create{
   display: flex;
-  flex-direction: row;
-  justify-content: center;
+  flex-direction: column;
   align-items: center;
-  margin: 0;
-  padding: 0;
 }
-
-footer ul li{
-  margin-right: 1rem;
+.form--calendar-create .input--checkbox{
+  display: none;
 }
-footer ul li:last-child{
-  margin-right: 0;
-}
-
-#logoutForm{
-  padding: 0;
-}
-
-#logoutForm input[type="submit"]{
-  text-transform: uppercase;
-  border: 0;
-  padding: 0;
-  margin: 0;
-  background: none;
-  font-family: Calibri,Arial,serif;
-  font-weight: 900;
-  font-size: inherit;
-  color: rgba(0, 68, 101,1);
-  cursor: pointer;
-  transition: all 0.3s;
-}
-
-#logoutForm input:hover{
-  color: rgba(167, 0, 0, 1);
-}
-
-/* CALENDAR CREATE PAGE */
-div.calendar{
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  justify-items: center;
-}
-
-div.item{
+.item{
   width: max-content;
-  /* width: 200px; */
+  min-width: 200px;
   min-height: 100px;
   display: flex;
   flex-direction: column;
+  margin-bottom: 1rem;
   justify-content: flex-end;
+  border: 0.1rem dashed rgba(0, 68, 101,1);
 }
-div.item--1{
-  background: red;
-}
-div.item--2{
-  background: green;
-}
-div.item--3{
-  background: yellow;
-}
-
 
 /* ======= END CALENDAR CREATE PAGE ======= */

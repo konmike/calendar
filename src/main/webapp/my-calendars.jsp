@@ -1,7 +1,7 @@
 <%--
   Created by IntelliJ IDEA.
   User: mike
-  Date: 07.12.19
+  Date: 27.02.20
   Time: 18:36
   To change this template use File | Settings | File Templates.
 --%>
@@ -17,30 +17,31 @@
 <html lang="cs">
 <head>
     <meta charset="utf-8">
-    <title>Galerie</title>
+    <title>Mé kalendáře</title>
 
     <link href="${contextPath}/resources/css/style.css" rel="stylesheet">
-    <link href="${contextPath}/resources/css/form.css" rel="stylesheet">
+    <link href="${contextPath}/resources/css/simple-lightbox.css" rel="stylesheet">
+    <%--    <link href="${contextPath}/resources/css/form.css" rel="stylesheet">--%>
 </head>
 <body>
 <header>
     <nav>
         <ul>
             <security:authorize access="hasRole('ROLE_ADMIN')">
-            <li>
-                <a href="${contextPath}/admin/">Domů</a>
-            </li>
+                <li>
+                    <a href="${contextPath}/admin/">Domů</a>
+                </li>
             </security:authorize>
             <security:authorize access="!hasRole('ROLE_ADMIN')">
-            <li>
-                <a href="${contextPath}/">Domů</a>
-            </li>
+                <li>
+                    <a href="${contextPath}/">Domů</a>
+                </li>
             </security:authorize>
             <li>
                 <a href="${contextPath}/image/">Tvorba kalendáře</a>
             </li>
             <li>
-                <span class="active">Puv Tvorba kalendáře</span>
+                <span class="active">Mé kalendáře</span>
             </li>
             <security:authorize access="hasRole('ROLE_ADMIN')">
                 <li>
@@ -52,47 +53,18 @@
 </header>
 
 <main>
-<%--    <c:forEach var="user" items="${user.username}">--%>
-<%--        <ul th:each="user : ${user}">--%>
-<%--            <h1 align="center">--%>
-<%--                    ${user}'s photos'--%>
-<%--            </h1>--%>
-<%--        </ul>--%>
-<%--    </c:forEach>--%>
-
-    <form:form action="${contextPath}/calendar/" modelAttribute="cal" class="form form--calendar" method="post">
-        <span class="form--title">Tvorba kalendáře</span>
-        <form:label path="name" for="name">
-            <form:input type="text" id="name" path="name" class="input input--text" placeholder="Název kalendáře" />
-        </form:label>
-        <spring:bind path="year">
-        <label for="year">
-            <form:input type="number" path="year" id="year" class="input input--number" placeholder="Rok" />
-        </label>
-        </spring:bind>
-        <span>Vyberte si 12 obrázků z vaší galerie:</span>
-        <ul th:each="file : ${cal.selImage}">
-            <c:forEach items="${cal.selImage}" var="file">
-                <li class="gallery">
-                    <form:label path="selImage" for="${file}">
-                        <form:checkbox path="selImage" value="${file}" id="${file}" class="input input--checkbox" />
-                        <img src="${file}" height="200" />
-                    </form:label>
+    <h2 class="">Mé kalendáře</h2>
+    <div class="section section--calendar-show">
+        <ul th:each="calendar : ${calendars}" class="list list--my-calendars">
+            <c:forEach items="${calendars}" var="calendar">
+                <li class="list--item">
+                    <img src="${calendar.selImage.get(0)}" alt="" height="200" />
+                    <span>${calendar.name} - ${calendar.year}</span>
                 </li>
             </c:forEach>
         </ul>
-        <form:button class="input input--submit">Vytvořit kalendář</form:button>
-    </form:form>
-
-    <c:if test="${not empty user.calendars}">
-        <c:forEach items="${user.calendars}" var="calendar">
-            <ul>
-                <li>${calendar.name}</li>
-            </ul>
-        </c:forEach>
-    </c:if>
+    </div>
 </main>
-
 
 <footer>
     <ul>
@@ -114,6 +86,9 @@
     </ul>
 </footer>
 
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+<script src="${contextPath}/resources/js/script.js"></script>
+<script src="${contextPath}/resources/js/simple-lightbox.jquery.js"></script>
+
 </body>
 </html>

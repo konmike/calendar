@@ -69,10 +69,10 @@
                 </li>
             </security:authorize>
             <li>
-                <span class="active">Editace galerie</span>
+                <span class="active">Tvorba kalendáře</span>
             </li>
             <li>
-                <a href="${contextPath}/image/search?name=${pageContext.request.userPrincipal.name}">Tvorba kalendáře</a>
+                <a href="${contextPath}/calendar/myCalendars">Mé kalendáře</a>
             </li>
             <security:authorize access="hasRole('ROLE_ADMIN')">
                 <li>
@@ -84,91 +84,90 @@
 </header>
 
 <main>
-    <div class="calendar">
-        <form:form method="post" modelAttribute="files" enctype="multipart/form-data" class="form form--upload-image" action="/image/">
-                <span class="form--title">Editace galerie</span>
-                <label for="file" class="label label--file">
-                    <input type="file" id="file" name="file" class="input input--file" />
-                    <span class="file--custom"></span>
-                </label>
+    <h2 class="">Tvorba kalendáře</h2>
+    <div class="section section--calendar-create">
+        <div class="sidebox sidebox--upload-image">
+            <form:form method="post" modelAttribute="files" enctype="multipart/form-data" class="form form--upload-image" action="/image/">
+                    <label for="file" class="label label--file">
+                        <input type="file" id="file" name="file" class="input input--file" />
+                        <span class="file--custom"></span>
+                    </label>
 
-                        <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}" />
-                        <input type="submit" class="input input--submit" value="Nahrát" />
-        </form:form>
+                            <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}" />
+                            <input type="hidden" class="input input--submit" value="Nahrát" />
+            </form:form>
 
-        <ul class="list list--gallery" ondragenter="return dragEnter(event)"
-            ondrop="return dragDrop(event)"
-            ondragover="return dragOver(event)">
-            <h3>Vase obrazky k vyberu:</h3>
-            <c:forEach var="file" items="${files}">
-                <li class="list--item" >
-                    <img src="${file}" draggable="true" ondragstart="return dragStart(event)" height="200" alt="image" id="im1"/>
-                    <a href="${file}">Zvětšit</a>
+            <ul class="list list--gallery" ondragenter="return dragEnter(event)"
+                ondrop="return dragDrop(event)"
+                ondragover="return dragOver(event)">
+                <h3>Vaše obrázky k výběru:</h3>
+                <c:forEach var="file" items="${files}">
+                    <li class="list--item" >
+                        <img src="${file}" draggable="true" ondragstart="return dragStart(event)" height="200" alt="image" id="im1"/>
+                        <a href="${file}">Zvětšit</a>
 
+                        <form:form action="/image/delete" method="POST" class="form form--delete-image">
 
+                            <input type="hidden" value="${file}" name="name" readonly="readonly" />
+                            <input type="hidden" name="${_csrf.parameterName}"
+                                   value="${_csrf.token}" />
 
-                    <form:form action="/image/delete" method="POST" class="form form--delete-image">
+                            <input type="submit" class="input input--submit" value="Smazat" />
 
-                        <input type="hidden" value="${file}" name="name" readonly="readonly" />
-                        <input type="hidden" name="${_csrf.parameterName}"
-                               value="${_csrf.token}" />
+                        </form:form>
+                    </li>
+                </c:forEach>
+            </ul>
+        </div>
+        <div class="sidebox sidebox--calendar-preview">
+            <form:form method="post" action="/calendar/create" modelAttribute="cal" class="form--calendar-create">
+                <form:label path="name" for="name">
+                    <form:input type="text" id="name" path="name" class="input input--text" placeholder="Název kalendáře" />
+                </form:label>
 
-                        <input type="submit" class="input input--submit" value="Smazat" />
+                <spring:bind path="year">
+                    <label for="year">
+                        <form:input type="number" path="year" id="year" class="input input--number" placeholder="Rok" />
+                    </label>
+                </spring:bind>
 
-                    </form:form>
-                </li>
-            </c:forEach>
-        </ul>
+                <form:label path="selImage" for="item0">
+                    <form:checkbox path="selImage" id="item0" class="input input--checkbox" value=""/>
+                    <div class="item item--0" ondragenter="return dragEnter(event)"
+                         ondrop="return dragDrop(event)"
+                         ondragover="return dragOver(event)">
+                    </div>
+                </form:label>
 
-        <form:form method="post" action="/calendar/create" modelAttribute="cal" class="form--create-calendar">
-            <form:label path="selImage" for="item1">
-                <form:checkbox path="selImage" id="item1" value=""/>
-                <div class="item item--1" ondragenter="return dragEnter(event)"
-                     ondrop="return dragDrop(event)"
-                     ondragover="return dragOver(event)">
-                    <span>1 2 3 4 5 6 7 8 9 10 11 12 13 14 15 16 17 18 19 20 21 22 23 24 25 26 27 28 29 30</span>
-                </div>
-            </form:label>
-            <form:label path="selImage" for="item2">
-                <form:checkbox path="selImage" id="item2" value=""/>
-                <div class="item item--2" ondragenter="return dragEnter(event)"
-                     ondrop="return dragDrop(event)"
-                     ondragover="return dragOver(event)">
-                    <span>1 2 3 4 5 6 7 8 9 10 11 12 13 14 15 16 17 18 19 20 21 22 23 24 25 26 27 28 29 30</span>
-                </div>
-            </form:label>
-            <form:label path="selImage" for="item3">
-                <form:checkbox path="selImage" id="item3" value="" />
-                <div class="item item--3" ondragenter="return dragEnter(event)"
-                     ondrop="return dragDrop(event)"
-                     ondragover="return dragOver(event)">
-                    <span>1 2 3 4 5 6 7 8 9 10 11 12 13 14 15 16 17 18 19 20 21 22 23 24 25 26 27 28 29 30</span>
-                </div>
-            </form:label>
-            <input type="hidden" name="${_csrf.parameterName}"
-                   value="${_csrf.token}" />
-            <input type="submit" class="input input--submit" value="Vytvořit" />
-        </form:form>
-<%--    <ul class="list list--gallery">--%>
-<%--        <c:forEach var="file" items="${files}">--%>
-<%--        <li class="list--item">--%>
-<%--            <img src="${file}" height="200" alt="image"/>--%>
-<%--            <a href="${file}">Zvětšit</a>--%>
-
-
-
-<%--            <form:form action="/image/delete" method="POST" class="form form--delete-image">--%>
-
-<%--                <input type="hidden" value="${file}" name="name" readonly="readonly" />--%>
-<%--                <input type="hidden" name="${_csrf.parameterName}"--%>
-<%--                       value="${_csrf.token}" />--%>
-
-<%--                <input type="submit" class="input input--submit" value="Smazat" />--%>
-
-<%--            </form:form>--%>
-<%--        </li>--%>
-<%--        </c:forEach>--%>
-<%--    </ul>--%>
+                <form:label path="selImage" for="item1">
+                    <form:checkbox path="selImage" id="item1" class="input input--checkbox" value=""/>
+                    <div class="item item--1" ondragenter="return dragEnter(event)"
+                         ondrop="return dragDrop(event)"
+                         ondragover="return dragOver(event)">
+                        <span>1 2 3 4 5 6 7 8 9 10 11 12 13 14 15 16 17 18 19 20 21 22 23 24 25 26 27 28 29 30</span>
+                    </div>
+                </form:label>
+                <form:label path="selImage" for="item2">
+                    <form:checkbox path="selImage" id="item2" class="input input--checkbox" value=""/>
+                    <div class="item item--2" ondragenter="return dragEnter(event)"
+                         ondrop="return dragDrop(event)"
+                         ondragover="return dragOver(event)">
+                        <span>1 2 3 4 5 6 7 8 9 10 11 12 13 14 15 16 17 18 19 20 21 22 23 24 25 26 27 28 29 30</span>
+                    </div>
+                </form:label>
+                <form:label path="selImage" for="item3">
+                    <form:checkbox path="selImage" id="item3" class="input input--checkbox" value="" />
+                    <div class="item item--3" ondragenter="return dragEnter(event)"
+                         ondrop="return dragDrop(event)"
+                         ondragover="return dragOver(event)">
+                        <span>1 2 3 4 5 6 7 8 9 10 11 12 13 14 15 16 17 18 19 20 21 22 23 24 25 26 27 28 29 30</span>
+                    </div>
+                </form:label>
+                <input type="hidden" name="${_csrf.parameterName}"
+                       value="${_csrf.token}" />
+                <input type="submit" class="input input--submit" value="Vytvořit" />
+            </form:form>
+        </div>
     </div>
 </main>
 

@@ -29,10 +29,10 @@
                 <span class="active">Domů</span>
             </li>
             <li>
-                <a href="${contextPath}/image/">Editace galerie</a>
+                <a href="${contextPath}/image/">Tvorba kalendáře</a>
             </li>
             <li>
-                <a href="${contextPath}/image/search?name=${pageContext.request.userPrincipal.name}">Tvorba kalendáře</a>
+                <a href="${contextPath}/calendar/myCalendars">Mé kalendáře</a>
             </li>
             <security:authorize access="hasRole('ROLE_ADMIN')">
                 <li>
