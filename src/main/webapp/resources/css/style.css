@@ -367,6 +367,7 @@ footer ul li:last-child{
   display: flex;
   flex-direction: column;
   margin-bottom: 1rem;
+  padding: 1rem;
   justify-content: flex-end;
   border: 0.1rem dashed rgba(0, 68, 101,1);
 }
@@ -402,8 +403,14 @@ fieldset input {
 #calendar {
   width: 500px;
   margin: 2rem auto;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
 }
 
+.month .labels{
+  margin-top: 5rem;
+}
 .month .labels, .month .dates {
   display: grid;
   grid-template-columns: repeat(7, 1fr);

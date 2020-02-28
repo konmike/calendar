@@ -132,38 +132,186 @@
                     </label>
                 </spring:bind>
 
-                <form:label path="selImage" for="item0">
-                    <form:checkbox path="selImage" id="item0" class="input input--checkbox" value=""/>
-                    <div class="item item--0" ondragenter="return dragEnter(event)"
-                         ondrop="return dragDrop(event)"
-                         ondragover="return dragOver(event)">
-                    </div>
-                </form:label>
+                <div id="calendar">
+                    <form:label path="selImage" for="item0">
+                        <form:checkbox path="selImage" id="item0" class="input input--checkbox" value=""/>
+                        <div class="item item--0" ondragenter="return dragEnter(event)"
+                             ondrop="return dragDrop(event)"
+                             ondragover="return dragOver(event)">
+                        </div>
 
-                <form:label path="selImage" for="item1">
-                    <form:checkbox path="selImage" id="item1" class="input input--checkbox" value=""/>
-                    <div class="item item--1" ondragenter="return dragEnter(event)"
-                         ondrop="return dragDrop(event)"
-                         ondragover="return dragOver(event)">
-                        <span>1 2 3 4 5 6 7 8 9 10 11 12 13 14 15 16 17 18 19 20 21 22 23 24 25 26 27 28 29 30</span>
-                    </div>
-                </form:label>
-                <form:label path="selImage" for="item2">
-                    <form:checkbox path="selImage" id="item2" class="input input--checkbox" value=""/>
-                    <div class="item item--2" ondragenter="return dragEnter(event)"
-                         ondrop="return dragDrop(event)"
-                         ondragover="return dragOver(event)">
-                        <span>1 2 3 4 5 6 7 8 9 10 11 12 13 14 15 16 17 18 19 20 21 22 23 24 25 26 27 28 29 30</span>
-                    </div>
-                </form:label>
-                <form:label path="selImage" for="item3">
-                    <form:checkbox path="selImage" id="item3" class="input input--checkbox" value="" />
-                    <div class="item item--3" ondragenter="return dragEnter(event)"
-                         ondrop="return dragDrop(event)"
-                         ondragover="return dragOver(event)">
-                        <span>1 2 3 4 5 6 7 8 9 10 11 12 13 14 15 16 17 18 19 20 21 22 23 24 25 26 27 28 29 30</span>
-                    </div>
-                </form:label>
+                    </form:label>
+
+                    <form:label path="selImage" for="item1">
+                        <form:checkbox path="selImage" id="item1" class="input input--checkbox" value=""/>
+<%--                        <div class="item item--1" ondragenter="return dragEnter(event)"--%>
+<%--                             ondrop="return dragDrop(event)"--%>
+<%--                             ondragover="return dragOver(event)">--%>
+<%--                            <span>1 2 3 4 5 6 7 8 9 10 11 12 13 14 15 16 17 18 19 20 21 22 23 24 25 26 27 28 29 30</span>--%>
+<%--                        </div>--%>
+                        <div class="month month--1 item" ondragenter="return dragEnter(event)"
+                             ondrop="return dragDrop(event)"
+                             ondragover="return dragOver(event)">
+                            <div class="insert-image"></div>
+                            <div class="labels"></div>
+                            <div class="dates"></div>
+                        </div>
+                    </form:label>
+                    <form:label path="selImage" for="item2">
+                        <form:checkbox path="selImage" id="item2" class="input input--checkbox" value=""/>
+<%--                        <div class="item item--2" ondragenter="return dragEnter(event)"--%>
+<%--                             ondrop="return dragDrop(event)"--%>
+<%--                             ondragover="return dragOver(event)">--%>
+<%--                            <span>1 2 3 4 5 6 7 8 9 10 11 12 13 14 15 16 17 18 19 20 21 22 23 24 25 26 27 28 29 30</span>--%>
+<%--                        </div>--%>
+                        <div class="month month--2 item" ondragenter="return dragEnter(event)"
+                             ondrop="return dragDrop(event)"
+                             ondragover="return dragOver(event)">
+                            <div class="labels"></div>
+                            <div class="dates"></div>
+                        </div>
+                    </form:label>
+                    <form:label path="selImage" for="item3">
+                        <form:checkbox path="selImage" id="item3" class="input input--checkbox" value="" />
+<%--                        <div class="item item--3" ondragenter="return dragEnter(event)"--%>
+<%--                             ondrop="return dragDrop(event)"--%>
+<%--                             ondragover="return dragOver(event)">--%>
+<%--                            <span>1 2 3 4 5 6 7 8 9 10 11 12 13 14 15 16 17 18 19 20 21 22 23 24 25 26 27 28 29 30</span>--%>
+<%--                        </div>--%>
+                        <div class="month month--3 item" ondragenter="return dragEnter(event)"
+                             ondrop="return dragDrop(event)"
+                             ondragover="return dragOver(event)">
+                            <div class="labels"></div>
+                            <div class="dates"></div>
+                        </div>
+                    </form:label>
+                    <form:label path="selImage" for="item4">
+                        <form:checkbox path="selImage" id="item4" class="input input--checkbox" value="" />
+                        <%--                        <div class="item item--3" ondragenter="return dragEnter(event)"--%>
+                        <%--                             ondrop="return dragDrop(event)"--%>
+                        <%--                             ondragover="return dragOver(event)">--%>
+                        <%--                            <span>1 2 3 4 5 6 7 8 9 10 11 12 13 14 15 16 17 18 19 20 21 22 23 24 25 26 27 28 29 30</span>--%>
+                        <%--                        </div>--%>
+                        <div class="month month--4 item" ondragenter="return dragEnter(event)"
+                             ondrop="return dragDrop(event)"
+                             ondragover="return dragOver(event)">
+                            <div class="labels"></div>
+                            <div class="dates"></div>
+                        </div>
+                    </form:label>
+                    <form:label path="selImage" for="item5">
+                        <form:checkbox path="selImage" id="item5" class="input input--checkbox" value="" />
+                        <%--                        <div class="item item--3" ondragenter="return dragEnter(event)"--%>
+                        <%--                             ondrop="return dragDrop(event)"--%>
+                        <%--                             ondragover="return dragOver(event)">--%>
+                        <%--                            <span>1 2 3 4 5 6 7 8 9 10 11 12 13 14 15 16 17 18 19 20 21 22 23 24 25 26 27 28 29 30</span>--%>
+                        <%--                        </div>--%>
+                        <div class="month month--5 item" ondragenter="return dragEnter(event)"
+                             ondrop="return dragDrop(event)"
+                             ondragover="return dragOver(event)">
+                            <div class="labels"></div>
+                            <div class="dates"></div>
+                        </div>
+                    </form:label>
+                    <form:label path="selImage" for="item6">
+                        <form:checkbox path="selImage" id="item6" class="input input--checkbox" value="" />
+                        <%--                        <div class="item item--3" ondragenter="return dragEnter(event)"--%>
+                        <%--                             ondrop="return dragDrop(event)"--%>
+                        <%--                             ondragover="return dragOver(event)">--%>
+                        <%--                            <span>1 2 3 4 5 6 7 8 9 10 11 12 13 14 15 16 17 18 19 20 21 22 23 24 25 26 27 28 29 30</span>--%>
+                        <%--                        </div>--%>
+                        <div class="month month--6 item" ondragenter="return dragEnter(event)"
+                             ondrop="return dragDrop(event)"
+                             ondragover="return dragOver(event)">
+                            <div class="labels"></div>
+                            <div class="dates"></div>
+                        </div>
+                    </form:label>
+                    <form:label path="selImage" for="item7">
+                        <form:checkbox path="selImage" id="item7" class="input input--checkbox" value="" />
+                        <%--                        <div class="item item--3" ondragenter="return dragEnter(event)"--%>
+                        <%--                             ondrop="return dragDrop(event)"--%>
+                        <%--                             ondragover="return dragOver(event)">--%>
+                        <%--                            <span>1 2 3 4 5 6 7 8 9 10 11 12 13 14 15 16 17 18 19 20 21 22 23 24 25 26 27 28 29 30</span>--%>
+                        <%--                        </div>--%>
+                        <div class="month month--7 item" ondragenter="return dragEnter(event)"
+                             ondrop="return dragDrop(event)"
+                             ondragover="return dragOver(event)">
+                            <div class="labels"></div>
+                            <div class="dates"></div>
+                        </div>
+                    </form:label>
+                    <form:label path="selImage" for="item8">
+                        <form:checkbox path="selImage" id="item8" class="input input--checkbox" value="" />
+                        <%--                        <div class="item item--3" ondragenter="return dragEnter(event)"--%>
+                        <%--                             ondrop="return dragDrop(event)"--%>
+                        <%--                             ondragover="return dragOver(event)">--%>
+                        <%--                            <span>1 2 3 4 5 6 7 8 9 10 11 12 13 14 15 16 17 18 19 20 21 22 23 24 25 26 27 28 29 30</span>--%>
+                        <%--                        </div>--%>
+                        <div class="month month--8 item" ondragenter="return dragEnter(event)"
+                             ondrop="return dragDrop(event)"
+                             ondragover="return dragOver(event)">
+                            <div class="labels"></div>
+                            <div class="dates"></div>
+                        </div>
+                    </form:label>
+                    <form:label path="selImage" for="item9">
+                        <form:checkbox path="selImage" id="item9" class="input input--checkbox" value="" />
+                        <%--                        <div class="item item--3" ondragenter="return dragEnter(event)"--%>
+                        <%--                             ondrop="return dragDrop(event)"--%>
+                        <%--                             ondragover="return dragOver(event)">--%>
+                        <%--                            <span>1 2 3 4 5 6 7 8 9 10 11 12 13 14 15 16 17 18 19 20 21 22 23 24 25 26 27 28 29 30</span>--%>
+                        <%--                        </div>--%>
+                        <div class="month month--9 item" ondragenter="return dragEnter(event)"
+                             ondrop="return dragDrop(event)"
+                             ondragover="return dragOver(event)">
+                            <div class="labels"></div>
+                            <div class="dates"></div>
+                        </div>
+                    </form:label>
+                    <form:label path="selImage" for="item10">
+                        <form:checkbox path="selImage" id="item10" class="input input--checkbox" value="" />
+                        <%--                        <div class="item item--3" ondragenter="return dragEnter(event)"--%>
+                        <%--                             ondrop="return dragDrop(event)"--%>
+                        <%--                             ondragover="return dragOver(event)">--%>
+                        <%--                            <span>1 2 3 4 5 6 7 8 9 10 11 12 13 14 15 16 17 18 19 20 21 22 23 24 25 26 27 28 29 30</span>--%>
+                        <%--                        </div>--%>
+                        <div class="month month--10 item" ondragenter="return dragEnter(event)"
+                             ondrop="return dragDrop(event)"
+                             ondragover="return dragOver(event)">
+                            <div class="labels"></div>
+                            <div class="dates"></div>
+                        </div>
+                    </form:label>
+                    <form:label path="selImage" for="item11">
+                        <form:checkbox path="selImage" id="item11" class="input input--checkbox" value="" />
+                        <%--                        <div class="item item--3" ondragenter="return dragEnter(event)"--%>
+                        <%--                             ondrop="return dragDrop(event)"--%>
+                        <%--                             ondragover="return dragOver(event)">--%>
+                        <%--                            <span>1 2 3 4 5 6 7 8 9 10 11 12 13 14 15 16 17 18 19 20 21 22 23 24 25 26 27 28 29 30</span>--%>
+                        <%--                        </div>--%>
+                        <div class="month month--11 item" ondragenter="return dragEnter(event)"
+                             ondrop="return dragDrop(event)"
+                             ondragover="return dragOver(event)">
+                            <div class="labels"></div>
+                            <div class="dates"></div>
+                        </div>
+                    </form:label>
+                    <form:label path="selImage" for="item12">
+                        <form:checkbox path="selImage" id="item12" class="input input--checkbox" value="" />
+                        <%--                        <div class="item item--3" ondragenter="return dragEnter(event)"--%>
+                        <%--                             ondrop="return dragDrop(event)"--%>
+                        <%--                             ondragover="return dragOver(event)">--%>
+                        <%--                            <span>1 2 3 4 5 6 7 8 9 10 11 12 13 14 15 16 17 18 19 20 21 22 23 24 25 26 27 28 29 30</span>--%>
+                        <%--                        </div>--%>
+                        <div class="month month--12 item" ondragenter="return dragEnter(event)"
+                             ondrop="return dragDrop(event)"
+                             ondragover="return dragOver(event)">
+                            <div class="labels"></div>
+                            <div class="dates"></div>
+                        </div>
+                    </form:label>
+                </div>
                 <input type="hidden" name="${_csrf.parameterName}"
                        value="${_csrf.token}" />
                 <input type="submit" class="input input--submit" value="Vytvořit" />
@@ -176,93 +324,73 @@
             <label for="lang">Language:</label>
             <select id="lang">
                 <option value="en" selected>English</option>
+                <option value="cs">Čeština</option>
             </select>
         </div>
 
         <div class="input">
-            <!-- <label for="month">Month:</label>
-            <select id="month">
-              <option value="0">January</option>
-              <option value="1">February</option>
-              <option value="2">March</option>
-              <option value="3">April</option>
-              <option value="4">May</option>
-              <option value="5" selected>June</option>
-              <option value="6">July</option>
-              <option value="7">August</option>
-              <option value="8">September</option>
-              <option value="9">October</option>
-              <option value="10">November</option>
-              <option value="11">December</option>
-            </select> -->
-
             <input id="year" type="number" min="1900" max="2100" step="1" value="2019">
         </div>
 
         <div class="input">
-            <label for="offset">Week Start:</label>
+            <label for="offset">Týden začíná:</label>
             <select id="offset">
-                <option value="0" selected>Sunday</option>
-                <option value="1">Monday</option>
-                <option value="2">Tuesday</option>
-                <option value="3">Wednesday</option>
-                <option value="4">Thursday</option>
-                <option value="5">Friday</option>
-                <option value="6">Saturday</option>
+                <option value="0" selected>Neděle</option>
+                <option value="1">Pondělí</option>
             </select>
         </div>
     </fieldset>
 
-    <div id="calendar">
-        <div class="month month--1">
-            <div class="labels"></div>
-            <div class="dates"></div>
-        </div>
-        <div class="month month--2">
-            <div class="labels"></div>
-            <div class="dates"></div>
-        </div>
-        <div class="month month--3">
-            <div class="labels"></div>
-            <div class="dates"></div>
-        </div>
-        <div class="month month--4">
-            <div class="labels"></div>
-            <div class="dates"></div>
-        </div>
-        <div class="month month--5">
-            <div class="labels"></div>
-            <div class="dates"></div>
-        </div>
-        <div class="month month--6">
-            <div class="labels"></div>
-            <div class="dates"></div>
-        </div>
-        <div class="month month--7">
-            <div class="labels"></div>
-            <div class="dates"></div>
-        </div>
-        <div class="month month--8">
-            <div class="labels"></div>
-            <div class="dates"></div>
-        </div>
-        <div class="month month--9">
-            <div class="labels"></div>
-            <div class="dates"></div>
-        </div>
-        <div class="month month--10">
-            <div class="labels"></div>
-            <div class="dates"></div>
-        </div>
-        <div class="month month--11">
-            <div class="labels"></div>
-            <div class="dates"></div>
-        </div>
-        <div class="month month--12">
-            <div class="labels"></div>
-            <div class="dates"></div>
-        </div>
-    </div>
+<%--    <div id="calendar">--%>
+<%--        <div class="month month--1">--%>
+<%--            <div class="labels"></div>--%>
+<%--            <div class="dates"></div>--%>
+<%--        </div>--%>
+<%--        <div class="month month--2">--%>
+<%--            <div class="labels"></div>--%>
+<%--            <div class="dates"></div>--%>
+<%--        </div>--%>
+<%--        <div class="month month--3">--%>
+<%--            <div class="labels"></div>--%>
+<%--            <div class="dates"></div>--%>
+<%--        </div>--%>
+<%--        <div class="month month--4">--%>
+<%--            <div class="labels"></div>--%>
+<%--            <div class="dates"></div>--%>
+<%--        </div>--%>
+<%--        <div class="month month--5">--%>
+<%--            <div class="labels"></div>--%>
+<%--            <div class="dates"></div>--%>
+<%--        </div>--%>
+<%--        <div class="month month--6">--%>
+<%--            <div class="labels"></div>--%>
+<%--            <div class="dates"></div>--%>
+<%--        </div>--%>
+<%--        <div class="month month--7">--%>
+<%--            <div class="labels"></div>--%>
+<%--            <div class="dates"></div>--%>
+<%--        </div>--%>
+<%--        <div class="month month--8">--%>
+<%--            <div class="labels"></div>--%>
+<%--            <div class="dates"></div>--%>
+<%--        </div>--%>
+<%--        <div class="month month--9">--%>
+<%--            <div class="labels"></div>--%>
+<%--            <div class="dates"></div>--%>
+<%--        </div>--%>
+<%--        <div class="month month--10">--%>
+<%--            <div class="labels"></div>--%>
+<%--            <div class="dates"></div>--%>
+<%--        </div>--%>
+<%--        <div class="month month--11">--%>
+<%--            <div class="labels"></div>--%>
+<%--            <div class="dates"></div>--%>
+<%--        </div>--%>
+<%--        <div class="month month--12">--%>
+<%--            <div class="labels"></div>--%>
+<%--            <div class="dates"></div>--%>
+<%--        </div>--%>
+<%--    </div>--%>
 </main>
 
 <footer>

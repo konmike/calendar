@@ -3,7 +3,7 @@ const h = tag => document.createElement(tag);
 
 const text_labels = {
     en: ['SUN', 'MON', 'TUE', 'WED', 'THU', 'FRI', 'SAT'],
-    es: ['DOM', 'LUN', 'MAR', 'MIE', 'JUV', 'VIE', 'SAB'],
+    cs: ['NE', 'PO', 'ÚT', 'ST', 'ČT', 'PÁ', 'SO'],
 };
 
 // -- setup
@@ -34,10 +34,11 @@ function update(state) {
     const txts = text_labels[state.lang];
 
     let q = 0;
-    for(let m = 1; m < 13; m++){
-        const labels = $(".month:nth-child(" + m + ') .labels');
-        const dates = $('.month:nth-child(' + m + ') .dates');
-        const month = $('.month:nth-child(' + m + ')');
+    for(let m = 2; m < 14; m++){
+        const labels = $('#calendar label:nth-child(' + m + ') .month .labels');
+        const dates = $('#calendar label:nth-child(' + m + ') .month .dates');
+        const month = $('#calendar label:nth-child(' + m + ') .month');
+        //const month = $('#calendar label:nth-child(4) .month');
         console.log(labels);
         console.log(dates);
         month.classList.add("cusik");
@@ -46,7 +47,7 @@ function update(state) {
             return labels.appendChild(h('span'));
         });
 
-        dspan = Array.from({ length: 40 }, () => {
+        dspan = Array.from({ length: 42 }, () => {
             return dates.appendChild(h('span'));
         });
 
