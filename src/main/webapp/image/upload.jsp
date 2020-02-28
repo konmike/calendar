@@ -22,6 +22,7 @@
     <link href="${contextPath}/resources/css/style.css" rel="stylesheet">
     <link href="${contextPath}/resources/css/simple-lightbox.css" rel="stylesheet">
 <%--    <link href="${contextPath}/resources/css/form.css" rel="stylesheet">--%>
+
 </head>
 <script>
     function dragStart(ev) {
@@ -169,6 +170,99 @@
             </form:form>
         </div>
     </div>
+
+    <fieldset>
+        <div class="input">
+            <label for="lang">Language:</label>
+            <select id="lang">
+                <option value="en" selected>English</option>
+            </select>
+        </div>
+
+        <div class="input">
+            <!-- <label for="month">Month:</label>
+            <select id="month">
+              <option value="0">January</option>
+              <option value="1">February</option>
+              <option value="2">March</option>
+              <option value="3">April</option>
+              <option value="4">May</option>
+              <option value="5" selected>June</option>
+              <option value="6">July</option>
+              <option value="7">August</option>
+              <option value="8">September</option>
+              <option value="9">October</option>
+              <option value="10">November</option>
+              <option value="11">December</option>
+            </select> -->
+
+            <input id="year" type="number" min="1900" max="2100" step="1" value="2019">
+        </div>
+
+        <div class="input">
+            <label for="offset">Week Start:</label>
+            <select id="offset">
+                <option value="0" selected>Sunday</option>
+                <option value="1">Monday</option>
+                <option value="2">Tuesday</option>
+                <option value="3">Wednesday</option>
+                <option value="4">Thursday</option>
+                <option value="5">Friday</option>
+                <option value="6">Saturday</option>
+            </select>
+        </div>
+    </fieldset>
+
+    <div id="calendar">
+        <div class="month month--1">
+            <div class="labels"></div>
+            <div class="dates"></div>
+        </div>
+        <div class="month month--2">
+            <div class="labels"></div>
+            <div class="dates"></div>
+        </div>
+        <div class="month month--3">
+            <div class="labels"></div>
+            <div class="dates"></div>
+        </div>
+        <div class="month month--4">
+            <div class="labels"></div>
+            <div class="dates"></div>
+        </div>
+        <div class="month month--5">
+            <div class="labels"></div>
+            <div class="dates"></div>
+        </div>
+        <div class="month month--6">
+            <div class="labels"></div>
+            <div class="dates"></div>
+        </div>
+        <div class="month month--7">
+            <div class="labels"></div>
+            <div class="dates"></div>
+        </div>
+        <div class="month month--8">
+            <div class="labels"></div>
+            <div class="dates"></div>
+        </div>
+        <div class="month month--9">
+            <div class="labels"></div>
+            <div class="dates"></div>
+        </div>
+        <div class="month month--10">
+            <div class="labels"></div>
+            <div class="dates"></div>
+        </div>
+        <div class="month month--11">
+            <div class="labels"></div>
+            <div class="dates"></div>
+        </div>
+        <div class="month month--12">
+            <div class="labels"></div>
+            <div class="dates"></div>
+        </div>
+    </div>
 </main>
 
 <footer>
@@ -192,7 +286,11 @@
 </footer>
 
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+<script src="https://unpkg.com/calendarize"></script>
+<script src="https://unpkg.com/sublet"></script>
+<script src="${contextPath}/resources/js/calendar.js"></script>
 <script src="${contextPath}/resources/js/script.js"></script>
+
 <script src="${contextPath}/resources/js/simple-lightbox.jquery.js"></script>
 <script>
     (function($) {

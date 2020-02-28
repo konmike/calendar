@@ -371,4 +371,59 @@ footer ul li:last-child{
   border: 0.1rem dashed rgba(0, 68, 101,1);
 }
 
+
+fieldset {
+  padding: 1rem;
+  border: none;
+}
+
+fieldset label {
+  display: inline-block;
+  padding-right: 0.25rem;
+  margin-bottom: 0.5rem;
+  text-transform: uppercase;
+  letter-spacing: 0.6px;
+  text-align: right;
+  font-weight: 700;
+  font-size: 12px;
+  width: 100px;
+}
+
+fieldset input, fieldset select {
+  padding: 0.25rem;
+  width: 100px;
+}
+
+fieldset input {
+  text-align: center;
+  width: 65px;
+}
+
+#calendar {
+  width: 500px;
+  margin: 2rem auto;
+}
+
+.month .labels, .month .dates {
+  display: grid;
+  grid-template-columns: repeat(7, 1fr);
+  text-align: right;
+  grid-gap: 4px;
+}
+
+.month .dates span {
+  height: 50px;
+  font-size: 16px;
+  letter-spacing: -1px;
+  border: 1px solid #e6e4e4;
+  padding-right: 4px;
+  font-weight: 700;
+}
+
+.month .labels span {
+  font-weight: 300;
+  text-align: center;
+  margin-bottom: 0.5rem;
+  opacity: 0.6;
+}
 /* ======= END CALENDAR CREATE PAGE ======= */

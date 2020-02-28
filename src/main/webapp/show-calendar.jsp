@@ -17,7 +17,7 @@
 <html lang="cs">
 <head>
     <meta charset="utf-8">
-    <title>Mé kalendáře</title>
+    <title>${cal.name} - ${cal.year}</title>
 
     <link href="${contextPath}/resources/css/style.css" rel="stylesheet">
     <link href="${contextPath}/resources/css/simple-lightbox.css" rel="stylesheet">
@@ -41,7 +41,7 @@
                 <a href="${contextPath}/image/">Tvorba kalendáře</a>
             </li>
             <li>
-                <span class="active">Mé kalendáře</span>
+                <a href="${contextPath}/calendar/myCalendars">Mé kalendáře</a>
             </li>
             <security:authorize access="hasRole('ROLE_ADMIN')">
                 <li>
@@ -53,13 +53,12 @@
 </header>
 
 <main>
-    <h2 class="">Mé kalendáře</h2>
-    <div class="section section--calendar-show">
-        <ul th:each="calendar : ${calendars}" class="list list--my-calendars">
-            <c:forEach items="${calendars}" var="calendar">
+    <h2 class="">${cal.name} - ${cal.year}</h2>
+    <div class="section section--calendar-show-one">
+        <ul th:each="image : ${calImage}" class="list list--my-calendars">
+            <c:forEach items="${calImage}" var="image">
                 <li class="list--item">
-                    <img src="${calendar.selImage.get(0)}" alt="" height="200" />
-                    <a href="${contextPath}/calendar/calendar?name=${calendar.name}"><span>${calendar.name} - ${calendar.year}</span></a>
+                    <img src="${image}" alt="" height="200" />
                 </li>
             </c:forEach>
         </ul>
