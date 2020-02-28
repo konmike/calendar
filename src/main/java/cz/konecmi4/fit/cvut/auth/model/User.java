@@ -6,7 +6,7 @@ import java.util.List;
 import java.util.Set;
 
 @Entity
-@Table(name = "user")
+//@Table(name = "user")
 public class User {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -34,7 +34,7 @@ public class User {
     @OneToMany(cascade = CascadeType.ALL)
     private Set<Calendar> calendars;
 
-    private ArrayList checkImage;
+    //private ArrayList<String> checkImage;
 
     public Long getId() {
         return id;
@@ -100,13 +100,13 @@ public class User {
         this.imageList = imageList;
     }
 
-    public ArrayList getCheckImage() {
+    /*public ArrayList getCheckImage() {
         return checkImage;
-    }
+    }*/
 
-    public void setCheckImage(ArrayList checkImage) {
+    /*public void setCheckImage(ArrayList checkImage) {
         this.checkImage = checkImage;
-    }
+    }*/
 
     public Set<Calendar> getCalendars() {
         return calendars;

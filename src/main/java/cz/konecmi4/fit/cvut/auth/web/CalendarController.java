@@ -189,7 +189,7 @@ public class CalendarController {
         tmp.add(c);
         userRepository.save(user);
 
-        return "redirect:/admin/";
+        return "/calendar/myCalendars";
     }
 
     @GetMapping("/myCalendars")

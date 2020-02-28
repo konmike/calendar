@@ -40,7 +40,7 @@
                 <a href="${contextPath}/image/">Tvorba kalendáře</a>
             </li>
             <li>
-                <span class="active">Puv Tvorba kalendáře</span>
+                <a href="${contextPath}/calendar/myCalendars">Mé kalendáře</a>
             </li>
             <security:authorize access="hasRole('ROLE_ADMIN')">
                 <li>

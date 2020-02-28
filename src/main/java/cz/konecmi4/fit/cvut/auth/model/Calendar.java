@@ -6,7 +6,7 @@ import java.util.List;
 import java.util.Set;
 
 @Entity
-@Table(name = "calendar")
+//@Table(name = "calendar")
 public class Calendar {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -16,8 +16,8 @@ public class Calendar {
 
     private int year;
 
-    //private String type;
-
+    @OneToMany(cascade = CascadeType.ALL)
+    private Set<Image> images;
 
     public Calendar() {
     }
@@ -70,4 +70,14 @@ public class Calendar {
     public void setSelImage(ArrayList<String> selImage) {
         this.selImage = selImage;
     }
+
+    public Set<Image> getImages() {
+        return images;
+    }
+
+    public void setImages(Set<Image> images) {
+        this.images = images;
+    }
+
+
 }
