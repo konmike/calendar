@@ -17,10 +17,11 @@
 <html lang="cs">
 <head>
     <meta charset="utf-8">
-    <title>Editace galerie</title>
+    <title>Tvorba kalendáře</title>
 
     <link href="${contextPath}/resources/css/style.css" rel="stylesheet">
     <link href="${contextPath}/resources/css/simple-lightbox.css" rel="stylesheet">
+    <link href="https://use.fontawesome.com/releases/v5.0.8/css/all.css" rel="stylesheet">
 <%--    <link href="${contextPath}/resources/css/form.css" rel="stylesheet">--%>
 
 </head>
@@ -59,12 +60,28 @@
         ev.target.removeAttribute("ondragenter");
         ev.target.removeAttribute("ondrop");
         ev.target.removeAttribute("ondragover");
+        ev.target.removeAttribute("ondragleave");
         ev.target.classList.replace("border-hover","border-no");
+        ev.target.classList.add("wrapper-image-after");
         ev.target.firstElementChild.setAttribute("draggable", "false");
         ev.target.firstElementChild.removeAttribute("ondragstart");
         ev.target.firstElementChild.removeAttribute("width");
         ev.stopPropagation();
         return false;
+    }
+
+    function deleteImage(ev) {
+        ev.target.setAttribute("ondragenter", "return dragEnter(event)");
+        ev.target.setAttribute("ondrop", "return dragDrop(event)");
+        ev.target.setAttribute("ondragover", "return dragOver(event)");
+        ev.target.setAttribute("ondragleave", "return dragLeave(event)");
+
+        ev.target.parentElement.previousElementSibling.previousElementSibling.removeAttribute("checked");
+        ev.target.parentElement.previousElementSibling.previousElementSibling.removeAttribute("value");
+
+        ev.target.classList.replace("border-no","border");
+        ev.target.classList.remove("wrapper-image-after");
+        ev.target.firstElementChild.remove();
     }
 </script>
 <body>
@@ -155,10 +172,11 @@
                     <form:label path="selImage" for="item0" class="label label--item label--item-0">
                         <form:checkbox path="selImage" id="item0" class="input input--checkbox" value=""/>
                         <div class="item item--0 a4-portrait">
-                            <div class="wrapper wrapper-image border"  ondragenter="return dragEnter(event)"
-                             ondrop="return dragDrop(event)"
-                             ondragover="return dragOver(event)"
-                             ondragleave="return dragLeave(event)"></div>
+                            <div onclick="deleteImage(event)" class="wrapper wrapper-image border"
+                                 ondragenter="return dragEnter(event)"
+                                 ondrop="return dragDrop(event)"
+                                 ondragover="return dragOver(event)"
+                                 ondragleave="return dragLeave(event)"></div>
                         </div>
 
                     </form:label>
@@ -166,7 +184,7 @@
                     <form:label path="selImage" for="item1" class="label label--item label--item-1">
                         <form:checkbox path="selImage" id="item1" class="input input--checkbox" value=""/>
                         <div class="month month--1 item a4-portrait">
-                            <div class="wrapper wrapper-image border"
+                            <div onclick="deleteImage(event)" class="wrapper wrapper-image border"
                                 ondragenter="return dragEnter(event)"
                                 ondrop="return dragDrop(event)"
                                 ondragover="return dragOver(event)"
@@ -178,7 +196,7 @@
                     <form:label path="selImage" for="item2" class="label label--item label--item-2">
                         <form:checkbox path="selImage" id="item2" class="input input--checkbox" value=""/>
                         <div class="month month--2 item a4-portrait">
-                            <div class="wrapper wrapper-image border"
+                            <div onclick="deleteImage(event)" class="wrapper wrapper-image border"
                                 ondragenter="return dragEnter(event)"
                                 ondrop="return dragDrop(event)"
                                 ondragover="return dragOver(event)"
@@ -190,7 +208,7 @@
                     <form:label path="selImage" for="item3" class="label label--item label--item-3">
                         <form:checkbox path="selImage" id="item3" class="input input--checkbox" value="" />
                         <div class="month month--3 item a4-portrait">
-                            <div class="wrapper wrapper-image border"
+                            <div onclick="deleteImage(event)" class="wrapper wrapper-image border"
                                 ondragenter="return dragEnter(event)"
                                 ondrop="return dragDrop(event)"
                                 ondragover="return dragOver(event)"
@@ -202,7 +220,7 @@
                     <form:label path="selImage" for="item4" class="label label--item label--item-4">
                         <form:checkbox path="selImage" id="item4" class="input input--checkbox" value="" />
                         <div class="month month--4 item a4-portrait">
-                            <div class="wrapper wrapper-image border"
+                            <div onclick="deleteImage(event)" class="wrapper wrapper-image border"
                                 ondragenter="return dragEnter(event)"
                                 ondrop="return dragDrop(event)"
                                 ondragover="return dragOver(event)"
@@ -214,7 +232,7 @@
                     <form:label path="selImage" for="item5" class="label label--item label--item-5">
                         <form:checkbox path="selImage" id="item5" class="input input--checkbox" value="" />
                         <div class="month month--5 item a4-portrait">
-                            <div class="wrapper wrapper-image border"
+                            <div onclick="deleteImage(event)" class="wrapper wrapper-image border"
                                 ondragenter="return dragEnter(event)"
                                 ondrop="return dragDrop(event)"
                                 ondragover="return dragOver(event)"
@@ -226,7 +244,7 @@
                     <form:label path="selImage" for="item6" class="label label--item label--item-6">
                         <form:checkbox path="selImage" id="item6" class="input input--checkbox" value="" />
                         <div class="month month--6 item a4-portrait">
-                            <div class="wrapper wrapper-image border"
+                            <div onclick="deleteImage(event)" class="wrapper wrapper-image border"
                                  ondragenter="return dragEnter(event)"
                                  ondrop="return dragDrop(event)"
                                  ondragover="return dragOver(event)"
@@ -238,7 +256,7 @@
                     <form:label path="selImage" for="item7" class="label label--item label--item-7">
                         <form:checkbox path="selImage" id="item7" class="input input--checkbox" value="" />
                         <div class="month month--7 item a4-portrait">
-                            <div class="wrapper wrapper-image border"
+                            <div onclick="deleteImage(event)" class="wrapper wrapper-image border"
                                  ondragenter="return dragEnter(event)"
                                  ondrop="return dragDrop(event)"
                                  ondragover="return dragOver(event)"
@@ -250,7 +268,7 @@
                     <form:label path="selImage" for="item8" class="label label--item label--item-8">
                         <form:checkbox path="selImage" id="item8" class="input input--checkbox" value="" />
                         <div class="month month--8 item a4-portrait">
-                            <div class="wrapper wrapper-image border"
+                            <div onclick="deleteImage(event)" class="wrapper wrapper-image border"
                                  ondragenter="return dragEnter(event)"
                                  ondrop="return dragDrop(event)"
                                  ondragover="return dragOver(event)"
@@ -262,7 +280,7 @@
                     <form:label path="selImage" for="item9" class="label label--item label--item-9">
                         <form:checkbox path="selImage" id="item9" class="input input--checkbox" value="" />
                         <div class="month month--9 item a4-portrait">
-                            <div class="wrapper wrapper-image border"  ondragenter="return dragEnter(event)"
+                            <div onclick="deleteImage(event)" class="wrapper wrapper-image border"  ondragenter="return dragEnter(event)"
                              ondrop="return dragDrop(event)"
                              ondragover="return dragOver(event)"
                                  ondragleave="return dragLeave(event)"></div>
@@ -273,7 +291,7 @@
                     <form:label path="selImage" for="item10" class="label label--item label--item-10">
                         <form:checkbox path="selImage" id="item10" class="input input--checkbox" value="" />
                         <div class="month month--10 item a4-portrait">
-                            <div class="wrapper wrapper-image border"
+                            <div onclick="deleteImage(event)" class="wrapper wrapper-image border"
                                 ondragenter="return dragEnter(event)"
                                 ondrop="return dragDrop(event)"
                                 ondragover="return dragOver(event)"
@@ -285,7 +303,7 @@
                     <form:label path="selImage" for="item11" class="label label--item label--item-11">
                         <form:checkbox path="selImage" id="item11" class="input input--checkbox" value="" />
                         <div class="month month--11 item a4-portrait">
-                            <div class="wrapper wrapper-image border"
+                            <div onclick="deleteImage(event)" class="wrapper wrapper-image border"
                                  ondragenter="return dragEnter(event)"
                                  ondrop="return dragDrop(event)"
                                  ondragover="return dragOver(event)"
@@ -297,7 +315,7 @@
                     <form:label path="selImage" for="item12" class="label label--item label--item-12">
                         <form:checkbox path="selImage" id="item12" class="input input--checkbox" value="" />
                         <div class="month month--12 item a4-portrait">
-                            <div class="wrapper wrapper-image border"
+                            <div onclick="deleteImage(event)" class="wrapper wrapper-image border"
                                  ondragenter="return dragEnter(event)"
                                  ondrop="return dragDrop(event)"
                                  ondragover="return dragOver(event)"

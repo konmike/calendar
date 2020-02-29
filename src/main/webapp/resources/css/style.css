@@ -410,12 +410,26 @@ footer ul li:last-child{
   flex-direction: column;
   flex-wrap: nowrap;
   justify-content: center;
+  position: relative;
 }
 .border{
   border: 0.1rem dashed rgba(0, 68, 101,1);
 }
 .border-hover{
   border: 0.1rem solid rgba(0, 68, 101,1);
+  background: rgba(0,0,0,0.1);
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+.border-hover:after{
+  content: "\f055";
+  font-family: "Font Awesome 5 Free", Pacifico, Arial, serif;
+  font-weight: 900;
+  font-size: 5rem;
+  color: black;
 }
 .border-no{
   border: none;
@@ -430,49 +444,75 @@ footer ul li:last-child{
 }
 
 .wrapper-image img{
-  max-height: inherit;
-  max-width: inherit;
-  object-fit: contain;
+    max-height: inherit;
+    max-width: inherit;
+    object-fit: contain;
+}
+
+.wrapper-image:hover img{
+    opacity: 0.4;
+}
+
+.wrapper-image-after:after{
+  font-family: "Font Awesome 5 Free", Pacifico, Arial, serif;
+  font-size: 5rem;
+  font-weight: 900;
+  content: "\f1f8";
+  color: black;
+  display: none;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  position: absolute;
+  z-index: 999;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+}
+.wrapper-image-after:hover:after{
+    display: flex;
+    cursor: pointer;
 }
 
 .a4-landscape{
-  width: 27.680em;
-  height: 19.656em;
+width: 27.680em;
+height: 19.656em;
 }
 .a4-portrait{
-  width: 19.656em;
-  height: 27.680em;
+width: 19.656em;
+height: 27.680em;
 }
 
 fieldset {
-  padding: 1rem;
-  border: none;
+padding: 1rem;
+border: none;
 }
 
 fieldset label {
-  display: inline-block;
-  padding-right: 0.25rem;
-  margin-bottom: 0.5rem;
-  text-transform: uppercase;
-  letter-spacing: 0.6px;
-  text-align: right;
-  font-weight: 700;
-  font-size: 12px;
-  width: 100px;
+display: inline-block;
+padding-right: 0.25rem;
+margin-bottom: 0.5rem;
+text-transform: uppercase;
+letter-spacing: 0.6px;
+text-align: right;
+font-weight: 700;
+font-size: 12px;
+width: 100px;
 }
 
 fieldset input, fieldset select {
-  padding: 0.25rem;
-  width: 100px;
+padding: 0.25rem;
+width: 100px;
 }
 
 fieldset input {
-  text-align: center;
-  width: 65px;
+text-align: center;
+width: 65px;
 }
 
 #calendar {
-  /*width: 500px;*/
+/*width: 500px;*/
   margin: 2rem auto;
   display: flex;
   flex-direction: column;
