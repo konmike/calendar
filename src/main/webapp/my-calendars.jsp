@@ -59,7 +59,7 @@
             <c:forEach items="${calendars}" var="calendar">
                 <li class="list--item">
                     <img src="${calendar.selImage.get(0)}" alt="" height="200" />
-                    <a href="${contextPath}/calendar/calendar?name=${calendar.name}"><span>${calendar.name} - ${calendar.year}</span></a>
+                    <a href="${contextPath}/calendar?name=${calendar.name}"><span>${calendar.name} - ${calendar.year}</span></a>
                 </li>
             </c:forEach>
         </ul>

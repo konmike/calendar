@@ -45,35 +45,57 @@ public class CalendarController {
         this.rootLocation = rootLocation;
     }
 
-    @RequestMapping("/")
-    public String showCalendar(@ModelAttribute("cal") Calendar c, Principal principal) throws Exception
+//    @PostMapping("/")
+//    public String showCalendar(@ModelAttribute("cal") Calendar c, Principal principal) throws Exception
+//    {
+//        if(c.getSelImage().isEmpty()){
+//            System.out.println("Je to prazdny, fakt, nekecam...");
+//        }else {
+//            for (Object o : c.getSelImage()) {
+//                System.out.println(o);
+//            }
+//        }
+//
+//        /*System.out.println("Kalendaris");
+//        System.out.println(c.getName());
+//        System.out.println(c.getYear());
+//        System.out.println(c.getSelImage());
+//        System.out.println("==== END Kalendaris ====");*/
+//        calendarRepository.save(c);
+//
+//        User user = userRepository.findByUsername(principal.getName()).orElseThrow(() -> new Exception());
+//
+//        Set<Calendar> calSet = user.getCalendars();
+//        calSet.add(c);
+//        user.setCalendars(calSet);
+//
+//        userRepository.save(user);
+//
+//        return "image/showCheck";
+//    }
+
+    @GetMapping
+    public String getCalendar(@RequestParam("name") String name, Model model, Principal principal) throws Exception
     {
-        if(c.getSelImage().isEmpty()){
-            System.out.println("Je to prazdny, fakt, nekecam...");
-        }else {
-            for (Object o : c.getSelImage()) {
-                System.out.println(o);
-            }
-        }
+        Calendar calendar = calendarRepository.findByName(name);
 
-        /*System.out.println("Kalendaris");
-        System.out.println(c.getName());
-        System.out.println(c.getYear());
-        System.out.println(c.getSelImage());
-        System.out.println("==== END Kalendaris ====");*/
-        calendarRepository.save(c);
+        //User user = userRepository.findByUsername(principal.getName()).orElseThrow(() -> new Exception());
 
-        User user = userRepository.findByUsername(principal.getName()).orElseThrow(() -> new Exception());
+        //Set<Calendar> calSet = user.getCalendars();
 
-        Set<Calendar> calSet = user.getCalendars();
-        calSet.add(c);
-        user.setCalendars(calSet);
+        System.out.println(calendar.getImages());
 
-        userRepository.save(user);
+        ArrayList<String> tmp = calendar.getImages().stream()
+                .map(image -> this.rootLocation.resolve(image.getName()))
+                .map(path -> MvcUriComponentsBuilder
+                        .fromMethodName(CalendarController.class, "serveFile", path.getFileName().toString()).build()
+                        .toString()).collect(Collectors.toCollection((Supplier<ArrayList<String>>) ArrayList::new));
 
-        return "image/showCheck";
+        model.addAttribute("cal",calendar);
+        model.addAttribute("calImage",tmp);
+
+        return "/show-calendar";
     }
-
 
     @PostMapping("/create")
     public String createCalendar(@ModelAttribute("cal") Calendar c, Principal principal) throws Exception {
@@ -195,7 +217,7 @@ public class CalendarController {
         tmp.add(c);
         userRepository.save(user);
 
-        return "/my-calendars";
+        return "redirect:/calendar?name=" + c.getName();
     }
 
     @GetMapping("/myCalendars")
@@ -218,29 +240,6 @@ public class CalendarController {
         model.addAttribute("calendars",calSet);
 
         return "/my-calendars";
-    }
-
-    @GetMapping("/calendar")
-    public String getCalendar(@RequestParam("name") String name, Model model, Principal principal) throws Exception
-    {
-        Calendar calendar = calendarRepository.findByName(name);
-
-        //User user = userRepository.findByUsername(principal.getName()).orElseThrow(() -> new Exception());
-
-        //Set<Calendar> calSet = user.getCalendars();
-
-        System.out.println(calendar.getImages());
-
-        ArrayList<String> tmp = calendar.getImages().stream()
-                .map(image -> this.rootLocation.resolve(image.getName()))
-                .map(path -> MvcUriComponentsBuilder
-                        .fromMethodName(CalendarController.class, "serveFile", path.getFileName().toString()).build()
-                        .toString()).collect(Collectors.toCollection((Supplier<ArrayList<String>>) ArrayList::new));
-
-        model.addAttribute("cal",calendar);
-        model.addAttribute("calImage",tmp);
-
-        return "/show-calendar";
     }
 
     @GetMapping("/files/{filename:.+}")

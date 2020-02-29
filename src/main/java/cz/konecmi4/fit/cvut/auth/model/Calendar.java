@@ -11,10 +11,11 @@ public class Calendar {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-
     private String name;
-
     private int year;
+    private int offset;
+    private String lang;
+
 
     @OneToMany(cascade = CascadeType.ALL)
     private Set<Image> images;
@@ -54,7 +55,23 @@ public class Calendar {
         this.year = year;
     }
 
-//    public String getType() {
+    public int getOffset() {
+        return offset;
+    }
+
+    public void setOffset(int offset) {
+        this.offset = offset;
+    }
+
+    public String getLang() {
+        return lang;
+    }
+
+    public void setLang(String lang) {
+        this.lang = lang;
+    }
+
+    //    public String getType() {
 //        return type;
 //    }
 

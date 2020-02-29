@@ -318,9 +318,10 @@ footer ul li:last-child{
 .list--gallery img{
   grid-column-start: 1;
   grid-column-end: 3;
-  height: 200px;
+  height: auto;
   justify-self: center;
   margin: 0.5rem 0;
+  cursor: grab;
 }
 .list--gallery a,.form--delete-image .input--submit{
   font-family: Calibri, Arial, serif;
@@ -360,18 +361,88 @@ footer ul li:last-child{
 .form--calendar-create .input--checkbox{
   display: none;
 }
-.item{
-  width: max-content;
-  min-width: 200px;
-  min-height: 100px;
-  display: flex;
-  flex-direction: column;
-  margin-bottom: 1rem;
-  padding: 1rem;
-  justify-content: flex-end;
-  border: 0.1rem dashed rgba(0, 68, 101,1);
+
+.label--item-1,
+.label--item-2,
+.label--item-3,
+.label--item-4,
+.label--item-5,
+.label--item-6,
+.label--item-7,
+.label--item-8,
+.label--item-9,
+.label--item-10,
+.label--item-11,
+.label--item-12{
+  display: none;
 }
 
+.pagination{
+  display: block;
+}
+
+.item{
+  display: grid;
+  grid-template-rows: 1fr 1fr 1fr;
+  align-items: center;
+  margin-bottom: 1rem;
+  padding: 1rem;
+  /*border: 0.1rem dashed rgba(0, 68, 101,1);*/
+  box-shadow: 0 0 0 1px rgba(0, 0, 0, 0.1), 0 5px 5px 0 rgba(0, 0, 0, 0.1);
+}
+
+.item--0 .wrapper-image{
+  min-height: 27.680em;
+  max-height: 27.680em;
+  margin: 0;
+}
+
+.wrapper-image{
+  height: initial;
+  min-height: 13.840em;
+  max-height: 13.840em;
+  /*width: inherit;*/
+  min-width: 19.656em;
+  max-width: 19.656em;
+  grid-row: 1/4;
+  margin: 1rem 0;
+  display: flex;
+  flex-direction: column;
+  flex-wrap: nowrap;
+  justify-content: center;
+}
+.border{
+  border: 0.1rem dashed rgba(0, 68, 101,1);
+}
+.border-hover{
+  border: 0.1rem solid rgba(0, 68, 101,1);
+}
+.border-no{
+  border: none;
+}
+.item--without-image{
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+}
+.item--with-image{
+
+}
+
+.wrapper-image img{
+  max-height: inherit;
+  max-width: inherit;
+  object-fit: contain;
+}
+
+.a4-landscape{
+  width: 27.680em;
+  height: 19.656em;
+}
+.a4-portrait{
+  width: 19.656em;
+  height: 27.680em;
+}
 
 fieldset {
   padding: 1rem;
@@ -401,7 +472,7 @@ fieldset input {
 }
 
 #calendar {
-  width: 500px;
+  /*width: 500px;*/
   margin: 2rem auto;
   display: flex;
   flex-direction: column;
@@ -409,22 +480,31 @@ fieldset input {
 }
 
 .month .labels{
-  margin-top: 5rem;
+  /*margin-top: 5rem;*/
 }
 .month .labels, .month .dates {
   display: grid;
   grid-template-columns: repeat(7, 1fr);
-  text-align: right;
-  grid-gap: 4px;
+  grid-template-rows: 1fr 1fr;
+  align-items: end;
+  text-align: center;
+  /*grid-gap: 4px;*/
+}
+
+.month .labels h3{
+  grid-column: 1/8;
+  margin: 0 0 0.5rem 0;
+  text-align: center;
+  text-transform: uppercase;
 }
 
 .month .dates span {
-  height: 50px;
+  /*height: 50px;
   font-size: 16px;
-  letter-spacing: -1px;
   border: 1px solid #e6e4e4;
   padding-right: 4px;
-  font-weight: 700;
+  letter-spacing: -1px;*/
+  font-weight: 900;
 }
 
 .month .labels span {

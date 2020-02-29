@@ -21,6 +21,10 @@
         readURL(this);
     });
 
-
+    $(".pagination a").on("click", function(e) {
+        e.preventDefault();
+        $(".label--item").eq($(this).index()).fadeIn(150).siblings(".label--item").fadeOut(250);
+        $(this).addClass("active").siblings("a").removeClass("active");
+    })
 
 })( jQuery );
