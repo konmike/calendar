@@ -21,9 +21,10 @@
 
     <link href="${contextPath}/resources/css/style.css" rel="stylesheet">
     <link href="${contextPath}/resources/css/simple-lightbox.css" rel="stylesheet">
+    <link href="https://use.fontawesome.com/releases/v5.0.8/css/all.css" rel="stylesheet">
     <%--    <link href="${contextPath}/resources/css/form.css" rel="stylesheet">--%>
 </head>
-<body>
+<body data-custom-year="${cal.year}" data-custom-offset="${cal.offset}" data-custom-lang="${cal.lang}">
 <header>
     <nav>
         <ul>
@@ -55,13 +56,202 @@
 <main>
     <h2 class="">${cal.name} - ${cal.year}</h2>
     <div class="section section--calendar-show-one">
-        <ul th:each="image : ${calImage}" class="list list--my-calendars">
-            <c:forEach items="${calImage}" var="image">
-                <li class="list--item">
-                    <img src="${image}" alt="" height="200" />
-                </li>
-            </c:forEach>
-        </ul>
+        <div id="calendar">
+            <div class="item item--0 a4-portrait">
+                <c:choose>
+                    <c:when test="${calImage.get(0).contains('nothing')}">
+                        <div class="wrapper wrapper-image border-no">
+                            <i class="fas fa-file-image"></i>
+                    </c:when>
+                    <c:otherwise>
+                        <div class="wrapper wrapper-image border-no">
+                            <img src="${calImage.get(0)}" alt="Front Page" />
+                    </c:otherwise>
+                </c:choose>
+                </div>
+            </div>
+
+            <div class="month month--1 item a4-portrait">
+                <c:choose>
+                    <c:when test="${calImage.get(1).contains('nothing')}">
+                        <div class="wrapper wrapper-image border-no">
+                            <i class="fas fa-file-image"></i>
+                    </c:when>
+                    <c:otherwise>
+                        <div class="wrapper wrapper-image border-no">
+                            <img src="${calImage.get(1)}" alt="January" />
+                    </c:otherwise>
+                </c:choose>
+                </div>
+                <div class="labels"></div>
+                <div class="dates"></div>
+            </div>
+            <div class="month month--2 item a4-portrait">
+                <c:choose>
+                    <c:when test="${calImage.get(2).contains('nothing')}">
+                        <div class="wrapper wrapper-image border-no">
+                            <i class="fas fa-file-image"></i>
+                    </c:when>
+                    <c:otherwise>
+                        <div class="wrapper wrapper-image border-no">
+                            <img src="${calImage.get(2)}" alt="February" />
+                    </c:otherwise>
+                </c:choose>
+                </div>
+                <div class="labels"></div>
+                <div class="dates"></div>
+            </div>
+            <div class="month month--3 item a4-portrait">
+                <c:choose>
+                    <c:when test="${calImage.get(3).contains('nothing')}">
+                        <div class="wrapper wrapper-image border-no">
+                            <i class="fas fa-file-image"></i>
+                    </c:when>
+                    <c:otherwise>
+                        <div class="wrapper wrapper-image border-no">
+                            <img src="${calImage.get(3)}" alt="March" />
+                    </c:otherwise>
+                </c:choose>
+                </div>
+                <div class="labels"></div>
+                <div class="dates"></div>
+            </div>
+            <div class="month month--4 item a4-portrait">
+                <c:choose>
+                    <c:when test="${calImage.get(4).contains('nothing')}">
+                        <div class="wrapper wrapper-image border-no">
+                            <i class="fas fa-file-image"></i>
+                    </c:when>
+                    <c:otherwise>
+                        <div class="wrapper wrapper-image border-no">
+                            <img src="${calImage.get(4)}" alt="April" />
+                    </c:otherwise>
+                </c:choose>
+                </div>
+                <div class="labels"></div>
+                <div class="dates"></div>
+            </div>
+            <div class="month month--5 item a4-portrait">
+                <c:choose>
+                    <c:when test="${calImage.get(5).contains('nothing')}">
+                        <div class="wrapper wrapper-image border-no">
+                        <i class="fas fa-file-image"></i>
+                    </c:when>
+                    <c:otherwise>
+                        <div class="wrapper wrapper-image border-no">
+                        <img src="${calImage.get(5)}" alt="May" />
+                    </c:otherwise>
+                </c:choose>
+                </div>
+                <div class="labels"></div>
+                <div class="dates"></div>
+            </div>
+            <div class="month month--6 item a4-portrait">
+                <c:choose>
+                    <c:when test="${calImage.get(6).contains('nothing')}">
+                        <div class="wrapper wrapper-image border-no">
+                            <i class="fas fa-file-image"></i>
+                    </c:when>
+                    <c:otherwise>
+                        <div class="wrapper wrapper-image border-no">
+                            <img src="${calImage.get(6)}" alt="June" />
+                    </c:otherwise>
+                </c:choose>
+                </div>
+                <div class="labels"></div>
+                <div class="dates"></div>
+            </div>
+            <div class="month month--7 item a4-portrait">
+                <c:choose>
+                    <c:when test="${calImage.get(7).contains('nothing')}">
+                    <div class="wrapper wrapper-image border-no">
+                        <i class="fas fa-file-image"></i>
+                    </c:when>
+                    <c:otherwise>
+                        <div class="wrapper wrapper-image border-no">
+                            <img src="${calImage.get(7)}" alt="July" />
+                    </c:otherwise>
+                </c:choose>
+                </div>
+                <div class="labels"></div>
+                <div class="dates"></div>
+            </div>
+            <div class="month month--8 item a4-portrait">
+                <c:choose>
+                    <c:when test="${calImage.get(8).contains('nothing')}">
+                    <div class="wrapper wrapper-image border-no">
+                        <i class="fas fa-file-image"></i>
+                    </c:when>
+                    <c:otherwise>
+                        <div class="wrapper wrapper-image border-no">
+                            <img src="${calImage.get(8)}" alt="August" />
+                    </c:otherwise>
+                </c:choose>
+                </div>
+                <div class="labels"></div>
+                <div class="dates"></div>
+            </div>
+            <div class="month month--9 item a4-portrait">
+                <c:choose>
+                    <c:when test="${calImage.get(9).contains('nothing')}">
+                    <div class="wrapper wrapper-image border-no">
+                        <i class="fas fa-file-image"></i>
+                    </c:when>
+                    <c:otherwise>
+                        <div class="wrapper wrapper-image border-no">
+                            <img src="${calImage.get(9)}" alt="September" />
+                    </c:otherwise>
+                </c:choose>
+                </div>
+                <div class="labels"></div>
+                <div class="dates"></div>
+            </div>
+            <div class="month month--10 item a4-portrait">
+                <c:choose>
+                    <c:when test="${calImage.get(10).contains('nothing')}">
+                    <div class="wrapper wrapper-image border-no">
+                            <i class="fas fa-file-image"></i>
+                    </c:when>
+                    <c:otherwise>
+                        <div class="wrapper wrapper-image border-no">
+                            <img src="${calImage.get(10)}" alt="October" />
+                    </c:otherwise>
+                </c:choose>
+                </div>
+                <div class="labels"></div>
+                <div class="dates"></div>
+            </div>
+            <div class="month month--11 item a4-portrait">
+                <c:choose>
+                    <c:when test="${calImage.get(11).contains('nothing')}">
+                        <div class="wrapper wrapper-image border-no">
+                            <i class="fas fa-file-image"></i>
+                    </c:when>
+                    <c:otherwise>
+                        <div class="wrapper wrapper-image border-no">
+                            <img src="${calImage.get(11)}" alt="November" />
+                    </c:otherwise>
+                </c:choose>
+                </div>
+                <div class="labels"></div>
+                <div class="dates"></div>
+            </div>
+            <div class="month month--12 item a4-portrait">
+                <c:choose>
+                    <c:when test="${calImage.get(12).contains('nothing')}">
+                        <div class="wrapper wrapper-image border-no">
+                            <i class="fas fa-file-image"></i>
+                    </c:when>
+                    <c:otherwise>
+                        <div class="wrapper wrapper-image border-no">
+                            <img src="${calImage.get(12)}" alt="December" />
+                    </c:otherwise>
+                </c:choose>
+                </div>
+                <div class="labels"></div>
+                <div class="dates"></div>
+            </div>
+        </div>
     </div>
 </main>
 
@@ -86,6 +276,9 @@
 </footer>
 
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+<script src="https://unpkg.com/calendarize"></script>
+<script src="https://unpkg.com/sublet"></script>
+<script src="${contextPath}/resources/js/calendar.js"></script>
 <script src="${contextPath}/resources/js/script.js"></script>
 <script src="${contextPath}/resources/js/simple-lightbox.jquery.js"></script>
 

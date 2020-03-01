@@ -55,7 +55,7 @@
         //console.log()
         ev.target.prepend(document.getElementById(nodeCopy.id));
         var src = document.getElementById(nodeCopy.id).getAttribute("src");
-        ev.target.parentElement.previousElementSibling.previousElementSibling.setAttribute("checked", "checked");
+
         ev.target.parentElement.previousElementSibling.previousElementSibling.setAttribute("value", src);
         ev.target.removeAttribute("ondragenter");
         ev.target.removeAttribute("ondrop");
@@ -76,15 +76,14 @@
         ev.target.setAttribute("ondragover", "return dragOver(event)");
         ev.target.setAttribute("ondragleave", "return dragLeave(event)");
 
-        ev.target.parentElement.previousElementSibling.previousElementSibling.removeAttribute("checked");
-        ev.target.parentElement.previousElementSibling.previousElementSibling.removeAttribute("value");
+        ev.target.parentElement.previousElementSibling.previousElementSibling.setAttribute("value", "null");
 
         ev.target.classList.replace("border-no","border");
         ev.target.classList.remove("wrapper-image-after");
         ev.target.firstElementChild.remove();
     }
 </script>
-<body>
+<body data-custom-year="${cal.year}" data-custom-offset="${cal.offset}" data-custom-lang="${cal.lang}">
 <header>
     <nav>
         <ul>
@@ -152,25 +151,15 @@
         </div>
         <div class="sidebox sidebox--calendar-preview">
             <form:form method="post" action="/calendar/create" modelAttribute="cal" class="form--calendar-create">
+
                 <div id="calendar">
-                    <div class="pagination pagination-control">
-                        <a class="link title active" href="#">Titulní strana</a>
-                        <a class="link january" href="#">Leden</a>
-                        <a class="link february" href="#">Únor</a>
-                        <a class="link march" href="#">Březen</a>
-                        <a class="link april" href="#">Duben</a>
-                        <a class="link may" href="#">Květen</a>
-                        <a class="link june" href="#">Červen</a>
-                        <a class="link july" href="#">Červenec</a>
-                        <a class="link august" href="#">Srpen</a>
-                        <a class="link september" href="#">Září</a>
-                        <a class="link october" href="#">Říjen</a>
-                        <a class="link november" href="#">Listopad</a>
-                        <a class="link december" href="#">Prosinec</a>
+                    <div class="pagination pagination--control">
+                        <span id="prev">Předchozí</span>
+                        <span id="next">Další</span>
                     </div>
 
                     <form:label path="selImage" for="item0" class="label label--item label--item-0">
-                        <form:checkbox path="selImage" id="item0" class="input input--checkbox" value=""/>
+                        <form:checkbox path="selImage" id="item0" class="input input--checkbox" value="null" checked="checked"/>
                         <div class="item item--0 a4-portrait">
                             <div onclick="deleteImage(event)" class="wrapper wrapper-image border"
                                  ondragenter="return dragEnter(event)"
@@ -178,11 +167,10 @@
                                  ondragover="return dragOver(event)"
                                  ondragleave="return dragLeave(event)"></div>
                         </div>
-
                     </form:label>
 
                     <form:label path="selImage" for="item1" class="label label--item label--item-1">
-                        <form:checkbox path="selImage" id="item1" class="input input--checkbox" value=""/>
+                        <form:checkbox path="selImage" id="item1" class="input input--checkbox" value="null" checked="checked"/>
                         <div class="month month--1 item a4-portrait">
                             <div onclick="deleteImage(event)" class="wrapper wrapper-image border"
                                 ondragenter="return dragEnter(event)"
@@ -194,7 +182,7 @@
                         </div>
                     </form:label>
                     <form:label path="selImage" for="item2" class="label label--item label--item-2">
-                        <form:checkbox path="selImage" id="item2" class="input input--checkbox" value=""/>
+                        <form:checkbox path="selImage" id="item2" class="input input--checkbox" value="null" checked="checked"/>
                         <div class="month month--2 item a4-portrait">
                             <div onclick="deleteImage(event)" class="wrapper wrapper-image border"
                                 ondragenter="return dragEnter(event)"
@@ -206,7 +194,7 @@
                         </div>
                     </form:label>
                     <form:label path="selImage" for="item3" class="label label--item label--item-3">
-                        <form:checkbox path="selImage" id="item3" class="input input--checkbox" value="" />
+                        <form:checkbox path="selImage" id="item3" class="input input--checkbox" value="null" checked="checked" />
                         <div class="month month--3 item a4-portrait">
                             <div onclick="deleteImage(event)" class="wrapper wrapper-image border"
                                 ondragenter="return dragEnter(event)"
@@ -218,7 +206,7 @@
                         </div>
                     </form:label>
                     <form:label path="selImage" for="item4" class="label label--item label--item-4">
-                        <form:checkbox path="selImage" id="item4" class="input input--checkbox" value="" />
+                        <form:checkbox path="selImage" id="item4" class="input input--checkbox" value="null" checked="checked" />
                         <div class="month month--4 item a4-portrait">
                             <div onclick="deleteImage(event)" class="wrapper wrapper-image border"
                                 ondragenter="return dragEnter(event)"
@@ -230,7 +218,7 @@
                         </div>
                     </form:label>
                     <form:label path="selImage" for="item5" class="label label--item label--item-5">
-                        <form:checkbox path="selImage" id="item5" class="input input--checkbox" value="" />
+                        <form:checkbox path="selImage" id="item5" class="input input--checkbox" value="null" checked="checked" />
                         <div class="month month--5 item a4-portrait">
                             <div onclick="deleteImage(event)" class="wrapper wrapper-image border"
                                 ondragenter="return dragEnter(event)"
@@ -242,7 +230,7 @@
                         </div>
                     </form:label>
                     <form:label path="selImage" for="item6" class="label label--item label--item-6">
-                        <form:checkbox path="selImage" id="item6" class="input input--checkbox" value="" />
+                        <form:checkbox path="selImage" id="item6" class="input input--checkbox" value="null" checked="checked" />
                         <div class="month month--6 item a4-portrait">
                             <div onclick="deleteImage(event)" class="wrapper wrapper-image border"
                                  ondragenter="return dragEnter(event)"
@@ -254,7 +242,7 @@
                         </div>
                     </form:label>
                     <form:label path="selImage" for="item7" class="label label--item label--item-7">
-                        <form:checkbox path="selImage" id="item7" class="input input--checkbox" value="" />
+                        <form:checkbox path="selImage" id="item7" class="input input--checkbox" value="null" checked="checked" />
                         <div class="month month--7 item a4-portrait">
                             <div onclick="deleteImage(event)" class="wrapper wrapper-image border"
                                  ondragenter="return dragEnter(event)"
@@ -266,7 +254,7 @@
                         </div>
                     </form:label>
                     <form:label path="selImage" for="item8" class="label label--item label--item-8">
-                        <form:checkbox path="selImage" id="item8" class="input input--checkbox" value="" />
+                        <form:checkbox path="selImage" id="item8" class="input input--checkbox" value="null" checked="checked" />
                         <div class="month month--8 item a4-portrait">
                             <div onclick="deleteImage(event)" class="wrapper wrapper-image border"
                                  ondragenter="return dragEnter(event)"
@@ -278,7 +266,7 @@
                         </div>
                     </form:label>
                     <form:label path="selImage" for="item9" class="label label--item label--item-9">
-                        <form:checkbox path="selImage" id="item9" class="input input--checkbox" value="" />
+                        <form:checkbox path="selImage" id="item9" class="input input--checkbox" value="null" checked="checked" />
                         <div class="month month--9 item a4-portrait">
                             <div onclick="deleteImage(event)" class="wrapper wrapper-image border"  ondragenter="return dragEnter(event)"
                              ondrop="return dragDrop(event)"
@@ -289,7 +277,7 @@
                         </div>
                     </form:label>
                     <form:label path="selImage" for="item10" class="label label--item label--item-10">
-                        <form:checkbox path="selImage" id="item10" class="input input--checkbox" value="" />
+                        <form:checkbox path="selImage" id="item10" class="input input--checkbox" value="null" checked="checked" />
                         <div class="month month--10 item a4-portrait">
                             <div onclick="deleteImage(event)" class="wrapper wrapper-image border"
                                 ondragenter="return dragEnter(event)"
@@ -301,7 +289,7 @@
                         </div>
                     </form:label>
                     <form:label path="selImage" for="item11" class="label label--item label--item-11">
-                        <form:checkbox path="selImage" id="item11" class="input input--checkbox" value="" />
+                        <form:checkbox path="selImage" id="item11" class="input input--checkbox" value="null" checked="checked" />
                         <div class="month month--11 item a4-portrait">
                             <div onclick="deleteImage(event)" class="wrapper wrapper-image border"
                                  ondragenter="return dragEnter(event)"
@@ -313,7 +301,7 @@
                         </div>
                     </form:label>
                     <form:label path="selImage" for="item12" class="label label--item label--item-12">
-                        <form:checkbox path="selImage" id="item12" class="input input--checkbox" value="" />
+                        <form:checkbox path="selImage" id="item12" class="input input--checkbox" value="null" checked="checked" />
                         <div class="month month--12 item a4-portrait">
                             <div onclick="deleteImage(event)" class="wrapper wrapper-image border"
                                  ondragenter="return dragEnter(event)"
@@ -337,17 +325,33 @@
 
 
                     <form:label path="lang" for="lang">Jazyk:
-                        <form:select path="lang" id="lang">
-                            <option value="cs" selected>Čeština</option>
-                            <option value="en">English</option>
+                        <form:select path="lang" id="lang" class="${cal.lang}">
+                            <c:choose>
+                                <c:when test="${empty cal.lang}">
+                                    <option value="cs" selected>Čeština</option>
+                                    <option value="en">English</option>
+                                </c:when>
+                                <c:otherwise>
+                                    <option value="cs">Čeština</option>
+                                    <option value="en" selected>English</option>
+                                </c:otherwise>
+                            </c:choose>
                         </form:select>
                     </form:label>
 
 
                     <form:label path="offset" for="offset">Týden začíná:
                         <form:select path="offset" id="offset">
-                            <option value="1" selected>Pondělí</option>
-                            <option value="0">Neděle</option>
+                        <c:choose>
+                            <c:when test="${cal.offset == '0'}">
+                                <option value="1" selected>Pondělí</option>
+                                <option value="0">Neděle</option>
+                            </c:when>
+                            <c:otherwise>
+                                <option value="1">Pondělí</option>
+                                <option value="0" selected>Neděle</option>
+                            </c:otherwise>
+                        </c:choose>
                         </form:select>
                     </form:label>
 

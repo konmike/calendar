@@ -21,10 +21,25 @@
         readURL(this);
     });
 
-    $(".pagination a").on("click", function(e) {
+    /*$(".pagination a").on("click", function(e) {
         e.preventDefault();
         $(".label--item").eq($(this).index()).fadeIn(150).siblings(".label--item").fadeOut(250);
         $(this).addClass("active").siblings("a").removeClass("active");
-    })
+    });*/
+
+    var labels = $('#calendar .label--item');
+    var now = 0; // currently shown div
+    labels.hide().first().show();
+    $("#next").click(function (e) {
+        labels.eq(now).hide();
+        now = (now + 1 < labels.length) ? now + 1 : 0;
+        labels.eq(now).show(); // show next
+    });
+    $("#prev").click(function (e) {
+        labels.eq(now).hide();
+        now = (now > 0) ? now - 1 : labels.length - 1;
+        labels.eq(now).show(); // or .css('display','block');
+        //console.log(divs.length, now);
+    });
 
 })( jQuery );

@@ -74,7 +74,7 @@ public class CalendarController {
 //        return "image/showCheck";
 //    }
 
-    @GetMapping
+    @GetMapping()
     public String getCalendar(@RequestParam("name") String name, Model model, Principal principal) throws Exception
     {
         Calendar calendar = calendarRepository.findByName(name);
@@ -83,13 +83,20 @@ public class CalendarController {
 
         //Set<Calendar> calSet = user.getCalendars();
 
-        System.out.println(calendar.getImages());
+        //System.out.println("V show funkci:");
+        //System.out.println(calendar.getImages());
+
+        //List<Image> sort = calendar.getImages();
 
         ArrayList<String> tmp = calendar.getImages().stream()
                 .map(image -> this.rootLocation.resolve(image.getName()))
                 .map(path -> MvcUriComponentsBuilder
                         .fromMethodName(CalendarController.class, "serveFile", path.getFileName().toString()).build()
-                        .toString()).collect(Collectors.toCollection((Supplier<ArrayList<String>>) ArrayList::new));
+                        .toString()).collect(Collectors.toCollection(ArrayList::new));
+//(Supplier<ArrayList<String>>)
+
+        //System.out.println("V show funkci 2:");
+        //System.out.println(tmp);
 
         model.addAttribute("cal",calendar);
         model.addAttribute("calImage",tmp);
@@ -101,19 +108,32 @@ public class CalendarController {
     public String createCalendar(@ModelAttribute("cal") Calendar c, Principal principal) throws Exception {
         ArrayList<String> arrayList = new ArrayList<>();
         String imagePath = "";
-        Set<Image> images = new HashSet<>();
-        System.out.println(images);
+        LinkedHashSet<Image> images = new LinkedHashSet<>();
 
         if(c.getSelImage().isEmpty()){
             System.out.println("Je to prazdny, fakt, nekecam...");
         }else {
-            if(c.getSelImage().get(1).contains("data")) {
-                for (Object o : c.getSelImage()) {
 
-                    //System.out.println(o);
+            for (Object o : c.getSelImage()) {
 
-                    String tmp = o.toString();
-                    //System.out.println("tmp:" + tmp);
+                System.out.println(o);
+
+                String tmp = o.toString();
+
+
+
+                if (tmp.equals("null")) {
+                    System.out.println("prazdny image");
+                    //String uuid = UUID.randomUUID().toString();
+                    String extension = "nothing";
+                    imagePath = this.rootLocation.resolve(extension).toString();
+                    arrayList.add(imagePath);
+                    images.add(new Image(imagePath));
+
+
+                    continue;
+                }
+                //System.out.println("tmp:" + tmp);
 
                 /*String[] strings = tmp.split(",");
                 String two = strings[1];
@@ -123,53 +143,17 @@ public class CalendarController {
                 }
                 arrayList.add(strings[1]);*/
 
-                    String uuid = UUID.randomUUID().toString();
-                    System.out.println("uuid:" + uuid);
-                    String[] strings = tmp.split(",");
-                    System.out.println("Velikost parsovani: " + strings.length);
+                String uuid = UUID.randomUUID().toString();
+                System.out.println("uuid:" + uuid);
+                String[] strings = tmp.split(",");
+                System.out.println("Velikost parsovani: " + strings.length);
 //                String one = strings[0];
 //                System.out.println("one:" + one);
 //                String two = strings[1];
 //                System.out.println("two:" + two);
-                    String extension;
-//TODO funkce na priponu
-                    switch (strings[0]) {//check image's extension
-                        case "data:image/jpeg;base64":
-                            extension = "jpeg";
-                            break;
-                        case "data:image/png;base64":
-                            extension = "png";
-                            break;
-                        default://should write cases for more images types
-                            extension = "jpg";
-                            break;
-                    }
-                    System.out.println("extension:" + extension);
-
-                    imagePath = this.rootLocation.resolve(uuid + "." + extension).toString();
-                    System.out.println("imagePath:" + imagePath);
-
-//                    System.out.println("String parse:" + strings[1]);
-
-                    byte[] data = Base64.getDecoder().decode(strings[1]);
-
-                    System.out.println("Konvertovani dat: success");
-
-                    InputStream inputStream = new ByteArrayInputStream(data);
-                    System.out.println("Inputstream: success");
-
-                    arrayList.add(imagePath);
-//                    Image image = new Image(imagePath);
-//                    imageRepository.save(image);
-                    images.add(new Image(imagePath));
-                    Files.copy(inputStream, this.rootLocation.resolve(imagePath));
-
-                }
-            }else{
-                String uuid = UUID.randomUUID().toString();
                 String extension;
-//TODO presunout do funkce
-                switch (c.getSelImage().get(0)) {//check image's extension
+//TODO funkce na priponu
+                switch (strings[0]) {//check image's extension
                     case "data:image/jpeg;base64":
                         extension = "jpeg";
                         break;
@@ -185,7 +169,9 @@ public class CalendarController {
                 imagePath = this.rootLocation.resolve(uuid + "." + extension).toString();
                 System.out.println("imagePath:" + imagePath);
 
-                byte[] data = Base64.getDecoder().decode(c.getSelImage().get(1));
+//                    System.out.println("String parse:" + strings[1]);
+
+                byte[] data = Base64.getDecoder().decode(strings[1]);
 
                 System.out.println("Konvertovani dat: success");
 
@@ -193,11 +179,117 @@ public class CalendarController {
                 System.out.println("Inputstream: success");
 
                 arrayList.add(imagePath);
-//                Image image = new Image(imagePath);
-//                imageRepository.save(image);
+//                    Image image = new Image(imagePath);
+//                    imageRepository.save(image);
                 images.add(new Image(imagePath));
                 Files.copy(inputStream, this.rootLocation.resolve(imagePath));
+
             }
+
+
+
+
+
+//                if(c.getSelImage().get(1).contains("data") || c.getSelImage().get(1).contains("null")) {
+//                for (Object o : c.getSelImage()) {
+//
+//                    //System.out.println(o);
+//
+//                    String tmp = o.toString();
+//
+//                    if(tmp.equals("null")){
+//                        //String uuid = UUID.randomUUID().toString();
+//                        String extension = "nothing";
+//                        imagePath = this.rootLocation.resolve(extension).toString();
+//                        arrayList.add(imagePath);
+//                        images.add(new Image(imagePath));
+//                        continue;
+//                    }
+//                    //System.out.println("tmp:" + tmp);
+//
+//                /*String[] strings = tmp.split(",");
+//                String two = strings[1];
+//                System.out.println("two:" + two);
+//                for (String string : strings) {
+//                    System.out.print(string);
+//                }
+//                arrayList.add(strings[1]);*/
+//
+//                    String uuid = UUID.randomUUID().toString();
+//                    System.out.println("uuid:" + uuid);
+//                    String[] strings = tmp.split(",");
+//                    System.out.println("Velikost parsovani: " + strings.length);
+////                String one = strings[0];
+////                System.out.println("one:" + one);
+////                String two = strings[1];
+////                System.out.println("two:" + two);
+//                    String extension;
+////TODO funkce na priponu
+//                    switch (strings[0]) {//check image's extension
+//                        case "data:image/jpeg;base64":
+//                            extension = "jpeg";
+//                            break;
+//                        case "data:image/png;base64":
+//                            extension = "png";
+//                            break;
+//                        default://should write cases for more images types
+//                            extension = "jpg";
+//                            break;
+//                    }
+//                    System.out.println("extension:" + extension);
+//
+//                    imagePath = this.rootLocation.resolve(uuid + "." + extension).toString();
+//                    System.out.println("imagePath:" + imagePath);
+//
+////                    System.out.println("String parse:" + strings[1]);
+//
+//                    byte[] data = Base64.getDecoder().decode(strings[1]);
+//
+//                    System.out.println("Konvertovani dat: success");
+//
+//                    InputStream inputStream = new ByteArrayInputStream(data);
+//                    System.out.println("Inputstream: success");
+//
+//                    arrayList.add(imagePath);
+////                    Image image = new Image(imagePath);
+////                    imageRepository.save(image);
+//                    images.add(new Image(imagePath));
+//                    Files.copy(inputStream, this.rootLocation.resolve(imagePath));
+//
+//                }
+//            }else{
+//                String uuid = UUID.randomUUID().toString();
+//                String extension;
+////TODO presunout do funkce
+//                switch (c.getSelImage().get(0)) {//check image's extension
+//                    case "data:image/jpeg;base64":
+//                        extension = "jpeg";
+//                        break;
+//                    case "data:image/png;base64":
+//                        extension = "png";
+//                        break;
+//                    default://should write cases for more images types
+//                        extension = "jpg";
+//                        break;
+//                }
+//                System.out.println("extension:" + extension);
+//
+//                imagePath = this.rootLocation.resolve(uuid + "." + extension).toString();
+//                System.out.println("imagePath:" + imagePath);
+//
+//                byte[] data = Base64.getDecoder().decode(c.getSelImage().get(1));
+//
+//                System.out.println("Konvertovani dat: success");
+//
+//                InputStream inputStream = new ByteArrayInputStream(data);
+//                System.out.println("Inputstream: success");
+//
+//                arrayList.add(imagePath);
+////                Image image = new Image(imagePath);
+////                imageRepository.save(image);
+//                images.add(new Image(imagePath));
+//                Files.copy(inputStream, this.rootLocation.resolve(imagePath));
+//            }
         }
         System.out.println("Zapisujeme, success!");
 
@@ -208,6 +300,43 @@ public class CalendarController {
         User user = userRepository.findByUsername(principal.getName()).orElseThrow(() -> new Exception());
 
         System.out.println(c.getName());
+
+        /*String frontPage = c.getFrontPage().toString();
+        String uuid = UUID.randomUUID().toString();
+        String extension;
+//TODO presunout do funkce
+        switch (c.getSelImage().get(0)) {//check image's extension
+            case "data:image/jpeg;base64":
+                extension = "jpeg";
+                break;
+            case "data:image/png;base64":
+                extension = "png";
+                break;
+            default://should write cases for more images types
+                extension = "jpg";
+                break;
+        }
+        imagePath = this.rootLocation.resolve(uuid + "." + extension).toString();
+        System.out.println("imagePath:" + imagePath);
+
+        byte[] data = Base64.getDecoder().decode(frontPage);
+
+        System.out.println("Konvertovani dat: success");
+
+        InputStream inputStream = new ByteArrayInputStream(data);
+        System.out.println("Inputstream: success");
+
+        Files.copy(inputStream, this.rootLocation.resolve(imagePath));
+
+        Image fPage = new Image(imagePath);
+        c.setFrontPage(fPage);
+*/
+
+        System.out.println("ArrayList:");
+        System.out.println(arrayList);
+
+        System.out.println("LinkedHashSet:");
+        System.out.println(images);
 
         c.setSelImage(arrayList);
         c.setImages(images);
@@ -224,20 +353,28 @@ public class CalendarController {
     public String getCalendars(Model model, Principal principal) throws Exception
     {
         User user = userRepository.findByUsername(principal.getName()).orElseThrow(() -> new Exception());
+        System.out.println(user.getUsername());
 
         Set<Calendar> calSet = user.getCalendars();
 
-//        System.out.println("Nejaka cesta:");
-//        System.out.println("Present Project Directory : "+ System.getProperty("user.dir"));
-//
-//
-//        System.out.println("Root cesta:");
-//        String url = MvcUriComponentsBuilder.fromMethodName(CalendarController.class, "serveFile", new Object()).build().toUriString();
-//        System.out.println(path-> MvcUriComponentsBuilder
-//                .fromMethodName(CalendarController.class, "serveFile", path.getFileName().toString()).build()
-//                .toString());
-//        System.out.println(url);
+        ArrayList<String> frontPages = new ArrayList<>();
+
+        for (Calendar cal:calSet) {
+            System.out.println(cal.getImages());
+            if(cal.getImages().isEmpty()){
+                continue;
+            }
+            ArrayList<String> tmp = cal.getImages().stream()
+                    .map(image -> this.rootLocation.resolve(image.getName()))
+                    .map(path -> MvcUriComponentsBuilder
+                            .fromMethodName(CalendarController.class, "serveFile", path.getFileName().toString()).build()
+                            .toString()).collect(Collectors.toCollection(ArrayList::new));
+            frontPages.add(tmp.get(0));
+        }
+
+
         model.addAttribute("calendars",calSet);
+        model.addAttribute("frontPages",frontPages);
 
         return "/my-calendars";
     }

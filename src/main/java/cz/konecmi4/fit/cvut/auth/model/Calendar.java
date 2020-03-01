@@ -2,6 +2,7 @@ package cz.konecmi4.fit.cvut.auth.model;
 
 import javax.persistence.*;
 import java.util.ArrayList;
+import java.util.LinkedHashSet;
 import java.util.List;
 import java.util.Set;
 
@@ -18,7 +19,8 @@ public class Calendar {
 
 
     @OneToMany(cascade = CascadeType.ALL)
-    private Set<Image> images;
+    @OrderBy("id")
+    private Set<Image> images = new LinkedHashSet<>();
 
     public Calendar() {
     }

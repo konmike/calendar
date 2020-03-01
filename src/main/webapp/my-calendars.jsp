@@ -21,6 +21,7 @@
 
     <link href="${contextPath}/resources/css/style.css" rel="stylesheet">
     <link href="${contextPath}/resources/css/simple-lightbox.css" rel="stylesheet">
+    <link href="https://use.fontawesome.com/releases/v5.0.8/css/all.css" rel="stylesheet">
     <%--    <link href="${contextPath}/resources/css/form.css" rel="stylesheet">--%>
 </head>
 <body>
@@ -56,11 +57,13 @@
     <h2 class="">Mé kalendáře</h2>
     <div class="section section--calendar-show">
         <ul th:each="calendar : ${calendars}" class="list list--my-calendars">
+            <c:set var="item" value="0" />
             <c:forEach items="${calendars}" var="calendar">
                 <li class="list--item">
-                    <img src="${calendar.selImage.get(0)}" alt="" height="200" />
+                    <img src="${frontPages.get(item)}" alt="" height="200" />
                     <a href="${contextPath}/calendar?name=${calendar.name}"><span>${calendar.name} - ${calendar.year}</span></a>
                 </li>
+                <c:set var="item" value="${item + 1}"/>
             </c:forEach>
         </ul>
     </div>
