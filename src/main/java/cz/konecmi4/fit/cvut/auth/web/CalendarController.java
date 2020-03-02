@@ -385,6 +385,46 @@ public class CalendarController {
         return "/my-calendars";
     }
 
+    @GetMapping("/update")
+    public String updateCalendar(@RequestParam("name") String name, Model model, Principal principal) throws Exception {
+
+        if (principal == null) {
+            return "redirect:/find";
+        }
+
+        Calendar c = calendarRepository.findByName(name);
+        List<String> stringss = c.getImages().stream()
+                .map(image -> this.rootLocation.resolve(image.getName()))
+                .map(path -> MvcUriComponentsBuilder
+                        .fromMethodName(ImageController.class, "serveFile", path.getFileName().toString()).build()
+                        .toString())
+                .collect(Collectors.toList());
+
+        model.addAttribute("files", stringss);
+        model.addAttribute("cal", c);
+
+        return "/update_calendar";
+    }
+
+    @PostMapping("/update")
+    public String saveUpdateCalendar(@ModelAttribute("cal") Calendar c, Principal principal) throws Exception {
+
+        if (principal == null) {
+            return "redirect:/find";
+        }
+
+//        List<String> stringss = c.getImages().stream()
+//                .map(image -> this.rootLocation.resolve(image.getName()))
+//                .map(path -> MvcUriComponentsBuilder
+//                        .fromMethodName(ImageController.class, "serveFile", path.getFileName().toString()).build()
+//                        .toString())
+//                .collect(Collectors.toList());
+
+        calendarRepository.save(c);
+
+        return "/update_calendar";
+    }
+
     @GetMapping("/files/{filename:.+}")
     @ResponseBody
     public ResponseEntity<Resource> serveFile(@PathVariable String filename) throws MalformedURLException {
