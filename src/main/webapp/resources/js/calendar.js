@@ -2,7 +2,7 @@ const $ = document.querySelector.bind(document);
 const h = tag => document.createElement(tag);
 
 const days_labels = {
-    en: ['SUN', 'MON', 'TUE', 'WED', 'THU', 'FRI', 'SAT'],
+    en: ['SUN','MON', 'TUE', 'WED', 'THU', 'FRI', 'SAT'],
     cs: ['NE', 'PO', 'ÚT', 'ST', 'ČT', 'PÁ', 'SO'],
 };
 
@@ -58,18 +58,18 @@ for(let m = start; m < end; m++) {
 // -- state mgmt
 
 var lang_d = $("body").getAttribute("data-custom-lang");
-var offset_d = $("body").getAttribute("data-custom-offset");
-var year_d = $("body").getAttribute("data-custom-year");
+let offset_d = parseInt($("body").getAttribute("data-custom-offset"),10);
+let year_d = parseInt($("body").getAttribute("data-custom-year"),10);
 
 if(lang_d === ""){
     lang_d = "cs";
     //console.log("lang set");
 }
-if(offset_d === "0"){
+if(offset_d === 0){
     offset_d = 1;
     //console.log("offset set");
 }
-if(year_d === "0"){
+if(year_d === 0){
     year_d = 2020;
     //console.log("year set");
 }
@@ -88,23 +88,27 @@ function update(state) {
     const days = days_labels[state.lang];
     const months = months_labels[state.lang];
 
+    //console.log("update");
+    //console.log(offset);
+    //console.log(lang_d);
 
-    console.log(offset);
 
-
-    console.log(days[(0 + offset) % 7]);
-    console.log(offset);
-    console.log(days);
-    console.log(days[(1 + offset) % 7]);
-    console.log(offset);
-    console.log(days);
-    console.log(days[(2 + offset) % 7]);
-    console.log(offset);
-    console.log(days);
-    console.log(days[(3 + offset) % 7]);
-    console.log(days[(4 + offset) % 7]);
-    console.log(days[(5 + offset) % 7]);
-    console.log(days[(6 + offset) % 7]);
+    // console.log(offset);
+    //
+    //
+    // console.log(days[(0 + offset) % 7]);
+    // console.log(offset);
+    // console.log(days);
+    // console.log(days[(1 + offset) % 7]);
+    // console.log(offset);
+    // console.log(days);
+    // console.log(days[(2 + offset) % 7]);
+    // console.log(offset);
+    // console.log(days);
+    // console.log(days[(3 + offset) % 7]);
+    // console.log(days[(4 + offset) % 7]);
+    // console.log(days[(5 + offset) % 7]);
+    // console.log(days[(6 + offset) % 7]);
 
 
     let q = 0;
@@ -122,7 +126,7 @@ function update(state) {
         }
 
         const lspan = [].slice.call(labels.getElementsByTagName('span'));
-        // console.log(lspan);
+         console.log(lspan);
 
         const dspan = [].slice.call(dates.getElementsByTagName('span'));
         //console.log(dspan);
@@ -130,6 +134,15 @@ function update(state) {
         month_h3.textContent = months[q];
 
         lspan.forEach((el, idx) => {
+            console.log("Offset: " + offset);
+            console.log("Index: " + idx);
+            var tmp = idx+offset;
+            console.log("Tmp: " + tmp);
+            var tmp2 = tmp%7;
+            console.log("Tmp2: " + tmp2);
+            console.log("Vysledek cislo: " + ((idx+offset)%7));
+            console.log(el);
+            console.log("Vysledek den: " + days[(idx + offset)%7]);
             el.textContent = days[(idx + offset) % 7];
         });
 

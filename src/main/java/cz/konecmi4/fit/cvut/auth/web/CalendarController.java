@@ -83,8 +83,8 @@ public class CalendarController {
 
         //Set<Calendar> calSet = user.getCalendars();
 
-        //System.out.println("V show funkci:");
-        //System.out.println(calendar.getImages());
+        System.out.println("V show funkci:");
+        System.out.println(calendar.getImages());
 
         //List<Image> sort = calendar.getImages();
 
@@ -95,8 +95,14 @@ public class CalendarController {
                         .toString()).collect(Collectors.toCollection(ArrayList::new));
 //(Supplier<ArrayList<String>>)
 
-        //System.out.println("V show funkci 2:");
-        //System.out.println(tmp);
+        System.out.println("V show funkci 2:");
+        System.out.println(tmp);
+
+/* Vyzkouset doma
+* server.max-http-header-size=48000
+* server.tomcat.max-http-post-size=0
+* server.tomcat.max-connections=-1
+* */
 
         model.addAttribute("cal",calendar);
         model.addAttribute("calImage",tmp);

@@ -55,13 +55,26 @@
 
 <main>
     <h2 class="">Mé kalendáře</h2>
-    <div class="section section--calendar-show">
+    <div class="section section--calendar-show-all">
         <ul th:each="calendar : ${calendars}" class="list list--my-calendars">
             <c:set var="item" value="0" />
             <c:forEach items="${calendars}" var="calendar">
                 <li class="list--item">
-                    <img src="${frontPages.get(item)}" alt="" height="200" />
-                    <a href="${contextPath}/calendar?name=${calendar.name}"><span>${calendar.name} - ${calendar.year}</span></a>
+                <c:choose>
+                    <c:when test="${frontPages.get(item).contains('nothing')}">
+                        <a href="${contextPath}/calendar?name=${calendar.name}">
+                            <i class="fas fa-file-image"></i>
+                            <span>${calendar.name} - ${calendar.year}</span>
+                        </a>
+                    </c:when>
+                    <c:otherwise>
+                        <a href="${contextPath}/calendar?name=${calendar.name}">
+                            <img src="${frontPages.get(item)}" alt="" />
+                            <span>${calendar.name} - ${calendar.year}</span>
+                        </a>
+                    </c:otherwise>
+                </c:choose>
+
                 </li>
                 <c:set var="item" value="${item + 1}"/>
             </c:forEach>

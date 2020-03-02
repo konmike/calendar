@@ -45,25 +45,37 @@ public class ImageController {
         this.imageRepository = imageRepository;
     }
 
-    @GetMapping("/")
-    public String listUploadedFiles(Model model, Principal principal) throws Exception {
+    @GetMapping()
+    public String listUploadedFiles(@RequestParam(required = false) String name, Model model, Principal principal) throws Exception {
 
         if (principal == null) {
             return "redirect:/find";
         }
 
-        User user = userRepository.findByUsername(principal.getName()).orElseThrow(() -> new Exception());
+        if(name == null) {
+            User user = userRepository.findByUsername(principal.getName()).orElseThrow(() -> new Exception());
 
-        List<String> stringss = user.getImageList().stream()
-                .map(image -> this.rootLocation.resolve(image.getName()))
-                .map(path -> MvcUriComponentsBuilder
-                        .fromMethodName(ImageController.class, "serveFile", path.getFileName().toString()).build()
-                        .toString())
-                .collect(Collectors.toList());
+            List<String> stringss = user.getImageList().stream()
+                    .map(image -> this.rootLocation.resolve(image.getName()))
+                    .map(path -> MvcUriComponentsBuilder
+                            .fromMethodName(ImageController.class, "serveFile", path.getFileName().toString()).build()
+                            .toString())
+                    .collect(Collectors.toList());
 
 
-        model.addAttribute("files", stringss);
-        model.addAttribute("cal", new Calendar());
+            model.addAttribute("files", stringss);
+            model.addAttribute("cal", new Calendar());
+        }else{
+           Calendar c = calendarRepository.findByName(name);
+            List<String> stringss = c.getImages().stream()
+                    .map(image -> this.rootLocation.resolve(image.getName()))
+                    .map(path -> MvcUriComponentsBuilder
+                            .fromMethodName(ImageController.class, "serveFile", path.getFileName().toString()).build()
+                            .toString())
+                    .collect(Collectors.toList());
+            model.addAttribute("files", stringss);
+            model.addAttribute("cal", c);
+        }
 
         return "image/upload";
     }

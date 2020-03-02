@@ -382,7 +382,7 @@ footer ul li:last-child{
   padding-bottom: 0.5rem;
 }
 
-.pagination span{
+.pagination a{
   text-decoration: none;
   text-transform: uppercase;
   color: rgba(0, 68, 101,1);
@@ -392,7 +392,7 @@ footer ul li:last-child{
   cursor: pointer;
 }
 
-.pagination span:first-child:before{
+.pagination a:first-child:before{
   font-family: "Font Awesome 5 Free", Pacifico, Arial, serif;
   font-weight: 900;
   padding-right: 0.5rem;
@@ -400,10 +400,10 @@ footer ul li:last-child{
   opacity: 0.3;
   transition: all 0.3s;
 }
-.pagination span:first-child:hover:before{
+.pagination a:first-child:hover:before{
   opacity: 0.8;
 }
-.pagination span:last-child:after{
+.pagination a:last-child:after{
   font-family: "Font Awesome 5 Free", Pacifico, Arial, serif;
   font-weight: 900;
   padding-left: 0.5rem;
@@ -411,7 +411,7 @@ footer ul li:last-child{
   opacity: 0.3;
   transition: all 0.3s;
 }
-.pagination span:last-child:hover:after{
+.pagination a:last-child:hover:after{
   opacity: 0.8;
 }
 
@@ -581,6 +581,7 @@ width: 65px;
   padding-right: 4px;
   letter-spacing: -1px;*/
   font-weight: 900;
+  height: 20px;
 }
 
 .month .labels span {
@@ -595,3 +596,67 @@ width: 65px;
   font-size: 8rem;
 }
 /* ======= END CALENDAR CREATE PAGE ======= */
+
+/*-----------------------------------------------------------------------*/
+
+/* CALENDAR SHOW ONE PAGE */
+.section--calendar-show-one #calendar{
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+}
+
+.section--calendar-show-one .wrapper-image:hover img{
+  opacity: 1;
+}
+/* ======= END CALENDAR SHOW ONE PAGE ======= */
+
+/*-----------------------------------------------------------------------*/
+
+/* CALENDAR SHOW ALL PAGE */
+.section--calendar-show-all{
+
+}
+.list--my-calendars{
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: center;
+  margin: 0;
+  padding: 0 4rem;
+  list-style: none;
+}
+.list--my-calendars .list--item{
+  margin-right: 1rem;
+  margin-bottom: 1rem;
+}
+.list--my-calendars .list--item:last-child{
+  margin-right: 0;
+}
+.list--my-calendars a{
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  padding: 1rem;
+  text-decoration: none;
+  color: rgba(0, 68, 101,1);
+  font-weight: 900;
+  transition: all 0.3s;
+  border: 1px solid #dfe1e5;
+}
+.list--my-calendars a:hover{
+  color: rgba(167, 0, 0, 1);
+  font-weight: 900;
+  box-shadow: 0 1px 6px 0 rgba(32, 33, 36, 0.28);
+  border-color: rgba(223, 225, 229, 0);
+}
+.list--my-calendars a .fa-file-image{
+  margin-bottom: 1rem;
+}
+.list--my-calendars img{
+  width: 150px;
+  margin-bottom: 0.5rem;
+  max-height: 150px;
+}
+/* ======= END CALENDAR SHOW ALL PAGE ======= */

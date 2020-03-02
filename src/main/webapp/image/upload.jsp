@@ -126,25 +126,22 @@
                             <input type="hidden" class="input input--submit" value="Nahrát" />
             </form:form>
 
-            <ul class="list list--gallery" ondragenter="return dragEnter(event)"
-                ondrop="return dragDrop(event)"
-                ondragover="return dragOver(event)"
-                ondragleave="return dragLeave(event)">
+            <ul class="list list--gallery">
                 <h3>Vaše obrázky k výběru:</h3>
                 <c:forEach var="file" items="${files}">
                     <li class="list--item" >
-                        <img src="${file}" draggable="true" ondragstart="return dragStart(event)" height="200" alt="image" id="im1"/>
-                        <a href="${file}">Zvětšit</a>
+                        <c:if test="${!file.contains('nothing')}">
+                            <img src="${file}" draggable="true" ondragstart="return dragStart(event)" width="200" alt="image" id="im1"/>
+                            <a href="${file}">Zvětšit</a>
 
-                        <form:form action="/image/delete" method="POST" class="form form--delete-image">
+                            <form:form action="/image/delete" method="POST" class="form form--delete-image">
+                                <input type="hidden" value="${file}" name="name" readonly="readonly" />
+                                <input type="hidden" name="${_csrf.parameterName}"
+                                       value="${_csrf.token}" />
 
-                            <input type="hidden" value="${file}" name="name" readonly="readonly" />
-                            <input type="hidden" name="${_csrf.parameterName}"
-                                   value="${_csrf.token}" />
-
-                            <input type="submit" class="input input--submit" value="Smazat" />
-
-                        </form:form>
+                                <input type="submit" class="input input--submit" value="Smazat" />
+                            </form:form>
+                        </c:if>
                     </li>
                 </c:forEach>
             </ul>
@@ -154,18 +151,27 @@
 
                 <div id="calendar">
                     <div class="pagination pagination--control">
-                        <span id="prev">Předchozí</span>
-                        <span id="next">Další</span>
+                        <a id="prev">Předchozí</a>
+                        <a id="next">Další</a>
                     </div>
 
                     <form:label path="selImage" for="item0" class="label label--item label--item-0">
                         <form:checkbox path="selImage" id="item0" class="input input--checkbox" value="null" checked="checked"/>
                         <div class="item item--0 a4-portrait">
-                            <div onclick="deleteImage(event)" class="wrapper wrapper-image border"
-                                 ondragenter="return dragEnter(event)"
-                                 ondrop="return dragDrop(event)"
-                                 ondragover="return dragOver(event)"
-                                 ondragleave="return dragLeave(event)"></div>
+                            <c:choose>
+                                <c:when test="${(empty files) or (files.get(0).contains('nothing'))}">
+                                    <div onclick="deleteImage(event)" class="wrapper wrapper-image border"
+                                         ondragenter="return dragEnter(event)"
+                                         ondrop="return dragDrop(event)"
+                                         ondragover="return dragOver(event)"
+                                         ondragleave="return dragLeave(event)"></div>
+                                </c:when>
+                                <c:otherwise>
+                                    <div onclick="deleteImage(event)" class="wrapper wrapper-image wrapper-image-after border-no">
+                                        <img src="${files.get(0)}" alt=""/>
+                                    </div>
+                                </c:otherwise>
+                            </c:choose>
                         </div>
                     </form:label>
 
@@ -327,7 +333,7 @@
                     <form:label path="lang" for="lang">Jazyk:
                         <form:select path="lang" id="lang" class="${cal.lang}">
                             <c:choose>
-                                <c:when test="${empty cal.lang}">
+                                <c:when test="${(empty cal.lang) or (cal.lang=='cs')}">
                                     <option value="cs" selected>Čeština</option>
                                     <option value="en">English</option>
                                 </c:when>
@@ -343,13 +349,13 @@
                     <form:label path="offset" for="offset">Týden začíná:
                         <form:select path="offset" id="offset">
                         <c:choose>
-                            <c:when test="${cal.offset == '0'}">
+                            <c:when test="${(cal.offset == '0') or (cal.offset == '1')}">
                                 <option value="1" selected>Pondělí</option>
-                                <option value="0">Neděle</option>
+                                <option value="7">Neděle</option>
                             </c:when>
                             <c:otherwise>
                                 <option value="1">Pondělí</option>
-                                <option value="0" selected>Neděle</option>
+                                <option value="7" selected>Neděle</option>
                             </c:otherwise>
                         </c:choose>
                         </form:select>
