@@ -155,278 +155,54 @@
                         <a id="next">Další</a>
                     </div>
 
-                    <form:label path="selImage" for="item0" class="label label--item label--item-0">
-                        <form:checkbox path="selImage" id="item0" class="input input--checkbox" value="null" checked="checked"/>
-                        <div class="item item--0 a4-portrait">
-                            <c:choose>
-                                <c:when test="${(files.get(0).contains('nothing'))}">
-                                    <div onclick="deleteImage(event)" class="wrapper wrapper-image border"
-                                         ondragenter="return dragEnter(event)"
-                                         ondrop="return dragDrop(event)"
-                                         ondragover="return dragOver(event)"
-                                         ondragleave="return dragLeave(event)"></div>
-                                </c:when>
-                                <c:otherwise>
-                                    <div onclick="deleteImage(event)" class="wrapper wrapper-image wrapper-image-after border-no">
-                                        <img src="${files.get(0)}" alt=""/>
+                    <c:forEach begin="0" end="12" varStatus="item">
+                        <c:choose>
+                            <c:when test="${item.index == '0'}">
+                                <form:label path="selImage" for="item0" class="label label--item label--item-0">
+                                    <form:checkbox path="selImage" id="item0" class="input input--checkbox" value="null" checked="checked"/>
+                                    <div class="item item--0 a4-portrait">
+                                        <c:choose>
+                                            <c:when test="${(files.get(0).contains('nothing'))}">
+                                                <div onclick="deleteImage(event)" class="wrapper wrapper-image border"
+                                                     ondragenter="return dragEnter(event)"
+                                                     ondrop="return dragDrop(event)"
+                                                     ondragover="return dragOver(event)"
+                                                     ondragleave="return dragLeave(event)"></div>
+                                            </c:when>
+                                            <c:otherwise>
+                                                <div onclick="deleteImage(event)" class="wrapper wrapper-image wrapper-image-after border-no">
+                                                    <img src="${files.get(0)}" alt=""/>
+                                                </div>
+                                            </c:otherwise>
+                                        </c:choose>
                                     </div>
-                                </c:otherwise>
-                            </c:choose>
-                        </div>
-                    </form:label>
-
-                    <form:label path="selImage" for="item1" class="label label--item label--item-1">
-                        <form:checkbox path="selImage" id="item1" class="input input--checkbox" value="null" checked="checked"/>
-                        <div class="month month--1 item a4-portrait">
-                            <c:choose>
-                                <c:when test="${(files.get(1).contains('nothing'))}">
-                                    <div onclick="deleteImage(event)" class="wrapper wrapper-image border"
-                                         ondragenter="return dragEnter(event)"
-                                         ondrop="return dragDrop(event)"
-                                         ondragover="return dragOver(event)"
-                                         ondragleave="return dragLeave(event)"></div>
-                                </c:when>
-                                <c:otherwise>
-                                    <div onclick="deleteImage(event)" class="wrapper wrapper-image wrapper-image-after border-no">
-                                        <img src="${files.get(1)}" alt=""/>
+                                </form:label>
+                            </c:when>
+                            <c:otherwise>
+                                <form:label path="selImage" for="item${item.index}" class="label label--item label--item-${item.index}">
+                                    <form:checkbox path="selImage" id="item${item.index}" class="input input--checkbox" value="null" checked="checked"/>
+                                    <div class="month month--${item.index} item a4-portrait">
+                                        <c:choose>
+                                            <c:when test="${(files.get(item.index).contains('nothing'))}">
+                                                <div onclick="deleteImage(event)" class="wrapper wrapper-image border"
+                                                     ondragenter="return dragEnter(event)"
+                                                     ondrop="return dragDrop(event)"
+                                                     ondragover="return dragOver(event)"
+                                                     ondragleave="return dragLeave(event)"></div>
+                                            </c:when>
+                                            <c:otherwise>
+                                                <div onclick="deleteImage(event)" class="wrapper wrapper-image wrapper-image-after border-no">
+                                                    <img src="${files.get(item.index)}" alt=""/>
+                                                </div>
+                                            </c:otherwise>
+                                        </c:choose>
+                                        <div class="labels"></div>
+                                        <div class="dates"></div>
                                     </div>
-                                </c:otherwise>
-                            </c:choose>
-                            <div class="labels"></div>
-                            <div class="dates"></div>
-                        </div>
-                    </form:label>
-                    <form:label path="selImage" for="item2" class="label label--item label--item-2">
-                        <form:checkbox path="selImage" id="item2" class="input input--checkbox" value="null" checked="checked"/>
-                        <div class="month month--2 item a4-portrait">
-                            <c:choose>
-                                <c:when test="${(files.get(2).contains('nothing'))}">
-                                    <div onclick="deleteImage(event)" class="wrapper wrapper-image border"
-                                         ondragenter="return dragEnter(event)"
-                                         ondrop="return dragDrop(event)"
-                                         ondragover="return dragOver(event)"
-                                         ondragleave="return dragLeave(event)"></div>
-                                </c:when>
-                                <c:otherwise>
-                                    <div onclick="deleteImage(event)" class="wrapper wrapper-image wrapper-image-after border-no">
-                                        <img src="${files.get(2)}" alt=""/>
-                                    </div>
-                                </c:otherwise>
-                            </c:choose>
-                            <div class="labels"></div>
-                            <div class="dates"></div>
-                        </div>
-                    </form:label>
-                    <form:label path="selImage" for="item3" class="label label--item label--item-3">
-                        <form:checkbox path="selImage" id="item3" class="input input--checkbox" value="null" checked="checked" />
-                        <div class="month month--3 item a4-portrait">
-                            <c:choose>
-                                <c:when test="${(files.get(3).contains('nothing'))}">
-                                    <div onclick="deleteImage(event)" class="wrapper wrapper-image border"
-                                         ondragenter="return dragEnter(event)"
-                                         ondrop="return dragDrop(event)"
-                                         ondragover="return dragOver(event)"
-                                         ondragleave="return dragLeave(event)"></div>
-                                </c:when>
-                                <c:otherwise>
-                                    <div onclick="deleteImage(event)" class="wrapper wrapper-image wrapper-image-after border-no">
-                                        <img src="${files.get(3)}" alt=""/>
-                                    </div>
-                                </c:otherwise>
-                            </c:choose>
-                            <div class="labels"></div>
-                            <div class="dates"></div>
-                        </div>
-                    </form:label>
-                    <form:label path="selImage" for="item4" class="label label--item label--item-4">
-                        <form:checkbox path="selImage" id="item4" class="input input--checkbox" value="null" checked="checked" />
-                        <div class="month month--4 item a4-portrait">
-                            <c:choose>
-                                <c:when test="${(files.get(4).contains('nothing'))}">
-                                    <div onclick="deleteImage(event)" class="wrapper wrapper-image border"
-                                         ondragenter="return dragEnter(event)"
-                                         ondrop="return dragDrop(event)"
-                                         ondragover="return dragOver(event)"
-                                         ondragleave="return dragLeave(event)"></div>
-                                </c:when>
-                                <c:otherwise>
-                                    <div onclick="deleteImage(event)" class="wrapper wrapper-image wrapper-image-after border-no">
-                                        <img src="${files.get(4)}" alt=""/>
-                                    </div>
-                                </c:otherwise>
-                            </c:choose>
-                            <div class="labels"></div>
-                            <div class="dates"></div>
-                        </div>
-                    </form:label>
-                    <form:label path="selImage" for="item5" class="label label--item label--item-5">
-                        <form:checkbox path="selImage" id="item5" class="input input--checkbox" value="null" checked="checked" />
-                        <div class="month month--5 item a4-portrait">
-                            <c:choose>
-                                <c:when test="${(files.get(5).contains('nothing'))}">
-                                    <div onclick="deleteImage(event)" class="wrapper wrapper-image border"
-                                         ondragenter="return dragEnter(event)"
-                                         ondrop="return dragDrop(event)"
-                                         ondragover="return dragOver(event)"
-                                         ondragleave="return dragLeave(event)"></div>
-                                </c:when>
-                                <c:otherwise>
-                                    <div onclick="deleteImage(event)" class="wrapper wrapper-image wrapper-image-after border-no">
-                                        <img src="${files.get(5)}" alt=""/>
-                                    </div>
-                                </c:otherwise>
-                            </c:choose>
-                            <div class="labels"></div>
-                            <div class="dates"></div>
-                        </div>
-                    </form:label>
-                    <form:label path="selImage" for="item6" class="label label--item label--item-6">
-                        <form:checkbox path="selImage" id="item6" class="input input--checkbox" value="null" checked="checked" />
-                        <div class="month month--6 item a4-portrait">
-                            <c:choose>
-                                <c:when test="${(files.get(6).contains('nothing'))}">
-                                    <div onclick="deleteImage(event)" class="wrapper wrapper-image border"
-                                         ondragenter="return dragEnter(event)"
-                                         ondrop="return dragDrop(event)"
-                                         ondragover="return dragOver(event)"
-                                         ondragleave="return dragLeave(event)"></div>
-                                </c:when>
-                                <c:otherwise>
-                                    <div onclick="deleteImage(event)" class="wrapper wrapper-image wrapper-image-after border-no">
-                                        <img src="${files.get(6)}" alt=""/>
-                                    </div>
-                                </c:otherwise>
-                            </c:choose>
-                            <div class="labels"></div>
-                            <div class="dates"></div>
-                        </div>
-                    </form:label>
-                    <form:label path="selImage" for="item7" class="label label--item label--item-7">
-                        <form:checkbox path="selImage" id="item7" class="input input--checkbox" value="null" checked="checked" />
-                        <div class="month month--7 item a4-portrait">
-                            <c:choose>
-                                <c:when test="${(files.get(7).contains('nothing'))}">
-                                    <div onclick="deleteImage(event)" class="wrapper wrapper-image border"
-                                         ondragenter="return dragEnter(event)"
-                                         ondrop="return dragDrop(event)"
-                                         ondragover="return dragOver(event)"
-                                         ondragleave="return dragLeave(event)"></div>
-                                </c:when>
-                                <c:otherwise>
-                                    <div onclick="deleteImage(event)" class="wrapper wrapper-image wrapper-image-after border-no">
-                                        <img src="${files.get(7)}" alt=""/>
-                                    </div>
-                                </c:otherwise>
-                            </c:choose>
-                            <div class="labels"></div>
-                            <div class="dates"></div>
-                        </div>
-                    </form:label>
-                    <form:label path="selImage" for="item8" class="label label--item label--item-8">
-                        <form:checkbox path="selImage" id="item8" class="input input--checkbox" value="null" checked="checked" />
-                        <div class="month month--8 item a4-portrait">
-                            <c:choose>
-                                <c:when test="${(files.get(8).contains('nothing'))}">
-                                    <div onclick="deleteImage(event)" class="wrapper wrapper-image border"
-                                         ondragenter="return dragEnter(event)"
-                                         ondrop="return dragDrop(event)"
-                                         ondragover="return dragOver(event)"
-                                         ondragleave="return dragLeave(event)"></div>
-                                </c:when>
-                                <c:otherwise>
-                                    <div onclick="deleteImage(event)" class="wrapper wrapper-image wrapper-image-after border-no">
-                                        <img src="${files.get(8)}" alt=""/>
-                                    </div>
-                                </c:otherwise>
-                            </c:choose>
-                            <div class="labels"></div>
-                            <div class="dates"></div>
-                        </div>
-                    </form:label>
-                    <form:label path="selImage" for="item9" class="label label--item label--item-9">
-                        <form:checkbox path="selImage" id="item9" class="input input--checkbox" value="null" checked="checked" />
-                        <div class="month month--9 item a4-portrait">
-                            <c:choose>
-                                <c:when test="${(files.get(9).contains('nothing'))}">
-                                    <div onclick="deleteImage(event)" class="wrapper wrapper-image border"
-                                         ondragenter="return dragEnter(event)"
-                                         ondrop="return dragDrop(event)"
-                                         ondragover="return dragOver(event)"
-                                         ondragleave="return dragLeave(event)"></div>
-                                </c:when>
-                                <c:otherwise>
-                                    <div onclick="deleteImage(event)" class="wrapper wrapper-image wrapper-image-after border-no">
-                                        <img src="${files.get(9)}" alt=""/>
-                                    </div>
-                                </c:otherwise>
-                            </c:choose>
-                            <div class="labels"></div>
-                            <div class="dates"></div>
-                        </div>
-                    </form:label>
-                    <form:label path="selImage" for="item10" class="label label--item label--item-10">
-                        <form:checkbox path="selImage" id="item10" class="input input--checkbox" value="null" checked="checked" />
-                        <div class="month month--10 item a4-portrait">
-                            <c:choose>
-                                <c:when test="${(files.get(10).contains('nothing'))}">
-                                    <div onclick="deleteImage(event)" class="wrapper wrapper-image border"
-                                         ondragenter="return dragEnter(event)"
-                                         ondrop="return dragDrop(event)"
-                                         ondragover="return dragOver(event)"
-                                         ondragleave="return dragLeave(event)"></div>
-                                </c:when>
-                                <c:otherwise>
-                                    <div onclick="deleteImage(event)" class="wrapper wrapper-image wrapper-image-after border-no">
-                                        <img src="${files.get(10)}" alt=""/>
-                                    </div>
-                                </c:otherwise>
-                            </c:choose>
-                            <div class="labels"></div>
-                            <div class="dates"></div>
-                        </div>
-                    </form:label>
-                    <form:label path="selImage" for="item11" class="label label--item label--item-11">
-                        <form:checkbox path="selImage" id="item11" class="input input--checkbox" value="null" checked="checked" />
-                        <div class="month month--11 item a4-portrait">
-                            <c:choose>
-                                <c:when test="${(files.get(11).contains('nothing'))}">
-                                    <div onclick="deleteImage(event)" class="wrapper wrapper-image border"
-                                         ondragenter="return dragEnter(event)"
-                                         ondrop="return dragDrop(event)"
-                                         ondragover="return dragOver(event)"
-                                         ondragleave="return dragLeave(event)"></div>
-                                </c:when>
-                                <c:otherwise>
-                                    <div onclick="deleteImage(event)" class="wrapper wrapper-image wrapper-image-after border-no">
-                                        <img src="${files.get(11)}" alt=""/>
-                                    </div>
-                                </c:otherwise>
-                            </c:choose>
-                            <div class="labels"></div>
-                            <div class="dates"></div>
-                        </div>
-                    </form:label>
-                    <form:label path="selImage" for="item12" class="label label--item label--item-12">
-                        <form:checkbox path="selImage" id="item12" class="input input--checkbox" value="null" checked="checked" />
-                        <div class="month month--12 item a4-portrait">
-                            <c:choose>
-                                <c:when test="${(files.get(12).contains('nothing'))}">
-                                    <div onclick="deleteImage(event)" class="wrapper wrapper-image border"
-                                         ondragenter="return dragEnter(event)"
-                                         ondrop="return dragDrop(event)"
-                                         ondragover="return dragOver(event)"
-                                         ondragleave="return dragLeave(event)"></div>
-                                </c:when>
-                                <c:otherwise>
-                                    <div onclick="deleteImage(event)" class="wrapper wrapper-image wrapper-image-after border-no">
-                                        <img src="${files.get(12)}" alt=""/>
-                                    </div>
-                                </c:otherwise>
-                            </c:choose>
-                            <div class="labels"></div>
-                            <div class="dates"></div>
-                        </div>
-                    </form:label>
+                                </form:label>
+                            </c:otherwise>
+                        </c:choose>
+                    </c:forEach>
 
                     <form:label path="name" for="name">
                         <form:input type="text" id="name" path="name" class="input input--text" placeholder="Název kalendáře" />
