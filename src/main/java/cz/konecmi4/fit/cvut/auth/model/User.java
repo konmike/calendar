@@ -29,6 +29,7 @@ public class User {
     private Set<Role> roles;
 
     @OneToMany(cascade = CascadeType.ALL)
+    @OrderBy("id")
     private Set<Image> imageList;
 
     @OneToMany(cascade = CascadeType.ALL)

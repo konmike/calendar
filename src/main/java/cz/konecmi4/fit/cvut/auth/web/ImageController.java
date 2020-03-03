@@ -15,6 +15,7 @@ import cz.konecmi4.fit.cvut.auth.model.User;
 import cz.konecmi4.fit.cvut.auth.repository.CalendarRepository;
 import cz.konecmi4.fit.cvut.auth.repository.ImageRepository;
 import cz.konecmi4.fit.cvut.auth.repository.UserRepository;
+import org.apache.commons.io.FilenameUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.io.Resource;
 import org.springframework.core.io.UrlResource;
@@ -82,30 +83,46 @@ public class ImageController {
     }
 
     @PostMapping("/")
-    public String handleFileUpload(@RequestParam("file") MultipartFile file, RedirectAttributes redirectAttributes,
+    public String handleFileUpload(@RequestParam("files") MultipartFile[] files, RedirectAttributes redirectAttributes,
                                    Principal principal) throws Exception {
 
-        if (file.getSize() == 0) {
-            return "redirect:/image/";
+        User user = userRepository.findByUsername(principal.getName()).orElseThrow(() -> new Exception());
+        Set<Image> stringList = user.getImageList();
+        System.out.println("Post Start");
+
+        if(files.length == 0){
+            System.out.println("Nic neprislo");
         }
 
-        String uuid = UUID.randomUUID().toString();
-        //System.out.println("Ahojky, jak je?");
+        for (MultipartFile file:files) {
 
-        String imagePath = this.rootLocation.resolve(uuid + ".jpg").toString();
+            System.out.println("Post foreach");
 
-        //System.out.println(imagePath);
-        User user = userRepository.findByUsername(principal.getName()).orElseThrow(() -> new Exception());
-        //System.out.println(user);
+            if (file.getSize() == 0) {
+                return "redirect:/image/";
+            }
 
-        Set<Image> stringList = user.getImageList();
-        stringList.add(new Image(imagePath));
-        Files.copy(file.getInputStream(), this.rootLocation.resolve(imagePath));
+            String name = file.getOriginalFilename();
+            String extension = FilenameUtils.getExtension(file.getOriginalFilename());
+            System.out.println(name);
+            //System.out.println(file.getContentType());
+            System.out.println(extension);
 
+            String uuid = UUID.randomUUID().toString();
+            //System.out.println("Ahojky, jak je?");
+
+            String imagePath = this.rootLocation.resolve(name).toString();
+
+            //System.out.println(imagePath);
+
+            stringList.add(new Image(imagePath));
+            Files.copy(file.getInputStream(), this.rootLocation.resolve(imagePath));
+        }
 
 
         userRepository.save(user);
 
+        System.out.println("Post End");
         return "redirect:/image/";
     }
 

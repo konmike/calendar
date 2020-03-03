@@ -116,21 +116,22 @@
     <h2 class="">Tvorba kalendáře</h2>
     <div class="section section--calendar-create">
         <div class="sidebox sidebox--upload-image">
-            <form:form method="post" modelAttribute="files" enctype="multipart/form-data" class="form form--upload-image" action="/image/">
+            <form:form method="post" enctype="multipart/form-data" class="form form--upload-image" action="/image/">
                     <label for="file" class="label label--file">
-                        <input type="file" id="file" name="file" class="input input--file" multiple />
+                        <input type="file" id="file" name="files" class="input input--file" multiple />
                         <span class="file--custom"></span>
                     </label>
 
                             <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}" />
-                            <input type="hidden" class="input input--submit" value="Nahrát" />
+                            <input type="submit" class="input input--submit" value="Nahrát" />
             </form:form>
 
             <ul class="list list--gallery">
                 <h3>Vaše obrázky k výběru:</h3>
-                <c:forEach var="file" items="${files}">
+
+                <c:forEach varStatus="item" var="file" items="${files}">
                     <li class="list--item">
-                        <img src="${file}" draggable="true" ondragstart="return dragStart(event)" width="200" alt="image" id="im1"/>
+                        <img src="${file}" draggable="true" ondragstart="return dragStart(event)" width="200" alt="image${item.index}" id="image${item.index}"/>
                         <a href="${file}">Zvětšit</a>
 
                         <form:form action="/image/delete" method="POST" class="form form--delete-image">
@@ -141,6 +142,7 @@
                             <input type="submit" class="input input--submit" value="Smazat" />
                         </form:form>
                     </li>
+
                 </c:forEach>
             </ul>
         </div>
@@ -153,160 +155,36 @@
                         <a id="next">Další</a>
                     </div>
 
-                    <form:label path="selImage" for="item0" class="label label--item label--item-0">
-                        <form:checkbox path="selImage" id="item0" class="input input--checkbox" value="null" checked="checked"/>
-                        <div class="item item--0 a4-portrait">
-                            <div onclick="deleteImage(event)" class="wrapper wrapper-image border"
-                                 ondragenter="return dragEnter(event)"
-                                 ondrop="return dragDrop(event)"
-                                 ondragover="return dragOver(event)"
-                                 ondragleave="return dragLeave(event)"></div>
-                        </div>
-                    </form:label>
-
-                    <form:label path="selImage" for="item1" class="label label--item label--item-1">
-                        <form:checkbox path="selImage" id="item1" class="input input--checkbox" value="null" checked="checked"/>
-                        <div class="month month--1 item a4-portrait">
-                            <div onclick="deleteImage(event)" class="wrapper wrapper-image border"
-                                ondragenter="return dragEnter(event)"
-                                ondrop="return dragDrop(event)"
-                                ondragover="return dragOver(event)"
-                                ondragleave="return dragLeave(event)"></div>
-                            <div class="labels"></div>
-                            <div class="dates"></div>
-                        </div>
-                    </form:label>
-                    <form:label path="selImage" for="item2" class="label label--item label--item-2">
-                        <form:checkbox path="selImage" id="item2" class="input input--checkbox" value="null" checked="checked"/>
-                        <div class="month month--2 item a4-portrait">
-                            <div onclick="deleteImage(event)" class="wrapper wrapper-image border"
-                                ondragenter="return dragEnter(event)"
-                                ondrop="return dragDrop(event)"
-                                ondragover="return dragOver(event)"
-                                 ondragleave="return dragLeave(event)"></div>
-                            <div class="labels"></div>
-                            <div class="dates"></div>
-                        </div>
-                    </form:label>
-                    <form:label path="selImage" for="item3" class="label label--item label--item-3">
-                        <form:checkbox path="selImage" id="item3" class="input input--checkbox" value="null" checked="checked" />
-                        <div class="month month--3 item a4-portrait">
-                            <div onclick="deleteImage(event)" class="wrapper wrapper-image border"
-                                ondragenter="return dragEnter(event)"
-                                ondrop="return dragDrop(event)"
-                                ondragover="return dragOver(event)"
-                                 ondragleave="return dragLeave(event)"></div>
-                            <div class="labels"></div>
-                            <div class="dates"></div>
-                        </div>
-                    </form:label>
-                    <form:label path="selImage" for="item4" class="label label--item label--item-4">
-                        <form:checkbox path="selImage" id="item4" class="input input--checkbox" value="null" checked="checked" />
-                        <div class="month month--4 item a4-portrait">
-                            <div onclick="deleteImage(event)" class="wrapper wrapper-image border"
-                                ondragenter="return dragEnter(event)"
-                                ondrop="return dragDrop(event)"
-                                ondragover="return dragOver(event)"
-                                 ondragleave="return dragLeave(event)"></div>
-                            <div class="labels"></div>
-                            <div class="dates"></div>
-                        </div>
-                    </form:label>
-                    <form:label path="selImage" for="item5" class="label label--item label--item-5">
-                        <form:checkbox path="selImage" id="item5" class="input input--checkbox" value="null" checked="checked" />
-                        <div class="month month--5 item a4-portrait">
-                            <div onclick="deleteImage(event)" class="wrapper wrapper-image border"
-                                ondragenter="return dragEnter(event)"
-                                ondrop="return dragDrop(event)"
-                                ondragover="return dragOver(event)"
-                                 ondragleave="return dragLeave(event)"></div>
-                            <div class="labels"></div>
-                            <div class="dates"></div>
-                        </div>
-                    </form:label>
-                    <form:label path="selImage" for="item6" class="label label--item label--item-6">
-                        <form:checkbox path="selImage" id="item6" class="input input--checkbox" value="null" checked="checked" />
-                        <div class="month month--6 item a4-portrait">
-                            <div onclick="deleteImage(event)" class="wrapper wrapper-image border"
-                                 ondragenter="return dragEnter(event)"
-                                 ondrop="return dragDrop(event)"
-                                 ondragover="return dragOver(event)"
-                                 ondragleave="return dragLeave(event)"></div>
-                            <div class="labels"></div>
-                            <div class="dates"></div>
-                        </div>
-                    </form:label>
-                    <form:label path="selImage" for="item7" class="label label--item label--item-7">
-                        <form:checkbox path="selImage" id="item7" class="input input--checkbox" value="null" checked="checked" />
-                        <div class="month month--7 item a4-portrait">
-                            <div onclick="deleteImage(event)" class="wrapper wrapper-image border"
-                                 ondragenter="return dragEnter(event)"
-                                 ondrop="return dragDrop(event)"
-                                 ondragover="return dragOver(event)"
-                                 ondragleave="return dragLeave(event)"></div>
-                            <div class="labels"></div>
-                            <div class="dates"></div>
-                        </div>
-                    </form:label>
-                    <form:label path="selImage" for="item8" class="label label--item label--item-8">
-                        <form:checkbox path="selImage" id="item8" class="input input--checkbox" value="null" checked="checked" />
-                        <div class="month month--8 item a4-portrait">
-                            <div onclick="deleteImage(event)" class="wrapper wrapper-image border"
-                                 ondragenter="return dragEnter(event)"
-                                 ondrop="return dragDrop(event)"
-                                 ondragover="return dragOver(event)"
-                                 ondragleave="return dragLeave(event)"></div>
-                            <div class="labels"></div>
-                            <div class="dates"></div>
-                        </div>
-                    </form:label>
-                    <form:label path="selImage" for="item9" class="label label--item label--item-9">
-                        <form:checkbox path="selImage" id="item9" class="input input--checkbox" value="null" checked="checked" />
-                        <div class="month month--9 item a4-portrait">
-                            <div onclick="deleteImage(event)" class="wrapper wrapper-image border"  ondragenter="return dragEnter(event)"
-                             ondrop="return dragDrop(event)"
-                             ondragover="return dragOver(event)"
-                                 ondragleave="return dragLeave(event)"></div>
-                            <div class="labels"></div>
-                            <div class="dates"></div>
-                        </div>
-                    </form:label>
-                    <form:label path="selImage" for="item10" class="label label--item label--item-10">
-                        <form:checkbox path="selImage" id="item10" class="input input--checkbox" value="null" checked="checked" />
-                        <div class="month month--10 item a4-portrait">
-                            <div onclick="deleteImage(event)" class="wrapper wrapper-image border"
-                                ondragenter="return dragEnter(event)"
-                                ondrop="return dragDrop(event)"
-                                ondragover="return dragOver(event)"
-                                 ondragleave="return dragLeave(event)"></div>
-                            <div class="labels"></div>
-                            <div class="dates"></div>
-                        </div>
-                    </form:label>
-                    <form:label path="selImage" for="item11" class="label label--item label--item-11">
-                        <form:checkbox path="selImage" id="item11" class="input input--checkbox" value="null" checked="checked" />
-                        <div class="month month--11 item a4-portrait">
-                            <div onclick="deleteImage(event)" class="wrapper wrapper-image border"
-                                 ondragenter="return dragEnter(event)"
-                                 ondrop="return dragDrop(event)"
-                                 ondragover="return dragOver(event)"
-                                 ondragleave="return dragLeave(event)"></div>
-                            <div class="labels"></div>
-                            <div class="dates"></div>
-                        </div>
-                    </form:label>
-                    <form:label path="selImage" for="item12" class="label label--item label--item-12">
-                        <form:checkbox path="selImage" id="item12" class="input input--checkbox" value="null" checked="checked" />
-                        <div class="month month--12 item a4-portrait">
-                            <div onclick="deleteImage(event)" class="wrapper wrapper-image border"
-                                 ondragenter="return dragEnter(event)"
-                                 ondrop="return dragDrop(event)"
-                                 ondragover="return dragOver(event)"
-                                 ondragleave="return dragLeave(event)"></div>
-                            <div class="labels"></div>
-                            <div class="dates"></div>
-                        </div>
-                    </form:label>
+                    <c:forEach begin="0" end="12" varStatus="item">
+                        <c:choose>
+                            <c:when test="${item.index == '0'}">
+                                <form:label path="selImage" for="item0" class="label label--item label--item-0">
+                                    <form:checkbox path="selImage" id="item0" class="input input--checkbox" value="null" checked="checked"/>
+                                    <div class="item item--0 a4-portrait">
+                                        <div onclick="deleteImage(event)" class="wrapper wrapper-image border"
+                                             ondragenter="return dragEnter(event)"
+                                             ondrop="return dragDrop(event)"
+                                             ondragover="return dragOver(event)"
+                                             ondragleave="return dragLeave(event)"></div>
+                                    </div>
+                                </form:label>
+                            </c:when>
+                            <c:otherwise>
+                                <form:label path="selImage" for="item${item.index}" class="label label--item label--item-${item.index}">
+                                    <form:checkbox path="selImage" id="item${item.index}" class="input input--checkbox" value="null" checked="checked"/>
+                                    <div class="month month--${item.index} item a4-portrait">
+                                        <div onclick="deleteImage(event)" class="wrapper wrapper-image border"
+                                             ondragenter="return dragEnter(event)"
+                                             ondrop="return dragDrop(event)"
+                                             ondragover="return dragOver(event)"
+                                             ondragleave="return dragLeave(event)"></div>
+                                        <div class="labels"></div>
+                                        <div class="dates"></div>
+                                    </div>
+                                </form:label>
+                            </c:otherwise>
+                        </c:choose>
+                    </c:forEach>
 
                     <form:label path="name" for="name">
                         <form:input type="text" id="name" path="name" class="input input--text" placeholder="Název kalendáře" />
