@@ -62,7 +62,7 @@
                     <c:when test="${item.index == '0'}">
                     <div class="item item--0 a4-portrait">
                     <c:choose>
-                        <c:when test="${calImage.get(0).contains('nothing')}">
+                        <c:when test="${calImage.get(0).contains('null')}">
                             <div class="wrapper wrapper-image border-no">
                                 <i class="fas fa-file-image"></i>
                         </c:when>
@@ -77,7 +77,7 @@
                     <c:otherwise>
                         <div class="month month--${item.index} item a4-portrait">
                             <c:choose>
-                                <c:when test="${calImage.get(item.index).contains('nothing')}">
+                                <c:when test="${calImage.get(item.index).contains('null')}">
                                 <div class="wrapper wrapper-image border-no">
                                     <i class="fas fa-file-image"></i>
                                 </c:when>

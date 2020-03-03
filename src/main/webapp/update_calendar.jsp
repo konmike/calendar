@@ -130,7 +130,7 @@
                 <h3>Vaše obrázky k výběru:</h3>
                 <c:forEach var="file" items="${files}">
                     <li class="list--item" >
-                        <c:if test="${!file.contains('nothing')}">
+                        <c:if test="${!file.contains('null')}">
                             <img src="${file}" draggable="true" ondragstart="return dragStart(event)" width="200" alt="image" id="im1"/>
                             <a href="${file}">Zvětšit</a>
 
@@ -162,7 +162,7 @@
                                     <form:checkbox path="selImage" id="item0" class="input input--checkbox" value="null" checked="checked"/>
                                     <div class="item item--0 a4-portrait">
                                         <c:choose>
-                                            <c:when test="${(files.get(0).contains('nothing'))}">
+                                            <c:when test="${(files.get(0).contains('null'))}">
                                                 <div onclick="deleteImage(event)" class="wrapper wrapper-image border"
                                                      ondragenter="return dragEnter(event)"
                                                      ondrop="return dragDrop(event)"
@@ -183,7 +183,7 @@
                                     <form:checkbox path="selImage" id="item${item.index}" class="input input--checkbox" value="null" checked="checked"/>
                                     <div class="month month--${item.index} item a4-portrait">
                                         <c:choose>
-                                            <c:when test="${(files.get(item.index).contains('nothing'))}">
+                                            <c:when test="${(files.get(item.index).contains('null'))}">
                                                 <div onclick="deleteImage(event)" class="wrapper wrapper-image border"
                                                      ondragenter="return dragEnter(event)"
                                                      ondrop="return dragDrop(event)"

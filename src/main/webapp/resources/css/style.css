@@ -552,7 +552,9 @@ width: 65px;
   margin: 0;
   display: flex;
   flex-direction: column;
+  flex-wrap: wrap;
   align-items: center;
+  justify-content: center;
 }
 
 .month .labels{
@@ -601,8 +603,7 @@ width: 65px;
 
 /* CALENDAR SHOW ONE PAGE */
 .section--calendar-show-one #calendar{
-  display: grid;
-  grid-template-columns: 1fr 1fr 1fr;
+  flex-direction: row;
 }
 
 .section--calendar-show-one .wrapper-image:hover img{
