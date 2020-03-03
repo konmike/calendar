@@ -118,7 +118,7 @@
         <div class="sidebox sidebox--upload-image">
             <form:form method="post" modelAttribute="files" enctype="multipart/form-data" class="form form--upload-image" action="/image/">
                     <label for="file" class="label label--file">
-                        <input type="file" id="file" name="file" class="input input--file" />
+                        <input type="file" id="file" name="file" class="input input--file" multiple />
                         <span class="file--custom"></span>
                     </label>
 
@@ -129,19 +129,17 @@
             <ul class="list list--gallery">
                 <h3>Vaše obrázky k výběru:</h3>
                 <c:forEach var="file" items="${files}">
-                    <li class="list--item" >
-                        <c:if test="${!file.contains('nothing')}">
-                            <img src="${file}" draggable="true" ondragstart="return dragStart(event)" width="200" alt="image" id="im1"/>
-                            <a href="${file}">Zvětšit</a>
+                    <li class="list--item">
+                        <img src="${file}" draggable="true" ondragstart="return dragStart(event)" width="200" alt="image" id="im1"/>
+                        <a href="${file}">Zvětšit</a>
 
-                            <form:form action="/image/delete" method="POST" class="form form--delete-image">
-                                <input type="hidden" value="${file}" name="name" readonly="readonly" />
-                                <input type="hidden" name="${_csrf.parameterName}"
-                                       value="${_csrf.token}" />
+                        <form:form action="/image/delete" method="POST" class="form form--delete-image">
+                            <input type="hidden" value="${file}" name="name" readonly="readonly" />
+                            <input type="hidden" name="${_csrf.parameterName}"
+                                   value="${_csrf.token}" />
 
-                                <input type="submit" class="input input--submit" value="Smazat" />
-                            </form:form>
-                        </c:if>
+                            <input type="submit" class="input input--submit" value="Smazat" />
+                        </form:form>
                     </li>
                 </c:forEach>
             </ul>
@@ -158,20 +156,11 @@
                     <form:label path="selImage" for="item0" class="label label--item label--item-0">
                         <form:checkbox path="selImage" id="item0" class="input input--checkbox" value="null" checked="checked"/>
                         <div class="item item--0 a4-portrait">
-                            <c:choose>
-                                <c:when test="${(empty files) or (files.get(0).contains('nothing'))}">
-                                    <div onclick="deleteImage(event)" class="wrapper wrapper-image border"
-                                         ondragenter="return dragEnter(event)"
-                                         ondrop="return dragDrop(event)"
-                                         ondragover="return dragOver(event)"
-                                         ondragleave="return dragLeave(event)"></div>
-                                </c:when>
-                                <c:otherwise>
-                                    <div onclick="deleteImage(event)" class="wrapper wrapper-image wrapper-image-after border-no">
-                                        <img src="${files.get(0)}" alt=""/>
-                                    </div>
-                                </c:otherwise>
-                            </c:choose>
+                            <div onclick="deleteImage(event)" class="wrapper wrapper-image border"
+                                 ondragenter="return dragEnter(event)"
+                                 ondrop="return dragDrop(event)"
+                                 ondragover="return dragOver(event)"
+                                 ondragleave="return dragLeave(event)"></div>
                         </div>
                     </form:label>
 
@@ -333,7 +322,7 @@
                     <form:label path="lang" for="lang">Jazyk:
                         <form:select path="lang" id="lang" class="${cal.lang}">
                             <c:choose>
-                                <c:when test="${(empty cal.lang) or (cal.lang=='cs')}">
+                                <c:when test="${(empty cal.lang)}">
                                     <option value="cs" selected>Čeština</option>
                                     <option value="en">English</option>
                                 </c:when>
@@ -349,7 +338,7 @@
                     <form:label path="offset" for="offset">Týden začíná:
                         <form:select path="offset" id="offset">
                         <c:choose>
-                            <c:when test="${(cal.offset == '0') or (cal.offset == '1')}">
+                            <c:when test="${(cal.offset == '0')}">
                                 <option value="1" selected>Pondělí</option>
                                 <option value="7">Neděle</option>
                             </c:when>

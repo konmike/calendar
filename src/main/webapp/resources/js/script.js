@@ -1,6 +1,24 @@
 (function($) {
     var autoId = 1;
     function readURL(input) {
+        // console.log(input.files);
+        // console.log($('#file')[0].files[0].name);
+        // console.log($('#file')[0].files[1].name);
+        for(let i = 0; i < input.files.length; i++){
+            let reader = new FileReader();
+            let name = $('#file')[0].files[i].name;
+            reader.onload = function (e) {
+                $('.list--gallery').append(
+                    '<li class="list--item">' +
+                    '<img src="' + e.target.result + '" class="" alt="'+ name +'" width="200" id="im' + autoId + '" draggable="true" ondragstart="dragStart(event)"/>' +
+                    '<a href="' + e.target.result +'">Zvětšit</a>' +
+                    '</li>');
+                //$('#blah').attr('src', e.target.result);
+            };
+            autoId++;
+            reader.readAsDataURL(input.files[i]);
+        }
+        /*
         if (input.files && input.files[0]) {
             var reader = new FileReader();
             var name = $('#file')[0].files[0].name;
@@ -14,7 +32,7 @@
             };
             autoId++;
             reader.readAsDataURL(input.files[0]);
-        }
+        }*/
     }
 
     $("#file").change(function(){
