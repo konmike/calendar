@@ -8,6 +8,17 @@
             let reader = new FileReader();
             let name = $('#file')[0].files[i].name;
             reader.onload = function (e) {
+                let img = new Image();
+                let file = input.files[i];
+                /*let objectUrl = URL.createObjectURL(file);
+                img.onload = function () {
+                    //alert(this.width + " " + this.height);
+                    console.log(this.width);
+                    console.log(this.height);
+                    URL.revokeObjectURL(objectUrl);
+                };
+                img.src = objectUrl;
+        */
                 $('.list--gallery').append(
                     '<li class="list--item">' +
                     '<img src="' + e.target.result + '" class="" alt="'+ name +'" width="200" id="im' + autoId + '" draggable="true" ondragstart="dragStart(event)"/>' +
