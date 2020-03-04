@@ -82,6 +82,7 @@
         ev.target.classList.remove("wrapper-image-after");
         ev.target.firstElementChild.remove();
     }
+
 </script>
 <body data-custom-year="${cal.year}" data-custom-offset="${cal.offset}" data-custom-lang="${cal.lang}">
 <header>
@@ -233,6 +234,8 @@
                        value="${_csrf.token}" />
                 <input type="submit" class="input input--submit" value="Vytvořit" />
             </form:form>
+            <a class="show-full-calendar">Celý kalendář</a>
+            <a class="show-page-calendar">Stránkový kalendář</a>
         </div>
     </div>
 </main>

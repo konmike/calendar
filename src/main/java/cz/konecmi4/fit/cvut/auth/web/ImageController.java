@@ -234,8 +234,6 @@ public class ImageController {
         System.out.println("Po smazanim");
         System.out.println(user.getImageList());
 
-
-
         imageRepository.deleteById(image.getId());
         userRepository.save(user);
 

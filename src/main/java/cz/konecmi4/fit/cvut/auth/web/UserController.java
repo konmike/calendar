@@ -183,7 +183,7 @@ public class UserController {
 
         for (Role role : user.getRoles()){
             if(role.getName().equals("ROLE_ADMIN")){
-                return "redirect:/admin/welcome";
+                return "redirect:/admin/";
             }
         }
 

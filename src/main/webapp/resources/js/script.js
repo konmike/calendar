@@ -72,5 +72,23 @@
         labels.eq(now).show(); // or .css('display','block');
         //console.log(divs.length, now);
     });
+    
+    $('.show-full-calendar').click(function (e) {
+        for (var i = 2; i < 15; i++){
+            console.log($('.label--item:nth-child('+i+')'));
+            $('.label--item:nth-child('+i+')').show();
+        }
+
+        $('.pagination').hide();
+    });
+
+    $('.show-page-calendar').click(function (e) {
+        for (var i = 3; i < 15; i++){
+            console.log($('.label--item:nth-child('+i+')'));
+            $('.label--item:nth-child('+i+')').hide();
+        }
+
+        $('.pagination').show();
+    });
 
 })( jQuery );
