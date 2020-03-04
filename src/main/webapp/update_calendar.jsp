@@ -118,20 +118,21 @@
         <div class="sidebox sidebox--upload-image">
             <form:form method="post" modelAttribute="files" enctype="multipart/form-data" class="form form--upload-image" action="/image/">
                     <label for="file" class="label label--file">
-                        <input type="file" id="file" name="file" class="input input--file" />
+                        <input type="file" id="file" name="files" class="input input--file" multiple />
                         <span class="file--custom"></span>
                     </label>
+                    <div class="preview-gallery"></div>
 
                             <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}" />
-                            <input type="hidden" class="input input--submit" value="Nahrát" />
+                            <input type="submit" class="input input--submit" value="Nahrát" />
             </form:form>
 
             <ul class="list list--gallery">
                 <h3>Vaše obrázky k výběru:</h3>
-                <c:forEach var="file" items="${files}">
+                <c:forEach var="file" items="${files}" varStatus="item">
                     <li class="list--item" >
                         <c:if test="${!file.contains('null')}">
-                            <img src="${file}" draggable="true" ondragstart="return dragStart(event)" width="200" alt="image" id="im1"/>
+                            <img src="${file}" draggable="true" ondragstart="return dragStart(event)" width="200" alt="image" id="image${item.index}"/>
                             <a href="${file}">Zvětšit</a>
 
                             <form:form action="/image/delete" method="POST" class="form form--delete-image">
@@ -159,31 +160,35 @@
                         <c:choose>
                             <c:when test="${item.index == '0'}">
                                 <form:label path="selImage" for="item0" class="label label--item label--item-0">
-                                    <form:checkbox path="selImage" id="item0" class="input input--checkbox" value="null" checked="checked"/>
-                                    <div class="item item--0 a4-portrait">
-                                        <c:choose>
-                                            <c:when test="${(files.get(0).contains('null'))}">
-                                                <div onclick="deleteImage(event)" class="wrapper wrapper-image border"
+                                    <c:choose>
+                                        <c:when test="${(files.get(0).contains('null'))}">
+                                        <form:checkbox path="selImage" id="item0" class="input input--checkbox" value="null" checked="checked"/>
+                                        <div class="item item--0 a4-portrait">
+
+                                            <div onclick="deleteImage(event)" class="wrapper wrapper-image border"
                                                      ondragenter="return dragEnter(event)"
                                                      ondrop="return dragDrop(event)"
                                                      ondragover="return dragOver(event)"
                                                      ondragleave="return dragLeave(event)"></div>
-                                            </c:when>
-                                            <c:otherwise>
-                                                <div onclick="deleteImage(event)" class="wrapper wrapper-image wrapper-image-after border-no">
-                                                    <img src="${files.get(0)}" alt=""/>
-                                                </div>
-                                            </c:otherwise>
-                                        </c:choose>
+                                        </c:when>
+                                        <c:otherwise>
+                                        <form:checkbox path="selImage" id="item0" class="input input--checkbox" value="${files.get(0)}" checked="checked"/>
+                                        <div class="item item--0 a4-portrait">
+
+                                            <div onclick="deleteImage(event)" class="wrapper wrapper-image wrapper-image-after border-no">
+                                                <img src="${files.get(0)}" alt=""/>
+                                            </div>
+                                        </c:otherwise>
+                                    </c:choose>
                                     </div>
                                 </form:label>
                             </c:when>
                             <c:otherwise>
                                 <form:label path="selImage" for="item${item.index}" class="label label--item label--item-${item.index}">
-                                    <form:checkbox path="selImage" id="item${item.index}" class="input input--checkbox" value="null" checked="checked"/>
-                                    <div class="month month--${item.index} item a4-portrait">
                                         <c:choose>
                                             <c:when test="${(files.get(item.index).contains('null'))}">
+                                            <form:checkbox path="selImage" id="item${item.index}" class="input input--checkbox" value="null" checked="checked"/>
+                                            <div class="month month--${item.index} item a4-portrait">
                                                 <div onclick="deleteImage(event)" class="wrapper wrapper-image border"
                                                      ondragenter="return dragEnter(event)"
                                                      ondrop="return dragDrop(event)"
@@ -191,6 +196,9 @@
                                                      ondragleave="return dragLeave(event)"></div>
                                             </c:when>
                                             <c:otherwise>
+                                            <form:checkbox path="selImage" id="item${item.index}" class="input input--checkbox" value="${files.get(item.index)}" checked="checked"/>
+                                            <div class="month month--${item.index} item a4-portrait">
+
                                                 <div onclick="deleteImage(event)" class="wrapper wrapper-image wrapper-image-after border-no">
                                                     <img src="${files.get(item.index)}" alt=""/>
                                                 </div>
@@ -203,6 +211,10 @@
                             </c:otherwise>
                         </c:choose>
                     </c:forEach>
+
+                    <form:label path="id" for="id">
+                        <form:input type="hidden" id="id" path="id" />
+                    </form:label>
 
                     <form:label path="name" for="name">
                         <form:input type="text" id="name" path="name" class="input input--text" placeholder="Název kalendáře" />

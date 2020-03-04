@@ -1,5 +1,6 @@
 package cz.konecmi4.fit.cvut.auth.web;
 
+import cz.konecmi4.fit.cvut.auth.model.Role;
 import cz.konecmi4.fit.cvut.auth.model.User;
 import cz.konecmi4.fit.cvut.auth.repository.UserRepository;
 import cz.konecmi4.fit.cvut.auth.service.SecurityService;
@@ -177,7 +178,15 @@ public class UserController {
     }
 
     @GetMapping({"/", "/welcome"})
-    public String welcome(Model model) {
+    public String welcome(Principal principal) throws Exception {
+        User user = userRepository.findByUsername(principal.getName()).orElseThrow(Exception::new);
+
+        for (Role role : user.getRoles()){
+            if(role.getName().equals("ROLE_ADMIN")){
+                return "redirect:/admin/welcome";
+            }
+        }
+
         return "welcome";
     }
 

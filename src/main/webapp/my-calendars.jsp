@@ -61,7 +61,7 @@
             <c:forEach varStatus="item" items="${calendars}" var="calendar">
                 <li class="list--item">
                 <c:choose>
-                    <c:when test="${frontPages.get(item.index).contains('nothing')}">
+                    <c:when test="${frontPages.get(item.index).contains('null')}">
                         <a href="${contextPath}/calendar?name=${calendar.name}">
                             <i class="fas fa-file-image"></i>
                             <span>${calendar.name} - ${calendar.year}</span>

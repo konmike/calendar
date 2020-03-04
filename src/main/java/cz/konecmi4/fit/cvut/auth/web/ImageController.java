@@ -86,7 +86,7 @@ public class ImageController {
     public String handleFileUpload(@RequestParam("files") MultipartFile[] files, RedirectAttributes redirectAttributes,
                                    Principal principal) throws Exception {
 
-        User user = userRepository.findByUsername(principal.getName()).orElseThrow(() -> new Exception());
+        User user = userRepository.findByUsername(principal.getName()).orElseThrow(Exception::new);
         Set<Image> stringList = user.getImageList();
         System.out.println("Post Start");
 
@@ -111,12 +111,16 @@ public class ImageController {
             String uuid = UUID.randomUUID().toString();
             //System.out.println("Ahojky, jak je?");
 
+
             String imagePath = this.rootLocation.resolve(name).toString();
 
             //System.out.println(imagePath);
 
             stringList.add(new Image(imagePath));
-            Files.copy(file.getInputStream(), this.rootLocation.resolve(imagePath));
+
+            if(!Files.exists(this.rootLocation.resolve(imagePath))){
+                Files.copy(file.getInputStream(), this.rootLocation.resolve(imagePath));
+            }
         }
 
 
@@ -203,12 +207,20 @@ public class ImageController {
     @RequestMapping("/delete")
     public String findPhotos(Principal principal, @RequestParam("name") String name, String string) throws Exception {
 
-        User user = userRepository.findByUsername(principal.getName()).orElseThrow(() -> new Exception());
+        User user = userRepository.findByUsername(principal.getName()).orElseThrow(Exception::new);
+
+        //Files.delete(name);
 
         name = name.substring(name.lastIndexOf("/"));
         name = this.rootLocation + name;
 
-        System.out.println(name);
+        Path path = this.rootLocation.resolve(name);
+
+        System.out.println(path);
+        if(Files.exists(path)){
+            System.out.println("Mazani z disku.");
+            Files.delete(path);
+        }
 
         Image image = imageRepository.findByName(name);
 
@@ -221,6 +233,8 @@ public class ImageController {
         user.getImageList().remove(image);
         System.out.println("Po smazanim");
         System.out.println(user.getImageList());
+
+
 
         imageRepository.deleteById(image.getId());
         userRepository.save(user);

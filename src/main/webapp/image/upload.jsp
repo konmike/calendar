@@ -121,7 +121,7 @@
                         <input type="file" id="file" name="files" class="input input--file" multiple />
                         <span class="file--custom"></span>
                     </label>
-
+                    <div class="preview-gallery"></div>
                             <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}" />
                             <input type="submit" class="input input--submit" value="Nahrát" />
             </form:form>

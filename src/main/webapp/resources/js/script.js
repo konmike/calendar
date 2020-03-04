@@ -19,11 +19,9 @@
                 };
                 img.src = objectUrl;
         */
-                $('.list--gallery').append(
-                    '<li class="list--item">' +
-                    '<img src="' + e.target.result + '" class="" alt="'+ name +'" width="200" id="im' + autoId + '" draggable="true" ondragstart="dragStart(event)"/>' +
-                    '<a href="' + e.target.result +'">Zvětšit</a>' +
-                    '</li>');
+                $('.preview-gallery').append(
+                    '<img src="' + e.target.result + '" class="img img--preview" alt="'+ name +'" id="im' + autoId + '" />'
+                    );
                 //$('#blah').attr('src', e.target.result);
             };
             autoId++;
@@ -55,6 +53,10 @@
         $(".label--item").eq($(this).index()).fadeIn(150).siblings(".label--item").fadeOut(250);
         $(this).addClass("active").siblings("a").removeClass("active");
     });*/
+
+    $('#file').click(function () {
+       $('.preview-gallery').html("");
+    });
 
     var labels = $('#calendar .label--item');
     var now = 0; // currently shown div

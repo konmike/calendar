@@ -6,6 +6,7 @@ import cz.konecmi4.fit.cvut.auth.model.User;
 import cz.konecmi4.fit.cvut.auth.repository.CalendarRepository;
 import cz.konecmi4.fit.cvut.auth.repository.ImageRepository;
 import cz.konecmi4.fit.cvut.auth.repository.UserRepository;
+import cz.konecmi4.fit.cvut.auth.service.CalendarService;
 import org.apache.commons.io.FilenameUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.io.Resource;
@@ -39,6 +40,9 @@ public class CalendarController {
 
     @Autowired
     ImageRepository imageRepository;
+
+    @Autowired
+    CalendarService calendarService;
 
     private Path rootLocation;
 
@@ -130,6 +134,10 @@ public class CalendarController {
         }
 
         calendarRepository.save(c);
+
+        Set<Calendar> tmp = user.getCalendars();
+        tmp.add(c);
+        userRepository.save(user);
 
         //return "redirect:/calendar/myCalendars";
         return "redirect:/calendar?name=" + c.getName();
@@ -254,19 +262,15 @@ public class CalendarController {
         ArrayList<String> frontPages = new ArrayList<>();
 
         for (Calendar cal:calSet) {
-            System.out.println(cal.getImages());
-            if(cal.getImages().isEmpty()){
+            System.out.println(cal.getSelImage());
+            if(cal.getSelImage().isEmpty()){
                 continue;
             }
-            ArrayList<String> tmp = cal.getImages().stream()
-                    .map(image -> this.rootLocation.resolve(image.getName()))
-                    .map(path -> MvcUriComponentsBuilder
-                            .fromMethodName(CalendarController.class, "serveFile", path.getFileName().toString()).build()
-                            .toString()).collect(Collectors.toCollection(ArrayList::new));
-            frontPages.add(tmp.get(0));
+
+            frontPages.add(cal.getSelImage().get(0));
         }
 
-
+        System.out.println(frontPages);
         model.addAttribute("calendars",calSet);
         model.addAttribute("frontPages",frontPages);
 
@@ -295,24 +299,47 @@ public class CalendarController {
     }
 
     @PostMapping("/update")
-    public String saveUpdateCalendar(@ModelAttribute("cal") Calendar c, Principal principal) throws Exception {
+    public String saveUpdateCalendar(@ModelAttribute("cal") Calendar tmpC, Principal principal) throws Exception {
 
         if (principal == null) {
             return "redirect:/find";
         }
+        Calendar c = calendarService.getCalendar(tmpC.getId());
 
-        System.out.println("Ahojky, toto je zatim nefunkcni update :)");
+        System.out.println(tmpC.getName());
+        System.out.println(tmpC.getYear());
+        System.out.println(tmpC.getLang());
+        System.out.println(tmpC.getOffset());
+        System.out.println(tmpC.getSelImage());
 
-//        List<String> stringss = c.getImages().stream()
+        System.out.println("Ahojky, toto je zatim prototyp update :)");
+
+//        List<String> stringss = tmpC.getImages().stream()
 //                .map(image -> this.rootLocation.resolve(image.getName()))
 //                .map(path -> MvcUriComponentsBuilder
 //                        .fromMethodName(ImageController.class, "serveFile", path.getFileName().toString()).build()
 //                        .toString())
 //                .collect(Collectors.toList());
 
+        if(!c.getName().equals(tmpC.getName())){
+            c.setName(tmpC.getName());
+        }
+        if(c.getYear() != tmpC.getYear()){
+            c.setYear(tmpC.getYear());
+        }
+        if(!c.getLang().equals(tmpC.getLang())){
+            c.setLang(tmpC.getLang());
+        }
+        if(c.getOffset() != tmpC.getOffset()){
+            c.setOffset(tmpC.getOffset());
+        }
+        if(c.getSelImage() != tmpC.getSelImage()){
+            c.setSelImage(tmpC.getSelImage());
+        }
+
         calendarRepository.save(c);
 
-        return "redirect:/calendar?name=" + c.getName();
+        return "redirect:/calendar?name=" + tmpC.getName();
     }
 
     @GetMapping("/files/{filename:.+}")
