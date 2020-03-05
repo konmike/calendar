@@ -132,8 +132,6 @@
             </form:form>
 
             <ul class="list list--gallery">
-                <h3>Vaše obrázky k výběru:</h3>
-
                 <c:forEach varStatus="item" var="image" items="${cal.images}">
                     <li class="list--item">
                         <img src="${image.path}" draggable="true" ondragstart="return dragStart(event)" width="200" alt="${image.name}" id="image${item.index}"/>

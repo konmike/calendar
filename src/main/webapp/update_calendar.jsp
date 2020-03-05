@@ -127,7 +127,6 @@
             </form:form>
 
             <ul class="list list--gallery">
-                <h3>Vaše obrázky k výběru:</h3>
                 <c:forEach var="file" items="${files}" varStatus="item">
                     <li class="list--item" >
                         <c:if test="${!file.contains('null')}">
