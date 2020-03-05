@@ -1,4 +1,4 @@
-package cz.konecmi4.fit.cvut.auth.model;
+package cz.konecmi4.fit.cvut.model;
 
 import javax.persistence.*;
 import java.util.Set;

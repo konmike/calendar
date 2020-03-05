@@ -1,4 +1,4 @@
-package cz.konecmi4.fit.cvut.auth;
+package cz.konecmi4.fit.cvut;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;

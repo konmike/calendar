@@ -1,12 +1,10 @@
-package cz.konecmi4.fit.cvut.auth.service;
+package cz.konecmi4.fit.cvut.service;
 
-import cz.konecmi4.fit.cvut.auth.model.User;
-import cz.konecmi4.fit.cvut.auth.repository.RoleRepository;
-import cz.konecmi4.fit.cvut.auth.repository.UserRepository;
-import org.springframework.beans.factory.annotation.Autowired;
+import cz.konecmi4.fit.cvut.model.User;
+import cz.konecmi4.fit.cvut.repository.RoleRepository;
+import cz.konecmi4.fit.cvut.repository.UserRepository;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Transactional;
 
 import java.util.HashSet;
 import java.util.List;
@@ -14,16 +12,19 @@ import java.util.Optional;
 
 @Service
 public class UserServiceImpl implements UserService {
-    @Autowired
-    private UserRepository userRepository;
-    @Autowired
-    private RoleRepository roleRepository;
-    @Autowired
-    private BCryptPasswordEncoder bCryptPasswordEncoder;
 
+    private final UserRepository userRepository;
+    private final RoleRepository roleRepository;
+    private final BCryptPasswordEncoder bCryptPasswordEncoder;
+
+    public UserServiceImpl(UserRepository userRepository, RoleRepository roleRepository, BCryptPasswordEncoder bCryptPasswordEncoder) {
+        this.userRepository = userRepository;
+        this.roleRepository = roleRepository;
+        this.bCryptPasswordEncoder = bCryptPasswordEncoder;
+    }
 
     @Override
-    public List< User > getUsers() {
+    public List<User> getUsers() {
         return userRepository.findAll();
     }
 
@@ -32,18 +33,15 @@ public class UserServiceImpl implements UserService {
         return userRepository.findByUsernameLike("%"+name+"%");
     }
 
-
     @Override
-    public User getUser(int id) {
-        Long theId = new Long(id);
-        return userRepository.getOne(theId);
+    public User getUser(Long id) {
+        return userRepository.getOne(id);
     }
 
     @Override
-    public void deleteUser(int theId) {
-        userRepository.deleteById((long) theId);
+    public void deleteUser(Long id) {
+        userRepository.deleteById(id);
     }
-
 
     @Override
     public void saveUser(User user){

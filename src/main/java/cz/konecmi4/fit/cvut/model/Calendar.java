@@ -1,9 +1,8 @@
-package cz.konecmi4.fit.cvut.auth.model;
+package cz.konecmi4.fit.cvut.model;
 
 import javax.persistence.*;
 import java.util.ArrayList;
 import java.util.LinkedHashSet;
-import java.util.List;
 import java.util.Set;
 
 @Entity
@@ -16,7 +15,6 @@ public class Calendar {
     private int year;
     private int offset;
     private String lang;
-
 
     @OneToMany(cascade = CascadeType.ALL)
     @OrderBy("id")

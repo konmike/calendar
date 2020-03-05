@@ -1,4 +1,4 @@
-package cz.konecmi4.fit.cvut.auth;
+package cz.konecmi4.fit.cvut;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;

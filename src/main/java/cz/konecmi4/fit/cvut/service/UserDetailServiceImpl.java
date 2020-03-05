@@ -1,11 +1,10 @@
-package cz.konecmi4.fit.cvut.auth.service;
+package cz.konecmi4.fit.cvut.service;
 
-import cz.konecmi4.fit.cvut.auth.model.Role;
-import cz.konecmi4.fit.cvut.auth.model.User;
-import cz.konecmi4.fit.cvut.auth.repository.UserRepository;
+import cz.konecmi4.fit.cvut.model.Role;
+import cz.konecmi4.fit.cvut.model.User;
+import cz.konecmi4.fit.cvut.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.GrantedAuthority;
-import org.springframework.security.core.authority.AuthorityUtils;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;

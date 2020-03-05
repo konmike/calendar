@@ -1,8 +1,6 @@
-package cz.konecmi4.fit.cvut.auth.model;
+package cz.konecmi4.fit.cvut.model;
 
 import javax.persistence.*;
-import java.util.ArrayList;
-import java.util.List;
 import java.util.Set;
 
 @Entity
@@ -27,6 +25,7 @@ public class User {
 
     @ManyToMany
     private Set<Role> roles;
+
 
     @OneToMany(cascade = CascadeType.ALL)
     @OrderBy("id")

@@ -1,6 +1,6 @@
-package cz.konecmi4.fit.cvut.auth.repository;
+package cz.konecmi4.fit.cvut.repository;
 
-import cz.konecmi4.fit.cvut.auth.model.User;
+import cz.konecmi4.fit.cvut.model.User;
 import org.springframework.data.jpa.repository.JpaRepository;
 
 import java.util.List;

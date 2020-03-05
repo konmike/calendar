@@ -1,7 +1,7 @@
-package cz.konecmi4.fit.cvut.auth.validator;
+package cz.konecmi4.fit.cvut.validator;
 
-import cz.konecmi4.fit.cvut.auth.model.User;
-import cz.konecmi4.fit.cvut.auth.service.UserService;
+import cz.konecmi4.fit.cvut.model.User;
+import cz.konecmi4.fit.cvut.service.UserService;
 //import org.omg.CosNaming.NamingContextPackage.NotEmpty;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;

@@ -1,12 +1,11 @@
-package cz.konecmi4.fit.cvut.auth.web;
+package cz.konecmi4.fit.cvut.controller;
 
-import cz.konecmi4.fit.cvut.auth.model.Calendar;
-import cz.konecmi4.fit.cvut.auth.model.Image;
-import cz.konecmi4.fit.cvut.auth.model.User;
-import cz.konecmi4.fit.cvut.auth.repository.CalendarRepository;
-import cz.konecmi4.fit.cvut.auth.repository.ImageRepository;
-import cz.konecmi4.fit.cvut.auth.repository.UserRepository;
-import cz.konecmi4.fit.cvut.auth.service.CalendarService;
+import cz.konecmi4.fit.cvut.model.Calendar;
+import cz.konecmi4.fit.cvut.model.User;
+import cz.konecmi4.fit.cvut.repository.CalendarRepository;
+import cz.konecmi4.fit.cvut.repository.ImageRepository;
+import cz.konecmi4.fit.cvut.repository.UserRepository;
+import cz.konecmi4.fit.cvut.service.CalendarService;
 import org.apache.commons.io.FilenameUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.io.Resource;
@@ -15,19 +14,11 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
-import org.springframework.web.servlet.mvc.method.annotation.MvcUriComponentsBuilder;
 
-import javax.xml.bind.DatatypeConverter;
-import java.io.ByteArrayInputStream;
-import java.io.IOException;
-import java.io.InputStream;
 import java.net.MalformedURLException;
-import java.nio.file.Files;
 import java.nio.file.Path;
 import java.security.Principal;
 import java.util.*;
-import java.util.function.Supplier;
-import java.util.stream.Collectors;
 
 @Controller
 @RequestMapping("/calendar")
@@ -82,7 +73,7 @@ public class CalendarController {
     @GetMapping()
     public String getCalendar(@RequestParam("name") String name, Model model, Principal principal) throws Exception
     {
-        Calendar calendar = calendarRepository.findByName(name);
+        cz.konecmi4.fit.cvut.model.Calendar calendar = calendarRepository.findByName(name);
 
         //User user = userRepository.findByUsername(principal.getName()).orElseThrow(() -> new Exception());
 
@@ -116,7 +107,7 @@ public class CalendarController {
     }
 
     @PostMapping("/create")
-    public String createCalendar(@ModelAttribute("cal") Calendar c, Principal principal) throws Exception{
+    public String createCalendar(@ModelAttribute("cal") cz.konecmi4.fit.cvut.model.Calendar c, Principal principal) throws Exception{
         User user = userRepository.findByUsername(principal.getName()).orElseThrow(() -> new Exception());
 
         if(c.getSelImage().isEmpty()){
@@ -135,7 +126,7 @@ public class CalendarController {
 
         calendarRepository.save(c);
 
-        Set<Calendar> tmp = user.getCalendars();
+        Set<cz.konecmi4.fit.cvut.model.Calendar> tmp = user.getCalendars();
         tmp.add(c);
         userRepository.save(user);
 
@@ -257,11 +248,11 @@ public class CalendarController {
         User user = userRepository.findByUsername(principal.getName()).orElseThrow(() -> new Exception());
         System.out.println(user.getUsername());
 
-        Set<Calendar> calSet = user.getCalendars();
+        Set<cz.konecmi4.fit.cvut.model.Calendar> calSet = user.getCalendars();
 
         ArrayList<String> frontPages = new ArrayList<>();
 
-        for (Calendar cal:calSet) {
+        for (cz.konecmi4.fit.cvut.model.Calendar cal:calSet) {
             System.out.println(cal.getSelImage());
             if(cal.getSelImage().isEmpty()){
                 continue;
@@ -284,7 +275,7 @@ public class CalendarController {
             return "redirect:/find";
         }
 
-        Calendar c = calendarRepository.findByName(name);
+        cz.konecmi4.fit.cvut.model.Calendar c = calendarRepository.findByName(name);
 //        List<String> stringss = c.getImages().stream()
 //                .map(image -> this.rootLocation.resolve(image.getName()))
 //                .map(path -> MvcUriComponentsBuilder
@@ -299,7 +290,7 @@ public class CalendarController {
     }
 
     @PostMapping("/update")
-    public String saveUpdateCalendar(@ModelAttribute("cal") Calendar tmpC, Principal principal) throws Exception {
+    public String saveUpdateCalendar(@ModelAttribute("cal") cz.konecmi4.fit.cvut.model.Calendar tmpC, Principal principal) throws Exception {
 
         if (principal == null) {
             return "redirect:/find";

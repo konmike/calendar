@@ -1,4 +1,4 @@
-package cz.konecmi4.fit.cvut.auth;
+package cz.konecmi4.fit.cvut;
 
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.core.Authentication;

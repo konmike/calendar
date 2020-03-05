@@ -1,4 +1,4 @@
-package cz.konecmi4.fit.cvut.auth.web;
+package cz.konecmi4.fit.cvut.controller;
 
 import java.net.MalformedURLException;
 import java.nio.file.Files;
@@ -8,15 +8,13 @@ import java.util.*;
 import java.util.function.Supplier;
 import java.util.stream.Collectors;
 
-import ch.qos.logback.core.net.SyslogOutputStream;
-import cz.konecmi4.fit.cvut.auth.model.Calendar;
-import cz.konecmi4.fit.cvut.auth.model.Image;
-import cz.konecmi4.fit.cvut.auth.model.User;
-import cz.konecmi4.fit.cvut.auth.repository.CalendarRepository;
-import cz.konecmi4.fit.cvut.auth.repository.ImageRepository;
-import cz.konecmi4.fit.cvut.auth.repository.UserRepository;
+import cz.konecmi4.fit.cvut.model.Calendar;
+import cz.konecmi4.fit.cvut.model.Image;
+import cz.konecmi4.fit.cvut.model.User;
+import cz.konecmi4.fit.cvut.repository.ImageRepository;
+import cz.konecmi4.fit.cvut.repository.UserRepository;
+import cz.konecmi4.fit.cvut.service.CalendarService;
 import org.apache.commons.io.FilenameUtils;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.io.Resource;
 import org.springframework.core.io.UrlResource;
 import org.springframework.http.ResponseEntity;
@@ -31,29 +29,34 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 @RequestMapping("/image")
 public class ImageController {
 
-    @Autowired
-    private UserRepository userRepository;
-    @Autowired
-    private ImageRepository imageRepository;
-    @Autowired
-    private CalendarRepository calendarRepository;
+    private final UserRepository userRepository;
+    private final ImageRepository imageRepository;
+    private final CalendarService calendarService;
 
     private Path rootLocation;
 
-    public ImageController(UserRepository userRepository, Path rootLocation, ImageRepository imageRepository) {
+    public ImageController(UserRepository userRepository, Path rootLocation, ImageRepository imageRepository,
+                           CalendarService calendarService) {
         this.userRepository = userRepository;
         this.rootLocation = rootLocation;
         this.imageRepository = imageRepository;
+        this.calendarService = calendarService;
     }
 
     @GetMapping("/")
-    public String listUploadedFiles(Model model, Principal principal) throws Exception {
+    public String listUploadedFiles(@RequestParam(name = "calId",required = false) Long calId, Model model, Principal principal) throws Exception {
 
         if (principal == null) {
             return "redirect:/find";
         }
 
-        User user = userRepository.findByUsername(principal.getName()).orElseThrow(() -> new Exception());
+        if(calId != null){
+            cz.konecmi4.fit.cvut.model.Calendar calendar = calendarService.getCalendar(calId);
+            model.addAttribute("cal", calendar);
+            return "image/upload";
+        }
+
+        /*User user = userRepository.findByUsername(principal.getName()).orElseThrow(() -> new Exception());
 
         List<String> stringss = user.getImageList().stream()
                 .map(image -> this.rootLocation.resolve(image.getName()))
@@ -61,10 +64,10 @@ public class ImageController {
                         .fromMethodName(ImageController.class, "serveFile", path.getFileName().toString()).build()
                         .toString())
                 .collect(Collectors.toList());
+        */
 
-
-        model.addAttribute("files", stringss);
-        model.addAttribute("cal", new Calendar());
+        //model.addAttribute("files", stringss);
+        model.addAttribute("cal", new cz.konecmi4.fit.cvut.model.Calendar());
 
 
         return "image/upload";
@@ -83,11 +86,16 @@ public class ImageController {
     }
 
     @PostMapping("/")
-    public String handleFileUpload(@RequestParam("files") MultipartFile[] files, RedirectAttributes redirectAttributes,
+    public String handleFileUpload(@RequestParam(name = "calId", required = false) Long calId, @RequestParam("files") MultipartFile[] files, RedirectAttributes redirectAttributes,
                                    Principal principal) throws Exception {
 
-        User user = userRepository.findByUsername(principal.getName()).orElseThrow(Exception::new);
-        Set<Image> stringList = user.getImageList();
+        //User user = userRepository.findByUsername(principal.getName()).orElseThrow(Exception::new);
+        cz.konecmi4.fit.cvut.model.Calendar cal = new cz.konecmi4.fit.cvut.model.Calendar();
+        if(calId != null){
+            cal = calendarService.getCalendar(calId);
+        }
+
+        Set<Image> stringList = cal.getImages();
         System.out.println("Post Start");
 
         if(files.length == 0){
@@ -116,18 +124,24 @@ public class ImageController {
 
             //System.out.println(imagePath);
 
-            stringList.add(new Image(imagePath));
+            String path = MvcUriComponentsBuilder.fromMethodName(ImageController.class,"serveFile", name).build().toString();
+            System.out.println("Real path: " + path);
+
+            System.out.println("Nevim path: " + imagePath);
+
+            stringList.add(new Image(name,path,extension));
 
             if(!Files.exists(this.rootLocation.resolve(imagePath))){
                 Files.copy(file.getInputStream(), this.rootLocation.resolve(imagePath));
             }
         }
 
+        Long tmpId = calendarService.saveCalendar(cal);
 
-        userRepository.save(user);
+        //userRepository.save(user);
 
         System.out.println("Post End");
-        return "redirect:/image/";
+        return "redirect:/image/?calId=" + tmpId;
     }
 
     /*@GetMapping("/find")

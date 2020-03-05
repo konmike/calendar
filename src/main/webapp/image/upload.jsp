@@ -114,29 +114,30 @@
 </header>
 
 <main>
-    <h2 class="">Tvorba kalendáře</h2>
     <div class="section section--calendar-create">
         <div class="sidebox sidebox--upload-image">
-            <form:form method="post" enctype="multipart/form-data" class="form form--upload-image" action="/image/">
+            <form:form method="post" enctype="multipart/form-data" class="form form--upload-image" action="/image/?calId=${cal.id}">
                     <label for="file" class="label label--file">
                         <input type="file" id="file" name="files" class="input input--file" multiple />
                         <span class="file--custom"></span>
                     </label>
                     <div class="preview-gallery"></div>
                             <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}" />
+                            <input type="hidden" name="calId" value="${cal.id}" />
                             <input type="submit" class="input input--submit" value="Nahrát" />
             </form:form>
 
             <ul class="list list--gallery">
                 <h3>Vaše obrázky k výběru:</h3>
 
-                <c:forEach varStatus="item" var="file" items="${files}">
+                <c:forEach varStatus="item" var="image" items="${cal.images}">
                     <li class="list--item">
-                        <img src="${file}" draggable="true" ondragstart="return dragStart(event)" width="200" alt="image${item.index}" id="image${item.index}"/>
-                        <a href="${file}">Zvětšit</a>
+                        <img src="${image.path}" draggable="true" ondragstart="return dragStart(event)" width="200" alt="${image.name}" id="image${item.index}"/>
+                        <a href="${image.path}">Zvětšit</a>
 
                         <form:form action="/image/delete" method="POST" class="form form--delete-image">
-                            <input type="hidden" value="${file}" name="name" readonly="readonly" />
+                            <input type="hidden" value="${cal.id}" name="calId" readonly="readonly" />
+                            <input type="hidden" value="${image.id}" name="imgId" readonly="readonly" />
                             <input type="hidden" name="${_csrf.parameterName}"
                                    value="${_csrf.token}" />
 
@@ -186,6 +187,10 @@
                             </c:otherwise>
                         </c:choose>
                     </c:forEach>
+
+                    <form:label path="id" for="id">
+                        <form:input type="hidden" id="id" path="id"/>
+                    </form:label>
 
                     <form:label path="name" for="name">
                         <form:input type="text" id="name" path="name" class="input input--text" placeholder="Název kalendáře" />

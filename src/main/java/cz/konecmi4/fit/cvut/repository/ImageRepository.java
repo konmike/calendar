@@ -1,6 +1,6 @@
-package cz.konecmi4.fit.cvut.auth.repository;
+package cz.konecmi4.fit.cvut.repository;
 
-import cz.konecmi4.fit.cvut.auth.model.Image;
+import cz.konecmi4.fit.cvut.model.Image;
 import org.springframework.data.jpa.repository.JpaRepository;
 
 public interface ImageRepository extends JpaRepository<Image, Long> {

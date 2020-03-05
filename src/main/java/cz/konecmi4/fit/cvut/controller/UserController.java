@@ -1,13 +1,13 @@
-package cz.konecmi4.fit.cvut.auth.web;
+package cz.konecmi4.fit.cvut.controller;
 
-import cz.konecmi4.fit.cvut.auth.model.Role;
-import cz.konecmi4.fit.cvut.auth.model.User;
-import cz.konecmi4.fit.cvut.auth.repository.UserRepository;
-import cz.konecmi4.fit.cvut.auth.service.SecurityService;
-import cz.konecmi4.fit.cvut.auth.service.UserService;
+import cz.konecmi4.fit.cvut.model.Role;
+import cz.konecmi4.fit.cvut.model.User;
+import cz.konecmi4.fit.cvut.repository.UserRepository;
+import cz.konecmi4.fit.cvut.service.SecurityService;
+import cz.konecmi4.fit.cvut.service.UserService;
 
-import cz.konecmi4.fit.cvut.auth.validator.UpdateUserValidator;
-import cz.konecmi4.fit.cvut.auth.validator.UserValidator;
+import cz.konecmi4.fit.cvut.validator.UpdateUserValidator;
+import cz.konecmi4.fit.cvut.validator.UserValidator;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -35,7 +35,7 @@ public class UserController {
 
     @GetMapping("/users/list")
     public String listUsers(Model theModel) {
-        List< User > theUsers = userService.getUsers();
+        List<User> theUsers = userService.getUsers();
         theModel.addAttribute("users", theUsers);
         return "admin/welcome";
     }
@@ -114,8 +114,8 @@ public class UserController {
     }
 
     @GetMapping("/user/delete")
-    public String deleteUser(@RequestParam("userId") int theId) {
-        userService.deleteUser(theId);
+    public String deleteUser(@RequestParam("userId") Long id) {
+        userService.deleteUser(id);
         return "redirect:/users/list";
     }
 

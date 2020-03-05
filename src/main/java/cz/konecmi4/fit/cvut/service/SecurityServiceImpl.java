@@ -1,4 +1,4 @@
-package cz.konecmi4.fit.cvut.auth.service;
+package cz.konecmi4.fit.cvut.service;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
