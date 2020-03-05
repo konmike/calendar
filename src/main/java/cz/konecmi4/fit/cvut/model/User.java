@@ -26,16 +26,9 @@ public class User {
     @ManyToMany
     private Set<Role> roles;
 
-
-    @OneToMany(cascade = CascadeType.ALL)
-    @OrderBy("id")
-    private Set<Image> imageList;
-
     @OneToMany(cascade = CascadeType.ALL)
     @OrderBy("id")
     private Set<Calendar> calendars;
-
-    //private ArrayList<String> checkImage;
 
     public Long getId() {
         return id;
@@ -92,22 +85,6 @@ public class User {
     public void setRoles(Set<Role> roles) {
         this.roles = roles;
     }
-
-    public Set<Image> getImageList() {
-        return imageList;
-    }
-
-    public void setImageList(Set<Image> imageList) {
-        this.imageList = imageList;
-    }
-
-    /*public ArrayList getCheckImage() {
-        return checkImage;
-    }*/
-
-    /*public void setCheckImage(ArrayList checkImage) {
-        this.checkImage = checkImage;
-    }*/
 
     public Set<Calendar> getCalendars() {
         return calendars;

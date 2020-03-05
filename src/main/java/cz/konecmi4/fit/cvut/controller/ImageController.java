@@ -14,6 +14,8 @@ import cz.konecmi4.fit.cvut.model.User;
 import cz.konecmi4.fit.cvut.repository.ImageRepository;
 import cz.konecmi4.fit.cvut.repository.UserRepository;
 import cz.konecmi4.fit.cvut.service.CalendarService;
+import cz.konecmi4.fit.cvut.service.ImageService;
+import cz.konecmi4.fit.cvut.service.UserService;
 import org.apache.commons.io.FilenameUtils;
 import org.springframework.core.io.Resource;
 import org.springframework.core.io.UrlResource;
@@ -29,17 +31,17 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 @RequestMapping("/image")
 public class ImageController {
 
-    private final UserRepository userRepository;
-    private final ImageRepository imageRepository;
+    private final UserService userService;
+    private final ImageService imageService;
     private final CalendarService calendarService;
 
     private Path rootLocation;
 
-    public ImageController(UserRepository userRepository, Path rootLocation, ImageRepository imageRepository,
+    public ImageController(UserService userService, Path rootLocation, ImageService imageService,
                            CalendarService calendarService) {
-        this.userRepository = userRepository;
+        this.userService = userService;
         this.rootLocation = rootLocation;
-        this.imageRepository = imageRepository;
+        this.imageService = imageService;
         this.calendarService = calendarService;
     }
 
@@ -51,7 +53,7 @@ public class ImageController {
         }
 
         if(calId != null){
-            cz.konecmi4.fit.cvut.model.Calendar calendar = calendarService.getCalendar(calId);
+            Calendar calendar = calendarService.getCalendar(calId);
             model.addAttribute("cal", calendar);
             return "image/upload";
         }
@@ -67,7 +69,7 @@ public class ImageController {
         */
 
         //model.addAttribute("files", stringss);
-        model.addAttribute("cal", new cz.konecmi4.fit.cvut.model.Calendar());
+        model.addAttribute("cal", new Calendar());
 
 
         return "image/upload";
@@ -89,13 +91,15 @@ public class ImageController {
     public String handleFileUpload(@RequestParam(name = "calId", required = false) Long calId, @RequestParam("files") MultipartFile[] files, RedirectAttributes redirectAttributes,
                                    Principal principal) throws Exception {
 
-        //User user = userRepository.findByUsername(principal.getName()).orElseThrow(Exception::new);
-        cz.konecmi4.fit.cvut.model.Calendar cal = new cz.konecmi4.fit.cvut.model.Calendar();
+        Optional<User> user = userService.getUserByName(principal.getName());
+        Set<Calendar> calendars = user.get().getCalendars();
+
+        Calendar cal = new Calendar();
         if(calId != null){
             cal = calendarService.getCalendar(calId);
         }
 
-        Set<Image> stringList = cal.getImages();
+        Set<Image> images = cal.getImages();
         System.out.println("Post Start");
 
         if(files.length == 0){
@@ -129,7 +133,7 @@ public class ImageController {
 
             System.out.println("Nevim path: " + imagePath);
 
-            stringList.add(new Image(name,path,extension));
+            images.add(new Image(name,path,extension));
 
             if(!Files.exists(this.rootLocation.resolve(imagePath))){
                 Files.copy(file.getInputStream(), this.rootLocation.resolve(imagePath));
@@ -138,120 +142,31 @@ public class ImageController {
 
         Long tmpId = calendarService.saveCalendar(cal);
 
-        //userRepository.save(user);
+        calendars.add(cal);
+        userService.updateUser(user.get());
 
         System.out.println("Post End");
         return "redirect:/image/?calId=" + tmpId;
     }
 
-    /*@GetMapping("/find")
-    public String findPhotos(Model model) {
-        return "findphoto";
-    }*/
-
-    @GetMapping("/search")
-    public String showGallery(@RequestParam("name") String name, Model model)  {
-        User user;
-        try {
-            user = userRepository.findByUsername(name).orElseThrow(Exception::new);
-        } catch (Exception e) {
-            return "redirect:/image/find";
-        }
-
-        ArrayList<String> tmp = user.getImageList().stream()
-                .map(image -> this.rootLocation.resolve(image.getName()))
-                .map(path -> MvcUriComponentsBuilder
-                        .fromMethodName(ImageController.class, "serveFile", path.getFileName().toString()).build()
-                        .toString()).collect(Collectors.toCollection((Supplier<ArrayList<String>>) ArrayList::new));
-
-
-        //Calendar calendar = new Calendar();
-
-        //user.setCheckImage(tmp);
-        //calendar.setSelImage(tmp);
-
-
-        /*System.out.println("Pred ulozenim do databaze:");
-        System.out.println(user.getCheckImage());
-
-        //userRepository.save(user);
-
-        System.out.println("Meta 32 pohyb...");
-        for (Object o : tmp) {
-            System.out.println(o);
-        }
-        System.out.println("KONEC - Meta 32 pohyb... - KONEC");*/
-
-        model.addAttribute("user", user);
-        model.addAttribute("cal", new Calendar(tmp));
-
-        return "image/findphoto";
-    }
-
-    /*@RequestMapping("/showChecked")
-    public String showChecked(@ModelAttribute("cal") Calendar c, Principal principal) throws Exception
-    {
-        if(c.getSelImage().isEmpty()){
-            System.out.println("Je to prazdny, fakt, nekecam...");
-        }else {
-            for (Object o : c.getSelImage()) {
-                System.out.println(o);
-            }
-        }
-
-        System.out.println("Kalendaris");
-        System.out.println(c.getName());
-        System.out.println(c.getYear());
-        System.out.println(c.getSelImage());
-        System.out.println("==== END Kalendaris ====");
-
-        calendarRepository.save(c);
-
-        User user = userRepository.findByUsername(principal.getName()).orElseThrow(() -> new Exception());
-
-        Set<Calendar> calSet = user.getCalendars();
-        calSet.add(c);
-        user.setCalendars(calSet);
-
-        userRepository.save(user);
-
-        return "image/showCheck";
-    }*/
-
     @RequestMapping("/delete")
-    public String findPhotos(Principal principal, @RequestParam("name") String name, String string) throws Exception {
+    public String deleteImage(@RequestParam("calId") Long calId, @RequestParam("imgId") Long imgId, Principal principal) throws Exception {
+        Optional<User> user = userService.getUserByName(principal.getName());
+        Calendar calendar = calendarService.getCalendar(calId);
+        Image image = imageService.getImage(imgId);
 
-        User user = userRepository.findByUsername(principal.getName()).orElseThrow(Exception::new);
+        imageService.deleteImage(calendar,image);
 
-        //Files.delete(name);
-
-        name = name.substring(name.lastIndexOf("/"));
-        name = this.rootLocation + name;
-
-        Path path = this.rootLocation.resolve(name);
-
-        System.out.println(path);
-        if(Files.exists(path)){
-            System.out.println("Mazani z disku.");
-            Files.delete(path);
+        if(calendar.getImages().isEmpty()){
+            System.out.println("Mazani kalendare v deleteImage");
+            user.get().getCalendars().remove(calendar);
+            calendarService.deleteCalendar(calId);
+            userService.updateUser(user.get());
+            return "redirect:/image/";
         }
 
-        Image image = imageRepository.findByName(name);
-
-        System.out.println(image.getId());
-        System.out.println(image.getName());
-
-        System.out.println("Pred smazanim");
-        System.out.println(user.getImageList());
-
-        user.getImageList().remove(image);
-        System.out.println("Po smazanim");
-        System.out.println(user.getImageList());
-
-        imageRepository.deleteById(image.getId());
-        userRepository.save(user);
-
-        return "redirect:/image/";
+        calendarService.saveCalendar(calendar);
+        return "redirect:/image/?calId=" + calId;
 
     }
 }

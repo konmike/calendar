@@ -62,13 +62,13 @@
                 <li class="list--item">
                 <c:choose>
                     <c:when test="${frontPages.get(item.index).contains('null')}">
-                        <a href="${contextPath}/calendar?name=${calendar.name}">
+                        <a href="${contextPath}/calendar?calId=${calendar.id}">
                             <i class="fas fa-file-image"></i>
                             <span>${calendar.name} - ${calendar.year}</span>
                         </a>
                     </c:when>
                     <c:otherwise>
-                        <a href="${contextPath}/calendar?name=${calendar.name}">
+                        <a href="${contextPath}/calendar?calId=${calendar.id}">
                             <img src="${frontPages.get(item.index)}" alt="" />
                             <span>${calendar.name} - ${calendar.year}</span>
                         </a>

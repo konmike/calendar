@@ -90,23 +90,27 @@
         <ul>
             <security:authorize access="hasRole('ROLE_ADMIN')">
                 <li>
-                    <a href="${contextPath}/admin/">Domů</a>
+                    <a href="${contextPath}/calendar/deleteNullCalendar?calId=${cal.id}&redir=${contextPath}/admin/"
+                       onclick="if (!(confirm('Kalendář není uložen, chcete přesto pokračovat?'))) return false">Domů</a>
                 </li>
             </security:authorize>
             <security:authorize access="!hasRole('ROLE_ADMIN')">
                 <li>
-                    <a href="${contextPath}/">Domů</a>
+                    <a href="${contextPath}/calendar/deleteNullCalendar?calId=${cal.id}&redir=${contextPath}/"
+                       onclick="if (!(confirm('Kalendář není uložen, chcete přesto pokračovat?'))) return false">Domů</a>
                 </li>
             </security:authorize>
             <li>
                 <span class="active">Tvorba kalendáře</span>
             </li>
             <li>
-                <a href="${contextPath}/calendar/myCalendars">Mé kalendáře</a>
+                <a href="${contextPath}/calendar/deleteNullCalendar?calId=${cal.id}&redir=${contextPath}/calendar/myCalendars"
+                   onclick="if (!(confirm('Kalendář není uložen, chcete přesto pokračovat?'))) return false">Mé kalendáře</a>
             </li>
             <security:authorize access="hasRole('ROLE_ADMIN')">
                 <li>
-                    <a href="${contextPath}/admin/list-gallery">Editace galerií</a>
+                    <a href="${contextPath}/calendar/deleteNullCalendar?calId=${cal.id}&redir=${contextPath}/admin/list-gallery"
+                       onclick="if (!(confirm('Kalendář není uložen, chcete přesto pokračovat?'))) return false">Editace galerií</a>
                 </li>
             </security:authorize>
         </ul>

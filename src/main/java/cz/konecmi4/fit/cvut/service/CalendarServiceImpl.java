@@ -22,4 +22,9 @@ public class CalendarServiceImpl implements CalendarService {
         Calendar newCalendar =  calendarRepository.save(calendar);
         return newCalendar.getId();
     }
+
+    @Override
+    public void deleteCalendar(Long id) {
+        calendarRepository.deleteById(id);
+    }
 }

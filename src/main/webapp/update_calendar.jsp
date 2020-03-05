@@ -113,17 +113,16 @@
 </header>
 
 <main>
-    <h2 class="">Editace kalendáře - ${cal.name}</h2>
     <div class="section section--calendar-update">
         <div class="sidebox sidebox--upload-image">
-            <form:form method="post" modelAttribute="files" enctype="multipart/form-data" class="form form--upload-image" action="/image/">
+            <form:form method="post" modelAttribute="files" enctype="multipart/form-data" class="form form--upload-image" action="/image/?calId=${cal.id}">
                     <label for="file" class="label label--file">
                         <input type="file" id="file" name="files" class="input input--file" multiple />
                         <span class="file--custom"></span>
                     </label>
                     <div class="preview-gallery"></div>
-
                             <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}" />
+                            <input type="hidden" name="calId" value="${cal.id}" />
                             <input type="submit" class="input input--submit" value="Nahrát" />
             </form:form>
 

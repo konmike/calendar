@@ -1,11 +1,14 @@
 package cz.konecmi4.fit.cvut.controller;
 
 import cz.konecmi4.fit.cvut.model.Calendar;
+import cz.konecmi4.fit.cvut.model.Image;
 import cz.konecmi4.fit.cvut.model.User;
 import cz.konecmi4.fit.cvut.repository.CalendarRepository;
 import cz.konecmi4.fit.cvut.repository.ImageRepository;
 import cz.konecmi4.fit.cvut.repository.UserRepository;
 import cz.konecmi4.fit.cvut.service.CalendarService;
+import cz.konecmi4.fit.cvut.service.ImageService;
+import cz.konecmi4.fit.cvut.service.UserService;
 import org.apache.commons.io.FilenameUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.io.Resource;
@@ -15,7 +18,9 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
+import java.io.IOException;
 import java.net.MalformedURLException;
+import java.nio.file.Files;
 import java.nio.file.Path;
 import java.security.Principal;
 import java.util.*;
@@ -23,57 +28,29 @@ import java.util.*;
 @Controller
 @RequestMapping("/calendar")
 public class CalendarController {
-    @Autowired
-    CalendarRepository calendarRepository;
 
-    @Autowired
-    UserRepository userRepository;
+    private final CalendarRepository calendarRepository;
+    private final UserRepository userRepository;
+    private final CalendarService calendarService;
+    private final UserService userService;
+    private final ImageService imageService;
 
-    @Autowired
-    ImageRepository imageRepository;
-
-    @Autowired
-    CalendarService calendarService;
 
     private Path rootLocation;
 
-    public CalendarController(Path rootLocation) {
+    public CalendarController(CalendarRepository calendarRepository, UserRepository userRepository, CalendarService calendarService, UserService userService, ImageService imageService, Path rootLocation) {
+        this.calendarRepository = calendarRepository;
+        this.userRepository = userRepository;
+        this.calendarService = calendarService;
+        this.userService = userService;
+        this.imageService = imageService;
         this.rootLocation = rootLocation;
     }
 
-//    @PostMapping("/")
-//    public String showCalendar(@ModelAttribute("cal") Calendar c, Principal principal) throws Exception
-//    {
-//        if(c.getSelImage().isEmpty()){
-//            System.out.println("Je to prazdny, fakt, nekecam...");
-//        }else {
-//            for (Object o : c.getSelImage()) {
-//                System.out.println(o);
-//            }
-//        }
-//
-//        /*System.out.println("Kalendaris");
-//        System.out.println(c.getName());
-//        System.out.println(c.getYear());
-//        System.out.println(c.getSelImage());
-//        System.out.println("==== END Kalendaris ====");*/
-//        calendarRepository.save(c);
-//
-//        User user = userRepository.findByUsername(principal.getName()).orElseThrow(() -> new Exception());
-//
-//        Set<Calendar> calSet = user.getCalendars();
-//        calSet.add(c);
-//        user.setCalendars(calSet);
-//
-//        userRepository.save(user);
-//
-//        return "image/showCheck";
-//    }
-
     @GetMapping()
-    public String getCalendar(@RequestParam("name") String name, Model model, Principal principal) throws Exception
+    public String getCalendar(@RequestParam("calId") Long calId, Model model, Principal principal) throws Exception
     {
-        cz.konecmi4.fit.cvut.model.Calendar calendar = calendarRepository.findByName(name);
+        Calendar calendar = calendarService.getCalendar(calId);
 
         //User user = userRepository.findByUsername(principal.getName()).orElseThrow(() -> new Exception());
 
@@ -94,12 +71,6 @@ public class CalendarController {
         System.out.println("V show funkci 2:");
         //System.out.println(tmp);
 
-/* Vyzkouset doma
-* server.max-http-header-size=48000
-* server.tomcat.max-http-post-size=0
-* server.tomcat.max-connections=-1
-* */
-
         model.addAttribute("cal",calendar);
         model.addAttribute("calImage",calendar.getSelImage());
 
@@ -107,8 +78,8 @@ public class CalendarController {
     }
 
     @PostMapping("/create")
-    public String createCalendar(@ModelAttribute("cal") cz.konecmi4.fit.cvut.model.Calendar c, Principal principal) throws Exception{
-        User user = userRepository.findByUsername(principal.getName()).orElseThrow(() -> new Exception());
+    public String createCalendar(@ModelAttribute("cal") Calendar c, Principal principal) throws Exception{
+        Optional <User> user = userService.getUserByName(principal.getName());
 
         if(c.getSelImage().isEmpty()){
             System.out.println("Je to prazdny, fakt, nekecam...");
@@ -124,11 +95,11 @@ public class CalendarController {
             }
         }
 
-        calendarRepository.save(c);
+        calendarService.saveCalendar(c);
 
-        Set<cz.konecmi4.fit.cvut.model.Calendar> tmp = user.getCalendars();
+        Set<Calendar> tmp = user.get().getCalendars();
         tmp.add(c);
-        userRepository.save(user);
+        userService.updateUser(user.get());
 
         //return "redirect:/calendar/myCalendars";
         return "redirect:/calendar?name=" + c.getName();
@@ -233,7 +204,7 @@ public class CalendarController {
 
         c.setSelImage(arrayList);
         c.setImages(images);
-        calendarRepository.save(c);
+        calendarService.saveCalendar(c);
 
         Set<Calendar> tmp = user.getCalendars();
         tmp.add(c);
@@ -245,14 +216,14 @@ public class CalendarController {
     @GetMapping("/myCalendars")
     public String getCalendars(Model model, Principal principal) throws Exception
     {
-        User user = userRepository.findByUsername(principal.getName()).orElseThrow(() -> new Exception());
-        System.out.println(user.getUsername());
+        Optional<User> user = userService.getUserByName(principal.getName());
+        System.out.println(user.get().getUsername());
 
-        Set<cz.konecmi4.fit.cvut.model.Calendar> calSet = user.getCalendars();
+        Set<Calendar> calendars = user.get().getCalendars();
 
         ArrayList<String> frontPages = new ArrayList<>();
 
-        for (cz.konecmi4.fit.cvut.model.Calendar cal:calSet) {
+        for (Calendar cal : calendars) {
             System.out.println(cal.getSelImage());
             if(cal.getSelImage().isEmpty()){
                 continue;
@@ -262,20 +233,20 @@ public class CalendarController {
         }
 
         System.out.println(frontPages);
-        model.addAttribute("calendars",calSet);
+        model.addAttribute("calendars",calendars);
         model.addAttribute("frontPages",frontPages);
 
         return "/my-calendars";
     }
 
     @GetMapping("/update")
-    public String updateCalendar(@RequestParam("name") String name, Model model, Principal principal) throws Exception {
+    public String updateCalendar(@RequestParam("calId") Long calId, Model model, Principal principal) throws Exception {
 
         if (principal == null) {
             return "redirect:/find";
         }
 
-        cz.konecmi4.fit.cvut.model.Calendar c = calendarRepository.findByName(name);
+        Calendar c = calendarService.getCalendar(calId);
 //        List<String> stringss = c.getImages().stream()
 //                .map(image -> this.rootLocation.resolve(image.getName()))
 //                .map(path -> MvcUriComponentsBuilder
@@ -290,7 +261,7 @@ public class CalendarController {
     }
 
     @PostMapping("/update")
-    public String saveUpdateCalendar(@ModelAttribute("cal") cz.konecmi4.fit.cvut.model.Calendar tmpC, Principal principal) throws Exception {
+    public String saveUpdateCalendar(@ModelAttribute("cal") Calendar tmpC, Principal principal) throws Exception {
 
         if (principal == null) {
             return "redirect:/find";
@@ -328,7 +299,7 @@ public class CalendarController {
             c.setSelImage(tmpC.getSelImage());
         }
 
-        calendarRepository.save(c);
+        calendarService.saveCalendar(c);
 
         return "redirect:/calendar?name=" + tmpC.getName();
     }
@@ -343,5 +314,24 @@ public class CalendarController {
         return ResponseEntity
                 .ok()
                 .body(resource);
+    }
+
+    @GetMapping("/deleteNullCalendar")
+    public String deleteNullCalendar(@RequestParam(name="calId", required = false) Long calId, @RequestParam("redir") String redir, Principal principal) throws IOException {
+        Optional<User> user = userService.getUserByName(principal.getName());
+        System.out.println("Redirect: " + redir);
+        if(calId == null){
+            return "redirect:" + redir;
+        }
+        Calendar calendar = calendarService.getCalendar(calId);
+        user.get().getCalendars().remove(calendar);
+        for (Image image:calendar.getImages()) {
+            imageService.deleteImage(calendar,image);
+        }
+
+        calendarService.deleteCalendar(calId);
+        userService.updateUser(user.get());
+
+        return "redirect:" + redir;
     }
 }

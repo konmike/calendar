@@ -16,22 +16,21 @@ import org.springframework.web.bind.annotation.*;
 
 import java.security.Principal;
 import java.util.List;
+import java.util.Optional;
 
 @Controller
 public class UserController {
-    @Autowired
-    private UserRepository userRepository;
-    @Autowired
-    private UserService userService;
+    private final UserService userService;
+    private final SecurityService securityService;
+    private final UserValidator userValidator;
+    private final UpdateUserValidator updateUserValidator;
 
-    @Autowired
-    private SecurityService securityService;
-
-    @Autowired
-    private UserValidator userValidator;
-
-    @Autowired
-    private UpdateUserValidator updateUserValidator;
+    public UserController(UserService userService, SecurityService securityService, UserValidator userValidator, UpdateUserValidator updateUserValidator) {
+        this.userService = userService;
+        this.securityService = securityService;
+        this.userValidator = userValidator;
+        this.updateUserValidator = updateUserValidator;
+    }
 
     @GetMapping("/users/list")
     public String listUsers(Model theModel) {
@@ -80,9 +79,9 @@ public class UserController {
             return "update-form";
         }
 
-        User realUser = userRepository.findByUsername(principal.getName()).orElseThrow(() -> new Exception());
+        Optional<User> realUser = userService.getUserByName(principal.getName());
 
-        realUser.setNewPassword(user.getNewPassword());
+        realUser.get().setNewPassword(user.getNewPassword());
 
         /*System.out.println("Aktualizuji tohoto uživatele:");
         System.out.println(user.getUsername());
@@ -90,7 +89,7 @@ public class UserController {
         System.out.println(user.getOldPassword());
         System.out.println("==============================");*/
 
-        userService.updateUser(realUser);
+        userService.updateUserPassword(realUser.get());
 
         System.out.println("Po ulozeni!");
         return "redirect:/";
@@ -179,9 +178,9 @@ public class UserController {
 
     @GetMapping({"/", "/welcome"})
     public String welcome(Principal principal) throws Exception {
-        User user = userRepository.findByUsername(principal.getName()).orElseThrow(Exception::new);
+        Optional<User> user = userService.getUserByName(principal.getName());
 
-        for (Role role : user.getRoles()){
+        for (Role role : user.get().getRoles()){
             if(role.getName().equals("ROLE_ADMIN")){
                 return "redirect:/admin/";
             }

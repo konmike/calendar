@@ -39,6 +39,11 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
+    public Optional<User> getUserByName(String name) {
+        return userRepository.findByUsername(name);
+    }
+
+    @Override
     public void deleteUser(Long id) {
         userRepository.deleteById(id);
     }
@@ -52,6 +57,11 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public void updateUser(User user) {
+        userRepository.save(user);
+    }
+
+    @Override
+    public void updateUserPassword(User user) {
         user.setPassword((bCryptPasswordEncoder.encode((user.getNewPassword()))));
         userRepository.save(user);
     }

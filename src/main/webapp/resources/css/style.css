@@ -214,6 +214,7 @@ footer ul li:last-child{
 .section--calendar-create,.section--calendar-update{
   display: grid;
   grid-template-columns: 1fr 1fr;
+  margin-top: 1rem;
 }
 .sidebox{
   padding: 0 1rem;
