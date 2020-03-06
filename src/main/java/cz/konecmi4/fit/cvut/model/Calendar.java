@@ -20,6 +20,9 @@ public class Calendar {
     @OrderBy("id")
     private Set<Image> images = new LinkedHashSet<>();
 
+    @OneToMany(cascade = CascadeType.ALL)
+    private Set<Image> selectedImages = new LinkedHashSet<>();
+
     public Calendar() {
     }
 
@@ -96,5 +99,11 @@ public class Calendar {
         this.images = images;
     }
 
+    public Set<Image> getSelectedImages() {
+        return selectedImages;
+    }
 
+    public void setSelectedImages(Set<Image> selectedImages) {
+        this.selectedImages = selectedImages;
+    }
 }

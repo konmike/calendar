@@ -80,6 +80,8 @@ public class CalendarController {
     public String createCalendar(@ModelAttribute("cal") Calendar c, Principal principal) throws Exception{
         Optional <User> user = userService.getUserByName(principal.getName());
         ArrayList<Long> delId = new ArrayList<>();
+        Set<Image> tmp = c.getImages();
+        Set<Image> selImage = c.getImages();
 
         if(c.getSelImage().isEmpty()){
             System.out.println("Je to prazdny, fakt, nekecam...");
@@ -88,6 +90,13 @@ public class CalendarController {
             for (Image image: c.getImages()) {
                 if(!c.getSelImage().contains(image.getPath())){
                     delId.add(image.getId());
+                }
+            }
+            for (String imgPath : c.getSelImage()){
+                for (Image img : c.getImages()) {
+                    if (img.getPath().equals(imgPath)) {
+                        selImage.add(img);
+                    }
                 }
             }
             System.out.println("Create image po mazani: " + c.getImages());
@@ -99,6 +108,7 @@ public class CalendarController {
             //imageService.deleteImage(c,i);
         }
 
+        c.setSelectedImages(selImage);
         calendarService.saveCalendar(c);
 
         for (Long id:delId) {
@@ -354,6 +364,7 @@ public class CalendarController {
             return "redirect:" + redir;
         }
 
+        
 
 
         user.get().getCalendars().remove(calendar);
