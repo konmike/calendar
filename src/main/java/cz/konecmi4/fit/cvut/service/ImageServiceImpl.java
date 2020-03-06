@@ -3,7 +3,9 @@ package cz.konecmi4.fit.cvut.service;
 
 import cz.konecmi4.fit.cvut.model.Calendar;
 import cz.konecmi4.fit.cvut.model.Image;
+import cz.konecmi4.fit.cvut.repository.CalendarRepository;
 import cz.konecmi4.fit.cvut.repository.ImageRepository;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.io.IOException;
@@ -14,6 +16,9 @@ import java.nio.file.Path;
 public class ImageServiceImpl implements ImageService {
     private final ImageRepository imageRepository;
     private Path rootLocation;
+
+    @Autowired
+    private CalendarRepository calendarRepository;
 
     public ImageServiceImpl(ImageRepository imageRepository, Path rootLocation) {
         this.imageRepository = imageRepository;
@@ -28,7 +33,9 @@ public class ImageServiceImpl implements ImageService {
     @Override
     public void deleteImage(Calendar calendar, Image image) throws IOException {
         System.out.println("Jsme v mazani");
+        System.out.println("Calendar images pred: " + calendar.getImages());
         calendar.getImages().remove(image);
+        System.out.println("Calendar images po: " + calendar.getImages());
         System.out.println("Smazano z vazby na kalendar");
         Path path = this.rootLocation.resolve(image.getName());
 

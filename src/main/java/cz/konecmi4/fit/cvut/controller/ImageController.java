@@ -88,7 +88,7 @@ public class ImageController {
     }
 
     @PostMapping("/")
-    public String handleFileUpload(@RequestParam(name = "calId", required = false) Long calId, @RequestParam("files") MultipartFile[] files, RedirectAttributes redirectAttributes,
+    public String handleFileUpload(@RequestParam(name = "calId", required = false) Long calId, @RequestParam("path") String redir, @RequestParam("files") MultipartFile[] files, RedirectAttributes redirectAttributes,
                                    Principal principal) throws Exception {
 
         Optional<User> user = userService.getUserByName(principal.getName());
@@ -110,9 +110,9 @@ public class ImageController {
 
             System.out.println("Post foreach");
 
-            if (file.getSize() == 0) {
+            /*if (file.getSize() == 0) {
                 return "redirect:/image/";
-            }
+            }*/
 
             String name = file.getOriginalFilename();
             String extension = FilenameUtils.getExtension(file.getOriginalFilename());
@@ -146,7 +146,12 @@ public class ImageController {
         userService.updateUser(user.get());
 
         System.out.println("Post End");
-        return "redirect:/image/?calId=" + tmpId;
+
+        if(redir.equals("update")){
+            return "redirect:/calendar/update?calId=" + tmpId;
+        }else{
+            return "redirect:/image/?calId=" + tmpId;
+        }
     }
 
     @RequestMapping("/delete")

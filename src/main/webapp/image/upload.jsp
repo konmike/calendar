@@ -120,7 +120,7 @@
 <main>
     <div class="section section--calendar-create">
         <div class="sidebox sidebox--upload-image">
-            <form:form method="post" enctype="multipart/form-data" class="form form--upload-image" action="/image/?calId=${cal.id}">
+            <form:form method="post" enctype="multipart/form-data" class="form form--upload-image" action="/image/?calId=${cal.id}&path=create">
                     <label for="file" class="label label--file">
                         <input type="file" id="file" name="files" class="input input--file" multiple />
                         <span class="file--custom"></span>
@@ -192,6 +192,10 @@
 
                     <form:label path="id" for="id">
                         <form:input type="hidden" id="id" path="id"/>
+                    </form:label>
+
+                    <form:label path="images" for="images">
+                        <form:input type="hidden" id="images" path="images"/>
                     </form:label>
 
                     <form:label path="name" for="name">

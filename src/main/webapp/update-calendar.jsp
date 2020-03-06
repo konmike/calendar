@@ -89,23 +89,28 @@
         <ul>
             <security:authorize access="hasRole('ROLE_ADMIN')">
                 <li>
-                    <a href="${contextPath}/admin/">Domů</a>
+                    <a href="${contextPath}/calendar/deleteUpdateCalendar?calId=${cal.id}&redir=${contextPath}/admin/"
+                       onclick="if (!(confirm('Kalendář není uložen, chcete přesto pokračovat?'))) return false">Domů</a>
                 </li>
             </security:authorize>
             <security:authorize access="!hasRole('ROLE_ADMIN')">
                 <li>
-                    <a href="${contextPath}/">Domů</a>
+                    <a href="${contextPath}/calendar/deleteUpdateCalendar?calId=${cal.id}&redir=${contextPath}/"
+                       onclick="if (!(confirm('Kalendář není uložen, chcete přesto pokračovat?'))) return false">Domů</a>
                 </li>
             </security:authorize>
             <li>
-                <a href="${contextPath}/image/">Tvorba kalendáře</a>
+                <a href="${contextPath}/calendar/deleteUpdateCalendar?calId=${cal.id}&redir=${contextPath}/image/"
+                   onclick="if (!(confirm('Kalendář není uložen, chcete přesto pokračovat?'))) return false">Tvorba kalendáře</a>
             </li>
             <li>
-                <a href="${contextPath}/calendar/myCalendars">Mé kalendáře</a>
+                <a href="${contextPath}/calendar/deleteUpdateCalendar?calId=${cal.id}&redir=${contextPath}/calendar/myCalendars"
+                   onclick="if (!(confirm('Kalendář není uložen, chcete přesto pokračovat?'))) return false">Mé kalendáře</a>
             </li>
             <security:authorize access="hasRole('ROLE_ADMIN')">
                 <li>
-                    <a href="${contextPath}/admin/list-gallery">Editace galerií</a>
+                    <a href="${contextPath}/calendar/deleteUpdateCalendar?calId=${cal.id}&redir=${contextPath}/admin/list-gallery"
+                       onclick="if (!(confirm('Kalendář není uložen, chcete přesto pokračovat?'))) return false">Editace galerií</a>
                 </li>
             </security:authorize>
         </ul>
@@ -115,7 +120,7 @@
 <main>
     <div class="section section--calendar-update">
         <div class="sidebox sidebox--upload-image">
-            <form:form method="post" modelAttribute="files" enctype="multipart/form-data" class="form form--upload-image" action="/image/?calId=${cal.id}">
+            <form:form method="post" enctype="multipart/form-data" class="form form--upload-image" action="/image/?calId=${cal.id}&path=update">
                     <label for="file" class="label label--file">
                         <input type="file" id="file" name="files" class="input input--file" multiple />
                         <span class="file--custom"></span>
@@ -127,20 +132,21 @@
             </form:form>
 
             <ul class="list list--gallery">
-                <c:forEach var="file" items="${files}" varStatus="item">
+                <c:forEach var="image" items="${cal.images}" varStatus="item">
                     <li class="list--item" >
-                        <c:if test="${!file.contains('null')}">
-                            <img src="${file}" draggable="true" ondragstart="return dragStart(event)" width="200" alt="image" id="image${item.index}"/>
-                            <a href="${file}">Zvětšit</a>
+
+                            <img src="${image.path}" draggable="true" ondragstart="return dragStart(event)" width="200" alt="${image.name}" id="image${item.index}"/>
+                            <a href="${image.path}">Zvětšit</a>
 
                             <form:form action="/image/delete" method="POST" class="form form--delete-image">
-                                <input type="hidden" value="${file}" name="name" readonly="readonly" />
+                                <input type="hidden" value="${image.id}" name="imgId" readonly="readonly" />
+                                <input type="hidden" value="${cal.id}" name="calId" readonly="readonly" />
                                 <input type="hidden" name="${_csrf.parameterName}"
                                        value="${_csrf.token}" />
 
                                 <input type="submit" class="input input--submit" value="Smazat" />
                             </form:form>
-                        </c:if>
+
                     </li>
                 </c:forEach>
             </ul>
@@ -159,7 +165,7 @@
                             <c:when test="${item.index == '0'}">
                                 <form:label path="selImage" for="item0" class="label label--item label--item-0">
                                     <c:choose>
-                                        <c:when test="${(files.get(0).contains('null'))}">
+                                        <c:when test="${(cal.selImage.get(0).contains('null'))}">
                                         <form:checkbox path="selImage" id="item0" class="input input--checkbox" value="null" checked="checked"/>
                                         <div class="item item--0 a4-portrait">
 
@@ -170,11 +176,11 @@
                                                      ondragleave="return dragLeave(event)"></div>
                                         </c:when>
                                         <c:otherwise>
-                                        <form:checkbox path="selImage" id="item0" class="input input--checkbox" value="${files.get(0)}" checked="checked"/>
+                                        <form:checkbox path="selImage" id="item0" class="input input--checkbox" value="${cal.selImage.get(0)}" checked="checked"/>
                                         <div class="item item--0 a4-portrait">
 
                                             <div onclick="deleteImage(event)" class="wrapper wrapper-image wrapper-image-after border-no">
-                                                <img src="${files.get(0)}" alt=""/>
+                                                <img src="${cal.selImage.get(0)}" alt=""/>
                                             </div>
                                         </c:otherwise>
                                     </c:choose>
@@ -184,7 +190,7 @@
                             <c:otherwise>
                                 <form:label path="selImage" for="item${item.index}" class="label label--item label--item-${item.index}">
                                         <c:choose>
-                                            <c:when test="${(files.get(item.index).contains('null'))}">
+                                            <c:when test="${(cal.selImage.get(item.index).contains('null'))}">
                                             <form:checkbox path="selImage" id="item${item.index}" class="input input--checkbox" value="null" checked="checked"/>
                                             <div class="month month--${item.index} item a4-portrait">
                                                 <div onclick="deleteImage(event)" class="wrapper wrapper-image border"
@@ -194,11 +200,11 @@
                                                      ondragleave="return dragLeave(event)"></div>
                                             </c:when>
                                             <c:otherwise>
-                                            <form:checkbox path="selImage" id="item${item.index}" class="input input--checkbox" value="${files.get(item.index)}" checked="checked"/>
+                                            <form:checkbox path="selImage" id="item${item.index}" class="input input--checkbox" value="${cal.selImage.get(item.index)}" checked="checked"/>
                                             <div class="month month--${item.index} item a4-portrait">
 
                                                 <div onclick="deleteImage(event)" class="wrapper wrapper-image wrapper-image-after border-no">
-                                                    <img src="${files.get(item.index)}" alt=""/>
+                                                    <img src="${cal.selImage.get(item.index)}" alt=""/>
                                                 </div>
                                             </c:otherwise>
                                         </c:choose>
@@ -212,6 +218,10 @@
 
                     <form:label path="id" for="id">
                         <form:input type="hidden" id="id" path="id" />
+                    </form:label>
+
+                    <form:label path="images" for="images">
+                        <form:input type="hidden" id="images" path="images" />
                     </form:label>
 
                     <form:label path="name" for="name">
