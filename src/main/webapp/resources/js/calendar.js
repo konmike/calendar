@@ -57,9 +57,10 @@ for(let m = start; m < end; m++) {
 
 // -- state mgmt
 
-var lang_d = $("body").getAttribute("data-custom-lang");
-let offset_d = parseInt($("body").getAttribute("data-custom-offset"),10);
-let year_d = parseInt($("body").getAttribute("data-custom-year"),10);
+let body = $("body");
+var lang_d = body.getAttribute("data-custom-lang");
+let offset_d = parseInt(body.getAttribute("data-custom-offset"),10);
+let year_d = parseInt(body.getAttribute("data-custom-year"),10);
 
 if(lang_d === ""){
     lang_d = "cs";

@@ -29,7 +29,7 @@
                 <span class="active">Domů</span>
             </li>
             <li>
-                <a href="${contextPath}/image/">Tvorba kalendáře</a>
+                <a href="${contextPath}/calendar/create">Nový kalendář</a>
             </li>
             <li>
                 <a href="${contextPath}/calendar/myCalendars">Mé kalendáře</a>

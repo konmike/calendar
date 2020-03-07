@@ -18,6 +18,8 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
+import org.springframework.web.servlet.mvc.method.annotation.MvcUriComponentsBuilder;
 
 import javax.persistence.EntityManager;
 import java.io.IOException;
@@ -47,194 +49,61 @@ public class CalendarController {
     }
 
     @GetMapping()
-    public String getCalendar(@RequestParam("calId") Long calId, Model model, Principal principal) throws Exception
-    {
+    public String getCalendar(@RequestParam("calId") Long calId, Model model) {
         Calendar calendar = calendarService.getCalendar(calId);
 
-        //User user = userRepository.findByUsername(principal.getName()).orElseThrow(() -> new Exception());
-
-        //Set<Calendar> calSet = user.getCalendars();
-
-        System.out.println("V show funkci:");
+        System.out.println("Uploadnute obrazky: ");
         System.out.println(calendar.getImages());
 
-        //List<Image> sort = calendar.getImages();
 
-//        ArrayList<String> tmp = calendar.getImages().stream()
-//                .map(image -> this.rootLocation.resolve(image.getName()))
-//                .map(path -> MvcUriComponentsBuilder
-//                        .fromMethodName(CalendarController.class, "serveFile", path.getFileName().toString()).build()
-//                        .toString()).collect(Collectors.toCollection(ArrayList::new));
-//(Supplier<ArrayList<String>>)
-
-        System.out.println("V show funkci 2:");
+        System.out.println("Vybrane obrazky: ");
+        System.out.println(calendar.getSelImage());
         //System.out.println(tmp);
 
         model.addAttribute("cal",calendar);
-        //model.addAttribute("calImage",calendar.getSelImage());
-
         return "/show-calendar";
     }
 
-    @PostMapping("/create")
-    public String createCalendar(@ModelAttribute("cal") Calendar c, Principal principal) throws Exception{
-        Optional <User> user = userService.getUserByName(principal.getName());
-        ArrayList<Long> delId = new ArrayList<>();
-        Set<Image> tmp = c.getImages();
-        Set<Image> selImage = c.getImages();
-
-        if(c.getSelImage().isEmpty()){
-            System.out.println("Je to prazdny, fakt, nekecam...");
-        }else{
-            System.out.println("Create image pred mazanim: " + c.getImages());
-            for (Image image: c.getImages()) {
-                if(!c.getSelImage().contains(image.getPath())){
-                    delId.add(image.getId());
-                }
-            }
-            for (String imgPath : c.getSelImage()){
-                for (Image img : c.getImages()) {
-                    if (img.getPath().equals(imgPath)) {
-                        selImage.add(img);
-                    }
-                }
-            }
-            System.out.println("Create image po mazani: " + c.getImages());
-        }
-
-        for (Long id:delId) {
-            Image i = imageService.getImage(id);
-            c.getImages().remove(i);
-            //imageService.deleteImage(c,i);
-        }
-
-        c.setSelectedImages(selImage);
-        calendarService.saveCalendar(c);
-
-        for (Long id:delId) {
-            imageRepository.deleteById(id);
-        }
-
-//        Set<Calendar> tmp = user.get().getCalendars();
-//        tmp.add(c);
-//        userService.updateUser(user.get());
-
-        //return "redirect:/calendar/myCalendars";
-        return "redirect:/calendar?calId=" + c.getId();
+    @GetMapping("/create")
+    public String getCreateCalendar(Model model){
+        model.addAttribute("cal", new Calendar());
+        return "create-calendar";
     }
 
-    /*@PostMapping("/create")
-    public String createCalendar(@ModelAttribute("cal") Calendar c, Principal principal) throws Exception {
-        ArrayList<String> arrayList = new ArrayList<>();
-        String imagePath = "";
-        LinkedHashSet<Image> images = new LinkedHashSet<>();
+    @PostMapping("/create")
+    public String createCalendar(@ModelAttribute("cal") Calendar c, Principal principal) {
+        System.out.println("Id: " + c.getId());
+        System.out.println("Name: " + c.getName());
+        System.out.println("Year: " + c.getYear());
+        System.out.println("Offset: " + c.getOffset());
+        System.out.println("Lang: " + c.getLang());
 
-        if(c.getSelImage().isEmpty()){
-            System.out.println("Je to prazdny, fakt, nekecam...");
-        }else {
+        Optional <User> user = userService.getUserByName(principal.getName());
+        Set<Calendar> calendars = null;
 
-            for (Object o : c.getSelImage()) {
-
-                System.out.println(o);
-                String tmp = o.toString();
-                System.out.println(tmp);
-
-
-                if (tmp.equals("null")) {
-                    System.out.println("prazdny image");
-                    //String uuid = UUID.randomUUID().toString();
-                    String extension = "nothing";
-                    imagePath = this.rootLocation.resolve(extension).toString();
-                    arrayList.add(imagePath);
-                    images.add(new Image(imagePath));
-
-
-                    continue;
-                }
-                //System.out.println("tmp:" + tmp);
-
-//                String[] strings = tmp.split(",");
-//                String two = strings[1];
-//                System.out.println("two:" + two);
-//                for (String string : strings) {
-//                    System.out.print(string);
-//                }
-//                arrayList.add(strings[1]);
-
-                String uuid = UUID.randomUUID().toString();
-                System.out.println("uuid:" + uuid);
-                String[] strings = tmp.split(",");
-                System.out.println("Velikost parsovani: " + strings.length);
-//                String one = strings[0];
-//                System.out.println("one:" + one);
-//                String two = strings[1];
-//                System.out.println("two:" + two);
-                String extension;
-//TODO funkce na priponu
-                switch (strings[0]) {//check image's extension
-                    case "data:image/jpeg;base64":
-                        extension = "jpeg";
-                        break;
-                    case "data:image/png;base64":
-                        extension = "png";
-                        break;
-                    default://should write cases for more images types
-                        extension = "jpg";
-                        break;
-                }
-                System.out.println("extension:" + extension);
-
-                imagePath = this.rootLocation.resolve(uuid + "." + extension).toString();
-                System.out.println("imagePath:" + imagePath);
-
-//                    System.out.println("String parse:" + strings[1]);
-
-                byte[] data = Base64.getDecoder().decode(strings[1]);
-
-                System.out.println("Konvertovani dat: success");
-
-                InputStream inputStream = new ByteArrayInputStream(data);
-                System.out.println("Inputstream: success");
-
-                arrayList.add(imagePath);
-//                    Image image = new Image(imagePath);
-//                    imageRepository.save(image);
-                images.add(new Image(imagePath));
-                Files.copy(inputStream, this.rootLocation.resolve(imagePath));
-
-            }
-        }
-        System.out.println("Zapisujeme, success!");
-
-        for (String s:arrayList) {
-            System.out.println(s);
+        if(user.isPresent())
+            calendars = user.get().getCalendars();
+        else{
+            return "redirect:/";
         }
 
-        User user = userRepository.findByUsername(principal.getName()).orElseThrow(() -> new Exception());
-
-        System.out.println(c.getName());
-
-        System.out.println("ArrayList:");
-        System.out.println(arrayList);
-
-        System.out.println("LinkedHashSet:");
-        System.out.println(images);
-
-        c.setSelImage(arrayList);
-        c.setImages(images);
         calendarService.saveCalendar(c);
+        calendars.add(c);
+        userService.updateUser(user.get());
 
-        Set<Calendar> tmp = user.getCalendars();
-        tmp.add(c);
-        userRepository.save(user);
-
-        return "redirect:/calendar?name=" + c.getName();
-    }*/
+        return "redirect:/calendar/update?calId=" + c.getId();
+    }
 
     @GetMapping("/myCalendars")
     public String getCalendars(Model model, Principal principal) throws Exception
     {
         Optional<User> user = userService.getUserByName(principal.getName());
+        if(user.isPresent()){
+            System.out.println("Everything ok");
+        }else {
+            return "redirect:/";
+        }
+
         System.out.println(user.get().getUsername());
 
         Set<Calendar> calendars = user.get().getCalendars();
@@ -243,9 +112,6 @@ public class CalendarController {
 
         for (Calendar cal : calendars) {
             System.out.println(cal.getSelImage());
-            if(cal.getSelImage().isEmpty()){
-                continue;
-            }
             frontPages.add(cal.getSelImage().get(0));
         }
 
@@ -257,33 +123,21 @@ public class CalendarController {
     }
 
     @GetMapping("/update")
-    public String updateCalendar(@RequestParam("calId") Long calId, Model model, Principal principal) throws Exception {
-
-        if (principal == null) {
-            return "redirect:/find";
-        }
-
+    public String updateCalendar(@RequestParam("calId") Long calId, Model model) {
         Calendar c = calendarService.getCalendar(calId);
-//        List<String> stringss = c.getImages().stream()
-//                .map(image -> this.rootLocation.resolve(image.getName()))
-//                .map(path -> MvcUriComponentsBuilder
-//                        .fromMethodName(ImageController.class, "serveFile", path.getFileName().toString()).build()
-//                        .toString())
-//                .collect(Collectors.toList());
 
-        //model.addAttribute("files", c.getSelImage());
         System.out.println("Update images: " + c.getImages());
+        System.out.println("Select images: " + c.getSelImage());
+
         model.addAttribute("cal", c);
 
         return "/update-calendar";
     }
 
     @PostMapping("/update")
-    public String saveUpdateCalendar(@ModelAttribute("cal") Calendar tmpC, Principal principal) throws Exception {
-
-        if (principal == null) {
-            return "redirect:/find";
-        }
+    public String saveUpdateCalendar(@RequestParam(name = "files", required = false) MultipartFile[] files,
+                                     @RequestParam(name = "redir") String redir,
+                                     @ModelAttribute("cal") Calendar tmpC) throws IOException {
         Calendar c = calendarService.getCalendar(tmpC.getId());
 
         System.out.println(tmpC.getName());
@@ -292,14 +146,47 @@ public class CalendarController {
         System.out.println(tmpC.getOffset());
         System.out.println(tmpC.getSelImage());
 
-        System.out.println("Ahojky, toto je zatim prototyp update :)");
+        if(files.length != 0){
+            Set<Image> images = c.getImages();
 
-//        List<String> stringss = tmpC.getImages().stream()
-//                .map(image -> this.rootLocation.resolve(image.getName()))
-//                .map(path -> MvcUriComponentsBuilder
-//                        .fromMethodName(ImageController.class, "serveFile", path.getFileName().toString()).build()
-//                        .toString())
-//                .collect(Collectors.toList());
+            for (MultipartFile file:files) {
+                String name = file.getOriginalFilename();
+                String extension = FilenameUtils.getExtension(file.getOriginalFilename());
+                System.out.println(name);
+                System.out.println(extension);
+
+                String uuid = UUID.randomUUID().toString();
+
+                if(Objects.equals(name, "") && Objects.equals(extension, "")){
+                    continue;
+                }
+
+                String imagePath = null;
+                if(name != null)
+                    imagePath = this.rootLocation.resolve(name).toString();
+                else{
+                    name = uuid;
+                    imagePath = this.rootLocation.resolve(name).toString();
+                }
+
+                if(!Files.exists(this.rootLocation.resolve(imagePath))){
+                    Files.copy(file.getInputStream(), this.rootLocation.resolve(imagePath));
+                }else{
+                    Random random = new Random();
+                    int rNumber = random.nextInt(10000);
+                    name = FilenameUtils.getBaseName(file.getOriginalFilename());
+                    imagePath = this.rootLocation.resolve(name + "_" + rNumber + "." + extension).toString();
+                    System.out.println("Vlastni image path: " + imagePath);
+                    Files.copy(file.getInputStream(), this.rootLocation.resolve(imagePath));
+                    name = name + "_" + rNumber + "." + extension;
+                    System.out.println("Vlastni name: " + name);
+                }
+
+                String path = MvcUriComponentsBuilder.fromMethodName(CalendarController.class,"serveFile", name).build().toString();
+                images.add(new Image(name,path,extension));
+            }
+        }
+
 
         if(!c.getName().equals(tmpC.getName())){
             c.setName(tmpC.getName());
@@ -319,7 +206,11 @@ public class CalendarController {
 
         calendarService.saveCalendar(c);
 
-        return "redirect:/calendar?name=" + tmpC.getName();
+        if(redir.equals("image")){
+            return "redirect:/calendar/update?calId=" + tmpC.getId();
+        }else {
+            return "redirect:/calendar?calId=" + tmpC.getId();
+        }
     }
 
     @GetMapping("/files/{filename:.+}")
@@ -334,48 +225,52 @@ public class CalendarController {
                 .body(resource);
     }
 
-    @GetMapping("/deleteNullCalendar")
-    public String deleteNullCalendar(@RequestParam(name="calId", required = false) Long calId, @RequestParam("redir") String redir, Principal principal) throws IOException {
+    @GetMapping("/delete")
+    public String deleteCalendar(@RequestParam(name="calId") Long calId, Principal principal) throws IOException {
         Optional<User> user = userService.getUserByName(principal.getName());
-        System.out.println("Redirect: " + redir);
-        if(calId == null){
-            return "redirect:" + redir;
+        if(user.isPresent()){
+            System.out.println("Everything ok");
+        }else {
+            return "redirect:/";
         }
+        Set<Long> delId = new LinkedHashSet<>();
         Calendar calendar = calendarService.getCalendar(calId);
-        user.get().getCalendars().remove(calendar);
-        for (Image image:calendar.getImages()) {
-            imageService.deleteImage(calendar,image);
+
+        Set<Calendar> calendars = user.get().getCalendars();
+        calendars.remove(calendar);
+        userService.updateUser(user.get());
+
+
+        if(calendar.getImages() != null) {
+            for (Image image : calendar.getImages()) {
+                delId.add(image.getId());
+            }
+        }
+
+        for(Long imgId : delId){
+            Image image = imageService.getImage(imgId);
+            imageService.deleteImage(calendar, image);
+        }
+
+        if(calendar.getImages() != null) {
+            calendar.getImages().clear();
         }
 
         calendarService.deleteCalendar(calId);
-        userService.updateUser(user.get());
-
-        return "redirect:" + redir;
+        return "redirect:/calendar/myCalendars";
     }
 
-    @GetMapping("deleteUpdateCalendar")
-    public String deleteUpdateCalendar(@RequestParam(name="calId", required = false) Long calId, @RequestParam("redir") String redir, Principal principal) throws IOException {
-        Optional<User> user = userService.getUserByName(principal.getName());
-        System.out.println("Redirect: " + redir);
-        ArrayList<Long> delId = new ArrayList<>();
+    @RequestMapping("/image/delete")
+    public String deleteImage(@RequestParam("calId") Long calId, @RequestParam("imgId") Long imgId) throws Exception {
         Calendar calendar = calendarService.getCalendar(calId);
+        Image image = imageService.getImage(imgId);
 
-        if(calId == null){
-            return "redirect:" + redir;
-        }
+        calendar.getSelImage().remove(image.getPath());
 
-        
+        imageService.deleteImage(calendar,image);
 
+        calendarService.saveCalendar(calendar);
+        return "redirect:/calendar/update?calId=" + calId;
 
-        user.get().getCalendars().remove(calendar);
-
-        for (Image image:calendar.getImages()) {
-            imageService.deleteImage(calendar,image);
-        }
-
-        calendarService.deleteCalendar(calId);
-        userService.updateUser(user.get());
-
-        return "redirect:" + redir;
     }
 }

@@ -39,7 +39,7 @@
                 </li>
             </security:authorize>
             <li>
-                <a href="${contextPath}/image/">Tvorba kalendáře</a>
+                <a href="${contextPath}/calendar/create">Nový kalendář</a>
             </li>
             <li>
                 <a href="${contextPath}/calendar/myCalendars">Mé kalendáře</a>
@@ -56,37 +56,42 @@
 <main>
     <h2 class="">${cal.name} - ${cal.year}</h2>
     <div class="section section--calendar-show-one">
+        <a href="${contextPath}/calendar/update?calId=${cal.id}">Editovat</a>
+        <a href="${contextPath}/calendar/delete?calId=${cal.id}">Smazat</a>
+        <a href="${contextPath}/calendar/download?calId=${cal.id}">Stáhnout</a>
         <div id="calendar">
             <c:forEach begin="0" end="12" varStatus="item">
                 <c:choose>
                     <c:when test="${item.index == '0'}">
-                    <div class="item item--0 a4-portrait">
-                    <c:choose>
-                        <c:when test="${cal.selImage.get(0).contains('null')}">
-                            <div class="wrapper wrapper-image border-no">
-                                <i class="fas fa-file-image"></i>
-                        </c:when>
-                        <c:otherwise>
-                            <div class="wrapper wrapper-image border-no">
-                                <img src="${cal.selImage.get(0)}" alt="Front Page" />
-                        </c:otherwise>
-                    </c:choose>
+                        <div class="item item--0 a4-portrait">
+                            <c:choose>
+                                <c:when test="${cal.selImage.get(0).contains('null')}">
+                                    <div class="wrapper wrapper-image border-no">
+                                        <i class="fas fa-file-image"></i>
+                                    </div>
+                                </c:when>
+                                <c:otherwise>
+                                    <div class="wrapper wrapper-image border-no">
+                                        <img src="${cal.selImage.get(0)}" alt="Front Page" />
+                                    </div>
+                                </c:otherwise>
+                            </c:choose>
                         </div>
-                    </div>
                     </c:when>
                     <c:otherwise>
                         <div class="month month--${item.index} item a4-portrait">
                             <c:choose>
                                 <c:when test="${cal.selImage.get(item.index).contains('null')}">
-                                <div class="wrapper wrapper-image border-no">
-                                    <i class="fas fa-file-image"></i>
+                                    <div class="wrapper wrapper-image border-no">
+                                        <i class="fas fa-file-image"></i>
+                                    </div>
                                 </c:when>
                                 <c:otherwise>
                                     <div class="wrapper wrapper-image border-no">
                                         <img src="${cal.selImage.get(item.index)}" alt="Image${item.index}" />
+                                    </div>
                                 </c:otherwise>
                             </c:choose>
-                                </div>
                             <div class="labels"></div>
                             <div class="dates"></div>
                         </div>

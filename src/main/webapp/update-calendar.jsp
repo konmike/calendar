@@ -77,6 +77,7 @@
         ev.target.setAttribute("ondragleave", "return dragLeave(event)");
 
         ev.target.parentElement.previousElementSibling.previousElementSibling.setAttribute("value", "null");
+        ev.target.parentElement.previousElementSibling.previousElementSibling.setAttribute("checked", "checked");
 
         ev.target.classList.replace("border-no","border");
         ev.target.classList.remove("wrapper-image-after");
@@ -89,28 +90,28 @@
         <ul>
             <security:authorize access="hasRole('ROLE_ADMIN')">
                 <li>
-                    <a href="${contextPath}/calendar/deleteUpdateCalendar?calId=${cal.id}&redir=${contextPath}/admin/"
-                       onclick="if (!(confirm('Kalendář není uložen, chcete přesto pokračovat?'))) return false">Domů</a>
+                    <a href="${contextPath}/admin/"
+                       onclick="if (!(confirm('Změny nemusí být uloženy, chcete přesto pokračovat?'))) return false">Domů</a>
                 </li>
             </security:authorize>
             <security:authorize access="!hasRole('ROLE_ADMIN')">
                 <li>
-                    <a href="${contextPath}/calendar/deleteUpdateCalendar?calId=${cal.id}&redir=${contextPath}/"
-                       onclick="if (!(confirm('Kalendář není uložen, chcete přesto pokračovat?'))) return false">Domů</a>
+                    <a href="${contextPath}/"
+                       onclick="if (!(confirm('Změny nemusí být uloženy, chcete přesto pokračovat?'))) return false">Domů</a>
                 </li>
             </security:authorize>
             <li>
-                <a href="${contextPath}/calendar/deleteUpdateCalendar?calId=${cal.id}&redir=${contextPath}/image/"
-                   onclick="if (!(confirm('Kalendář není uložen, chcete přesto pokračovat?'))) return false">Tvorba kalendáře</a>
+                <a href="${contextPath}/calendar/create"
+                   onclick="if (!(confirm('Změny nemusí být uloženy, chcete přesto pokračovat?'))) return false">Nový kalendář</a>
             </li>
             <li>
-                <a href="${contextPath}/calendar/deleteUpdateCalendar?calId=${cal.id}&redir=${contextPath}/calendar/myCalendars"
-                   onclick="if (!(confirm('Kalendář není uložen, chcete přesto pokračovat?'))) return false">Mé kalendáře</a>
+                <a href="${contextPath}/calendar/myCalendars"
+                   onclick="if (!(confirm('Změny nemusí být uloženy, chcete přesto pokračovat?'))) return false">Mé kalendáře</a>
             </li>
             <security:authorize access="hasRole('ROLE_ADMIN')">
                 <li>
-                    <a href="${contextPath}/calendar/deleteUpdateCalendar?calId=${cal.id}&redir=${contextPath}/admin/list-gallery"
-                       onclick="if (!(confirm('Kalendář není uložen, chcete přesto pokračovat?'))) return false">Editace galerií</a>
+                    <a href="${contextPath}/admin/list-gallery"
+                       onclick="if (!(confirm('Změny nemusí být uloženy, chcete přesto pokračovat?'))) return false">Editace galerií</a>
                 </li>
             </security:authorize>
         </ul>
@@ -119,54 +120,86 @@
 
 <main>
     <div class="section section--calendar-update">
-        <div class="sidebox sidebox--upload-image">
-            <form:form method="post" enctype="multipart/form-data" class="form form--upload-image" action="/image/?calId=${cal.id}&path=update">
-                    <label for="file" class="label label--file">
-                        <input type="file" id="file" name="files" class="input input--file" multiple />
-                        <span class="file--custom"></span>
-                    </label>
-                    <div class="preview-gallery"></div>
-                            <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}" />
-                            <input type="hidden" name="calId" value="${cal.id}" />
-                            <input type="submit" class="input input--submit" value="Nahrát" />
-            </form:form>
+        <form:form method="post" enctype="multipart/form-data" modelAttribute="cal" cssClass="form form--calendar-update" action="/calendar/update">
+            <div class="sidebox sidebox--top sidebox--calendar-option">
+                <form:label path="id" for="id">
+                    <form:input type="hidden" id="id" path="id" />
+                </form:label>
 
-            <ul class="list list--gallery">
-                <c:forEach var="image" items="${cal.images}" varStatus="item">
-                    <li class="list--item" >
+                <form:label path="images" for="images">
+                    <form:input type="hidden" id="images" path="images" />
+                </form:label>
+
+                <form:label path="name" for="name" cssClass="label label--calendar-option label--name">Název kalendáře
+                    <form:input type="text" id="name" path="name" class="input input--text" placeholder="Název kalendáře" />
+                </form:label>
+
+                <spring:bind path="year">
+                    <label for="year" class="label label--calendar-option label--year">Rok
+                        <form:input type="number" path="year" id="year" class="input input--number" value="2020" placeholder="Rok" />
+                    </label>
+                </spring:bind>
+
+                <form:label path="lang" for="lang" cssClass="label label--calendar-option label--lang">Popisky
+                    <form:select path="lang" id="lang" cssClass="select select--lang">
+                        <c:choose>
+                            <c:when test="${(empty cal.lang) or (cal.lang=='cs')}">
+                                <option value="cs" selected>ČEŠTINA</option>
+                                <option value="en">ANGLIČTINA</option>
+                            </c:when>
+                            <c:otherwise>
+                                <option value="cs">ČEŠTINA</option>
+                                <option value="en" selected>ANGLIČTINA</option>
+                            </c:otherwise>
+                        </c:choose>
+                    </form:select>
+                </form:label>
+
+                <form:label path="offset" for="offset" cssClass="label label--calendar-option label--offset">Týden začíná
+                    <form:select path="offset" id="offset" cssClass="select select--offset">
+                        <c:choose>
+                            <c:when test="${(cal.offset == '0') or (cal.offset == '1')}">
+                                <option value="1" selected>PONDĚLÍ</option>
+                                <option value="7">NEDĚLE</option>
+                            </c:when>
+                            <c:otherwise>
+                                <option value="1">PONDĚLÍ</option>
+                                <option value="7" selected>NEDĚLE</option>
+                            </c:otherwise>
+                        </c:choose>
+                    </form:select>
+                </form:label>
+            </div>
+            <div class="sidebox sidebox--upload-image">
+                <label for="file" class="label label--file">
+                    <input type="file" id="file" name="files" class="input input--file" multiple />
+                    <span class="file--custom"></span>
+                </label>
+                <span class="message"></span>
+
+                <ul class="list list--gallery">
+                    <c:forEach var="image" items="${cal.images}" varStatus="item">
+                        <li class="list--item" >
 
                             <img src="${image.path}" draggable="true" ondragstart="return dragStart(event)" width="200" alt="${image.name}" id="image${item.index}"/>
-                            <a href="${image.path}">Zvětšit</a>
+                            <a href="${image.path}" class="link link--full-image">Zvětšit</a>
+                            <a href="${contextPath}/calendar/image/delete?calId=${cal.id}&imgId=${image.id}" class="link link--delete-image"
+                               onclick="if (!(confirm('Opravdu chcete obrázek smazat?'))) return false"> Smazat</a>
+                        </li>
+                    </c:forEach>
+                </ul>
+            </div>
 
-                            <form:form action="/image/delete" method="POST" class="form form--delete-image">
-                                <input type="hidden" value="${image.id}" name="imgId" readonly="readonly" />
-                                <input type="hidden" value="${cal.id}" name="calId" readonly="readonly" />
-                                <input type="hidden" name="${_csrf.parameterName}"
-                                       value="${_csrf.token}" />
-
-                                <input type="submit" class="input input--submit" value="Smazat" />
-                            </form:form>
-
-                    </li>
-                </c:forEach>
-            </ul>
-        </div>
-        <div class="sidebox sidebox--calendar-preview">
-            <form:form method="post" action="/calendar/update" modelAttribute="cal" class="form--calendar-create">
-
+            <div class="sidebox sidebox--calendar-preview">
+                <a id="prev"></a>
                 <div id="calendar">
-                    <div class="pagination pagination--control">
-                        <a id="prev">Předchozí</a>
-                        <a id="next">Další</a>
-                    </div>
-
                     <c:forEach begin="0" end="12" varStatus="item">
                         <c:choose>
                             <c:when test="${item.index == '0'}">
-                                <form:label path="selImage" for="item0" class="label label--item label--item-0">
+                                <form:label path="selImage" for="item0" cssClass="label label--item label--item-0">
                                     <c:choose>
-                                        <c:when test="${(cal.selImage.get(0).contains('null'))}">
-                                        <form:checkbox path="selImage" id="item0" class="input input--checkbox" value="null" checked="checked"/>
+                                        <c:when test="${(cal.selImage.get(0).contains('null')) or (empty cal.selImage)}">
+                                        <form:checkbox path="selImage" id="item0" cssClass="input input--checkbox" value="null" checked="checked"/>
                                         <div class="item item--0 a4-portrait">
 
                                             <div onclick="deleteImage(event)" class="wrapper wrapper-image border"
@@ -174,104 +207,60 @@
                                                      ondrop="return dragDrop(event)"
                                                      ondragover="return dragOver(event)"
                                                      ondragleave="return dragLeave(event)"></div>
+                                        </div>
                                         </c:when>
                                         <c:otherwise>
-                                        <form:checkbox path="selImage" id="item0" class="input input--checkbox" value="${cal.selImage.get(0)}" checked="checked"/>
+                                        <form:checkbox path="selImage" id="item0" cssClass="input input--checkbox" value="${cal.selImage.get(0)}" checked="checked"/>
                                         <div class="item item--0 a4-portrait">
-
                                             <div onclick="deleteImage(event)" class="wrapper wrapper-image wrapper-image-after border-no">
                                                 <img src="${cal.selImage.get(0)}" alt=""/>
                                             </div>
+                                        </div>
                                         </c:otherwise>
                                     </c:choose>
-                                    </div>
                                 </form:label>
                             </c:when>
                             <c:otherwise>
-                                <form:label path="selImage" for="item${item.index}" class="label label--item label--item-${item.index}">
+                                <form:label path="selImage" for="item${item.index}" cssClass="label label--item label--item-${item.index}">
                                         <c:choose>
-                                            <c:when test="${(cal.selImage.get(item.index).contains('null'))}">
-                                            <form:checkbox path="selImage" id="item${item.index}" class="input input--checkbox" value="null" checked="checked"/>
+                                            <c:when test="${(cal.selImage.get(item.index).contains('null')) or (empty cal.selImage)}">
+                                            <form:checkbox path="selImage" id="item${item.index}" cssClass="input input--checkbox" value="null" checked="checked"/>
                                             <div class="month month--${item.index} item a4-portrait">
                                                 <div onclick="deleteImage(event)" class="wrapper wrapper-image border"
                                                      ondragenter="return dragEnter(event)"
                                                      ondrop="return dragDrop(event)"
                                                      ondragover="return dragOver(event)"
                                                      ondragleave="return dragLeave(event)"></div>
+                                                <div class="labels"></div>
+                                                <div class="dates"></div>
+                                            </div>
                                             </c:when>
                                             <c:otherwise>
-                                            <form:checkbox path="selImage" id="item${item.index}" class="input input--checkbox" value="${cal.selImage.get(item.index)}" checked="checked"/>
+                                            <form:checkbox path="selImage" id="item${item.index}" cssClass="input input--checkbox" value="${cal.selImage.get(item.index)}" checked="checked"/>
                                             <div class="month month--${item.index} item a4-portrait">
-
                                                 <div onclick="deleteImage(event)" class="wrapper wrapper-image wrapper-image-after border-no">
                                                     <img src="${cal.selImage.get(item.index)}" alt=""/>
                                                 </div>
+                                                <div class="labels"></div>
+                                                <div class="dates"></div>
+                                            </div>
                                             </c:otherwise>
                                         </c:choose>
-                                        <div class="labels"></div>
-                                        <div class="dates"></div>
-                                    </div>
                                 </form:label>
                             </c:otherwise>
                         </c:choose>
                     </c:forEach>
 
-                    <form:label path="id" for="id">
-                        <form:input type="hidden" id="id" path="id" />
-                    </form:label>
-
-                    <form:label path="images" for="images">
-                        <form:input type="hidden" id="images" path="images" />
-                    </form:label>
-
-                    <form:label path="name" for="name">
-                        <form:input type="text" id="name" path="name" class="input input--text" placeholder="Název kalendáře" />
-                    </form:label>
-
-                    <spring:bind path="year">
-                        <label for="year">
-                            <form:input type="number" path="year" id="year" class="input input--number" value="2020" placeholder="Rok" />
-                        </label>
-                    </spring:bind>
-
-
-                    <form:label path="lang" for="lang">Jazyk:
-                        <form:select path="lang" id="lang" class="${cal.lang}">
-                            <c:choose>
-                                <c:when test="${(empty cal.lang) or (cal.lang=='cs')}">
-                                    <option value="cs" selected>Čeština</option>
-                                    <option value="en">English</option>
-                                </c:when>
-                                <c:otherwise>
-                                    <option value="cs">Čeština</option>
-                                    <option value="en" selected>English</option>
-                                </c:otherwise>
-                            </c:choose>
-                        </form:select>
-                    </form:label>
-
-
-                    <form:label path="offset" for="offset">Týden začíná:
-                        <form:select path="offset" id="offset">
-                        <c:choose>
-                            <c:when test="${(cal.offset == '0') or (cal.offset == '1')}">
-                                <option value="1" selected>Pondělí</option>
-                                <option value="7">Neděle</option>
-                            </c:when>
-                            <c:otherwise>
-                                <option value="1">Pondělí</option>
-                                <option value="7" selected>Neděle</option>
-                            </c:otherwise>
-                        </c:choose>
-                        </form:select>
-                    </form:label>
-
                 </div>
-                <input type="hidden" name="${_csrf.parameterName}"
-                       value="${_csrf.token}" />
-                <input type="submit" class="input input--submit" value="Editovat" />
-            </form:form>
-        </div>
+                <a id="next"></a>
+            </div>
+            <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}" />
+            <input id="redir" type="hidden" name="redir" value="show" />
+            <input type="submit" class="input input--submit" value="Uložit a zobrazit" />
+        </form:form>
+
+        <a class="show-full-calendar">Celý kalendář</a>
+        <a class="show-page-calendar">Stránkový kalendář</a>
     </div>
 </main>
 
@@ -304,7 +293,7 @@
 <script src="${contextPath}/resources/js/simple-lightbox.jquery.js"></script>
 <script>
     (function($) {
-        $('.gallery a').simpleLightbox({ /* options */ });
+        $('.list--gallery a.link--full-image').simpleLightbox({ /* options */ });
     })( jQuery );
 
 </script>

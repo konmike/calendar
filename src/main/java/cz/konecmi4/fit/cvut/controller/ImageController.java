@@ -5,14 +5,10 @@ import java.nio.file.Files;
 import java.nio.file.Path;
 import java.security.Principal;
 import java.util.*;
-import java.util.function.Supplier;
-import java.util.stream.Collectors;
 
 import cz.konecmi4.fit.cvut.model.Calendar;
 import cz.konecmi4.fit.cvut.model.Image;
 import cz.konecmi4.fit.cvut.model.User;
-import cz.konecmi4.fit.cvut.repository.ImageRepository;
-import cz.konecmi4.fit.cvut.repository.UserRepository;
 import cz.konecmi4.fit.cvut.service.CalendarService;
 import cz.konecmi4.fit.cvut.service.ImageService;
 import cz.konecmi4.fit.cvut.service.UserService;
@@ -55,7 +51,7 @@ public class ImageController {
         if(calId != null){
             Calendar calendar = calendarService.getCalendar(calId);
             model.addAttribute("cal", calendar);
-            return "image/upload";
+            return "create-calendar";
         }
 
         /*User user = userRepository.findByUsername(principal.getName()).orElseThrow(() -> new Exception());
@@ -72,7 +68,7 @@ public class ImageController {
         model.addAttribute("cal", new Calendar());
 
 
-        return "image/upload";
+        return "create-calendar";
     }
 
     @GetMapping("/files/{filename:.+}")
@@ -88,11 +84,14 @@ public class ImageController {
     }
 
     @PostMapping("/")
-    public String handleFileUpload(@RequestParam(name = "calId", required = false) Long calId, @RequestParam("path") String redir, @RequestParam("files") MultipartFile[] files, RedirectAttributes redirectAttributes,
+    public String handleFileUpload(@RequestParam(name = "calId", required = false) Long calId, @RequestParam("files") MultipartFile[] files, RedirectAttributes redirectAttributes,
                                    Principal principal) throws Exception {
 
         Optional<User> user = userService.getUserByName(principal.getName());
-        Set<Calendar> calendars = user.get().getCalendars();
+        Set<Calendar> calendars = null;
+
+        if(user.isPresent())
+            calendars = user.get().getCalendars();
 
         Calendar cal = new Calendar();
         if(calId != null){
@@ -143,15 +142,13 @@ public class ImageController {
         Long tmpId = calendarService.saveCalendar(cal);
 
         calendars.add(cal);
-        userService.updateUser(user.get());
+
+        user.ifPresent(userService::updateUser);
 
         System.out.println("Post End");
 
-        if(redir.equals("update")){
-            return "redirect:/calendar/update?calId=" + tmpId;
-        }else{
-            return "redirect:/image/?calId=" + tmpId;
-        }
+        return "redirect:/calendar/update?calId=" + tmpId;
+
     }
 
     @RequestMapping("/delete")

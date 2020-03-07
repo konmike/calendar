@@ -45,7 +45,10 @@
     }
 
     $("#file").change(function(){
-        readURL(this);
+        //readURL(this);
+        $('#redir').attr("value", "image");
+        $('.form--calendar-update').submit();
+
     });
 
     /*$(".pagination a").on("click", function(e) {
