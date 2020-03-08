@@ -94,4 +94,33 @@
         $('.pagination').show();
     });
 
+    // $('#my_radio_box').change(function(){
+    //     selected_value = $("input[name='my_options']:checked").val();
+    // });
+
+    $(document).ready(function(){
+        let type = $('body').attr("data-custom-type");
+        if(type === 1){
+            $(".item").addClass("a4-portrait");
+            $(".wrapper-image").addClass("wrapper-image-top-date-block");
+            $(".labels").addClass("labels-grid-block");
+            $(".dates").addClass("dates-grid-block");
+        }else if(type === 2){
+            $(".item").addClass("a4-portrait");
+            $(".wrapper-image").addClass("wrapper-image-top-date-row");
+            $(".labels").addClass("labels-grid-row");
+            $(".dates").addClass("dates-grid-row");
+        }else if(type === 3){
+            $(".item").addClass("landscape");
+            $(".wrapper-image").addClass("wrapper-image-top-date-block");
+            $(".labels").addClass("labels-grid-block");
+            $(".dates").addClass("dates-grid-block");
+        }else{
+            $(".item").addClass("landscape");
+            $(".wrapper-image").addClass("wrapper-image-top-date-row");
+            $(".labels").addClass("labels-grid-row");
+            $(".dates").addClass("dates-grid-row");
+        }
+    });
+
 })( jQuery );

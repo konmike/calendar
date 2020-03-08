@@ -20,6 +20,9 @@ public class Calendar {
     private int offset;
     @NotNull
     private String lang;
+    @NotNull
+    private int type;
+
 
     @OneToMany(cascade = CascadeType.ALL)
     @OrderBy("id")
@@ -100,6 +103,14 @@ public class Calendar {
 
     public void setImages(Set<Image> images) {
         this.images = images;
+    }
+
+    public int getType() {
+        return type;
+    }
+
+    public void setType(int type) {
+        this.type = type;
     }
 
 }

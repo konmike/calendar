@@ -90,6 +90,14 @@
                     </form:select>
                 </form:label>
 
+                <form:label path="type" for="type" cssClass="label label--calendar-option label--type">Typ
+                    <form:radiobutton path="type" id="type" value="1" name="type" checked="true" cssClass="select select--type"/>Na výšku - datum blok
+                    <form:radiobutton path="type" id="type" value="2" name="type" cssClass="select select--type"/>Na výšku - datum řádek
+                    <form:radiobutton path="type" id="type" value="3" name="type" cssClass="select select--type"/>Na šířku - datum blok
+                    <form:radiobutton path="type" id="type" value="4" name="type" cssClass="select select--type"/>Na šířku - datum řádek
+                </form:label>
+
+
                 <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}" />
                 <input type="submit" class="input input--submit" value="Vytvořit" />
         </form:form>

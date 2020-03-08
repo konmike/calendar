@@ -92,7 +92,7 @@
         ev.target.parentElement.previousElementSibling.previousElementSibling.checked = false;
     }
 </script>
-<body data-custom-year="${cal.year}" data-custom-offset="${cal.offset}" data-custom-lang="${cal.lang}">
+<body data-custom-year="${cal.year}" data-custom-offset="${cal.offset}" data-custom-lang="${cal.lang}" data-custom-type="${cal.type}">
 <header>
     <nav>
         <ul>
@@ -177,6 +177,14 @@
                         </c:choose>
                     </form:select>
                 </form:label>
+
+                <form:label path="type" for="type" cssClass="label label--calendar-option label--type">Typ
+                    <form:radiobutton path="type" value="1" name="type" cssClass="select select--type"/>Na výšku - datum blok
+                    <form:radiobutton path="type" value="2" name="type" cssClass="select select--type"/>Na výšku - datum řádek
+                    <form:radiobutton path="type" value="3" name="type" cssClass="select select--type"/>Na šířku - datum blok
+                    <form:radiobutton path="type" value="4" name="type" cssClass="select select--type"/>Na šířku - datum řádek
+                </form:label>
+
             </div>
             <div class="sidebox sidebox--upload-image">
                 <label for="file" class="label label--file">

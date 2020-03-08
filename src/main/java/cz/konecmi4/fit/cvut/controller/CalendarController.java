@@ -152,6 +152,7 @@ public class CalendarController {
         System.out.println(tmpC.getLang());
         System.out.println(tmpC.getOffset());
         System.out.println("Update vybrane " + tmpC.getSelImage());
+        System.out.println("Typ" + tmpC.getType());
 
         if(files.length != 0){
             Set<Image> images = c.getImages();
@@ -209,6 +210,9 @@ public class CalendarController {
         }
         if(c.getSelImage() != tmpC.getSelImage()){
             c.setSelImage(tmpC.getSelImage());
+        }
+        if(c.getType() != tmpC.getType()){
+            c.setType(tmpC.getType());
         }
 
         calendarService.saveCalendar(c);
