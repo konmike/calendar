@@ -54,18 +54,29 @@
 </header>
 
 <main>
-    <h2 class="">${cal.name} - ${cal.year}</h2>
+    <c:choose>
+        <c:when test="${empty cal.name}">
+            <h2 class="">${cal.year}</h2>
+        </c:when>
+        <c:otherwise>
+            <h2 class="">${cal.name} - ${cal.year}</h2>
+        </c:otherwise>
+    </c:choose>
+
     <div class="section section--calendar-show-one">
-        <a href="${contextPath}/calendar/update?calId=${cal.id}">Editovat</a>
-        <a href="${contextPath}/calendar/delete?calId=${cal.id}">Smazat</a>
-        <a href="${contextPath}/calendar/download?calId=${cal.id}">Stáhnout</a>
+        <div class="calendar-edit-option">
+            <a href="${contextPath}/calendar/update?calId=${cal.id}" class="link link--edit-option link--edit">Editovat</a>
+            <a href="${contextPath}/calendar/download?calId=${cal.id}" class="link link--edit-option link--download">Stáhnout</a>
+            <a href="${contextPath}/calendar/delete?calId=${cal.id}" class="link link--edit-option link--delete"
+               onclick="if (!(confirm('Kalendář bude odstraněn, chcete určitě pokračovat?'))) return false">Smazat</a>
+        </div>
         <div id="calendar">
             <c:forEach begin="0" end="12" varStatus="item">
                 <c:choose>
                     <c:when test="${item.index == '0'}">
                         <div class="item item--0 a4-portrait">
                             <c:choose>
-                                <c:when test="${cal.selImage.get(0).contains('null')}">
+                                <c:when test="${cal.selImage.get(0).contains('null') or (empty cal.selImage)}">
                                     <div class="wrapper wrapper-image border-no">
                                         <i class="fas fa-file-image"></i>
                                     </div>
@@ -81,7 +92,7 @@
                     <c:otherwise>
                         <div class="month month--${item.index} item a4-portrait">
                             <c:choose>
-                                <c:when test="${cal.selImage.get(item.index).contains('null')}">
+                                <c:when test="${cal.selImage.get(item.index).contains('null') or (empty cal.selImage)}">
                                     <div class="wrapper wrapper-image border-no">
                                         <i class="fas fa-file-image"></i>
                                     </div>

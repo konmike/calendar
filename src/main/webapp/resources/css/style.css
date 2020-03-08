@@ -5,6 +5,10 @@ html,body{
   overflow-x: hidden;
 }
 
+h2{
+  color: rgba(0, 68, 101,1);
+}
+
 header{
   background: rgb(255,255,255);
   /*background: linear-gradient(0deg, rgba(255,255,255,1) 0%, rgba(255,215,0,1) 70%);*/
@@ -762,13 +766,57 @@ display: none;
 
 /*-----------------------------------------------------------------------*/
 
-/* CALENDAR SHOW ONE PAGE */
+/* CALENDAR SHOW ONE */
 .section--calendar-show-one #calendar{
   flex-direction: row;
 }
-
 .section--calendar-show-one .wrapper-image:hover img{
   opacity: 1;
+}
+
+.calendar-edit-option{
+  position: fixed;
+  top: 150px;
+  left: 0;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: flex-start;
+}
+
+.calendar-edit-option a{
+  margin-bottom: 0.3rem;
+  text-decoration: none;
+  padding: 0.5rem;
+  transition: all 0.3s;
+  width: 5rem;
+  text-transform: uppercase;
+  font-weight: 900;
+}
+.calendar-edit-option a:last-child{
+  margin-bottom: 0;
+}
+.link--download,.link--edit{
+  background: rgba(255,215,0,1);
+  color: rgba(0, 68, 101,1);
+  border: 0.1rem solid rgba(255,215,0,1);
+  border-left: none;
+}
+.link--download:hover,.link--edit:hover{
+  background: transparent;
+  border: 0.1rem solid rgba(0,68,101,1);
+  border-left: none;
+}
+
+.link--delete{
+  background: #d43241;
+  color: white;
+  border: 0.1rem solid #d43241;
+  border-left: none;
+}
+.link--delete:hover{
+  background: transparent;
+  color: #d43241;
 }
 /* ======= END CALENDAR SHOW ONE PAGE ======= */
 

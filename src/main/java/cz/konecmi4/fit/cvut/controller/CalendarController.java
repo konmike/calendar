@@ -111,11 +111,18 @@ public class CalendarController {
         ArrayList<String> frontPages = new ArrayList<>();
 
         for (Calendar cal : calendars) {
-            System.out.println(cal.getSelImage());
+            System.out.println("Vybrane: " + cal.getSelImage());
+            //never happen
+//            if(cal.getSelImage().isEmpty()){
+//                System.out.println("Sorry, je to prazdne, nekde mas chybu...");
+//                continue;
+//            }
+            System.out.println("Pridavam uvodni " + cal.getSelImage().get(0));
             frontPages.add(cal.getSelImage().get(0));
         }
 
-        System.out.println(frontPages);
+        System.out.println("Vsechny uvodky " + frontPages);
+
         model.addAttribute("calendars",calendars);
         model.addAttribute("frontPages",frontPages);
 
@@ -144,7 +151,7 @@ public class CalendarController {
         System.out.println(tmpC.getYear());
         System.out.println(tmpC.getLang());
         System.out.println(tmpC.getOffset());
-        System.out.println(tmpC.getSelImage());
+        System.out.println("Update vybrane " + tmpC.getSelImage());
 
         if(files.length != 0){
             Set<Image> images = c.getImages();

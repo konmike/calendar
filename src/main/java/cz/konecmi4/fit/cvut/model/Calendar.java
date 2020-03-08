@@ -1,6 +1,7 @@
 package cz.konecmi4.fit.cvut.model;
 
 import javax.persistence.*;
+import javax.validation.constraints.NotNull;
 import java.util.ArrayList;
 import java.util.LinkedHashSet;
 import java.util.Set;
@@ -12,13 +13,22 @@ public class Calendar {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     private String name;
+
+    @NotNull
     private int year;
+    @NotNull
     private int offset;
+    @NotNull
     private String lang;
 
     @OneToMany(cascade = CascadeType.ALL)
     @OrderBy("id")
     private Set<Image> images = new LinkedHashSet<>();
+
+    @Lob
+    @Column
+    private ArrayList<String> selImage;
+
 
     public Calendar() {
     }
@@ -26,10 +36,6 @@ public class Calendar {
     public Calendar(ArrayList<String> selImage) {
         this.selImage = selImage;
     }
-
-    @Lob
-    @Column
-    private ArrayList<String> selImage;
 
     public Long getId() {
         return id;
