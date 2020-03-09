@@ -49,28 +49,40 @@ function daysInMonth (month, year) { // Use 1 for January, 2 for February, etc.
     return new Date(year, month, 0).getDate();
 }
 
-function generateStructureAndFill (lspan_length, dspan_length, firstDay, item, month, state, type){
+function generateStructureAndFill (lspan_length, dspan_length, firstDay, item, month, state, type, monthDayCount){
     const days = days_labels[state.lang];
     const months = months_labels[state.lang];
 
     let labels = $('#calendar .label--item:nth-child(' + item + ') .month .labels');
     let dates = $('#calendar .label--item:nth-child(' + item + ') .month .dates');
 
-    // console.log(labels);
-    // console.log(dates);
 
     if(labels === null){
         labels = $('#calendar .month:nth-child(' + item + ') .labels');
         dates = $('#calendar .month:nth-child(' + item + ') .dates');
     }
 
+    console.log("lspan_lenght: " + lspan_length);
+    console.log("dspan_lenght: " + dspan_length);
+    console.log("firsday: " + firstDay);
+    console.log("item: " + item);
+    console.log("month: " + month);
+    console.log("type: " + type);
+
     if(type === 2 || type === 4){
+        console.log("set style");
         labels.setAttribute("style", "grid-template-columns: repeat(" + lspan_length +", 1fr)");
         dates.setAttribute("style", "grid-template-columns: repeat(" + dspan_length +", 1fr)");
     }else{
+        console.log("remove style");
         labels.removeAttribute("style");
         dates.removeAttribute("style");
     }
+
+    console.log(labels);
+    console.log(dates);
+
+    console.log("Prvni den" + firstDay);
 
     Array.from({length: lspan_length}, () => {
         return labels.appendChild(h('span'));
@@ -92,33 +104,33 @@ function generateStructureAndFill (lspan_length, dspan_length, firstDay, item, m
         lspan.forEach((el, idx) => {
             el.textContent = days[(idx + firstDay) % 7];
         });
+        Array.from({length: dspan_length}, () => {
+            return dates.appendChild(h('span'));
+        });
+
+        const dspan = [].slice.call(dates.getElementsByTagName('span'));
+
+        for(let q = 0; q < dspan_length; q++){
+            dspan[q].textContent = numbers[q];
+        }
     }
     else {
         lspan.forEach((el, idx) => {
             el.textContent = days[(idx + state.offset) % 7];
         });
-    }
 
-    Array.from({length: dspan_length}, () => {
-        return dates.appendChild(h('span'));
-    });
-    //console.log(dspan);
+        Array.from({length: dspan_length}, () => {
+            return dates.appendChild(h('span'));
+        });
 
-    //vloz cisla
-    const dspan = [].slice.call(dates.getElementsByTagName('span'));
-    if(type === 2 || type === 4){
-        for(let q = 0; q < dspan_length; q++){
-            dspan[q].textContent = numbers[q];
-        }
-    }else {
+        const dspan = [].slice.call(dates.getElementsByTagName('span'));
+
         let n = 0;
-        for(let q = (firstDay-1); q < (dspan_length+firstDay); q++){
+        for(let q = (firstDay-1); q < (monthDayCount + firstDay - 1); q++){
             dspan[q].textContent = numbers[n];
             n++;
         }
     }
-
-
 }
 
 function update(state) {
@@ -145,7 +157,7 @@ function update(state) {
             let day = new Date(state.year + "-" + i + "-01").getDay();
             //console.log("Prvni den v mesici " + i + " je " + day);
 
-            generateStructureAndFill(numberDays,numberDays, day, item, month, state, type);
+            generateStructureAndFill(numberDays,numberDays, day, item, month, state, type, numberDays);
             item++;
             month++;
             console.log("Increment " + item);
@@ -159,7 +171,7 @@ function update(state) {
             let day = new Date(state.year + "-" + i + "-01").getDay();
             if(day === 0)
                 day = 7;
-            generateStructureAndFill(7, numberDays, day, item, month, state, type);
+            generateStructureAndFill(7, 42, day, item, month, state, type, numberDays);
             item++;
             month++;
         }
