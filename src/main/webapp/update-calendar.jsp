@@ -178,11 +178,11 @@
                     </form:select>
                 </form:label>
 
-                <form:label path="type" for="type" cssClass="label label--calendar-option label--type">Typ
-                    <form:radiobutton path="type" value="1" name="type" cssClass="select select--type"/>Na výšku - datum blok
-                    <form:radiobutton path="type" value="2" name="type" cssClass="select select--type"/>Na výšku - datum řádek
-                    <form:radiobutton path="type" value="3" name="type" cssClass="select select--type"/>Na šířku - datum blok
-                    <form:radiobutton path="type" value="4" name="type" cssClass="select select--type"/>Na šířku - datum řádek
+                <form:label path="type" for="type" id="type" cssClass="label label--calendar-option label--type">Typ
+                    <form:radiobutton path="type" value="1" name="type" cssClass="radio radio--type"/>Na výšku - datum blok
+                    <form:radiobutton path="type" value="2" name="type" cssClass="radio radio--type"/>Na výšku - datum řádek
+                    <form:radiobutton path="type" value="3" name="type" cssClass="radio radio--type"/>Na šířku - datum blok
+                    <form:radiobutton path="type" value="4" name="type" cssClass="radio radio--type"/>Na šířku - datum řádek
                 </form:label>
 
             </div>
@@ -277,6 +277,7 @@
 
         <a class="show-full-calendar">Celý kalendář</a>
         <a class="show-page-calendar">Stránkový kalendář</a>
+        <a class="type-of-calendar">Typ kalendáře</a>
     </div>
 </main>
 
@@ -303,7 +304,8 @@
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
 <script src="https://unpkg.com/calendarize"></script>
 <script src="https://unpkg.com/sublet"></script>
-<script src="${contextPath}/resources/js/calendar.js"></script>
+<%--<script src="${contextPath}/resources/js/calendar.js"></script>--%>
+<script src="${contextPath}/resources/js/calendar2.js"></script>
 <script src="${contextPath}/resources/js/script.js"></script>
 
 <script src="${contextPath}/resources/js/simple-lightbox.jquery.js"></script>

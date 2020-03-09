@@ -94,33 +94,102 @@
         $('.pagination').show();
     });
 
-    // $('#my_radio_box').change(function(){
-    //     selected_value = $("input[name='my_options']:checked").val();
-    // });
-
-    $(document).ready(function(){
-        let type = $('body').attr("data-custom-type");
-        if(type === 1){
-            $(".item").addClass("a4-portrait");
-            $(".wrapper-image").addClass("wrapper-image-top-date-block");
-            $(".labels").addClass("labels-grid-block");
-            $(".dates").addClass("dates-grid-block");
-        }else if(type === 2){
-            $(".item").addClass("a4-portrait");
-            $(".wrapper-image").addClass("wrapper-image-top-date-row");
-            $(".labels").addClass("labels-grid-row");
-            $(".dates").addClass("dates-grid-row");
-        }else if(type === 3){
-            $(".item").addClass("landscape");
-            $(".wrapper-image").addClass("wrapper-image-top-date-block");
-            $(".labels").addClass("labels-grid-block");
-            $(".dates").addClass("dates-grid-block");
-        }else{
-            $(".item").addClass("landscape");
-            $(".wrapper-image").addClass("wrapper-image-top-date-row");
-            $(".labels").addClass("labels-grid-row");
-            $(".dates").addClass("dates-grid-row");
-        }
+    $('.label--type').change(function(){
+        let t = parseInt($("input[name='type']:checked").val());
+        console.log("Zmena na jiny typ " + t);
+        setCalendarType(t);
     });
+
+    $("type-of-calendar").click(function(){
+       console.log("Zobraz/skryj");
+       if($(".label--type:visible"))
+           $(".label--type").hide();
+       else
+           $(".label--type").show();
+    });
+
+    let type = parseInt($('body').attr("data-custom-type"));
+    setCalendarType(type);
+
+    function setCalendarType(t){
+        let item = $(".item");
+        console.log("Itemy " + item);
+        console.log("Typ " + t);
+        if(t === 1){
+            console.log("nastav jednicku");
+            item.removeClass("landscape");
+            if(!item.hasClass("a4-portrait")){
+                item.addClass("a4-portrait");
+                console.log("pridej tridu");
+            }
+            setWrapperImageTopDateBlock();
+        }else if(t === 2){
+            console.log("nastav dva");
+            item.removeClass("landscape");
+            if(!item.hasClass("a4-portrait"))
+                item.addClass("a4-portrait");
+            setWrapperImageTopDateRow();
+        }else if(t === 3){
+            console.log("nastav tri");
+            item.removeClass("a4-portrait");
+            if(!item.hasClass("landscape"))
+                item.addClass("landscape");
+            setWrapperImageLeftDateBlock();
+        }else{
+            console.log("nastav ctyri");
+            item.removeClass("a4-portrait");
+            if(!item.hasClass("landscape"))
+                item.addClass("landscape");
+            setWrapperImageTopDateRow();
+        }
+    }
+
+    function setWrapperImageTopDateBlock(){
+        let wrapper_image = $(".wrapper-image");
+        let labels = $(".labels");
+        let dates = $(".dates");
+
+        wrapper_image.removeClass("wrapper-image-top-date-row wrapper-image-left-date-block");
+        if(!wrapper_image.hasClass("wrapper-image-top-date-block"))
+            wrapper_image.addClass("wrapper-image-top-date-block");
+        labels.removeClass("labels-grid-row");
+        dates.removeClass("dates-grid-row");
+        if(!labels.hasClass("labels-grid-block")){
+            labels.addClass("labels-grid-block");
+            dates.addClass("dates-grid-block");
+        }
+    }
+
+    function setWrapperImageLeftDateBlock(){
+        let wrapper_image = $(".wrapper-image");
+        let labels = $(".labels");
+        let dates = $(".dates");
+
+        wrapper_image.removeClass("wrapper-image-top-date-row wrapper-image-top-date-block");
+        if(!wrapper_image.hasClass("wrapper-image-left-date-block"))
+            wrapper_image.addClass("wrapper-image-left-date-block");
+        labels.removeClass("labels-grid-row");
+        dates.removeClass("dates-grid-row");
+        if(!labels.hasClass("labels-grid-block")){
+            labels.addClass("labels-grid-block");
+            dates.addClass("dates-grid-block");
+        }
+    }
+
+    function setWrapperImageTopDateRow(){
+        let wrapper_image = $(".wrapper-image");
+        let labels = $(".labels");
+        let dates = $(".dates");
+
+        wrapper_image.removeClass("wrapper-image-top-date-block wrapper-image-left-date-block");
+        if(!wrapper_image.hasClass("wrapper-image-top-date-row"))
+            wrapper_image.addClass("wrapper-image-top-date-row");
+        labels.removeClass("labels-grid-block");
+        dates.removeClass("dates-grid-block");
+        if(!labels.hasClass("labels-grid-row")){
+            labels.addClass("labels-grid-row");
+            dates.addClass("dates-grid-row");
+        }
+    }
 
 })( jQuery );
