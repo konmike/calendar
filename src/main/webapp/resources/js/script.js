@@ -7,9 +7,27 @@
         for(let i = 0; i < input.files.length; i++){
             let reader = new FileReader();
             let name = $('#file')[0].files[i].name;
+            reader.readAsDataURL(input.files[i]);
+
             reader.onload = function (e) {
                 let img = new Image();
                 let file = input.files[i];
+                img.src = e.target.result;
+
+                img.onload = function () {
+                    var height = this.height;
+                    var width = this.width;
+                    console.log("cuus");
+                    console.log(height);
+                    console.log(width);
+                    if ((height >= 1200 && width >= 800) || (height >= 800 && width >= 1200)) {
+                        console.log("gooood");
+                        alert("Height and Width is good.");
+                        return true;
+                    }
+                    alert("Uploaded image has invalid Height and Width.");
+                    return false;
+                };
                 /*let objectUrl = URL.createObjectURL(file);
                 img.onload = function () {
                     //alert(this.width + " " + this.height);
@@ -25,7 +43,7 @@
                 //$('#blah').attr('src', e.target.result);
             };
             autoId++;
-            reader.readAsDataURL(input.files[i]);
+            //reader.readAsDataURL(input.files[i]);
         }
         /*
         if (input.files && input.files[0]) {
@@ -45,7 +63,11 @@
     }
 
     $("#file").change(function(){
-        //readURL(this);
+
+        if(!readURL(this)){
+            alert("Height and Width must exceed 1600x1200 px or 1200x1600px.");
+            return false;
+        }
         $('#redir').attr("value", "image");
         $('.form--calendar-update').submit();
 
