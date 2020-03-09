@@ -75,8 +75,8 @@ public class CalendarController {
         System.out.println("Id: " + c.getId());
         System.out.println("Name: " + c.getName());
         System.out.println("Year: " + c.getYear());
-        System.out.println("Offset: " + c.getOffset());
-        System.out.println("Lang: " + c.getLang());
+//        System.out.println("Offset: " + c.getOffset());
+//        System.out.println("Lang: " + c.getLang());
 
         Optional <User> user = userService.getUserByName(principal.getName());
         Set<Calendar> calendars = null;
@@ -86,6 +86,13 @@ public class CalendarController {
         else{
             return "redirect:/";
         }
+
+        ArrayList<String> selImage = new ArrayList<>();
+        for(int i = 0; i < 13; i++){
+            selImage.add("null");
+        }
+
+        c.setSelImage(selImage);
 
         calendarService.saveCalendar(c);
         calendars.add(c);
@@ -149,8 +156,8 @@ public class CalendarController {
 
         System.out.println(tmpC.getName());
         System.out.println(tmpC.getYear());
-        System.out.println(tmpC.getLang());
-        System.out.println(tmpC.getOffset());
+//        System.out.println(tmpC.getLang());
+//        System.out.println(tmpC.getOffset());
         System.out.println("Update vybrane " + tmpC.getSelImage());
         System.out.println("Typ" + tmpC.getType());
 
@@ -202,12 +209,12 @@ public class CalendarController {
         if(c.getYear() != tmpC.getYear()){
             c.setYear(tmpC.getYear());
         }
-        if(!c.getLang().equals(tmpC.getLang())){
-            c.setLang(tmpC.getLang());
-        }
-        if(c.getOffset() != tmpC.getOffset()){
-            c.setOffset(tmpC.getOffset());
-        }
+//        if(!c.getLang().equals(tmpC.getLang())){
+//            c.setLang(tmpC.getLang());
+//        }
+//        if(c.getOffset() != tmpC.getOffset()){
+//            c.setOffset(tmpC.getOffset());
+//        }
         if(c.getSelImage() != tmpC.getSelImage()){
             c.setSelImage(tmpC.getSelImage());
         }

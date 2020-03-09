@@ -76,19 +76,19 @@
                     </label>
                 </spring:bind>
 
-                <form:label path="lang" for="lang" cssClass="label label--calendar-option label--lang">Popisky
-                    <form:select path="lang" id="lang" cssClass="select select--lang">
-                        <option value="cs" selected>ČEŠTINA</option>
-                        <option value="en">ANGLIČTINA</option>
-                    </form:select>
-                </form:label>
+<%--                <form:label path="lang" for="lang" cssClass="label label--calendar-option label--lang">Popisky--%>
+<%--                    <form:select path="lang" id="lang" cssClass="select select--lang">--%>
+<%--                        <option value="cs" selected>ČEŠTINA</option>--%>
+<%--                        <option value="en">ANGLIČTINA</option>--%>
+<%--                    </form:select>--%>
+<%--                </form:label>--%>
 
-                <form:label path="offset" for="offset" cssClass="label label--calendar-option label--offset">Týden začíná
-                    <form:select path="offset" id="offset" cssClass="select select--offset">
-                        <option value="1" selected>PONDĚLÍ</option>
-                        <option value="7">NEDĚLE</option>
-                    </form:select>
-                </form:label>
+<%--                <form:label path="offset" for="offset" cssClass="label label--calendar-option label--offset">Týden začíná--%>
+<%--                    <form:select path="offset" id="offset" cssClass="select select--offset">--%>
+<%--                        <option value="1" selected>PONDĚLÍ</option>--%>
+<%--                        <option value="7">NEDĚLE</option>--%>
+<%--                    </form:select>--%>
+<%--                </form:label>--%>
 
                 <form:label path="type" for="type" cssClass="label label--calendar-option label--type">Typ
                     <form:radiobutton path="type" id="type" value="1" name="type" checked="true" cssClass="radio radio--type"/>Na výšku - datum blok

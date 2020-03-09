@@ -16,10 +16,10 @@ public class Calendar {
 
     @NotNull
     private int year;
-    @NotNull
-    private int offset;
-    @NotNull
-    private String lang;
+//    @NotNull
+//    private int offset;
+//    @NotNull
+//    private String lang;
     @NotNull
     private int type;
 
@@ -64,21 +64,21 @@ public class Calendar {
         this.year = year;
     }
 
-    public int getOffset() {
-        return offset;
-    }
-
-    public void setOffset(int offset) {
-        this.offset = offset;
-    }
-
-    public String getLang() {
-        return lang;
-    }
-
-    public void setLang(String lang) {
-        this.lang = lang;
-    }
+//    public int getOffset() {
+//        return offset;
+//    }
+//
+//    public void setOffset(int offset) {
+//        this.offset = offset;
+//    }
+//
+//    public String getLang() {
+//        return lang;
+//    }
+//
+//    public void setLang(String lang) {
+//        this.lang = lang;
+//    }
 
     //    public String getType() {
 //        return type;

@@ -24,7 +24,7 @@
     <link href="https://use.fontawesome.com/releases/v5.0.8/css/all.css" rel="stylesheet">
     <%--    <link href="${contextPath}/resources/css/form.css" rel="stylesheet">--%>
 </head>
-<body data-custom-year="${cal.year}" data-custom-offset="${cal.offset}" data-custom-lang="${cal.lang}" data-custom-type="${cal.type}">
+<body data-custom-year="${cal.year}" data-custom-type="${cal.type}">
 <header>
     <nav>
         <ul>
@@ -80,11 +80,13 @@
                                     <div class="wrapper wrapper-image border-no">
                                         <i class="fas fa-file-image"></i>
                                     </div>
+                                    <span class="calendar-title">Kalendář ${cal.year}</span>
                                 </c:when>
                                 <c:otherwise>
                                     <div class="wrapper wrapper-image border-no">
                                         <img src="${cal.selImage.get(0)}" alt="Front Page" />
                                     </div>
+                                    <span class="calendar-title">Kalendář ${cal.year}</span>
                                 </c:otherwise>
                             </c:choose>
                         </div>
@@ -134,9 +136,10 @@
 </footer>
 
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
-<script src="https://unpkg.com/calendarize"></script>
+<%--<script src="https://unpkg.com/calendarize"></script>--%>
 <script src="https://unpkg.com/sublet"></script>
-<script src="${contextPath}/resources/js/calendar.js"></script>
+<%--<script src="${contextPath}/resources/js/calendar.js"></script>--%>
+<script src="${contextPath}/resources/js/calendar2.js"></script>
 <script src="${contextPath}/resources/js/script.js"></script>
 <script src="${contextPath}/resources/js/simple-lightbox.jquery.js"></script>
 

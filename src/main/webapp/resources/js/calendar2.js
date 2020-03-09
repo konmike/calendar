@@ -2,33 +2,41 @@ const $ = document.querySelector.bind(document);
 const h = tag => document.createElement(tag);
 
 const days_labels = {
-    en: ['SUN','MON', 'TUE', 'WED', 'THU', 'FRI', 'SAT'],
-    cs: ['NE', 'PO', 'ÚT', 'ST', 'ČT', 'PÁ', 'SO'],
+    cs: ['PO', 'ÚT', 'ST', 'ČT', 'PÁ', 'SO', 'NE']
 };
 
 const months_labels = {
-    en: ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'],
-    cs: ['Leden', 'Únor', 'Březen', 'Duben', 'Květen', 'Červen', 'Červenec', 'Srpen', 'Září', 'Říjen', 'Listopad', 'Prosinec'],
+    cs: ['Leden', 'Únor', 'Březen', 'Duben', 'Květen', 'Červen', 'Červenec', 'Srpen', 'Září', 'Říjen', 'Listopad', 'Prosinec']
 };
+
+// const days_labels = {
+//     en: ['SUN','MON', 'TUE', 'WED', 'THU', 'FRI', 'SAT'],
+//     cs: ['NE', 'PO', 'ÚT', 'ST', 'ČT', 'PÁ', 'SO'],
+// };
+
+// const months_labels = {
+//     en: ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'],
+//     cs: ['Leden', 'Únor', 'Březen', 'Duben', 'Květen', 'Červen', 'Červenec', 'Srpen', 'Září', 'Říjen', 'Listopad', 'Prosinec'],
+// };
 
 const numbers = ['1','2','3','4','5','6','7','8','9',
                 '10','11','12','13','14','15','16','17','18','19',
                 '20','21','22','23','24','25','26','27','28','29', '30', '31'];
 
 let body = $("body");
-let lang_d = body.getAttribute("data-custom-lang");
-let offset_d = parseInt(body.getAttribute("data-custom-offset"),10);
+//let lang_d = body.getAttribute("data-custom-lang");
+//let offset_d = parseInt(body.getAttribute("data-custom-offset"),10);
 let year_d = parseInt(body.getAttribute("data-custom-year"),10);
 let type_d = parseInt(body.getAttribute("data-custom-type"),10);
 
-if(lang_d === ""){
+/*if(lang_d === ""){
     lang_d = "cs";
     //console.log("lang set");
 }
 if(offset_d === 0){
     offset_d = 1;
     //console.log("offset set");
-}
+}*/
 if(year_d === 0){
     year_d = 2020;
     //console.log("year set");
@@ -39,8 +47,8 @@ if(type_d === 0){
 }
 
 const view = sublet({
-    lang: lang_d,
-    offset: offset_d,
+    //lang: lang_d,
+    //offset: offset_d,
     year: year_d,
     type: type_d,
 }, update);
@@ -50,8 +58,8 @@ function daysInMonth (month, year) { // Use 1 for January, 2 for February, etc.
 }
 
 function generateStructureAndFill (lspan_length, dspan_length, firstDay, item, month, state, type, monthDayCount){
-    const days = days_labels[state.lang];
-    const months = months_labels[state.lang];
+    const days = days_labels["cs"];
+    const months = months_labels["cs"];
 
     let labels = $('#calendar .label--item:nth-child(' + item + ') .month .labels');
     let dates = $('#calendar .label--item:nth-child(' + item + ') .month .dates');
@@ -62,27 +70,14 @@ function generateStructureAndFill (lspan_length, dspan_length, firstDay, item, m
         dates = $('#calendar .month:nth-child(' + item + ') .dates');
     }
 
-    console.log("lspan_lenght: " + lspan_length);
-    console.log("dspan_lenght: " + dspan_length);
-    console.log("firsday: " + firstDay);
-    console.log("item: " + item);
-    console.log("month: " + month);
-    console.log("type: " + type);
-
     if(type === 2 || type === 4){
-        console.log("set style");
         labels.setAttribute("style", "grid-template-columns: repeat(" + lspan_length +", 1fr)");
         dates.setAttribute("style", "grid-template-columns: repeat(" + dspan_length +", 1fr)");
     }else{
-        console.log("remove style");
         labels.removeAttribute("style");
         dates.removeAttribute("style");
     }
 
-    console.log(labels);
-    console.log(dates);
-
-    console.log("Prvni den" + firstDay);
 
     Array.from({length: lspan_length}, () => {
         return labels.appendChild(h('span'));
@@ -102,7 +97,7 @@ function generateStructureAndFill (lspan_length, dspan_length, firstDay, item, m
 
     if(type === 2 || type === 4) {
         lspan.forEach((el, idx) => {
-            el.textContent = days[(idx + firstDay) % 7];
+            el.textContent = days[(idx + firstDay - 1) % 7];
         });
         Array.from({length: dspan_length}, () => {
             return dates.appendChild(h('span'));
@@ -116,7 +111,7 @@ function generateStructureAndFill (lspan_length, dspan_length, firstDay, item, m
     }
     else {
         lspan.forEach((el, idx) => {
-            el.textContent = days[(idx + state.offset) % 7];
+            el.textContent = days[idx];
         });
 
         Array.from({length: dspan_length}, () => {
@@ -134,7 +129,7 @@ function generateStructureAndFill (lspan_length, dspan_length, firstDay, item, m
 }
 
 function update(state) {
-    const offset = state.offset;
+    //const offset = state.offset;
     const type = parseInt(state.type);
 
     let labels = document.getElementsByClassName("labels");
@@ -147,7 +142,6 @@ function update(state) {
     console.log("State type " + type);
 
     if(type === 2 || type === 4){
-        console.log("Tady ano");
         let item = 2;
         let month = 0;
 
@@ -155,6 +149,8 @@ function update(state) {
             let numberDays = daysInMonth(i,state.year);
             //console.log("Pocet dni v " + i + " je " + numberDays);
             let day = new Date(state.year + "-" + i + "-01").getDay();
+            if(day === 0)
+                day = 7;
             //console.log("Prvni den v mesici " + i + " je " + day);
 
             generateStructureAndFill(numberDays,numberDays, day, item, month, state, type, numberDays);
@@ -163,7 +159,6 @@ function update(state) {
             console.log("Increment " + item);
         }
     }else{
-        console.log("Tady ne!!!");
         let item = 2;
         let month = 0;
         for( let i = 1; i < 13; i++) {
@@ -179,18 +174,18 @@ function update(state) {
 
 }
 
-let lang = $('#lang');
-let offset = $('#offset');
+// let lang = $('#lang');
+// let offset = $('#offset');
 let year = $('#year');
 let type = $('#type');
-if(lang)
-    lang.onchange = ev => {
-        view.lang = ev.target.value;
-    };
-if(offset)
-    offset.onchange = ev => {
-        view.offset = ev.target.value;
-    };
+// if(lang)
+//     lang.onchange = ev => {
+//         view.lang = ev.target.value;
+//     };
+// if(offset)
+//     offset.onchange = ev => {
+//         view.offset = ev.target.value;
+//     };
 if(year)
     year.onchange = ev => {
         view.year = ev.target.value;

@@ -92,7 +92,7 @@
         ev.target.parentElement.previousElementSibling.previousElementSibling.checked = false;
     }
 </script>
-<body data-custom-year="${cal.year}" data-custom-offset="${cal.offset}" data-custom-lang="${cal.lang}" data-custom-type="${cal.type}">
+<body data-custom-year="${cal.year}" data-custom-type="${cal.type}">
 <header>
     <nav>
         <ul>
@@ -148,35 +148,35 @@
                     </label>
                 </spring:bind>
 
-                <form:label path="lang" for="lang" cssClass="label label--calendar-option label--lang">Popisky
-                    <form:select path="lang" id="lang" cssClass="select select--lang">
-                        <c:choose>
-                            <c:when test="${(empty cal.lang) or (cal.lang=='cs')}">
-                                <option value="cs" selected>ČEŠTINA</option>
-                                <option value="en">ANGLIČTINA</option>
-                            </c:when>
-                            <c:otherwise>
-                                <option value="cs">ČEŠTINA</option>
-                                <option value="en" selected>ANGLIČTINA</option>
-                            </c:otherwise>
-                        </c:choose>
-                    </form:select>
-                </form:label>
+<%--                <form:label path="lang" for="lang" cssClass="label label--calendar-option label--lang">Popisky--%>
+<%--                    <form:select path="lang" id="lang" cssClass="select select--lang">--%>
+<%--                        <c:choose>--%>
+<%--                            <c:when test="${(empty cal.lang) or (cal.lang=='cs')}">--%>
+<%--                                <option value="cs" selected>ČEŠTINA</option>--%>
+<%--                                <option value="en">ANGLIČTINA</option>--%>
+<%--                            </c:when>--%>
+<%--                            <c:otherwise>--%>
+<%--                                <option value="cs">ČEŠTINA</option>--%>
+<%--                                <option value="en" selected>ANGLIČTINA</option>--%>
+<%--                            </c:otherwise>--%>
+<%--                        </c:choose>--%>
+<%--                    </form:select>--%>
+<%--                </form:label>--%>
 
-                <form:label path="offset" for="offset" cssClass="label label--calendar-option label--offset">Týden začíná
-                    <form:select path="offset" id="offset" cssClass="select select--offset">
-                        <c:choose>
-                            <c:when test="${(cal.offset == '0') or (cal.offset == '1')}">
-                                <option value="1" selected>PONDĚLÍ</option>
-                                <option value="7">NEDĚLE</option>
-                            </c:when>
-                            <c:otherwise>
-                                <option value="1">PONDĚLÍ</option>
-                                <option value="7" selected>NEDĚLE</option>
-                            </c:otherwise>
-                        </c:choose>
-                    </form:select>
-                </form:label>
+<%--                <form:label path="offset" for="offset" cssClass="label label--calendar-option label--offset">Týden začíná--%>
+<%--                    <form:select path="offset" id="offset" cssClass="select select--offset">--%>
+<%--                        <c:choose>--%>
+<%--                            <c:when test="${(cal.offset == '0') or (cal.offset == '1')}">--%>
+<%--                                <option value="1" selected>PONDĚLÍ</option>--%>
+<%--                                <option value="7">NEDĚLE</option>--%>
+<%--                            </c:when>--%>
+<%--                            <c:otherwise>--%>
+<%--                                <option value="1">PONDĚLÍ</option>--%>
+<%--                                <option value="7" selected>NEDĚLE</option>--%>
+<%--                            </c:otherwise>--%>
+<%--                        </c:choose>--%>
+<%--                    </form:select>--%>
+<%--                </form:label>--%>
 
                 <form:label path="type" for="type" id="type" cssClass="label label--calendar-option label--type">Typ
                     <form:radiobutton path="type" value="1" name="type" cssClass="radio radio--type"/>Na výšku - datum blok
@@ -223,6 +223,7 @@
                                                      ondrop="return dragDrop(event)"
                                                      ondragover="return dragOver(event)"
                                                      ondragleave="return dragLeave(event)"></div>
+                                            <span class="calendar-title">Kalendář ${cal.year}</span>
                                         </div>
                                         </c:when>
                                         <c:otherwise>
@@ -231,6 +232,7 @@
                                             <div onclick="deleteImage(event)" class="wrapper wrapper-image wrapper-image-after border-no">
                                                 <img src="${cal.selImage.get(0)}" alt=""/>
                                             </div>
+                                            <span class="calendar-title">Kalendář ${cal.year}</span>
                                         </div>
                                         </c:otherwise>
                                     </c:choose>
