@@ -1,5 +1,6 @@
 package cz.konecmi4.fit.cvut.service;
 
+import cz.konecmi4.fit.cvut.model.Role;
 import cz.konecmi4.fit.cvut.model.User;
 import cz.konecmi4.fit.cvut.repository.RoleRepository;
 import cz.konecmi4.fit.cvut.repository.UserRepository;
@@ -9,6 +10,7 @@ import org.springframework.stereotype.Service;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Optional;
+import java.util.Set;
 
 @Service
 public class UserServiceImpl implements UserService {
@@ -50,8 +52,11 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public void saveUser(User user){
+        Set<Role> roles = new HashSet<>();
+        Long id = 2L;
+        roles.add(roleRepository.getOne(id));
         user.setPassword((bCryptPasswordEncoder.encode((user.getPassword()))));
-        user.setRoles((new HashSet<>(roleRepository.findAll())));
+        user.setRoles(roles);
         userRepository.save(user);
     }
 

@@ -83,18 +83,18 @@
        $('.preview-gallery').html("");
     });
 
-    var labels = $('#calendar .label--item');
+    var labels_item = $('#calendar .label--item');
     var now = 0; // currently shown div
     labels.hide().first().show();
     $("#next").click(function (e) {
-        labels.eq(now).hide();
-        now = (now + 1 < labels.length) ? now + 1 : 0;
-        labels.eq(now).show(); // show next
+        labels_item.eq(now).hide();
+        now = (now + 1 < labels_item.length) ? now + 1 : 0;
+        labels_item.eq(now).show(); // show next
     });
     $("#prev").click(function (e) {
-        labels.eq(now).hide();
-        now = (now > 0) ? now - 1 : labels.length - 1;
-        labels.eq(now).show(); // or .css('display','block');
+        labels_item.eq(now).hide();
+        now = (now > 0) ? now - 1 : labels_item.length - 1;
+        labels_item.eq(now).show(); // or .css('display','block');
         //console.log(divs.length, now);
     });
     
@@ -122,9 +122,14 @@
         setCalendarType(t);
     });
 
+    let wrapper_image = $(".wrapper-image");
+    let labels = $(".labels");
+    let dates = $(".dates");
     let item = $(".item");
     let type = parseInt($('body').attr("data-custom-type"));
     let design = parseInt($("input[name='type']:checked").val());
+
+
     setCalendarType(type);
     item.addClass("design" + design);
 
@@ -154,42 +159,28 @@
 
     function setCalendarType(t){
         //let item = $(".item");
-        console.log("Itemy " + item);
-        console.log("Typ " + t);
-        if(t === 1){
-            console.log("nastav jednicku");
+
+        if(t === 1 || t === 2){
             item.removeClass("landscape");
             if(!item.hasClass("a4-portrait")){
                 item.addClass("a4-portrait");
-                console.log("pridej tridu");
             }
-            setWrapperImageTopDateBlock();
-        }else if(t === 2){
-            console.log("nastav dva");
-            item.removeClass("landscape");
-            if(!item.hasClass("a4-portrait"))
-                item.addClass("a4-portrait");
-            setWrapperImageTopDateRow();
-        }else if(t === 3){
-            console.log("nastav tri");
-            item.removeClass("a4-portrait");
-            if(!item.hasClass("landscape"))
-                item.addClass("landscape");
-            setWrapperImageLeftDateBlock();
+            if(t === 1)
+                setWrapperImageTopDateBlock();
+            else
+                setWrapperImageTopDateRow();
         }else{
-            console.log("nastav ctyri");
             item.removeClass("a4-portrait");
             if(!item.hasClass("landscape"))
                 item.addClass("landscape");
-            setWrapperImageTopDateRow();
+            if(t === 3)
+                setWrapperImageLeftDateBlock();
+            else
+                setWrapperImageTopDateRow();
         }
     }
 
     function setWrapperImageTopDateBlock(){
-        let wrapper_image = $(".wrapper-image");
-        let labels = $(".labels");
-        let dates = $(".dates");
-
         wrapper_image.removeClass("wrapper-image-top-date-row wrapper-image-left-date-block");
         if(!wrapper_image.hasClass("wrapper-image-top-date-block"))
             wrapper_image.addClass("wrapper-image-top-date-block");
@@ -202,10 +193,6 @@
     }
 
     function setWrapperImageLeftDateBlock(){
-        let wrapper_image = $(".wrapper-image");
-        let labels = $(".labels");
-        let dates = $(".dates");
-
         wrapper_image.removeClass("wrapper-image-top-date-row wrapper-image-top-date-block");
         if(!wrapper_image.hasClass("wrapper-image-left-date-block"))
             wrapper_image.addClass("wrapper-image-left-date-block");
@@ -218,10 +205,6 @@
     }
 
     function setWrapperImageTopDateRow(){
-        let wrapper_image = $(".wrapper-image");
-        let labels = $(".labels");
-        let dates = $(".dates");
-
         wrapper_image.removeClass("wrapper-image-top-date-block wrapper-image-left-date-block");
         if(!wrapper_image.hasClass("wrapper-image-top-date-row"))
             wrapper_image.addClass("wrapper-image-top-date-row");
@@ -233,11 +216,21 @@
         }
     }
 
+    function addCssToPrint(t){
+        if(t === 3 || type === 4){
+            console.log("pridej classu");
+            item.addClass("landscape-print");
+        }
+    }
+    function removeCssToPrint(t){
+        if(t === 3 || t === 4){
+            console.log("odeber classu");
+            item.removeClass("landscape-print");
+        }
+    }
 
     $(".link--download").click(function(){
         console.log("stahni kalendar");
-
-        //TODO addCssToPrint();
 
         let type = parseInt($('body').attr("data-custom-type"));
         let name = $('body').attr("data-custom-name");
@@ -245,9 +238,11 @@
         if(type === 1 || type === 2)
             orientation = "portrait";
 
+        //addCssToPrint(type);
+
         let element = document.getElementById('calendar');
         let opt = {
-            margin:       1,
+            margin:       0,
             filename:     name,
             image:        { type: 'jpeg', quality: 0.98 },
             html2canvas:  { scale: 2 },
@@ -256,7 +251,9 @@
 
         html2pdf().set(opt).from(element).save();
 
-        //TODO removeCssToPrint();
+        //alert("Kalendar " + name + " bude stazen, pokracovat?");
+
+        //removeCssToPrint(type);
     });
 
 
