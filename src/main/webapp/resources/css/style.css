@@ -931,6 +931,7 @@ display: none;
   color: rgba(0, 68, 101,1);
   border: 0.1rem solid rgba(255,215,0,1);
   border-left: none;
+  cursor: pointer;
 }
 .link--download:hover,.link--edit:hover{
   background: transparent;

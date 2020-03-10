@@ -64,10 +64,10 @@
 
     $("#file").change(function(){
 
-        if(!readURL(this)){
-            alert("Height and Width must exceed 1600x1200 px or 1200x1600px.");
-            return false;
-        }
+        // if(!readURL(this)){
+        //     alert("Height and Width must exceed 1600x1200 px or 1200x1600px.");
+        //     return false;
+        // }
         $('#redir').attr("value", "image");
         $('.form--calendar-update').submit();
 
@@ -213,5 +213,27 @@
             dates.addClass("dates-grid-row");
         }
     }
+
+
+    $(".link--download").click(function(){
+        console.log("stahni kalendar");
+        let type = parseInt($('body').attr("data-custom-type"));
+        let name = $('body').attr("data-custom-name");
+        let orientation = "landscape";
+        if(type === 1 || type === 2)
+            orientation = "portrait";
+
+        let element = document.getElementById('calendar');
+        let opt = {
+            margin:       1,
+            filename:     name,
+            image:        { type: 'jpeg', quality: 0.98 },
+            html2canvas:  { scale: 2 },
+            jsPDF:        { unit: 'in', format: 'letter', orientation: orientation }
+        };
+
+        html2pdf().set(opt).from(element).save();
+    });
+
 
 })( jQuery );

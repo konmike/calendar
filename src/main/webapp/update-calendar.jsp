@@ -188,7 +188,7 @@
             </div>
             <div class="sidebox sidebox--upload-image">
                 <label for="file" class="label label--file">
-                    <input type="file" id="file" name="files" class="input input--file" multiple />
+                    <input type="file" id="file" name="files" accept="image/*" class="input input--file" multiple />
                     <span class="file--custom"></span>
                 </label>
                 <span class="message"></span>
@@ -306,6 +306,8 @@
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
 <script src="https://unpkg.com/calendarize"></script>
 <script src="https://unpkg.com/sublet"></script>
+
+
 <%--<script src="${contextPath}/resources/js/calendar.js"></script>--%>
 <script src="${contextPath}/resources/js/calendar2.js"></script>
 <script src="${contextPath}/resources/js/script.js"></script>

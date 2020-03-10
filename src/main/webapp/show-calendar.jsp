@@ -24,7 +24,7 @@
     <link href="https://use.fontawesome.com/releases/v5.0.8/css/all.css" rel="stylesheet">
     <%--    <link href="${contextPath}/resources/css/form.css" rel="stylesheet">--%>
 </head>
-<body data-custom-year="${cal.year}" data-custom-type="${cal.type}">
+<body data-custom-year="${cal.year}" data-custom-type="${cal.type}" data-custom-name="${cal.name}">
 <header>
     <nav>
         <ul>
@@ -66,7 +66,7 @@
     <div class="section section--calendar-show-one">
         <div class="calendar-edit-option">
             <a href="${contextPath}/calendar/update?calId=${cal.id}" class="link link--edit-option link--edit">Editovat</a>
-            <a href="${contextPath}/calendar/download?calId=${cal.id}" class="link link--edit-option link--download">Stáhnout</a>
+            <a class="link link--edit-option link--download">Stáhnout</a>
             <a href="${contextPath}/calendar/delete?calId=${cal.id}" class="link link--edit-option link--delete"
                onclick="if (!(confirm('Kalendář bude odstraněn, chcete určitě pokračovat?'))) return false">Smazat</a>
         </div>
@@ -74,7 +74,7 @@
             <c:forEach begin="0" end="12" varStatus="item">
                 <c:choose>
                     <c:when test="${item.index == '0'}">
-                        <div class="item item--0 a4-portrait">
+                        <div class="item item--0 a4-portrait html2pdf__page-break">
                             <c:choose>
                                 <c:when test="${cal.selImage.get(0).contains('null') or (empty cal.selImage)}">
                                     <div class="wrapper wrapper-image border-no">
@@ -92,7 +92,7 @@
                         </div>
                     </c:when>
                     <c:otherwise>
-                        <div class="month month--${item.index} item a4-portrait">
+                        <div class="month month--${item.index} item a4-portrait html2pdf__page-break">
                             <c:choose>
                                 <c:when test="${cal.selImage.get(item.index).contains('null') or (empty cal.selImage)}">
                                     <div class="wrapper wrapper-image border-no">
@@ -138,6 +138,7 @@
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
 <%--<script src="https://unpkg.com/calendarize"></script>--%>
 <script src="https://unpkg.com/sublet"></script>
+<script src="resources/js/html2pdf.bundle.min.js"></script>
 <%--<script src="${contextPath}/resources/js/calendar.js"></script>--%>
 <script src="${contextPath}/resources/js/calendar2.js"></script>
 <script src="${contextPath}/resources/js/script.js"></script>
