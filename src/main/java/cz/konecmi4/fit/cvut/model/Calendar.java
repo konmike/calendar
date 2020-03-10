@@ -22,6 +22,8 @@ public class Calendar {
 //    private String lang;
     @NotNull
     private int type;
+    @NotNull
+    private int design;
 
 
     @OneToMany(cascade = CascadeType.ALL)
@@ -113,4 +115,11 @@ public class Calendar {
         this.type = type;
     }
 
+    public int getDesign() {
+        return design;
+    }
+
+    public void setDesign(int design) {
+        this.design = design;
+    }
 }

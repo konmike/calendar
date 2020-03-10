@@ -122,6 +122,26 @@
         setCalendarType(t);
     });
 
+    let item = $(".item");
+    let type = parseInt($('body').attr("data-custom-type"));
+    let design = parseInt($("input[name='type']:checked").val());
+    setCalendarType(type);
+    item.addClass("design" + design);
+
+    $('.label--design').change(function(){
+        let t = parseInt($("input[name='design']:checked").val());
+        console.log("Zmena na jiny design " + t);
+        setCalendarDesign(t);
+    });
+
+    function setCalendarDesign(t){
+        //let item = $(".item");
+        item.removeClass (function (index, className) {
+            return (className.match (/(^|\s)design\S+/g) || []).join("");
+        });
+        item.addClass("design" + t);
+    }
+
     $("type-of-calendar").click(function(){
        console.log("Zobraz/skryj");
        if($(".label--type:visible"))
@@ -130,11 +150,10 @@
            $(".label--type").show();
     });
 
-    let type = parseInt($('body').attr("data-custom-type"));
-    setCalendarType(type);
+
 
     function setCalendarType(t){
-        let item = $(".item");
+        //let item = $(".item");
         console.log("Itemy " + item);
         console.log("Typ " + t);
         if(t === 1){
@@ -217,6 +236,9 @@
 
     $(".link--download").click(function(){
         console.log("stahni kalendar");
+
+        //TODO addCssToPrint();
+
         let type = parseInt($('body').attr("data-custom-type"));
         let name = $('body').attr("data-custom-name");
         let orientation = "landscape";
@@ -233,6 +255,8 @@
         };
 
         html2pdf().set(opt).from(element).save();
+
+        //TODO removeCssToPrint();
     });
 
 

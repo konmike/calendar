@@ -92,7 +92,7 @@
         ev.target.parentElement.previousElementSibling.previousElementSibling.checked = false;
     }
 </script>
-<body data-custom-year="${cal.year}" data-custom-type="${cal.type}">
+<body data-custom-year="${cal.year}" data-custom-type="${cal.type}" data-custom-design="${cal.design}">
 <header>
     <nav>
         <ul>
@@ -183,6 +183,13 @@
                     <form:radiobutton path="type" value="2" name="type" cssClass="radio radio--type"/>Na výšku - datum řádek
                     <form:radiobutton path="type" value="3" name="type" cssClass="radio radio--type"/>Na šířku - datum blok
                     <form:radiobutton path="type" value="4" name="type" cssClass="radio radio--type"/>Na šířku - datum řádek
+                </form:label>
+
+                <form:label path="design" for="design" id="design" cssClass="label label--calendar-option label--design">Design
+                    <form:radiobutton path="design" id="design" value="1" name="design" checked="true" cssClass="radio radio--design"/>Jedna
+                    <form:radiobutton path="design" id="design" value="2" name="design" cssClass="radio radio--design"/>Dva
+                    <form:radiobutton path="design" id="design" value="3" name="design" cssClass="radio radio--design"/>Tři
+                    <form:radiobutton path="design" id="design" value="4" name="design" cssClass="radio radio--design"/>Čtyři
                 </form:label>
 
             </div>

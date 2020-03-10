@@ -75,6 +75,8 @@ public class CalendarController {
         System.out.println("Id: " + c.getId());
         System.out.println("Name: " + c.getName());
         System.out.println("Year: " + c.getYear());
+        System.out.println("Type: " + c.getType());
+        System.out.println("Design: " + c.getDesign());
 //        System.out.println("Offset: " + c.getOffset());
 //        System.out.println("Lang: " + c.getLang());
 
@@ -160,6 +162,7 @@ public class CalendarController {
 //        System.out.println(tmpC.getOffset());
         System.out.println("Update vybrane " + tmpC.getSelImage());
         System.out.println("Typ" + tmpC.getType());
+        System.out.println("Design" + tmpC.getDesign());
 
         if(files.length != 0){
             Set<Image> images = c.getImages();
@@ -220,6 +223,9 @@ public class CalendarController {
         }
         if(c.getType() != tmpC.getType()){
             c.setType(tmpC.getType());
+        }
+        if(c.getDesign() != tmpC.getDesign()){
+            c.setDesign(tmpC.getDesign());
         }
 
         calendarService.saveCalendar(c);
