@@ -315,10 +315,8 @@
 </footer>
 
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
-<script src="https://unpkg.com/calendarize"></script>
-<script src="https://unpkg.com/sublet"></script>
-
-
+<%--<script src="https://unpkg.com/calendarize"></script>--%>
+<%--<script src="https://unpkg.com/sublet"></script>--%>
 <%--<script src="${contextPath}/resources/js/calendar.js"></script>--%>
 <script src="${contextPath}/resources/js/calendar2.js"></script>
 <script src="${contextPath}/resources/js/script.js"></script>

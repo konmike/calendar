@@ -258,7 +258,7 @@
             jsPDF:        { unit: 'mm', format: 'a4', orientation: orientation }
         };
 
-        html2pdf().set(opt).from(element).toImg().save();
+        html2pdf().set(opt).from(element).save();
 
         //alert("Kalendar " + name + " bude stazen, pokracovat?");
 

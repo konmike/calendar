@@ -46,18 +46,15 @@ if(type_d === 0){
     //console.log("type set");
 }
 
-const view = sublet({
-    //lang: lang_d,
-    //offset: offset_d,
-    year: year_d,
-    type: type_d,
-}, update);
+
+const settings = { year: year_d, type: type_d};
+update(settings);
 
 function daysInMonth (month, year) { // Use 1 for January, 2 for February, etc.
     return new Date(year, month, 0).getDate();
 }
 
-function generateStructureAndFill (lspan_length, dspan_length, firstDay, item, month, state, type, monthDayCount){
+function generateStructureAndFill (lspan_length, dspan_length, firstDay, item, month, settings, type, monthDayCount){
     const days = days_labels["cs"];
     const months = months_labels["cs"];
 
@@ -130,9 +127,9 @@ function generateStructureAndFill (lspan_length, dspan_length, firstDay, item, m
     }
 }
 
-function update(state) {
-    //const offset = state.offset;
-    const type = parseInt(state.type);
+function update(settings) {
+    //const offset = settings.offset;
+    const type = parseInt(settings.type);
 
     let wrapper_dates = document.getElementsByClassName("wrapper-dates");
     let labels = document.getElementsByClassName("labels");
@@ -154,14 +151,14 @@ function update(state) {
         let month = 0;
 
         for( let i = 1; i < 13; i++){
-            let numberDays = daysInMonth(i,state.year);
+            let numberDays = daysInMonth(i,settings.year);
             //console.log("Pocet dni v " + i + " je " + numberDays);
-            let day = new Date(state.year + "-" + i + "-01").getDay();
+            let day = new Date(settings.year + "-" + i + "-01").getDay();
             if(day === 0)
                 day = 7;
             //console.log("Prvni den v mesici " + i + " je " + day);
 
-            generateStructureAndFill(numberDays,numberDays, day, item, month, state, type, numberDays);
+            generateStructureAndFill(numberDays,numberDays, day, item, month, settings, type, numberDays);
             item++;
             month++;
             console.log("Increment " + item);
@@ -170,11 +167,11 @@ function update(state) {
         let item = 2;
         let month = 0;
         for( let i = 1; i < 13; i++) {
-            let numberDays = daysInMonth(i,state.year);
-            let day = new Date(state.year + "-" + i + "-01").getDay();
+            let numberDays = daysInMonth(i,settings.year);
+            let day = new Date(settings.year + "-" + i + "-01").getDay();
             if(day === 0)
                 day = 7;
-            generateStructureAndFill(7, 42, day, item, month, state, type, numberDays);
+            generateStructureAndFill(7, 42, day, item, month, settings, type, numberDays);
             item++;
             month++;
         }
@@ -196,9 +193,11 @@ let type = $('#type');
 //     };
 if(year)
     year.onchange = ev => {
-        view.year = ev.target.value;
+        settings.year = ev.target.value;
+        update(settings);
     };
 if(type)
     type.onchange = ev => {
-        view.type = ev.target.value;
+        settings.type = ev.target.value;
+        update(settings);
     };
