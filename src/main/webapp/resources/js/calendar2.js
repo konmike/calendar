@@ -63,11 +63,12 @@ function generateStructureAndFill (lspan_length, dspan_length, firstDay, item, m
 
     let labels = $('#calendar .label--item:nth-child(' + item + ') .month .labels');
     let dates = $('#calendar .label--item:nth-child(' + item + ') .month .dates');
-
+    let wrapper_dates = $('#calendar .label--item:nth-child(' + item + ') .month .wrapper-dates');
 
     if(labels === null){
         labels = $('#calendar .month:nth-child(' + item + ') .labels');
         dates = $('#calendar .month:nth-child(' + item + ') .dates');
+        wrapper_dates = $('#calendar .month:nth-child(' + item + ') .wrapper-dates');
     }
 
     if(type === 2 || type === 4){
@@ -85,8 +86,9 @@ function generateStructureAndFill (lspan_length, dspan_length, firstDay, item, m
     //console.log(lspan);
 
     let month_h3 = document.createElement("h3");
-    let firstChild = labels.firstChild;
-    labels.insertBefore(month_h3,firstChild);
+    let firstChild = wrapper_dates.firstChild;
+    wrapper_dates.insertBefore(month_h3,firstChild);
+    //labels.insertBefore(month_h3,firstChild);
 
 
     //vloz nazev mesice

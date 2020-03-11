@@ -90,6 +90,7 @@ public class CalendarController {
         }
 
         ArrayList<String> selImage = new ArrayList<>();
+        List<String> months = Arrays.asList("leden","únor");
         for(int i = 0; i < 13; i++){
             selImage.add("null");
         }

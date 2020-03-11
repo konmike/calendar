@@ -253,12 +253,12 @@
         let opt = {
             margin:       0,
             filename:     name,
-            image:        { type: 'jpeg', quality: 1},
+            image:        { type: 'jpeg/png', quality: 1},
             html2canvas:  { dpi: 300 },
             jsPDF:        { unit: 'mm', format: 'a4', orientation: orientation }
         };
 
-        let jpg = html2pdf().set(opt).from(element).toImg();
+        html2pdf().set(opt).from(element).toImg().save();
 
         //alert("Kalendar " + name + " bude stazen, pokracovat?");
 

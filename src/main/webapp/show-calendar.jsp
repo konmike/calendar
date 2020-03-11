@@ -105,8 +105,10 @@
                                     </div>
                                 </c:otherwise>
                             </c:choose>
-                            <div class="labels"></div>
-                            <div class="dates"></div>
+                            <div class="wrapper wrapper-dates">
+                                <div class="labels"></div>
+                                <div class="dates"></div>
+                            </div>
                         </div>
                     </c:otherwise>
                 </c:choose>

@@ -256,8 +256,10 @@
                                                      ondrop="return dragDrop(event)"
                                                      ondragover="return dragOver(event)"
                                                      ondragleave="return dragLeave(event)"></div>
-                                                <div class="labels"></div>
-                                                <div class="dates"></div>
+                                                <div class="wrapper wrapper-dates">
+                                                    <div class="labels"></div>
+                                                    <div class="dates"></div>
+                                                </div>
                                             </div>
                                             </c:when>
                                             <c:otherwise>
@@ -266,8 +268,10 @@
                                                 <div onclick="deleteImage(event)" class="wrapper wrapper-image wrapper-image-after border-no">
                                                     <img src="${cal.selImage.get(item.index)}" alt=""/>
                                                 </div>
-                                                <div class="labels"></div>
-                                                <div class="dates"></div>
+                                                <div class="wrapper wrapper-dates">
+                                                    <div class="labels"></div>
+                                                    <div class="dates"></div>
+                                                </div>
                                             </div>
                                             </c:otherwise>
                                         </c:choose>
