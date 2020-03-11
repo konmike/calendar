@@ -21,47 +21,31 @@
             }
 
             reader.onload = function (e) {
-                let file = input.files[i];
-                // let fileType = file["type"];
-                // let validImageTypes = ["image/jpg", "image/jpeg", "image/png"];
-                // if ($.inArray(fileType, validImageTypes) < 0) {
-                //     // invalid file type code goes here.
-                //     $('.message').innerText = name + " nema spravnou priponu. Podporujeme pouze jpg, jpeg a png";
-                //     return false;
-                // }
+                let image = new Image();
+                //Set the Base64 string return from FileReader as source.
+                image.src = e.target.result;
+                console.log(image.src);
 
-                /*let objectUrl = URL.createObjectURL(file);
-                img.onload = function () {
-                    //alert(this.width + " " + this.height);
-                    console.log(this.width);
-                    console.log(this.height);
-                    URL.revokeObjectURL(objectUrl);
+                /*image.onload = function () {
+                    let height = this.height;
+                    let width = this.width;
+                    if (height > 100 || width > 100) {
+                        console.log("Rozlišení OK.");
+                        return true;
+                    }
+                    console.log("Rozlišení není OK.");
+                    $('.message').text(name + " má nízké rozlišení.");
+                    return false;
                 };
-                img.src = objectUrl;
-        */
-                // $('.preview-gallery').append(
-                //     '<img src="' + e.target.result + '" class="img img--preview" alt="'+ name +'" id="im' + autoId + '" />'
-                //     );
-                //$('#blah').attr('src', e.target.result);
+                if(image.onload)
+                    return true;
+                else
+                    return false;*/
             };
+            // if(!reader.onload)
+            //     return false;
             autoId++;
-            //reader.readAsDataURL(input.files[i]);
         }
-        /*
-        if (input.files && input.files[0]) {
-            var reader = new FileReader();
-            var name = $('#file')[0].files[0].name;
-            reader.onload = function (e) {
-                $('.list--gallery').append(
-                    '<li class="list--item">' +
-                    '<img src="' + e.target.result + '" class="" alt="'+ name +'" width="200" id="im' + autoId + '" draggable="true" ondragstart="dragStart(event)"/>' +
-                    '<a href="' + e.target.result +'">Zvětšit</a>' +
-                    '</li>');
-                //$('#blah').attr('src', e.target.result);
-            };
-            autoId++;
-            reader.readAsDataURL(input.files[0]);
-        }*/
         return true;
     }
 
