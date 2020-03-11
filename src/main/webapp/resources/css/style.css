@@ -541,7 +541,7 @@ padding-left: 1rem;
   max-height: 24.680em;
   margin: 0;
 }
-.a4-portrait.item--0 .wrapper-image-top-date-block,
+.a4-portrait-print.item--0 .wrapper-image-top-date-block,
 .a4-portrait-print.item--0 .wrapper-image-top-date-row{
   min-width: 160mm !important;
   max-width: 160mm !important;
@@ -676,7 +676,7 @@ padding-left: 1rem;
   min-width: 138mm !important;
   max-width: 138mm !important;
   justify-self: center;
-  margin: 0 !important;
+  margin: 0 0.5rem 0 0 !important;
   align-self: center;
 }
 
@@ -716,6 +716,7 @@ padding-left: 1rem;
   grid-column: 2/3;
   grid-row: 1/3;
   font-size: 3rem;
+  margin: 0 0 0 0.5rem;
 }
 .landscape-print .wrapper-image-top-date-row + .wrapper-dates .labels,
 .landscape-print .wrapper-image-top-date-row + .wrapper-dates .labels + .dates{
@@ -743,6 +744,15 @@ padding-left: 1rem;
 }
 
 /* ======= END CALENDAR LANDSCAPE IMAGE LEFT DATE RIGHT ====== */
+.wrapper-image-top-date-row + .wrapper-dates{
+  grid-column: 1/3;
+  display: grid;
+}
+.wrapper-image-left-date-block + .wrapper-dates{
+  grid-column: 2/3;
+  grid-row: 1/3;
+  display: grid;
+}
 
 .month .labels{
     /*margin-top: 5rem;*/
@@ -769,15 +779,7 @@ padding-left: 1rem;
     /*grid-template-rows: 1fr 1fr;*/
 }
 
-.labels-grid-block h3{
-    grid-column: 1/8;
-    margin: 0 0 0.5rem 0;
-    text-align: center;
-    text-transform: uppercase;
-}
-
-.labels-grid-row h3{
-    grid-column: 1/43;
+.wrapper-dates h3{
     margin: 0 0 0.5rem 0;
     text-align: center;
     text-transform: uppercase;
@@ -834,6 +836,15 @@ padding-left: 1rem;
     grid-row: 1/4;
     margin: 0 0 1rem 0;
 }
+.a4-portrait-print .wrapper-image-top-date-block{
+  min-width: 160mm !important;
+  max-width: 160mm !important;
+  min-height: 200mm !important;
+  max-height: 200mm !important;
+  justify-self: center;
+  grid-row: 1/3;
+}
+
 .a4-portrait .wrapper-image-top-date-row{
   height: initial;
   min-height: 22.840em;
@@ -851,21 +862,19 @@ padding-left: 1rem;
   max-height: 267mm !important;
   justify-self: center;
 }
-.wrapper-image-top-date-block + .labels{
+.wrapper-image-top-date-block + .wrapper-dates .labels{
     align-self: center;
 }
-.wrapper-image-top-date-block + .dates{
+.wrapper-image-top-date-block + .wrapper-dates .dates{
     align-self: center;
 }
-.wrapper-image-top-date-row + .labels{
+.wrapper-image-top-date-row + .wrapper-dates .labels{
   align-self: end;
   font-size: 6px;
-  grid-column: 1/3;
 }
-.wrapper-image-top-date-row + .labels + .dates{
+.wrapper-image-top-date-row + .wrapper-dates .labels + .dates{
   align-self: end;
   font-size: 6px;
-  grid-column: 1/3;
 }
 .a4-portrait-print .calendar-title{
   font-size: 4rem;
@@ -873,14 +882,31 @@ padding-left: 1rem;
 .a4-portrait-print .wrapper-dates{
   display: grid;
 }
-.a4-portrait-print .wrapper-dates h3{
+.a4-portrait-print .wrapper-image-top-date-block + .wrapper-dates{
+  grid-row: 3/4;
+  font-size: 2.3rem;
+}
+.a4-portrait-print .wrapper-image-top-date-row + .wrapper-dates{
+  grid-column: auto;
+}
+.a4-portrait-print .wrapper-image-top-date-row + .wrapper-dates h3{
   font-size: 2rem;
   margin:  0 0 0.5rem 0;
   text-align: center;
+  text-transform: uppercase;
+}
+.a4-portrait-print .wrapper-image-top-date-block + .wrapper-dates h3{
+  /*font-size: 3rem;*/
+  margin:  0 0 0.5rem 0;
+  text-align: center;
+  text-transform: uppercase;
 }
 .a4-portrait-print .wrapper-image-top-date-row + .wrapper-dates .labels,
 .a4-portrait-print .wrapper-image-top-date-row + .wrapper-dates .labels + .dates{
   font-size: 20px;
+}
+.a4-portrait-print .wrapper-image-top-date-block + .wrapper-dates .dates span{
+  height: auto;
 }
 /* ========= END CALENDAR PORTRAIT FULL DATE IN BLOCK ======= */
 

@@ -134,12 +134,18 @@ function update(state) {
     //const offset = state.offset;
     const type = parseInt(state.type);
 
+    let wrapper_dates = document.getElementsByClassName("wrapper-dates");
     let labels = document.getElementsByClassName("labels");
     let dates = document.getElementsByClassName("dates");
     for (let i = 0; i < labels.length; i++) {
         labels[i].innerHTML = "";
         dates[i].innerHTML = "";
+
+        if(document.getElementsByTagName("h3")){
+            wrapper_dates[i].removeChild(wrapper_dates[i].childNodes[0]);
+        }
     }
+
 
     console.log("State type " + type);
 
