@@ -127,7 +127,7 @@
     let dates = $(".dates");
     let item = $(".item");
     let type = parseInt($('body').attr("data-custom-type"));
-    let design = parseInt($("input[name='type']:checked").val());
+    let design = parseInt($('body').attr("data-custom-design"));
 
 
     setCalendarType(type);
