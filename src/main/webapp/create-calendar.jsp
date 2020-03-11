@@ -134,13 +134,6 @@
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
 <script src="${contextPath}/resources/js/script.js"></script>
 
-<script src="${contextPath}/resources/js/simple-lightbox.jquery.js"></script>
-<script>
-    (function($) {
-        $('.gallery a').simpleLightbox({ /* options */ });
-    })( jQuery );
-
-</script>
 
 </body>
 </html>

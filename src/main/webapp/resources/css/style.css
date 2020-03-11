@@ -329,8 +329,16 @@ footer ul li:last-child{
   bottom: 0;
   right: 0;
   margin: 0;
+  border-top: 0.1rem solid rgba(255,215,0,1);
+  border-left: 0.1rem solid rgba(255,215,0,1);
   background: rgba(255,215,0,1);
   border-radius: 0;
+  transition: all 0.3s;
+}
+.form--calendar-update .input--submit:hover{
+  border-top: 0.1rem solid rgba(0, 68, 101,1);
+  border-left: 0.1rem solid rgba(0, 68, 101,1);
+  background: white;
 }
 
 
@@ -430,6 +438,11 @@ padding-left: 1rem;
   display: grid;
   grid-template-columns: 1fr 1fr;
   align-items: center;
+  margin-bottom: 1rem;
+}
+.list--gallery .list--item:last-child{
+  margin-bottom: 0;
+
 }
 .list--gallery img{
   grid-column-start: 1;
@@ -439,35 +452,33 @@ padding-left: 1rem;
   margin: 0.5rem 0;
   cursor: grab;
 }
-.list--gallery a,.form--delete-image .input--submit{
-  font-family: Calibri, Arial, serif;
+.list--gallery .link--full-image,
+.list--gallery .link--delete-image{
   font-weight: 900;
-  color: rgba(0, 68, 101,1);
   text-transform: uppercase;
   transition: all 0.3s;
   padding: 0.5rem;
   border-radius: 0;
-  border: 0;
   justify-self: center;
-}
-.list--gallery a:hover,.form--delete-image .input--submit:hover{
-  background: rgba(255,215,0,1);
-}
-.list--gallery a{
   text-decoration: none;
 }
-.form--delete-image .input--submit{
-  position: static;
-  margin-bottom: 0;
-  justify-self: start;
-  background: transparent;
-  font-size: inherit;
-  cursor: pointer;
+.list--gallery .link--full-image{
+  background: rgba(255,215,0,1);
+  border: 0.1rem solid rgba(255,215,0,1);
+  color: rgba(0, 68, 101,1);
 }
-.form--delete-image{
-  width: min-content;
-  width: -moz-min-content;
-  justify-self: center;
+.list--gallery .link--delete-image{
+  background: #d43241;
+  color: white;
+  border: 0.1rem solid #d43241;
+}
+.list--gallery .link--full-image:hover{
+  background: white;
+  border: 0.1rem solid rgba(0, 68, 101,1);
+}
+.list--gallery .link--delete-image:hover{
+  background: transparent;
+  color: #d43241;
 }
 
 .label--item-1,
@@ -823,8 +834,8 @@ padding-left: 1rem;
     align-items: center;
 }
 .a4-portrait-print{
-  width: 210mm !important;
-  height: 297mm !important;
+  width: 190mm !important;
+  height: 277mm !important;
 }
 .a4-portrait .wrapper-image-top-date-block{
     height: initial;
@@ -961,23 +972,40 @@ fieldset input {
   opacity: 0.6;
   font-size: 8rem;
 }
-
-.show-full-calendar,.show-page-calendar, .type-of-calendar{
+.calendar-view-and-settings{
   position: fixed;
   right: 0;
-  background: #0073aa;
-  color: #669900;
+  top: 150px;
+  padding: 0 1rem 0 0;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+}
+.calendar-view-and-settings a{
+  margin-bottom: 1rem;
+}
+.calendar-view-and-settings a:last-child{
+  margin-bottom: 0;
+}
+.show-full-calendar,.show-page-calendar, .type-of-calendar, .calendar-design{
+  background: transparent;
+  color: red;
   cursor: pointer;
 }
-.show-page-calendar{
-  top: 150px;
+
+.show-page-calendar:before,
+.show-full-calendar:before{
+  font-family: "Font Awesome 5 Free", Pacifico, Arial, serif;
+  font-weight: 900;
+  margin-right: 0.5rem;
 }
-.show-full-calendar{
-  top: 180px;
+.show-page-calendar:before{
+  content: '\f0c8';
 }
-.type-of-calendar{
-  top: 210px;
+.show-full-calendar:before{
+  content: '\f00a';
 }
+
 /* ====== END CALENDAR UPDATE PAGE ====== */
 
 /* CALENDAR CREATE PAGE */

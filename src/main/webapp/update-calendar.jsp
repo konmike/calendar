@@ -148,36 +148,6 @@
                     </label>
                 </spring:bind>
 
-<%--                <form:label path="lang" for="lang" cssClass="label label--calendar-option label--lang">Popisky--%>
-<%--                    <form:select path="lang" id="lang" cssClass="select select--lang">--%>
-<%--                        <c:choose>--%>
-<%--                            <c:when test="${(empty cal.lang) or (cal.lang=='cs')}">--%>
-<%--                                <option value="cs" selected>ČEŠTINA</option>--%>
-<%--                                <option value="en">ANGLIČTINA</option>--%>
-<%--                            </c:when>--%>
-<%--                            <c:otherwise>--%>
-<%--                                <option value="cs">ČEŠTINA</option>--%>
-<%--                                <option value="en" selected>ANGLIČTINA</option>--%>
-<%--                            </c:otherwise>--%>
-<%--                        </c:choose>--%>
-<%--                    </form:select>--%>
-<%--                </form:label>--%>
-
-<%--                <form:label path="offset" for="offset" cssClass="label label--calendar-option label--offset">Týden začíná--%>
-<%--                    <form:select path="offset" id="offset" cssClass="select select--offset">--%>
-<%--                        <c:choose>--%>
-<%--                            <c:when test="${(cal.offset == '0') or (cal.offset == '1')}">--%>
-<%--                                <option value="1" selected>PONDĚLÍ</option>--%>
-<%--                                <option value="7">NEDĚLE</option>--%>
-<%--                            </c:when>--%>
-<%--                            <c:otherwise>--%>
-<%--                                <option value="1">PONDĚLÍ</option>--%>
-<%--                                <option value="7" selected>NEDĚLE</option>--%>
-<%--                            </c:otherwise>--%>
-<%--                        </c:choose>--%>
-<%--                    </form:select>--%>
-<%--                </form:label>--%>
-
                 <form:label path="type" for="type" id="type" cssClass="label label--calendar-option label--type">Typ
                     <form:radiobutton path="type" value="1" name="type" cssClass="radio radio--type"/>Na výšku - datum blok
                     <form:radiobutton path="type" value="2" name="type" cssClass="radio radio--type"/>Na výšku - datum řádek
@@ -287,10 +257,12 @@
             <input id="redir" type="hidden" name="redir" value="show" />
             <input type="submit" class="input input--submit" value="Uložit a zobrazit" />
         </form:form>
-
-        <a class="show-full-calendar">Celý kalendář</a>
-        <a class="show-page-calendar">Stránkový kalendář</a>
-        <a class="type-of-calendar">Typ kalendáře</a>
+        <div class="calendar-view-and-settings">
+            <a class="show-full-calendar">Všechny strany</a>
+            <a class="show-page-calendar">Jedna strana</a>
+            <a class="type-of-calendar">Orientace</a>
+            <a class="calendar-design">Design</a>
+        </div>
     </div>
 </main>
 
@@ -315,9 +287,6 @@
 </footer>
 
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
-<%--<script src="https://unpkg.com/calendarize"></script>--%>
-<%--<script src="https://unpkg.com/sublet"></script>--%>
-<%--<script src="${contextPath}/resources/js/calendar.js"></script>--%>
 <script src="${contextPath}/resources/js/calendar2.js"></script>
 <script src="${contextPath}/resources/js/script.js"></script>
 

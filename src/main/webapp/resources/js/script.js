@@ -1,6 +1,7 @@
 (function($) {
     var autoId = 1;
     function readURL(input) {
+        console.log("divne?");
         // console.log(input.files);
         // console.log($('#file')[0].files[0].name);
         // console.log($('#file')[0].files[1].name);
@@ -9,25 +10,26 @@
             let name = $('#file')[0].files[i].name;
             reader.readAsDataURL(input.files[i]);
 
-            reader.onload = function (e) {
-                let img = new Image();
-                let file = input.files[i];
-                img.src = e.target.result;
+            let file = input.files[i];
+            let fileType = file["type"];
+            let validImageTypes = ["image/jpg", "image/jpeg", "image/png"];
+            if ($.inArray(fileType, validImageTypes) < 0) {
+                // invalid file type code goes here.
+                console.log("chyba v metrixu");
+                $('.message').text(name + " není ve formátu .jpg, .jpeg nebo .png.");
+                return false;
+            }
 
-                img.onload = function () {
-                    var height = this.height;
-                    var width = this.width;
-                    console.log("cuus");
-                    console.log(height);
-                    console.log(width);
-                    if ((height >= 1200 && width >= 800) || (height >= 800 && width >= 1200)) {
-                        console.log("gooood");
-                        alert("Height and Width is good.");
-                        return true;
-                    }
-                    alert("Uploaded image has invalid Height and Width.");
-                    return false;
-                };
+            reader.onload = function (e) {
+                let file = input.files[i];
+                // let fileType = file["type"];
+                // let validImageTypes = ["image/jpg", "image/jpeg", "image/png"];
+                // if ($.inArray(fileType, validImageTypes) < 0) {
+                //     // invalid file type code goes here.
+                //     $('.message').innerText = name + " nema spravnou priponu. Podporujeme pouze jpg, jpeg a png";
+                //     return false;
+                // }
+
                 /*let objectUrl = URL.createObjectURL(file);
                 img.onload = function () {
                     //alert(this.width + " " + this.height);
@@ -37,9 +39,9 @@
                 };
                 img.src = objectUrl;
         */
-                $('.preview-gallery').append(
-                    '<img src="' + e.target.result + '" class="img img--preview" alt="'+ name +'" id="im' + autoId + '" />'
-                    );
+                // $('.preview-gallery').append(
+                //     '<img src="' + e.target.result + '" class="img img--preview" alt="'+ name +'" id="im' + autoId + '" />'
+                //     );
                 //$('#blah').attr('src', e.target.result);
             };
             autoId++;
@@ -60,17 +62,18 @@
             autoId++;
             reader.readAsDataURL(input.files[0]);
         }*/
+        return true;
     }
 
     $("#file").change(function(){
-
-        // if(!readURL(this)){
-        //     alert("Height and Width must exceed 1600x1200 px or 1200x1600px.");
-        //     return false;
-        // }
-        $('#redir').attr("value", "image");
-        $('.form--calendar-update').submit();
-
+        //console.log("haloo?");
+        if(! readURL(this) ){
+            return false;
+        }else{
+            console.log("vse ok");
+            $('#redir').attr("value", "image");
+            $('.form--calendar-update').submit();
+        }
     });
 
     /*$(".pagination a").on("click", function(e) {
@@ -79,9 +82,9 @@
         $(this).addClass("active").siblings("a").removeClass("active");
     });*/
 
-    $('#file').click(function () {
+    /*$('#file').click(function () {
        $('.preview-gallery').html("");
-    });
+    });*/
 
     var labels_item = $('#calendar .label--item');
     var now = 0; // currently shown div
@@ -104,16 +107,18 @@
             $('.label--item:nth-child('+i+')').show();
         }
 
-        $('.pagination').hide();
+        $('#next').hide();
+        $('#prev').hide();
     });
 
     $('.show-page-calendar').click(function (e) {
-        for (var i = 3; i < 15; i++){
+        for (var i = 2; i < 15; i++){
             console.log($('.label--item:nth-child('+i+')'));
             $('.label--item:nth-child('+i+')').hide();
         }
 
-        $('.pagination').show();
+        $('#next').show();
+        $('#prev').show();
     });
 
     $('.label--type').change(function(){
@@ -156,12 +161,19 @@
         item.addClass("design" + t);
     }
 
-    $("type-of-calendar").click(function(){
-       console.log("Zobraz/skryj");
-       if($(".label--type:visible"))
-           $(".label--type").hide();
-       else
-           $(".label--type").show();
+    $(".type-of-calendar").click(function(){
+        let type = $("#type");
+        if(type.is(":hidden"))
+            type.show();
+        else
+            type.hide();
+    });
+    $(".calendar-design").click(function(){
+        let design = $("#design");
+        if(design.is(":visible"))
+            design.hide();
+        else
+            design.show();
     });
 
 
