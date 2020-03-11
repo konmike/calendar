@@ -553,10 +553,10 @@ padding-left: 1rem;
 }
 .landscape-print.item--0 .wrapper-image-top-date-row,
 .landscape-print.item--0 .wrapper-image-left-date-block{
-  min-height: 180mm !important;
-  min-width: 287mm !important;
-  max-width: 287mm !important;
-  max-height: 180mm !important;
+  min-height: 160mm !important;
+  min-width: 267mm !important;
+  max-width: 267mm !important;
+  max-height: 160mm !important;
   justify-self: center;
 }
 .landscape.item--0 .calendar-title{
@@ -652,8 +652,8 @@ padding-left: 1rem;
     grid-template-rows: 1fr 1fr;
 }
 .landscape-print{
-  height: 210mm !important;
-  width: 297mm !important;
+  height: 190mm !important;
+  width: 277mm !important;
 }
 .landscape .wrapper-image-left-date-block{
     grid-row: 1/3;
@@ -673,10 +673,10 @@ padding-left: 1rem;
   margin-bottom: 1rem;
 }
 .landscape-print .wrapper-image-top-date-row{
-  min-height: 180mm !important;
-  min-width: 287mm !important;
-  max-width: 287mm !important;
-  max-height: 180mm !important;
+  min-height: 160mm !important;
+  min-width: 267mm !important;
+  max-width: 267mm !important;
+  max-height: 160mm !important;
   justify-self: center;
 }
 

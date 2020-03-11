@@ -85,7 +85,7 @@
 
     var labels_item = $('#calendar .label--item');
     var now = 0; // currently shown div
-    labels.hide().first().show();
+    labels_item.hide().first().show();
     $("#next").click(function (e) {
         labels_item.eq(now).hide();
         now = (now + 1 < labels_item.length) ? now + 1 : 0;
@@ -132,6 +132,15 @@
 
     setCalendarType(type);
     item.addClass("design" + design);
+
+    if($(".section--calendar-show-one").length !== 0){
+        console.log("ano, toto je fakt tisk");
+        if(type === 1 || type === 2){
+            item.addClass("a4-portrait-print");
+        }else{
+            item.addClass("landscape-print");
+        }
+    }
 
     $('.label--design').change(function(){
         let t = parseInt($("input[name='design']:checked").val());
@@ -244,12 +253,12 @@
         let opt = {
             margin:       0,
             filename:     name,
-            image:        { type: 'jpeg', quality: 0.98 },
-            html2canvas:  { scale: 2 },
-            jsPDF:        { unit: 'in', format: 'letter', orientation: orientation }
+            image:        { type: 'jpeg', quality: 1},
+            html2canvas:  { dpi: 300 },
+            jsPDF:        { unit: 'mm', format: 'a4', orientation: orientation }
         };
 
-        html2pdf().set(opt).from(element).save();
+        let jpg = html2pdf().set(opt).from(element).toImg();
 
         //alert("Kalendar " + name + " bude stazen, pokracovat?");
 
