@@ -1,10 +1,5 @@
 (function($) {
-    var autoId = 1;
-    function readURL(input) {
-        console.log("divne?");
-        // console.log(input.files);
-        // console.log($('#file')[0].files[0].name);
-        // console.log($('#file')[0].files[1].name);
+    function validImage(input) {
         for(let i = 0; i < input.files.length; i++){
             let reader = new FileReader();
             let name = $('#file')[0].files[i].name;
@@ -13,45 +8,43 @@
             let file = input.files[i];
             let fileType = file["type"];
             let validImageTypes = ["image/jpg", "image/jpeg", "image/png"];
+            reader.
             if ($.inArray(fileType, validImageTypes) < 0) {
                 // invalid file type code goes here.
                 console.log("chyba v metrixu");
                 $('.message').text(name + " není ve formátu .jpg, .jpeg nebo .png.");
                 return false;
+            } else{
+                reader.onload = function (e) {
+                    let image = new Image();
+                    //Set the Base64 string return from FileReader as source.
+                    image.src = e.target.result;
+                    console.log(image.src);
+
+                    image.onload = function () {
+                        let height = this.height;
+                        let width = this.width;
+                        if (height > 100 || width > 100) {
+                            console.log("Rozlišení OK.");
+                            return true;
+                        }else{
+                            console.log("Rozlišení není OK.");
+                            $('.message').text(name + " má nízké rozlišení.");
+                            return false;
+                        }
+                    };
+                };
             }
 
-            reader.onload = function (e) {
-                let image = new Image();
-                //Set the Base64 string return from FileReader as source.
-                image.src = e.target.result;
-                console.log(image.src);
-
-                /*image.onload = function () {
-                    let height = this.height;
-                    let width = this.width;
-                    if (height > 100 || width > 100) {
-                        console.log("Rozlišení OK.");
-                        return true;
-                    }
-                    console.log("Rozlišení není OK.");
-                    $('.message').text(name + " má nízké rozlišení.");
-                    return false;
-                };
-                if(image.onload)
-                    return true;
-                else
-                    return false;*/
-            };
             // if(!reader.onload)
             //     return false;
-            autoId++;
         }
-        return true;
+        //return true;
     }
 
     $("#file").change(function(){
         //console.log("haloo?");
-        if(! readURL(this) ){
+        if(! validImage(this) ){
             return false;
         }else{
             console.log("vse ok");
