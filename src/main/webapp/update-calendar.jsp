@@ -148,20 +148,76 @@
                     </label>
                 </spring:bind>
 
-                <form:label path="type" for="type" id="type" cssClass="label label--calendar-option label--type">Typ
-                    <form:radiobutton path="type" value="1" name="type" cssClass="radio radio--type"/>Na výšku - datum blok
-                    <form:radiobutton path="type" value="2" name="type" cssClass="radio radio--type"/>Na výšku - datum řádek
-                    <form:radiobutton path="type" value="3" name="type" cssClass="radio radio--type"/>Na šířku - datum blok
-                    <form:radiobutton path="type" value="4" name="type" cssClass="radio radio--type"/>Na šířku - datum řádek
-                </form:label>
 
-                <form:label path="design" for="design" id="design" cssClass="label label--calendar-option label--design">Design
-                    <form:radiobutton path="design" id="design" value="1" name="design" checked="true" cssClass="radio radio--design"/>Jedna
-                    <form:radiobutton path="design" id="design" value="2" name="design" cssClass="radio radio--design"/>Dva
-                    <form:radiobutton path="design" id="design" value="3" name="design" cssClass="radio radio--design"/>Tři
-                    <form:radiobutton path="design" id="design" value="4" name="design" cssClass="radio radio--design"/>Čtyři
-                </form:label>
+                <div id="wrapper-type" class="wrapper wrapper--group-radio-update">
+                    <span>Typ</span>
+                    <form:label path="type" for="type1" id="type" cssClass="label label--radio label--type">
+                        <form:radiobutton path="type" value="1" id="type1" name="type" cssClass="radio radio--type"/>
+                        <span>1</span>
+                        <div class="wrapper wrapper--radio-img">
+                            <img src="${contextPath}/img/portrait-row.png" alt="Typ 1">
+                        </div>
+                    </form:label>
 
+                    <form:label path="type" for="type2" id="type" cssClass="label label--radio label--type">
+                        <form:radiobutton path="type" id="type2" value="2" name="type" cssClass="radio radio--type"/>
+                        <span>2</span>
+                        <div class="wrapper wrapper--radio-img">
+                            <img src="${contextPath}/img/portrait-row.png" alt="Typ 2">
+                        </div>
+                    </form:label>
+
+                    <form:label path="type" for="type3" id="type" cssClass="label label--radio label--type">
+                        <form:radiobutton path="type" id="type3" value="3" name="type" cssClass="radio radio--type"/>
+                        <span>3</span>
+                        <div class="wrapper wrapper--radio-img">
+                            <img src="${contextPath}/img/landscape-row.png" alt="Typ 3">
+                        </div>
+                    </form:label>
+
+                    <form:label path="type" for="type4" id="type" cssClass="label label--radio label--type">
+                        <form:radiobutton path="type" id="type4" value="4" name="type" cssClass="radio radio--type"/>
+                        <span>4</span>
+                        <div class="wrapper wrapper--radio-img">
+                            <img src="${contextPath}/img/landscape-row.png" alt="Typ 4">
+                        </div>
+                    </form:label>
+                </div>
+
+                <div id="wrapper-design" class="wrapper wrapper--group-radio-update">
+                    <span>Design</span>
+                    <form:label path="design" for="design1" id="design" cssClass="label label--radio">
+                        <form:radiobutton path="design" id="design1" value="1" name="design" cssClass="radio radio--design"/>
+                        <span>1</span>
+                        <div class="wrapper wrapper--radio-img">
+                            <img src="${contextPath}/img/portrait-row.png" alt="Design 1">
+                        </div>
+                    </form:label>
+
+                    <form:label path="design" for="design2" id="design" cssClass="label label--radio">
+                        <form:radiobutton path="design" id="design2" value="2" name="design" cssClass="radio radio--design"/>
+                        <span>2</span>
+                        <div class="wrapper wrapper--radio-img">
+                            <img src="${contextPath}/img/portrait-row.png" alt="Design 2">
+                        </div>
+                    </form:label>
+
+                    <form:label path="design" for="design3" id="design" cssClass="label label--radio">
+                        <form:radiobutton path="design" id="design3" value="3" name="design" cssClass="radio radio--design"/>
+                        <span>3</span>
+                        <div class="wrapper wrapper--radio-img">
+                            <img src="${contextPath}/img/landscape-row.png" alt="Design 3">
+                        </div>
+                    </form:label>
+
+                    <form:label path="design" for="design4" id="design" cssClass="label label--radio">
+                        <form:radiobutton path="design" id="design4" value="4" name="design" cssClass="radio radio--design"/>
+                        <span>4</span>
+                        <div class="wrapper wrapper--radio-img">
+                            <img src="${contextPath}/img/landscape-row.png" alt="Design 4">
+                        </div>
+                    </form:label>
+                </div>
             </div>
             <div class="sidebox sidebox--upload-image">
                 <label for="file" class="label label--file">

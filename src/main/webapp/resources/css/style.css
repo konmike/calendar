@@ -285,10 +285,6 @@ footer ul li:last-child{
   color: rgba(0, 68, 101,1);
 }
 
-.label--type{
-  display: none;
-}
-
 .select {
   display: block;
   color: rgba(0, 68, 101,1);
@@ -556,8 +552,8 @@ padding-left: 1rem;
 .a4-portrait-print.item--0 .wrapper-image-top-date-row{
   min-width: 160mm !important;
   max-width: 160mm !important;
-  min-height: 267mm !important;
-  max-height: 267mm !important;
+  min-height: 247mm !important;
+  max-height: 247mm !important;
   justify-self: center;
 }
 .landscape.item--0 .wrapper-image-left-date-block,
@@ -850,8 +846,8 @@ padding-left: 1rem;
 .a4-portrait-print .wrapper-image-top-date-block{
   min-width: 160mm !important;
   max-width: 160mm !important;
-  min-height: 200mm !important;
-  max-height: 200mm !important;
+  min-height: 170mm !important;
+  max-height: 170mm !important;
   justify-self: center;
   grid-row: 1/3;
 }
@@ -869,8 +865,8 @@ padding-left: 1rem;
 .a4-portrait-print .wrapper-image-top-date-row{
   min-width: 160mm !important;
   max-width: 160mm !important;
-  min-height: 267mm !important;
-  max-height: 267mm !important;
+  min-height: 247mm !important;
+  max-height: 247mm !important;
   justify-self: center;
 }
 .wrapper-image-top-date-block + .wrapper-dates .labels{
@@ -1010,6 +1006,100 @@ fieldset input {
   content: '\f00a';
 }
 
+#wrapper-type{
+  display: grid;
+}
+.wrapper--group-radio-update{
+  display: none;
+  grid-template-rows: 1fr 1fr 1fr;
+  grid-template-columns: repeat(4,auto);
+  justify-items: center;
+  align-items: center;
+}
+.wrapper--group-radio-update > span{
+  color: rgba(0, 68, 101,1);
+  grid-column: 1/5;
+}
+.wrapper--group-radio-update .label--radio{
+  position: relative;
+  cursor: pointer;
+  color: rgba(0, 68, 101,1);
+  grid-row: 2/4;
+}
+.wrapper--group-radio-update .label--radio input[type="radio"]{
+  display: none;
+}
+.wrapper--group-radio-update .label--radio span{
+  border: 0.1rem solid rgba(255,215,0,1);
+  border-radius: 0.5rem;
+}
+.wrapper--group-radio-update .label--radio:nth-child(2) span,
+.wrapper--group-radio-update .label--radio:nth-child(3) span{
+  padding: 0.5rem;
+  margin-right: 0.5rem;
+}
+.wrapper--group-radio-update .label--radio:nth-child(4) span{
+  margin-right: 0.5rem;
+}
+.wrapper--group-radio-update .label--radio:nth-child(4) span,
+.wrapper--group-radio-update .label--radio:last-child span{
+  padding: 0.5rem 1rem;
+}
+.wrapper--group-radio-update .label--radio:last-child span{
+
+}
+
+.wrapper--group-radio-update input:checked + span{
+  outline: 1px solid rgba(255,215,0,1);
+  outline-offset: -2px;
+  box-shadow: 0 0 0 2pt rgba(255,215,0,1);
+}
+
+.wrapper--group-radio-update .label--radio .wrapper--radio-img{
+    display: none;
+}
+.wrapper--group-radio-update .label--radio:nth-child(2):hover > .wrapper--radio-img,
+.wrapper--group-radio-update .label--radio:nth-child(3):hover > .wrapper--radio-img{
+  width: auto;
+  height: 300px;
+  position: absolute;
+  top: -40px;
+  left: -250px;
+  box-shadow: 0 0 6px rgba(132, 132, 132, .75);
+  -webkit-border-radius: 4px;
+  -moz-border-radius: 4px;
+  border-radius: 4px;
+  z-index: 9999;
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+}
+.wrapper--group-radio-update .label--radio .wrapper--radio-img img{
+  width: inherit;
+  height: inherit;
+  padding: 2px;
+}
+
+.wrapper--group-radio-update .label--radio:nth-child(4):hover > .wrapper--radio-img,
+.wrapper--group-radio-update .label--radio:last-child:hover > .wrapper--radio-img{
+  width: 300px;
+  height: auto;
+  position: absolute;
+  top: -40px;
+  left: -320px;
+  z-index: 9999;
+  box-shadow: 0 0 6px rgba(132, 132, 132, .75);
+  -webkit-border-radius: 4px;
+  -moz-border-radius: 4px;
+  border-radius: 4px;
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+}
+
+
 /* ====== END CALENDAR UPDATE PAGE ====== */
 
 /* CALENDAR CREATE PAGE */
@@ -1056,6 +1146,97 @@ display: none;
   color: rgba(0, 68, 101,1);
 }
 
+#wrapper-type{
+  display: grid;
+}
+.wrapper--group-radio-create{
+  display: grid;
+  grid-template-rows: 1fr 1fr;
+  grid-template-columns: repeat(5,auto);
+  justify-items: center;
+  align-items: center;
+  color: rgba(0, 68, 101,1);
+}
+.wrapper--group-radio-create > span{
+  margin-right: 0.5rem;
+}
+.wrapper--group-radio-create .label--radio{
+  position: relative;
+  cursor: pointer;
+
+}
+.wrapper--group-radio-create .label--radio input[type="radio"]{
+  display: none;
+}
+.wrapper--group-radio-create .label--radio span{
+  border: 0.1rem solid rgba(255,215,0,1);
+  border-radius: 0.5rem;
+}
+.wrapper--group-radio-create .label--radio:nth-child(2) span,
+.wrapper--group-radio-create .label--radio:nth-child(3) span{
+  padding: 0.5rem;
+  margin-right: 0.5rem;
+}
+.wrapper--group-radio-create .label--radio:nth-child(4) span{
+  margin-right: 0.5rem;
+}
+.wrapper--group-radio-create .label--radio:nth-child(4) span,
+.wrapper--group-radio-create .label--radio:last-child span{
+  padding: 0.5rem 1rem;
+}
+.wrapper--group-radio-create .label--radio:last-child span{
+
+}
+
+.wrapper--group-radio-create input:checked + span{
+  outline: 1px solid rgba(255,215,0,1);
+  outline-offset: -2px;
+  box-shadow: 0 0 0 2pt rgba(255,215,0,1);
+}
+
+.wrapper--group-radio-create .label--radio .wrapper--radio-img{
+  display: none;
+}
+.wrapper--group-radio-create .label--radio:nth-child(2):hover > .wrapper--radio-img,
+.wrapper--group-radio-create .label--radio:nth-child(3):hover > .wrapper--radio-img{
+  width: auto;
+  height: 300px;
+  position: absolute;
+  top: -150px;
+  left: -250px;
+  box-shadow: 0 0 6px rgba(132, 132, 132, .75);
+  -webkit-border-radius: 4px;
+  -moz-border-radius: 4px;
+  border-radius: 4px;
+  z-index: 9999;
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+}
+.wrapper--group-radio-create .label--radio .wrapper--radio-img img{
+  width: inherit;
+  height: inherit;
+  padding: 2px;
+}
+
+.wrapper--group-radio-create .label--radio:nth-child(4):hover > .wrapper--radio-img,
+.wrapper--group-radio-create .label--radio:last-child:hover > .wrapper--radio-img{
+  width: 300px;
+  height: auto;
+  position: absolute;
+  top: -100px;
+  left: -320px;
+  z-index: 9999;
+  box-shadow: 0 0 6px rgba(132, 132, 132, .75);
+  -webkit-border-radius: 4px;
+  -moz-border-radius: 4px;
+  border-radius: 4px;
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+}
 
 /* ======= END CALENDAR CREATE PAGE ======= */
 

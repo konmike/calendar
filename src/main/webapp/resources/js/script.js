@@ -1,50 +1,72 @@
 (function($) {
+    let ok = 0;
     function validImage(input) {
+
         for(let i = 0; i < input.files.length; i++){
-            let reader = new FileReader();
+            console.log("Kontrola nactenych obrazku: ");
+            //let reader = new FileReader();
             let name = $('#file')[0].files[i].name;
-            reader.readAsDataURL(input.files[i]);
+            //reader.readAsDataURL(input.files[i]);
 
             let file = input.files[i];
             let fileType = file["type"];
             let validImageTypes = ["image/jpg", "image/jpeg", "image/png"];
-            reader.
+            // let _URL = window.URL || window.webkitURL;
+            // let img = new Image();
+            // let objectUrl = _URL.createObjectURL(file);
+            //
+            // img.onload = function () {
+            //     console.log("Img onload: ");
+            //     console.log("width " + this.width + " height " + this.height);
+            //     if(this.width < 100 || this.height < 100){
+            //         console.log("Je to v pytli.");
+            //         _URL.revokeObjectURL(objectUrl);
+            //         ok = 1;
+            //     }
+            // };
+            // img.src = objectUrl;
+            // console.log("OK " + ok);
+
             if ($.inArray(fileType, validImageTypes) < 0) {
                 // invalid file type code goes here.
                 console.log("chyba v metrixu");
                 $('.message').text(name + " není ve formátu .jpg, .jpeg nebo .png.");
                 return false;
-            } else{
-                reader.onload = function (e) {
-                    let image = new Image();
-                    //Set the Base64 string return from FileReader as source.
-                    image.src = e.target.result;
-                    console.log(image.src);
-
-                    image.onload = function () {
-                        let height = this.height;
-                        let width = this.width;
-                        if (height > 100 || width > 100) {
-                            console.log("Rozlišení OK.");
-                            return true;
-                        }else{
-                            console.log("Rozlišení není OK.");
-                            $('.message').text(name + " má nízké rozlišení.");
-                            return false;
-                        }
-                    };
-                };
             }
 
-            // if(!reader.onload)
-            //     return false;
         }
-        //return true;
+        console.log("tesne pred potvrzenim OK " + ok);
+        return true;
     }
 
-    $("#file").change(function(){
-        //console.log("haloo?");
-        if(! validImage(this) ){
+    let file = $("#file");
+    let _URL = window.URL || window.webkitURL;
+
+    file.change(function(){
+        // var file_load, img;
+        // for(var i = 0; i < this.files.length; i++){
+        //     if((file_load = this.files[i])){
+        //         console.log("jsme in");
+        //         img = new Image();
+        //         let objectUrl = _URL.createObjectURL(file_load);
+        //         img.onload = function () {
+        //             if(this.width < 100) {
+        //                 alert(this.width + " " + this.height);
+        //                 console.log("jsme in in");
+        //                 return false;
+        //             }else
+        //                 alert(this.width + " " + this.height);
+        //             _URL.revokeObjectURL(objectUrl);
+        //         };
+        //         img.src = objectUrl;
+        //     }
+        // }
+
+        var valid = validImage(this);
+        console.log("valid: " + valid);
+
+        if(! valid ){
+            console.log("chyba");
             return false;
         }else{
             console.log("vse ok");
@@ -53,15 +75,10 @@
         }
     });
 
-    /*$(".pagination a").on("click", function(e) {
-        e.preventDefault();
-        $(".label--item").eq($(this).index()).fadeIn(150).siblings(".label--item").fadeOut(250);
-        $(this).addClass("active").siblings("a").removeClass("active");
-    });*/
 
-    /*$('#file').click(function () {
-       $('.preview-gallery').html("");
-    });*/
+    file.click(function () {
+       $('.message').html("");
+    });
 
     var labels_item = $('#calendar .label--item');
     var now = 0; // currently shown div
@@ -98,12 +115,26 @@
         $('#prev').show();
     });
 
-    $('.label--type').change(function(){
+    $('#wrapper-type').change(function(){
         let t = parseInt($("input[name='type']:checked").val());
         console.log("Zmena na jiny typ " + t);
         setCalendarType(t);
+        setLabelDesign(t);
     });
 
+    function setLabelDesign(t){
+        if(t === 1 || t === 2) {
+            $("#wrapper-design .label--radio:nth-child(2)").show();
+            $("#wrapper-design .label--radio:nth-child(3)").show();
+            $("#wrapper-design .label--radio:nth-child(4)").hide();
+            $("#wrapper-design .label--radio:nth-child(5)").hide();
+        }else{
+            $("#wrapper-design .label--radio:nth-child(2)").hide();
+            $("#wrapper-design .label--radio:nth-child(3)").hide();
+            $("#wrapper-design .label--radio:nth-child(4)").show();
+            $("#wrapper-design .label--radio:nth-child(5)").show();
+        }
+    }
     let wrapper_image = $(".wrapper-image");
     let labels = $(".labels");
     let dates = $(".dates");
@@ -113,7 +144,15 @@
 
 
     setCalendarType(type);
+
+    if(isNaN(type)){
+        setLabelDesign(1);
+    }else{
+        setLabelDesign(type);
+    }
     item.addClass("design" + design);
+    $("#wrapper-type input[value=" + type + "]").attr("checked","checked");
+    $("#wrapper-design input[value=" + design + "]").attr("checked","checked");
 
     if($(".section--calendar-show-one").length !== 0){
         console.log("ano, toto je fakt tisk");
@@ -124,7 +163,7 @@
         }
     }
 
-    $('.label--design').change(function(){
+    $('#wrapper-design').change(function(){
         let t = parseInt($("input[name='design']:checked").val());
         console.log("Zmena na jiny design " + t);
         setCalendarDesign(t);
@@ -139,18 +178,26 @@
     }
 
     $(".type-of-calendar").click(function(){
-        let type = $("#type");
-        if(type.is(":hidden"))
-            type.show();
+        let type = $("#wrapper-type");
+        let design = $("#wrapper-design");
+        if(type.is(":hidden")){
+            if(design.is(":visible"))
+                design.hide();
+            type.css("display", "grid").hide().fadeIn(1000);
+        }
         else
-            type.hide();
+            type.fadeOut(1000);
     });
     $(".calendar-design").click(function(){
-        let design = $("#design");
-        if(design.is(":visible"))
-            design.hide();
+        let type = $("#wrapper-type");
+        let design = $("#wrapper-design");
+        if(design.is(":hidden")) {
+            if (type.is(":visible"))
+                type.hide();
+            design.css("display", "grid").hide().fadeIn(1000);
+        }
         else
-            design.show();
+            design.fadeOut(1000);
     });
 
 
@@ -253,6 +300,19 @@
 
         //removeCssToPrint(type);
     });
+
+    // TODO mohlo by fungovat, ale je potreba to domyslet
+    // $(window).scroll(function(){
+    //     let heightHeader = $("header").height();
+    //     let labVis = $('.label--item:nth-child(2)').is(":visible");
+    //     console.log(labVis);
+    //     console.log(heightHeader);
+    //     if ( ($(this).scrollTop() > heightHeader) && (labVis)) {
+    //         $('.sidebox--upload-image').css({"position":"fixed", "top":"0","left":"0"});
+    //     } else {
+    //         $('.sidebox--upload-image').css("position","static");
+    //     }
+    // });
 
 
 })( jQuery );

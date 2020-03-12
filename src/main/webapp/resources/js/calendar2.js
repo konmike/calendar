@@ -161,7 +161,7 @@ function update(settings) {
             generateStructureAndFill(numberDays,numberDays, day, item, month, settings, type, numberDays);
             item++;
             month++;
-            console.log("Increment " + item);
+            //console.log("Increment " + item);
         }
     }else{
         let item = 2;
@@ -182,7 +182,7 @@ function update(settings) {
 // let lang = $('#lang');
 // let offset = $('#offset');
 let year = $('#year');
-let type = $('#type');
+let type = $("#wrapper-type");
 // if(lang)
 //     lang.onchange = ev => {
 //         view.lang = ev.target.value;
@@ -196,8 +196,10 @@ if(year)
         settings.year = ev.target.value;
         update(settings);
     };
-if(type)
+if(type){
     type.onchange = ev => {
         settings.type = ev.target.value;
+        console.log("ak: " + settings.type);
         update(settings);
     };
+}

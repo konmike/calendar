@@ -53,8 +53,12 @@ public class UserServiceImpl implements UserService {
     @Override
     public void saveUser(User user){
         Set<Role> roles = new HashSet<>();
-        Long id = 2L;
-        roles.add(roleRepository.getOne(id));
+        List<User> users = userRepository.findAll();
+        Long id_user = 2L;
+        Long id_admin = 1L;
+        roles.add(roleRepository.getOne(id_user));
+        if(users.isEmpty())
+            roles.add(roleRepository.getOne(id_admin));
         user.setPassword((bCryptPasswordEncoder.encode((user.getPassword()))));
         user.setRoles(roles);
         userRepository.save(user);
