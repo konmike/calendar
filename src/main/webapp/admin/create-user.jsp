@@ -1,8 +1,8 @@
 <%--
   Created by IntelliJ IDEA.
   User: mike
-  Date: 08.12.19
-  Time: 14:08
+  Date: 07.12.19
+  Time: 18:36
   To change this template use File | Settings | File Templates.
 --%>
 <%@ taglib prefix="spring" uri="http://www.springframework.org/tags" %>
@@ -16,18 +16,25 @@
 <html lang="cs">
 <head>
     <meta charset="utf-8">
-    <title>Admin - edit uivatelů</title>
+    <title>Vytvoření nového uživatele</title>
 
     <link href="${contextPath}/resources/css/style.css" rel="stylesheet">
-    <link href="${contextPath}/resources/css/form.css" rel="stylesheet">
+
 </head>
 <body>
 <header>
     <nav>
         <ul>
-            <li>
-                <span class="active">Domů</span>
-            </li>
+            <security:authorize access="hasRole('ROLE_ADMIN')">
+                <li>
+                    <a href="${contextPath}/admin/">Domů</a>
+                </li>
+            </security:authorize>
+            <security:authorize access="!hasRole('ROLE_ADMIN')">
+                <li>
+                    <a href="${contextPath}/">Domů</a>
+                </li>
+            </security:authorize>
             <li>
                 <a href="${contextPath}/calendar/create">Nový kalendář</a>
             </li>
@@ -44,44 +51,38 @@
 </header>
 
 <main>
-    <form action="${contextPath}/admin" class="form form--search">
-        <label for="search">
-            <input type="text" class="input input--text input--search" autofocus id="search" name="name" placeholder="Hledání uživatele" />
-        </label>
-        <input type="submit" value="Hledat" class="input input--submit" />
-        <a href="${contextPath}/admin/create-user" class="link link--create-user">Vytvořit nového</a>
-    </form>
-    <table class="table table--users">
-        <thead>
-        <tr>
-            <th>Id</th>
-            <th>Jméno</th>
-            <th>Editace</th>
-        </tr>
-        </thead>
-        <tbody>
-        <c:forEach var="user" items="${users}">
+    <form:form method="post" modelAttribute="user" class="form form--registration" action="/admin/create-user">
+        <span class="form--title">Vytvoření nového uživatele</span>
+        <form:hidden path="id" />
 
-            <c:url var="updateLink" value="/user/update">
-                <c:param name="username" value="${user.username}" />
-            </c:url>
+        <spring:bind path="username">
+            <form:input type="text" path="username" class="input input--text" placeholder="Uivatelské jméno" autofocus="true" />
+            <form:errors path="username" />
+        </spring:bind>
 
-            <c:url var="deleteLink" value="/user/delete">
-                <c:param name="userId" value="${user.id}" />
-            </c:url>
+        <spring:bind path="email">
+            <form:input type="text" path="email" class="input input--text" placeholder="Email" />
+            <form:errors path="email" />
+        </spring:bind>
 
-            <tr>
-                <td>${user.id}</td>
-                <td>${user.username}</td>
-                <td>
-                    <a href="${updateLink}">Úpravy</a>/
-                    <a href="${deleteLink}"
-                       onclick="if (!(confirm('Are you sure you want to delete this customer?'))) return false">Smazat</a>
-                </td>
-            </tr>
-        </c:forEach>
-        </tbody>
-    </table>
+        <spring:bind path="password">
+            <form:input type="password" path="password" class="input input--password" placeholder="Heslo" />
+            <form:errors path="password" />
+        </spring:bind>
+
+        <spring:bind path="passwordConfirm">
+            <form:input type="password" path="passwordConfirm" class="input input--password" placeholder="Potvrzení hesla" />
+            <form:errors path="passwordConfirm" />
+        </spring:bind>
+
+        <form:label path="admin" for="admin">
+            <form:checkbox path="admin" id="admin" value="1" name="admin" class="checkbox checkbox--isAdmin"/>
+            <span>Admin role</span>
+        </form:label>
+
+        <form:button class="input input--submit">Vytvořit</form:button>
+    </form:form>
+
 </main>
 
 <footer>
@@ -103,6 +104,8 @@
         </li>
     </ul>
 </footer>
+
+
 
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>
 </body>

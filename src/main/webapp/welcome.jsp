@@ -19,7 +19,6 @@
     <title>Vítejte</title>
 
     <link href="${contextPath}/resources/css/style.css" rel="stylesheet">
-    <link href="${contextPath}/resources/css/form.css" rel="stylesheet">
 </head>
 <body>
     <header>
@@ -29,14 +28,14 @@
                     <span class="active">Domů</span>
                 </li>
                 <li>
-                    <a href="${contextPath}/image/">Tvorba kalendáře</a>
+                    <a href="${contextPath}/calendar/create">Nový kalendář</a>
                 </li>
                 <li>
                     <a href="${contextPath}/calendar/myCalendars">Mé kalendáře</a>
                 </li>
                 <security:authorize access="hasRole('ROLE_ADMIN')">
                     <li>
-                        <a href="${contextPath}/admin/list-gallery">Editace galerií</a>
+                        <a href="${contextPath}/admin/list-calendars">Kalendáře</a>
                     </li>
                 </security:authorize>
             </ul>

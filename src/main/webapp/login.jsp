@@ -19,7 +19,7 @@
     <title>Přihlašovací formulář</title>
 
     <link href="${contextPath}/resources/css/style.css" rel="stylesheet">
-    <link href="${contextPath}/resources/css/form.css" rel="stylesheet">
+<%--    <link href="${contextPath}/resources/css/form.css" rel="stylesheet">--%>
 </head>
 
 

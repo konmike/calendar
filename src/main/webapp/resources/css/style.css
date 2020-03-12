@@ -91,6 +91,10 @@ main{
 .form--search .input--submit{
   margin: 0;
 }
+.form--search .link--create-user{
+  margin: 0 0 0 1rem;
+  text-decoration: none;
+}
 
 
 
@@ -130,7 +134,7 @@ form .message{
   color: rgba(0, 68, 101,1);
 }
 
-.input--submit{
+.link--create-user,.input--submit{
   background: transparent;
   color: rgba(0, 68, 101,1);
   border: 1px solid rgba(255,215,0,1);
@@ -144,7 +148,7 @@ form .message{
   cursor: pointer;
   transition: all 0.3s;
 }
-.input--submit:hover,.input--submit:focus{
+.link--create-user:hover, .link--create-user:focus,.input--submit:hover,.input--submit:focus{
   background: rgba(255,215,0,1);
 }
 

@@ -1,8 +1,8 @@
 <%--
   Created by IntelliJ IDEA.
   User: mike
-  Date: 08.12.19
-  Time: 14:08
+  Date: 07.12.19
+  Time: 18:36
   To change this template use File | Settings | File Templates.
 --%>
 <%@ taglib prefix="spring" uri="http://www.springframework.org/tags" %>
@@ -16,18 +16,25 @@
 <html lang="cs">
 <head>
     <meta charset="utf-8">
-    <title>Admin - edit uivatelů</title>
+    <title>Admin - edit galerií</title>
 
     <link href="${contextPath}/resources/css/style.css" rel="stylesheet">
-    <link href="${contextPath}/resources/css/form.css" rel="stylesheet">
+<%--    <link href="${contextPath}/resources/css/form.css" rel="stylesheet">--%>
 </head>
 <body>
 <header>
     <nav>
         <ul>
-            <li>
-                <span class="active">Domů</span>
-            </li>
+            <security:authorize access="hasRole('ROLE_ADMIN')">
+                <li>
+                    <a href="${contextPath}/admin/">Domů</a>
+                </li>
+            </security:authorize>
+            <security:authorize access="!hasRole('ROLE_ADMIN')">
+                <li>
+                    <a href="${contextPath}/">Domů</a>
+                </li>
+            </security:authorize>
             <li>
                 <a href="${contextPath}/calendar/create">Nový kalendář</a>
             </li>
@@ -36,7 +43,7 @@
             </li>
             <security:authorize access="hasRole('ROLE_ADMIN')">
                 <li>
-                    <a href="${contextPath}/admin/list-calendars">Kalendáře</a>
+                    <span class="active">Kalendáře</span>
                 </li>
             </security:authorize>
         </ul>
@@ -44,44 +51,31 @@
 </header>
 
 <main>
-    <form action="${contextPath}/admin" class="form form--search">
-        <label for="search">
-            <input type="text" class="input input--text input--search" autofocus id="search" name="name" placeholder="Hledání uživatele" />
-        </label>
-        <input type="submit" value="Hledat" class="input input--submit" />
-        <a href="${contextPath}/admin/create-user" class="link link--create-user">Vytvořit nového</a>
-    </form>
-    <table class="table table--users">
-        <thead>
-        <tr>
-            <th>Id</th>
-            <th>Jméno</th>
-            <th>Editace</th>
-        </tr>
-        </thead>
-        <tbody>
-        <c:forEach var="user" items="${users}">
-
-            <c:url var="updateLink" value="/user/update">
-                <c:param name="username" value="${user.username}" />
-            </c:url>
-
-            <c:url var="deleteLink" value="/user/delete">
-                <c:param name="userId" value="${user.id}" />
-            </c:url>
-
-            <tr>
-                <td>${user.id}</td>
-                <td>${user.username}</td>
-                <td>
-                    <a href="${updateLink}">Úpravy</a>/
-                    <a href="${deleteLink}"
-                       onclick="if (!(confirm('Are you sure you want to delete this customer?'))) return false">Smazat</a>
-                </td>
-            </tr>
-        </c:forEach>
-        </tbody>
-    </table>
+    <c:forEach var="user" items="${users}">
+        <h3>${user.username} calendars</h3>
+        <div class="section section--calendar-show-all">
+            <ul th:each="calendar : ${user.calendars}" class="list list--my-calendars">
+                <c:forEach varStatus="item" items="${user.calendars}" var="calendar">
+                    <li class="list--item">
+                        <c:choose>
+                            <c:when test="${frontPages.get(item.index).contains('null')}">
+                                <a href="${contextPath}/calendar?calId=${calendar.id}">
+                                    <i class="fas fa-file-image"></i>
+                                    <span>Kalendář ${calendar.year}</span>
+                                </a>
+                            </c:when>
+                            <c:otherwise>
+                                <a href="${contextPath}/calendar?calId=${calendar.id}">
+                                    <img src="${frontPages.get(item.index)}" alt="" />
+                                    <span>Kalendář ${calendar.year}</span>
+                                </a>
+                            </c:otherwise>
+                        </c:choose>
+                    </li>
+                </c:forEach>
+            </ul>
+        </div>
+    </c:forEach>
 </main>
 
 <footer>
@@ -103,6 +97,8 @@
         </li>
     </ul>
 </footer>
+
+
 
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>
 </body>

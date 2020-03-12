@@ -19,7 +19,7 @@
     <title>Registrace nového uživatele</title>
 
     <link href="${contextPath}/resources/css/style.css" rel="stylesheet">
-    <link href="${contextPath}/resources/css/form.css" rel="stylesheet">
+
 </head>
 <body>
 <header>
@@ -33,25 +33,28 @@
 </header>
 
 <main>
-    <form:form method="post" modelAttribute="userForm" class="form form--registration" action="/registration">
+    <form:form method="post" modelAttribute="user" class="form form--registration" action="/registration">
         <span class="form--title">Registrace nového uživatele</span>
         <form:hidden path="id" />
 
         <spring:bind path="username">
-                <form:input type="text" path="username" class="input input--text" placeholder="Uivatelské jméno"
-                            autofocus="true" />
-                <form:errors path="username" />
+            <form:input type="text" path="username" class="input input--text" placeholder="Uivatelské jméno" autofocus="true" />
+            <form:errors path="username" />
+        </spring:bind>
+
+        <spring:bind path="email">
+            <form:input type="text" path="email" class="input input--text" placeholder="Email" />
+            <form:errors path="email" />
         </spring:bind>
 
         <spring:bind path="password">
-                <form:input type="password" path="password" class="input input--password" placeholder="Heslo" />
-                <form:errors path="password" />
+            <form:input type="password" path="password" class="input input--password" placeholder="Heslo" />
+            <form:errors path="password" />
         </spring:bind>
 
         <spring:bind path="passwordConfirm">
-                <form:input type="password" path="passwordConfirm" class="input input--password"
-                            placeholder="Potvrzení hesla" />
-                <form:errors path="passwordConfirm" />
+            <form:input type="password" path="passwordConfirm" class="input input--password" placeholder="Potvrzení hesla" />
+            <form:errors path="passwordConfirm" />
         </spring:bind>
 
         <form:button class="input input--submit">Registrovat</form:button>

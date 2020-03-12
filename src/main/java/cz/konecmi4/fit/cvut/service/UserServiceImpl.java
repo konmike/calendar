@@ -51,15 +51,47 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public void saveUser(User user){
+    public void createUser(User user){
         Set<Role> roles = new HashSet<>();
         List<User> users = userRepository.findAll();
-        Long id_user = 2L;
-        Long id_admin = 1L;
+        Long id_user = 1L;
+        Long id_admin = 2L;
         roles.add(roleRepository.getOne(id_user));
-        if(users.isEmpty())
+        if(users.isEmpty()) {
             roles.add(roleRepository.getOne(id_admin));
+            user.setAdmin(true);
+        }
         user.setPassword((bCryptPasswordEncoder.encode((user.getPassword()))));
+        user.setRoles(roles);
+        userRepository.save(user);
+    }
+
+    @Override
+    public void setUserRoles(User user) {
+        Set<Role> roles = user.getRoles();
+        List<User> users = userRepository.findAll();
+        Long id_user = 1L;
+        Long id_admin = 2L;
+
+        if(users.isEmpty()) {
+            roles.add(roleRepository.getOne(id_admin));
+            roles.add(roleRepository.getOne(id_user));
+            user.setAdmin(true);
+        }
+
+        if(user.getAdmin() && user.getRoles().size() == 1){
+            roles.add(roleRepository.getOne(id_admin));
+        }else if(!user.getAdmin() && user.getRoles().size() == 2){
+            Role rAdmin = roleRepository.getOne(id_admin);
+            roles.remove(rAdmin);
+        }else if(user.getAdmin() && user.getRoles().size() == 0){
+            roles.add(roleRepository.getOne(id_admin));
+            roles.add(roleRepository.getOne(id_user));
+            user.setAdmin(true);
+        }else{
+            roles.add(roleRepository.getOne(id_user));
+        }
+
         user.setRoles(roles);
         userRepository.save(user);
     }
@@ -71,7 +103,21 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public void updateUserPassword(User user) {
+        //Set<Role> roles = user.getRoles();
+
         user.setPassword((bCryptPasswordEncoder.encode((user.getNewPassword()))));
+
+//        System.out.println(user.getAdmin());
+//        if(user.getAdmin() && user.getRoles().size() == 1){
+//            Long id_admin = 2L;
+//            roles.add(roleRepository.getOne(id_admin));
+//        }
+//        if(!user.getAdmin() && user.getRoles().size() == 2){
+//            Long id_admin = 2L;
+//            Role rAdmin = roleRepository.getOne(id_admin);
+//            roles.remove(rAdmin);
+//        }
+//        user.setRoles(roles);
         userRepository.save(user);
     }
 
@@ -80,29 +126,8 @@ public class UserServiceImpl implements UserService {
         return userRepository.findByUsername(username);
     }
 
-    /*@Override
-    public Optional<User> findById(Long id) {
-        return userRepository.findById(id);
-    }*/
-
-    /*@Override
-    public Iterable<User> findAll() {
-        return userRepository.findAll();
-    }*/
-
-    /*@Override
-    public void saveOrUpdate(User user) {
-        if (findById(user.getId()) == null) {
-            userRepository.save(user);
-        }else {
-            userRepository.update(user);
-        }
-
-    }*/
-
-    /*@Override
-    @Transactional
-    public void delete(long id) {
-        userRepository.deleteById(id);
-    }*/
+    @Override
+    public User findByEmail(String email) {
+        return userRepository.findByEmail(email);
+    }
 }

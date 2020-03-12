@@ -302,6 +302,8 @@
     });
 
     // TODO mohlo by fungovat, ale je potreba to domyslet
+    // jine rozlozeni galerie, zmenseni obrazku...
+
     // $(window).scroll(function(){
     //     let heightHeader = $("header").height();
     //     let labVis = $('.label--item:nth-child(2)').is(":visible");

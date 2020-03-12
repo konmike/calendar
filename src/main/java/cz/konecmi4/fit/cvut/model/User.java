@@ -10,7 +10,11 @@ public class User {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
+    @Column(unique = true)
     private String username;
+
+    @Column(unique = true)
+    private String email;
 
     private String password;
 
@@ -30,6 +34,9 @@ public class User {
     @OrderBy("id")
     private Set<Calendar> calendars;
 
+    @Column(columnDefinition = "boolean default false")
+    private boolean admin;
+
     public Long getId() {
         return id;
     }
@@ -44,6 +51,14 @@ public class User {
 
     public void setUsername(String username) {
         this.username = username;
+    }
+
+    public String getEmail() {
+        return email;
+    }
+
+    public void setEmail(String email) {
+        this.email = email;
     }
 
     public String getPassword() {
@@ -92,5 +107,13 @@ public class User {
 
     public void setCalendars(Set<Calendar> calendars) {
         this.calendars = calendars;
+    }
+
+    public boolean getAdmin() {
+        return admin;
+    }
+
+    public void setAdmin(boolean admin) {
+        this.admin = admin;
     }
 }

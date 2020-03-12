@@ -37,14 +37,14 @@
                 </li>
             </security:authorize>
             <li>
-                <a href="${contextPath}/image/">Tvorba kalendáře</a>
+                <a href="${contextPath}/calendar/create">Nový kalendář</a>
             </li>
             <li>
                 <a href="${contextPath}/calendar/myCalendars">Mé kalendáře</a>
             </li>
             <security:authorize access="hasRole('ROLE_ADMIN')">
                 <li>
-                    <a href="${contextPath}/admin/list-gallery">Editace galerií</a>
+                    <a href="${contextPath}/admin/list-gallery">Kalendáře</a>
                 </li>
             </security:authorize>
         </ul>
@@ -60,12 +60,14 @@
 <%--        <form:hidden path="calendars"/>--%>
 <%--        <form:hidden path="imageList"/>--%>
 
-        <spring:bind path="oldPassword">
-            <div class="form-group">
-                <form:input path="oldPassword" type="password" autofocus="autofocus" id="oldPassword" name="oldPassword" class="input input--password" placeholder="Původní heslo" value="" />
-                <form:errors path="oldPassword" />
-            </div>
-        </spring:bind>
+        <security:authorize access="! hasRole('ROLE_ADMIN')">
+            <spring:bind path="oldPassword">
+                <div class="form-group">
+                    <form:input path="oldPassword" type="password" autofocus="autofocus" id="oldPassword" name="oldPassword" class="input input--password" placeholder="Původní heslo" value="" />
+                    <form:errors path="oldPassword" />
+                </div>
+            </spring:bind>
+        </security:authorize>
 
         <spring:bind path="newPassword">
             <div class="form-group">
@@ -80,6 +82,13 @@
                 <form:errors path="passwordConfirm" />
             </div>
         </spring:bind>
+
+        <security:authorize access="hasRole('ROLE_ADMIN')">
+                <form:label path="admin" for="admin">
+                    <form:checkbox path="admin" id="admin" value="1" name="admin" class="checkbox checkbox--isAdmin"/>
+                    <span>Admin role</span>
+                </form:label>
+        </security:authorize>
 
         <form:button class="input input--submit">Aktualizovat údaje</form:button>
     </form:form>
