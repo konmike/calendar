@@ -1,87 +1,21 @@
 (function($) {
-    let ok = 0;
-    function validImage(input) {
-
-        for(let i = 0; i < input.files.length; i++){
-            console.log("Kontrola nactenych obrazku: ");
-            //let reader = new FileReader();
-            let name = $('#file')[0].files[i].name;
-            //reader.readAsDataURL(input.files[i]);
-
-            let file = input.files[i];
-            let fileType = file["type"];
-            let validImageTypes = ["image/jpg", "image/jpeg", "image/png"];
-            // let _URL = window.URL || window.webkitURL;
-            // let img = new Image();
-            // let objectUrl = _URL.createObjectURL(file);
-            //
-            // img.onload = function () {
-            //     console.log("Img onload: ");
-            //     console.log("width " + this.width + " height " + this.height);
-            //     if(this.width < 100 || this.height < 100){
-            //         console.log("Je to v pytli.");
-            //         _URL.revokeObjectURL(objectUrl);
-            //         ok = 1;
-            //     }
-            // };
-            // img.src = objectUrl;
-            // console.log("OK " + ok);
-
-            if ($.inArray(fileType, validImageTypes) < 0) {
-                // invalid file type code goes here.
-                console.log("chyba v metrixu");
-                $('.message').text(name + " není ve formátu .jpg, .jpeg nebo .png.");
-                return false;
-            }
-
-        }
-        console.log("tesne pred potvrzenim OK " + ok);
-        return true;
-    }
 
     let file = $("#file");
-    let _URL = window.URL || window.webkitURL;
+    file.attr("value","");
 
     file.change(function(){
-        // var file_load, img;
-        // for(var i = 0; i < this.files.length; i++){
-        //     if((file_load = this.files[i])){
-        //         console.log("jsme in");
-        //         img = new Image();
-        //         let objectUrl = _URL.createObjectURL(file_load);
-        //         img.onload = function () {
-        //             if(this.width < 100) {
-        //                 alert(this.width + " " + this.height);
-        //                 console.log("jsme in in");
-        //                 return false;
-        //             }else
-        //                 alert(this.width + " " + this.height);
-        //             _URL.revokeObjectURL(objectUrl);
-        //         };
-        //         img.src = objectUrl;
-        //     }
-        // }
-
-        var valid = validImage(this);
-        console.log("valid: " + valid);
-
-        if(! valid ){
-            console.log("chyba");
-            return false;
-        }else{
-            console.log("vse ok");
-            $('#redir').attr("value", "image");
-            $('.form--calendar-update').submit();
-        }
+        $('#redir').attr("value", "image");
+        $('.form--calendar-update').submit();
+        file.attr("value","");
     });
 
 
     file.click(function () {
-       $('.message').html("");
+       $('span[id="file.errors"]').text("");
     });
 
-    var labels_item = $('#calendar .label--item');
-    var now = 0; // currently shown div
+    let labels_item = $('#calendar .label--item');
+    let now = 0; // currently shown div
     labels_item.hide().first().show();
     $("#next").click(function (e) {
         labels_item.eq(now).hide();

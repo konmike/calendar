@@ -19,7 +19,7 @@
     <title>Admin - edit uivatelů</title>
 
     <link href="${contextPath}/resources/css/style.css" rel="stylesheet">
-    <link href="${contextPath}/resources/css/form.css" rel="stylesheet">
+    <link href="https://use.fontawesome.com/releases/v5.0.8/css/all.css" rel="stylesheet">
 </head>
 <body>
 <header>
@@ -49,19 +49,19 @@
             <input type="text" class="input input--text input--search" autofocus id="search" name="name" placeholder="Hledání uživatele" />
         </label>
         <input type="submit" value="Hledat" class="input input--submit" />
-        <a href="${contextPath}/admin/create-user" class="link link--create-user">Vytvořit nového</a>
+        <a href="${contextPath}/admin/create-user" class="link link--create-user">Vytvořit uživatele</a>
     </form>
     <table class="table table--users">
         <thead>
         <tr>
             <th>Id</th>
             <th>Jméno</th>
+            <th>Admin</th>
             <th>Editace</th>
         </tr>
         </thead>
         <tbody>
         <c:forEach var="user" items="${users}">
-
             <c:url var="updateLink" value="/user/update">
                 <c:param name="username" value="${user.username}" />
             </c:url>
@@ -70,15 +70,19 @@
                 <c:param name="userId" value="${user.id}" />
             </c:url>
 
-            <tr>
-                <td>${user.id}</td>
-                <td>${user.username}</td>
-                <td>
-                    <a href="${updateLink}">Úpravy</a>/
-                    <a href="${deleteLink}"
-                       onclick="if (!(confirm('Are you sure you want to delete this customer?'))) return false">Smazat</a>
-                </td>
-            </tr>
+            <c:if test="${user.username != pageContext.request.userPrincipal.name}">
+                <c:set var="isAdmin" scope="request" value="${user.admin}"/>
+                <tr>
+                    <td>${user.id}</td>
+                    <td>${user.username}</td>
+                    <td><span class="<c:out default="admin-icon-no" escapeXml="true" value="${isAdmin ? 'admin-icon-yes' : 'admin-icon-no'}" />"></span></td>
+                    <td>
+                        <a href="${updateLink}" class="link link--edit-user">Úpravy</a>
+                        <a href="${deleteLink}" class="link link--delete-user"
+                           onclick="if (!(confirm('Opravdu chceš smazat uživatele ${user.username} ?'))) return false">Smazat</a>
+                    </td>
+                </tr>
+            </c:if>
         </c:forEach>
         </tbody>
     </table>

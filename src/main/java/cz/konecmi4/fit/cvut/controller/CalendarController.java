@@ -3,25 +3,26 @@ package cz.konecmi4.fit.cvut.controller;
 import cz.konecmi4.fit.cvut.model.Calendar;
 import cz.konecmi4.fit.cvut.model.Image;
 import cz.konecmi4.fit.cvut.model.User;
-import cz.konecmi4.fit.cvut.repository.CalendarRepository;
-import cz.konecmi4.fit.cvut.repository.ImageRepository;
-import cz.konecmi4.fit.cvut.repository.UserRepository;
 import cz.konecmi4.fit.cvut.service.CalendarService;
 import cz.konecmi4.fit.cvut.service.ImageService;
 import cz.konecmi4.fit.cvut.service.UserService;
+import cz.konecmi4.fit.cvut.validator.CalendarCreateValidator;
+import cz.konecmi4.fit.cvut.validator.UploadImageValidator;
 import org.apache.commons.io.FilenameUtils;
-import org.hibernate.query.Query;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.io.Resource;
 import org.springframework.core.io.UrlResource;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.mvc.method.annotation.MvcUriComponentsBuilder;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
-import javax.persistence.EntityManager;
+import javax.imageio.ImageIO;
+import javax.imageio.ImageReader;
+import javax.imageio.stream.ImageInputStream;
 import java.io.IOException;
 import java.net.MalformedURLException;
 import java.nio.file.Files;
@@ -36,16 +37,20 @@ public class CalendarController {
     private final UserService userService;
     private final ImageService imageService;
 
-    @Autowired
-    private ImageRepository imageRepository;
-
     private Path rootLocation;
 
-    public CalendarController(CalendarService calendarService, UserService userService, ImageService imageService, Path rootLocation) {
+    private final CalendarCreateValidator calendarCreateValidator;
+    private final UploadImageValidator uploadImageValidator;
+
+    public CalendarController(CalendarService calendarService, UserService userService,
+                              ImageService imageService, Path rootLocation,
+                              CalendarCreateValidator calendarCreateValidator, UploadImageValidator uploadImageValidator) {
         this.calendarService = calendarService;
         this.userService = userService;
         this.imageService = imageService;
         this.rootLocation = rootLocation;
+        this.calendarCreateValidator = calendarCreateValidator;
+        this.uploadImageValidator = uploadImageValidator;
     }
 
     @GetMapping()
@@ -71,7 +76,7 @@ public class CalendarController {
     }
 
     @PostMapping("/create")
-    public String createCalendar(@ModelAttribute("cal") Calendar c, Principal principal) {
+    public String createCalendar(@ModelAttribute("cal") Calendar c, Principal principal, BindingResult bindingResult) {
         System.out.println("Id: " + c.getId());
         System.out.println("Name: " + c.getName());
         System.out.println("Year: " + c.getYear());
@@ -80,8 +85,17 @@ public class CalendarController {
 //        System.out.println("Offset: " + c.getOffset());
 //        System.out.println("Lang: " + c.getLang());
 
+
+        calendarCreateValidator.validate(c,bindingResult);
+
+        if (bindingResult.hasErrors()) {
+            System.out.println("Chyba validace!");
+            System.out.println(bindingResult.getAllErrors());
+            return "create-calendar";
+        }
+
         Optional <User> user = userService.getUserByName(principal.getName());
-        Set<Calendar> calendars = null;
+        Set<Calendar> calendars;
 
         if(user.isPresent())
             calendars = user.get().getCalendars();
@@ -90,10 +104,8 @@ public class CalendarController {
         }
 
         ArrayList<String> selImage = new ArrayList<>();
-        List<String> months = Arrays.asList("leden","únor");
-        for(int i = 0; i < 13; i++){
-            selImage.add("null");
-        }
+
+        for(int i = 0; i < 13; i++) selImage.add("null");
 
         c.setSelImage(selImage);
 
@@ -139,22 +151,34 @@ public class CalendarController {
         return "/my-calendars";
     }
 
-    @GetMapping("/update")
+    @RequestMapping("/update")
     public String updateCalendar(@RequestParam("calId") Long calId, Model model) {
         Calendar c = calendarService.getCalendar(calId);
 
         System.out.println("Update images: " + c.getImages());
         System.out.println("Select images: " + c.getSelImage());
 
+
+
         model.addAttribute("cal", c);
+
 
         return "/update-calendar";
     }
 
     @PostMapping("/update")
     public String saveUpdateCalendar(@RequestParam(name = "files", required = false) MultipartFile[] files,
-                                     @RequestParam(name = "redir") String redir,
-                                     @ModelAttribute("cal") Calendar tmpC) throws IOException {
+                                     @RequestParam(name = "redir") String redir, RedirectAttributes redirectAttributes,
+                                     @ModelAttribute("cal") Calendar tmpC, BindingResult bindingResult) throws IOException {
+
+        calendarCreateValidator.validate(tmpC,bindingResult);
+        //TODO nefunguje presmerovani s chybou
+        if (bindingResult.hasErrors()) {
+            System.out.println("Chyba validace!");
+            System.out.println(bindingResult.getAllErrors());
+            return "redirect:/calendar/update?calId=" + tmpC.getId();
+        }
+
         Calendar c = calendarService.getCalendar(tmpC.getId());
 
         System.out.println(tmpC.getName());
@@ -170,15 +194,41 @@ public class CalendarController {
 
             for (MultipartFile file:files) {
                 String name = file.getOriginalFilename();
-                String extension = FilenameUtils.getExtension(file.getOriginalFilename());
                 System.out.println(name);
+                String extension = FilenameUtils.getExtension(file.getOriginalFilename());
                 System.out.println(extension);
+
+                if(Objects.equals(name, "") && Objects.equals(extension, "")){
+                    System.out.println("Další prázdná potvora...");
+                    continue;
+                }
+
+                if(!uploadImageValid(file)){
+                    System.out.println("Chyba validace!");
+                    redirectAttributes.addFlashAttribute("fileErrors", "Obrázek musí být typu jpg, jpeg nebo png.");
+                    return "redirect:/calendar/update?calId=" + tmpC.getId();
+                }
+                if(!uploadImageSizeValid(file)){
+                    System.out.println("Chyba validace!");
+                    redirectAttributes.addFlashAttribute("fileErrors", "Obrázek musí mít minimální rozlišení 700x700.");
+                    return "redirect:/calendar/update?calId=" + tmpC.getId();
+                }
+//                uploadImageValidator.validate(file,bindingResult);
+//
+//                if (bindingResult.hasErrors()) {
+//                    System.out.println("Chyba validace!");
+//                    System.out.println(bindingResult.getAllErrors());
+//                    //model.addAttribute("fileErrors", "Je to blbost!!!");
+//                    return "redirect:/calendar/update?calId=" + tmpC.getId();
+//                }
+
+//                String name = file.getOriginalFilename();
+
+//                System.out.println(name);
+
 
                 String uuid = UUID.randomUUID().toString();
 
-                if(Objects.equals(name, "") && Objects.equals(extension, "")){
-                    continue;
-                }
 
                 String imagePath = null;
                 if(name != null)
@@ -213,12 +263,7 @@ public class CalendarController {
         if(c.getYear() != tmpC.getYear()){
             c.setYear(tmpC.getYear());
         }
-//        if(!c.getLang().equals(tmpC.getLang())){
-//            c.setLang(tmpC.getLang());
-//        }
-//        if(c.getOffset() != tmpC.getOffset()){
-//            c.setOffset(tmpC.getOffset());
-//        }
+
         if(c.getSelImage() != tmpC.getSelImage()){
             c.setSelImage(tmpC.getSelImage());
         }
@@ -297,5 +342,37 @@ public class CalendarController {
         calendarService.saveCalendar(calendar);
         return "redirect:/calendar/update?calId=" + calId;
 
+    }
+
+    private boolean uploadImageValid(MultipartFile file){
+        String type = file.getContentType();
+        System.out.println("Soubor je typu " + type);
+        System.out.println("Soubor ma nazev " + file.getOriginalFilename());
+
+        if (  !(type.equals("image/png")) && !(type.equals("image/jpeg"))  ) {
+            System.out.println("Neni to png ani jpg, je to " + file.getContentType());
+            return false;
+        }
+        return true;
+    }
+    private boolean uploadImageSizeValid(MultipartFile file) throws IOException {
+
+
+        ImageInputStream iis = ImageIO.createImageInputStream(file.getInputStream());
+        Iterator<ImageReader> readers = ImageIO.getImageReaders(iis);
+
+        if (readers.hasNext()) {
+            //Get the first available ImageReader
+            ImageReader reader = readers.next();
+            reader.setInput(iis, true);
+
+            if(!(reader.getWidth(0) > 700 && reader.getHeight(0) > 700)){
+                return false;
+            }
+            System.out.println("Format : " + reader.getFormatName());
+            System.out.println("Width : " + reader.getWidth(0) + " pixels");
+            System.out.println("Height : " + reader.getHeight(0) + " pixels");
+        }
+        return true;
     }
 }

@@ -26,15 +26,16 @@ public class UserController {
     private final UserService userService;
     private final SecurityService securityService;
     private final UserValidator userValidator;
-    private final UpdateUserValidator updateUserValidator;
+
     private final OldPasswordValidator oldPasswordValidator;
     private final NewPasswordValidator newPasswordValidator;
 
-    public UserController(UserService userService, SecurityService securityService, UserValidator userValidator, UpdateUserValidator updateUserValidator, OldPasswordValidator oldPasswordValidator, NewPasswordValidator newPasswordValidator) {
+    public UserController(UserService userService, SecurityService securityService,
+                          UserValidator userValidator, OldPasswordValidator oldPasswordValidator,
+                          NewPasswordValidator newPasswordValidator) {
         this.userService = userService;
         this.securityService = securityService;
         this.userValidator = userValidator;
-        this.updateUserValidator = updateUserValidator;
         this.oldPasswordValidator = oldPasswordValidator;
         this.newPasswordValidator = newPasswordValidator;
     }
@@ -143,8 +144,13 @@ public class UserController {
     }
 
     @GetMapping("/user/delete")
-    public String deleteUser(@RequestParam("userId") Long id) {
-        userService.deleteUser(id);
+    public String deleteUser(@RequestParam("userId") Long id, Principal principal) {
+        User delUser = userService.getUser(id);
+        if(!principal.getName().equals(delUser.getUsername())){
+            userService.deleteUser(id);
+        }else{
+            System.out.println("Co, to jako zkousis?");
+        }
         return "redirect:/users/list";
     }
 

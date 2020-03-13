@@ -46,7 +46,7 @@
             </li>
             <security:authorize access="hasRole('ROLE_ADMIN')">
                 <li>
-                    <a href="${contextPath}/admin/list-gallery">Editace galerií</a>
+                    <a href="${contextPath}/admin/list-calendars">Kalendáře</a>
                 </li>
             </security:authorize>
         </ul>

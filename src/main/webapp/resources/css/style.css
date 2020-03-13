@@ -97,11 +97,18 @@ main{
 }
 
 
-
-form .message{
-  margin-bottom: 1rem;
+span[id*=".errors"]{
   color: red;
   font-weight: 900;
+}
+.form--calendar-update span[id="file.errors"]{
+  margin-top: 2rem;
+}
+
+form .message{
+  color: red;
+  font-weight: 900;
+  margin: 1rem 0;
 }
 
 .form-group{
@@ -359,7 +366,8 @@ footer ul li:last-child{
 
 .label--file{
   position: relative;
-  display: inline-block;
+  display: flex;
+  flex-direction: column;
   cursor: pointer;
   height: 2.5rem;
 }
@@ -429,6 +437,7 @@ footer ul li:last-child{
   list-style-type: none;
   padding: 0 0 1rem 0;
   min-height: 200px;
+  margin-top: 2rem;
   /*border: 0.1rem solid rgba(0, 68, 101,1);*/
 }
 /*.list--gallery h3{
@@ -815,14 +824,12 @@ padding-left: 1rem;
     font-weight: 300;
     text-align: center;
     margin-bottom: 0.5rem;
-    opacity: 0.6;
 }
 
 .labels-grid-row span{
     font-weight: 300;
     text-align: center;
     margin-bottom: 0.5rem;
-    opacity: 0.6;
 }
 
 /* CALENDAR PORTRAIT FULL DATE IN BLOCK */
@@ -1357,16 +1364,174 @@ display: none;
 
 
 /* DESIGN CALENDAR */
+.design0{
+  background: white;
+}
+.design0 .calendar-title{
+  color: black;
+}
+.design0 h3{
+  color: black;
+}
+.design0 .labels-grid-row,
+.design0 .labels-grid-block{
+  opacity: 0.6;
+  color: black;
+}
+.design0 .dates-grid-row,
+.design0 .dates-grid-block {
+  color: black;
+}
+
 .design1{
+  background: black;
+}
+.design1 .calendar-title{
+  color: white;
+}
+.design1 h3{
+  color: white;
+}
+.design1 .labels-grid-row,
+.design1 .labels-grid-block{
+  opacity: 0.6;
+  color: white;
+}
+.design1 .dates-grid-row,
+.design1 .dates-grid-block {
+  color: white;
+}
+
+.design2{
 
 }
-.design2{
+.design2 .calendar-title{
+
+}
+.design2 h3{
+
+}
+.design2 .labels-grid-row,
+.design2 .labels-grid-block{
+  opacity: 0.6;
+
+}
+.design2 .dates-grid-row,
+.design2 .dates-grid-block {
 
 }
 .design3{
 
 }
+.design3 .calendar-title{
+
+}
+.design3 h3{
+
+}
+.design3 .labels-grid-row,
+.design3 .labels-grid-block{
+  opacity: 0.6;
+
+}
+.design3 .dates-grid-row,
+.design3 .dates-grid-block {
+
+}
 .design4{
 
 }
+.design4 .calendar-title{
+
+}
+.design4 h3{
+
+}
+.design4 .labels-grid-row,
+.design4 .labels-grid-block{
+  opacity: 0.6;
+
+}
+.design4 .dates-grid-row,
+.design4 .dates-grid-block {
+
+}
 /* ==================== */
+
+/* ADMIN TABLE USERS */
+.table--users{
+  border-collapse: collapse;
+  border-spacing: 0;
+  empty-cells: show;
+  border: 0;
+  margin-bottom: 2rem;
+}
+.table--users thead{
+  /*background-color: #e0e0e0;*/
+  color: rgba(0, 68, 101,1);
+  font-weight: 900;
+  text-transform: uppercase;
+  text-align: center;
+  vertical-align: bottom;
+}
+.table--users thead tr{
+  border-bottom: 1px solid #cbcbcb;
+}
+.table--users th,
+.table--users td{
+  padding: 0.5em 1em;
+  /*border-left: 1px solid #cbcbcb;*/
+  margin: 0;
+  overflow: visible;
+  color: rgba(0, 68, 101,1);
+}
+.table--users tbody td:nth-child(3){
+  text-align: center;
+}
+.table--users tr{
+  border-bottom: 1px solid #cbcbcb;
+}
+.table--users tbody tr:last-child{
+  border-bottom: 0;
+}
+.table--users a{
+  text-decoration: none;
+  font-weight: 900;
+  text-transform: uppercase;
+  transition: all 0.3s;
+  padding: 0.3rem;
+  border-radius: 0;
+  justify-self: center;
+}
+.link--edit-user{
+  background: rgba(255,215,0,1);
+  border: 0.1rem solid rgba(255,215,0,1);
+  color: rgba(0, 68, 101,1);
+}
+.link--edit-user:hover {
+  background: transparent;
+  border: 0.1rem solid rgba(0, 68, 101, 1);
+}
+.link--delete-user{
+  background: #d43241;
+  color: white;
+  border: 0.1rem solid #d43241;
+}
+.link--delete-user:hover{
+  background: transparent;
+  color: #d43241;
+}
+.admin-icon-yes:before{
+  font-family: "Font Awesome 5 Free", Pacifico, Arial, serif;
+  font-weight: 900;
+  content: '\f00c';
+  color: rgba(0, 68, 101, 1);
+}
+.admin-icon-no:before{
+  font-family: "Font Awesome 5 Free", Pacifico, Arial, serif;
+  font-weight: 900;
+  content: '\f00d';
+  color: rgba(0, 68, 101, 1);
+}
+
+/* =================== */

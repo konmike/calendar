@@ -17,9 +17,6 @@ public class ImageServiceImpl implements ImageService {
     private final ImageRepository imageRepository;
     private Path rootLocation;
 
-    @Autowired
-    private CalendarRepository calendarRepository;
-
     public ImageServiceImpl(ImageRepository imageRepository, Path rootLocation) {
         this.imageRepository = imageRepository;
         this.rootLocation = rootLocation;

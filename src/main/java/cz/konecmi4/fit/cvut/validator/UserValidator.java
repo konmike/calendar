@@ -20,7 +20,7 @@ public class UserValidator implements Validator {
     }
 
 
-    static boolean isValidEmail(String email) {
+    private static boolean isValidEmail(String email) {
         String regex = "^[\\w-_\\.+]*[\\w-_\\.]\\@([\\w]+\\.)+[\\w]+[\\w]$";
         return email.matches(regex);
     }

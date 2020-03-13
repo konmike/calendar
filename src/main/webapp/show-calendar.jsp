@@ -46,7 +46,7 @@
             </li>
             <security:authorize access="hasRole('ROLE_ADMIN')">
                 <li>
-                    <a href="${contextPath}/admin/list-gallery">Editace galerií</a>
+                    <a href="${contextPath}/admin/list-calendars">Kalendáře</a>
                 </li>
             </security:authorize>
         </ul>
@@ -92,7 +92,7 @@
                         </div>
                     </c:when>
                     <c:otherwise>
-                        <div class="month month--${item.index} item a4-portrait html2pdf__page-break">
+                        <div class="month month--${item.index} item a4-portrait <c:if test="${item.index != 12}">html2pdf__page-break</c:if>">
                             <c:choose>
                                 <c:when test="${cal.selImage.get(item.index).contains('null') or (empty cal.selImage)}">
                                     <div class="wrapper wrapper-image border-no">

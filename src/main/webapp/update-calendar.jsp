@@ -118,8 +118,8 @@
             </li>
             <security:authorize access="hasRole('ROLE_ADMIN')">
                 <li>
-                    <a href="${contextPath}/admin/list-gallery"
-                       onclick="if (!(confirm('Změny nemusí být uloženy, chcete přesto pokračovat?'))) return false">Editace galerií</a>
+                    <a href="${contextPath}/admin/list-calendars"
+                       onclick="if (!(confirm('Změny nemusí být uloženy, chcete přesto pokračovat?'))) return false">Kalendáře</a>
                 </li>
             </security:authorize>
         </ul>
@@ -140,11 +140,13 @@
 
                 <form:label path="name" for="name" cssClass="label label--calendar-option label--name">Název kalendáře
                     <form:input type="text" id="name" path="name" class="input input--text" placeholder="Název kalendáře" />
+                    <form:errors path="name" />
                 </form:label>
 
                 <spring:bind path="year">
                     <label for="year" class="label label--calendar-option label--year">Rok
                         <form:input type="number" path="year" id="year" class="input input--number" value="2020" placeholder="Rok" />
+                        <form:errors path="year" />
                     </label>
                 </spring:bind>
 
@@ -182,6 +184,7 @@
                             <img src="${contextPath}/img/landscape-row.png" alt="Typ 4">
                         </div>
                     </form:label>
+                    <form:errors path="type" />
                 </div>
 
                 <div id="wrapper-design" class="wrapper wrapper--group-radio-update">
@@ -217,14 +220,16 @@
                             <img src="${contextPath}/img/landscape-row.png" alt="Design 4">
                         </div>
                     </form:label>
+                    <form:errors path="design" />
                 </div>
             </div>
             <div class="sidebox sidebox--upload-image">
                 <label for="file" class="label label--file">
                     <input type="file" id="file" name="files" accept="image/*" class="input input--file" multiple />
                     <span class="file--custom"></span>
+                    <span id="file.errors" class="${fileErrors}">${fileErrors}</span>
                 </label>
-                <span class="message"></span>
+
 
                 <ul class="list list--gallery">
                     <c:forEach var="image" items="${cal.images}" varStatus="item">

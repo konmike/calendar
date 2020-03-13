@@ -52,29 +52,31 @@
 
 <main>
     <c:forEach var="user" items="${users}">
-        <h3>${user.username} calendars</h3>
-        <div class="section section--calendar-show-all">
-            <ul th:each="calendar : ${user.calendars}" class="list list--my-calendars">
-                <c:forEach varStatus="item" items="${user.calendars}" var="calendar">
-                    <li class="list--item">
-                        <c:choose>
-                            <c:when test="${frontPages.get(item.index).contains('null')}">
-                                <a href="${contextPath}/calendar?calId=${calendar.id}">
-                                    <i class="fas fa-file-image"></i>
-                                    <span>Kalendář ${calendar.year}</span>
-                                </a>
-                            </c:when>
-                            <c:otherwise>
-                                <a href="${contextPath}/calendar?calId=${calendar.id}">
-                                    <img src="${frontPages.get(item.index)}" alt="" />
-                                    <span>Kalendář ${calendar.year}</span>
-                                </a>
-                            </c:otherwise>
-                        </c:choose>
-                    </li>
-                </c:forEach>
-            </ul>
-        </div>
+        <c:if test="${not empty user.calendars}">
+            <h3>${user.username} calendars</h3>
+            <div class="section section--calendar-show-all">
+                <ul th:each="calendar : ${user.calendars}" class="list list--my-calendars">
+                    <c:forEach varStatus="item" items="${user.calendars}" var="calendar">
+                        <li class="list--item">
+                            <c:choose>
+                                <c:when test="${frontPages.get(item.index).contains('null')}">
+                                    <a href="${contextPath}/calendar?calId=${calendar.id}">
+                                        <i class="fas fa-file-image"></i>
+                                        <span>Kalendář ${calendar.year}</span>
+                                    </a>
+                                </c:when>
+                                <c:otherwise>
+                                    <a href="${contextPath}/calendar?calId=${calendar.id}">
+                                        <img src="${frontPages.get(item.index)}" alt="" />
+                                        <span>Kalendář ${calendar.year}</span>
+                                    </a>
+                                </c:otherwise>
+                            </c:choose>
+                        </li>
+                    </c:forEach>
+                </ul>
+            </div>
+        </c:if>
     </c:forEach>
 </main>
 

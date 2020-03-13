@@ -1,5 +1,7 @@
 package cz.konecmi4.fit.cvut.model;
 
+import org.springframework.web.multipart.MultipartFile;
+
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 import java.util.ArrayList;
@@ -33,7 +35,6 @@ public class Calendar {
     @Lob
     @Column
     private ArrayList<String> selImage;
-
 
     public Calendar() {
     }
@@ -122,4 +123,5 @@ public class Calendar {
     public void setDesign(int design) {
         this.design = design;
     }
+
 }
