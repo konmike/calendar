@@ -344,6 +344,8 @@ public class CalendarController {
 
     }
 
+
+//TODO vytvořit speciální validator na obrazky...
     private boolean uploadImageValid(MultipartFile file){
         String type = file.getContentType();
         System.out.println("Soubor je typu " + type);

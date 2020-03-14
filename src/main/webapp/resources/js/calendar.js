@@ -2,30 +2,41 @@ const $ = document.querySelector.bind(document);
 const h = tag => document.createElement(tag);
 
 const days_labels = {
-    en: ['SUN','MON', 'TUE', 'WED', 'THU', 'FRI', 'SAT'],
-    cs: ['NE', 'PO', 'ÚT', 'ST', 'ČT', 'PÁ', 'SO'],
+    cs: ['PO', 'ÚT', 'ST', 'ČT', 'PÁ', 'SO', 'NE']
 };
 
 const months_labels = {
-    en: ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'],
-    cs: ['Leden', 'Únor', 'Březen', 'Duben', 'Květen', 'Červen', 'Červenec', 'Srpen', 'Září', 'Říjen', 'Listopad', 'Prosinec'],
+    cs: ['Leden', 'Únor', 'Březen', 'Duben', 'Květen', 'Červen', 'Červenec', 'Srpen', 'Září', 'Říjen', 'Listopad', 'Prosinec']
 };
 
+// const days_labels = {
+//     en: ['SUN','MON', 'TUE', 'WED', 'THU', 'FRI', 'SAT'],
+//     cs: ['NE', 'PO', 'ÚT', 'ST', 'ČT', 'PÁ', 'SO'],
+// };
+
+// const months_labels = {
+//     en: ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'],
+//     cs: ['Leden', 'Únor', 'Březen', 'Duben', 'Květen', 'Červen', 'Červenec', 'Srpen', 'Září', 'Říjen', 'Listopad', 'Prosinec'],
+// };
+
+const numbers = ['1','2','3','4','5','6','7','8','9',
+                '10','11','12','13','14','15','16','17','18','19',
+                '20','21','22','23','24','25','26','27','28','29', '30', '31'];
 
 let body = $("body");
-var lang_d = body.getAttribute("data-custom-lang");
-let offset_d = parseInt(body.getAttribute("data-custom-offset"),10);
+//let lang_d = body.getAttribute("data-custom-lang");
+//let offset_d = parseInt(body.getAttribute("data-custom-offset"),10);
 let year_d = parseInt(body.getAttribute("data-custom-year"),10);
 let type_d = parseInt(body.getAttribute("data-custom-type"),10);
 
-if(lang_d === ""){
+/*if(lang_d === ""){
     lang_d = "cs";
     //console.log("lang set");
 }
 if(offset_d === 0){
     offset_d = 1;
     //console.log("offset set");
-}
+}*/
 if(year_d === 0){
     year_d = 2020;
     //console.log("year set");
@@ -35,186 +46,160 @@ if(type_d === 0){
     //console.log("type set");
 }
 
-let start = 3;
-let end = 15;
 
-
-if($('#calendar .pagination') == null){
-    start = 2;
-    end = 14;
-}
-
-if(type_d === 2 || type_d === 4){
-    lspan_length = 42;
-}
-
-//console.log("Start: " + start);
-//console.log("End: " + end);
-// -- setup
-function generateStructure (lspan_length, dspan_length, item){
-    let labels = $('#calendar .label--item:nth-child(' + item + ') .month .labels');
-    let dates = $('#calendar .label--item:nth-child(' + item + ') .month .dates');
-    //const month = $('#calendar label.label--item:nth-child(1)');
-    // console.log(labels);
-    // console.log(dates);
-    //console.log(month);
-
-    if(labels === null){
-        labels = $('#calendar .month:nth-child(' + item + ') .labels');
-        dates = $('#calendar .month:nth-child(' + item + ') .dates');
-    }
-
-    //console.log(labels);
-    //console.log(dates);
-
-    //console.log(month);
-
-    const lspan = Array.from({length: lspan_length}, () => {
-        return labels.appendChild(h('span'));
-    });
-    //console.log(lspan);
-
-    const dspan = Array.from({length: dspan_length}, () => {
-        return dates.appendChild(h('span'));
-    });
-    //console.log(dspan);
-
-    var month_h3 = document.createElement("h3");
-    let firstChild = labels.firstChild;
-    labels.insertBefore(month_h3,firstChild);
-
-}
-
-// -- state mgmt
+const settings = { year: year_d, type: type_d};
+update(settings);
 
 function daysInMonth (month, year) { // Use 1 for January, 2 for February, etc.
     return new Date(year, month, 0).getDate();
 }
 
-const view = sublet({
-    lang: lang_d,
-    offset: offset_d,
-    year: year_d,
-    type: type_d,
-}, update);
+function generateStructureAndFill (lspan_length, dspan_length, firstDay, item, month, settings, type, monthDayCount){
+    const days = days_labels["cs"];
+    const months = months_labels["cs"];
 
-function update(state) {
-    const offset = state.offset;
+    let labels = $('#calendar .label--item:nth-child(' + item + ') .month .labels');
+    let dates = $('#calendar .label--item:nth-child(' + item + ') .month .dates');
+    let wrapper_dates = $('#calendar .label--item:nth-child(' + item + ') .month .wrapper-dates');
 
-    const days = days_labels[state.lang];
-    const months = months_labels[state.lang];
-
-    if(type_d === 2 || type_d === 4){
-        let item = 3;
-
-        for( let i = 0; i < 11; i++){
-            let numberDays = daysInMonth(i,year_d);
-            console.log("Pocet dni v " + i);
-            const firstDayInMonthIndex = (
-                monthIndex = i,
-                year = year_d
-            ) => (
-                new Date(`${year}-${monthIndex + 1}-01`).getDay()
-            );
-            console.log("Prvni den v mesici " + i + " je " + firstDayInMonthIndex);
-
-            generateStructure(numberDays,numberDays, item, firstDayInMonthIndex);
-            item++;
-        }
-
-        return true;
+    if(labels === null){
+        labels = $('#calendar .month:nth-child(' + item + ') .labels');
+        dates = $('#calendar .month:nth-child(' + item + ') .dates');
+        wrapper_dates = $('#calendar .month:nth-child(' + item + ') .wrapper-dates');
     }
 
-    //console.log("update");
-    //console.log(offset);
-    //console.log(lang_d);
+    if(type === 2 || type === 4){
+        labels.setAttribute("style", "grid-template-columns: repeat(" + lspan_length +", 1fr)");
+        dates.setAttribute("style", "grid-template-columns: repeat(" + dspan_length +", 1fr)");
+    }else{
+        labels.removeAttribute("style");
+        dates.removeAttribute("style");
+    }
 
 
-    // console.log(offset);
-    //
-    //
-    // console.log(days[(0 + offset) % 7]);
-    // console.log(offset);
-    // console.log(days);
-    // console.log(days[(1 + offset) % 7]);
-    // console.log(offset);
-    // console.log(days);
-    // console.log(days[(2 + offset) % 7]);
-    // console.log(offset);
-    // console.log(days);
-    // console.log(days[(3 + offset) % 7]);
-    // console.log(days[(4 + offset) % 7]);
-    // console.log(days[(5 + offset) % 7]);
-    // console.log(days[(6 + offset) % 7]);
-    let lspan_length = 7;
-    let dspan_length = 42;
-    generateStructure(7,42);
-    let q = 0;
-    for(let m = start; m < end; m++){
-        let labels = $('#calendar .label--item:nth-child(' + m + ') .month .labels');
-        let dates = $('#calendar label:nth-child(' + m + ') .month .dates');
-        let month_h3 = $('#calendar label:nth-child(' + m + ') .month .labels h3');
-        // console.log(labels);
-        // console.log(dates);
+    Array.from({length: lspan_length}, () => {
+        return labels.appendChild(h('span'));
+    });
+    //console.log(lspan);
 
-        if(labels === null){
-            labels = $('#calendar .month:nth-child(' + m + ') .labels');
-            dates = $('#calendar .month:nth-child(' + m + ') .dates');
-            month_h3 = $('#calendar .month:nth-child(' + m + ') .labels h3');
-        }
+    let month_h3 = document.createElement("h3");
+    let firstChild = wrapper_dates.firstChild;
+    wrapper_dates.insertBefore(month_h3,firstChild);
+    //labels.insertBefore(month_h3,firstChild);
 
-        const lspan = [].slice.call(labels.getElementsByTagName('span'));
-        console.log(lspan);
+
+    //vloz nazev mesice
+    month_h3.textContent = months[month];
+
+    //vloz dny v tydnu
+    const lspan = [].slice.call(labels.getElementsByTagName('span'));
+
+    if(type === 2 || type === 4) {
+        lspan.forEach((el, idx) => {
+            el.textContent = days[(idx + firstDay - 1) % 7];
+        });
+        Array.from({length: dspan_length}, () => {
+            return dates.appendChild(h('span'));
+        });
 
         const dspan = [].slice.call(dates.getElementsByTagName('span'));
-        //console.log(dspan);
 
-        month_h3.textContent = months[q];
-
+        for(let q = 0; q < dspan_length; q++){
+            dspan[q].textContent = numbers[q];
+        }
+    }
+    else {
         lspan.forEach((el, idx) => {
-            console.log("Offset: " + offset);
-            console.log("Index: " + idx);
-            var tmp = idx+offset;
-            console.log("Tmp: " + tmp);
-            var tmp2 = tmp%7;
-            console.log("Tmp2: " + tmp2);
-            console.log("Vysledek cislo: " + ((idx+offset)%7));
-            console.log(el);
-            console.log("Vysledek den: " + days[(idx + offset)%7]);
-            el.textContent = days[(idx + offset) % 7];
+            el.textContent = days[idx];
         });
 
-
-        let i=0, j=0, date = new Date(state.year, q);
-        //console.log(new Date(state.year,q));
-
-        calendarize(date, offset).forEach(week => {
-            for (j=0; j < 7; j++) {
-                dspan[i++].textContent = week[j] > 0 ? week[j] : '';
-            }
+        Array.from({length: dspan_length}, () => {
+            return dates.appendChild(h('span'));
         });
-        q++;
 
-        // clear remaining (very naiive way, pt 2)
-        while (i < dspan.length) dspan[i++].textContent = '';
+        const dspan = [].slice.call(dates.getElementsByTagName('span'));
+
+        let n = 0;
+        for(let q = (firstDay-1); q < (monthDayCount + firstDay - 1); q++){
+            dspan[q].textContent = numbers[n];
+            n++;
+        }
     }
 }
 
-// -- inputs
+function update(settings) {
+    //const offset = settings.offset;
+    const type = parseInt(settings.type);
 
-if($('#lang'))
-$('#lang').onchange = ev => {
-    view.lang = ev.target.value;
-};
-if($('#offset'))
-$('#offset').onchange = ev => {
-    view.offset = +ev.target.value;
-};
-if($('#year'))
-$('#year').onchange = ev => {
-    view.year = ev.target.value;
-};
-if($('#type'))
-    $('#type').onchange = ev => {
-        view.type = ev.target.value;
+    let wrapper_dates = document.getElementsByClassName("wrapper-dates");
+    let labels = document.getElementsByClassName("labels");
+    let dates = document.getElementsByClassName("dates");
+    for (let i = 0; i < labels.length; i++) {
+        labels[i].innerHTML = "";
+        dates[i].innerHTML = "";
+
+        if(document.getElementsByTagName("h3")){
+            wrapper_dates[i].removeChild(wrapper_dates[i].childNodes[0]);
+        }
+    }
+
+
+    console.log("State type " + type);
+
+    if(type === 2 || type === 4){
+        let item = 2;
+        let month = 0;
+
+        for( let i = 1; i < 13; i++){
+            let numberDays = daysInMonth(i,settings.year);
+            //console.log("Pocet dni v " + i + " je " + numberDays);
+            let day = new Date(settings.year + "-" + i + "-01").getDay();
+            if(day === 0)
+                day = 7;
+            //console.log("Prvni den v mesici " + i + " je " + day);
+
+            generateStructureAndFill(numberDays,numberDays, day, item, month, settings, type, numberDays);
+            item++;
+            month++;
+            //console.log("Increment " + item);
+        }
+    }else{
+        let item = 2;
+        let month = 0;
+        for( let i = 1; i < 13; i++) {
+            let numberDays = daysInMonth(i,settings.year);
+            let day = new Date(settings.year + "-" + i + "-01").getDay();
+            if(day === 0)
+                day = 7;
+            generateStructureAndFill(7, 42, day, item, month, settings, type, numberDays);
+            item++;
+            month++;
+        }
+    }
+
+}
+
+// let lang = $('#lang');
+// let offset = $('#offset');
+let year = $('#year');
+let type = $("#wrapper-type");
+// if(lang)
+//     lang.onchange = ev => {
+//         view.lang = ev.target.value;
+//     };
+// if(offset)
+//     offset.onchange = ev => {
+//         view.offset = ev.target.value;
+//     };
+if(year)
+    year.onchange = ev => {
+        settings.year = ev.target.value;
+        update(settings);
     };
+if(type){
+    type.onchange = ev => {
+        settings.type = ev.target.value;
+        console.log("ak: " + settings.type);
+        update(settings);
+    };
+}

@@ -154,28 +154,6 @@ public class UserController {
         return "redirect:/users/list";
     }
 
-    /*@GetMapping("/addNewUser")
-    public String addNewUser(Model model) {
-        model.addAttribute("userForm", new User());
-        return "registration";
-    }
-
-    @PostMapping("/addNewUser")
-    public String addNewUser(@ModelAttribute("userForm") User userForm, BindingResult bindingResult) {
-        System.out.println("Pridavam tohoto uživatele:");
-        System.out.println(userForm.getUsername());
-        System.out.println(userForm.getPassword());
-        System.out.println("==============================");
-
-        userValidator.validate(userForm, bindingResult);
-
-        if (bindingResult.hasErrors()) {
-            return "registration";
-        }
-        userService.saveUser(userForm);
-
-        return "redirect:/users/list";
-    }*/
 
     @GetMapping("/registration")
     public String registration(Model model) {

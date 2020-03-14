@@ -142,7 +142,7 @@
 <%--<script src="https://unpkg.com/sublet"></script>--%>
 <%--<script src="${contextPath}/resources/js/calendar.js"></script>--%>
 <script src="resources/js/html2pdf.bundle.min.js"></script>
-<script src="${contextPath}/resources/js/calendar2.js"></script>
+<script src="${contextPath}/resources/js/calendar.js"></script>
 <script src="${contextPath}/resources/js/script.js"></script>
 <script src="${contextPath}/resources/js/simple-lightbox.jquery.js"></script>
 
