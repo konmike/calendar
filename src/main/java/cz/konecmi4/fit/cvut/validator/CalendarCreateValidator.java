@@ -21,6 +21,8 @@ public class CalendarCreateValidator implements Validator {
         ValidationUtils.rejectIfEmptyOrWhitespace(errors, "year", "NotEmpty");
         ValidationUtils.rejectIfEmptyOrWhitespace(errors, "type", "NotEmpty");
         ValidationUtils.rejectIfEmptyOrWhitespace(errors, "design", "NotEmpty");
+        ValidationUtils.rejectIfEmptyOrWhitespace(errors, "colorLabels", "NotEmpty");
+        ValidationUtils.rejectIfEmptyOrWhitespace(errors, "colorDates", "NotEmpty");
 
         if (calendar.getName().length() < 6 || calendar.getName().length() > 32) {
             errors.rejectValue("name", "size.calendar.name");

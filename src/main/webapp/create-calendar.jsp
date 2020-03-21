@@ -150,7 +150,17 @@
                 <form:errors path="design" />
             </div>
 
+            <div class="wrapper wrapper-color-text wrapper-color-text-create">
+                <form:label path="colorLabels" for="colorLabels" cssClass="label label--calendar-option label--colorLabels">Barva popisků
+                    <form:input type="color" id="colorLabels" path="colorLabels" cssClass="input input--color" />
+                    <form:errors path="colorLabels" />
+                </form:label>
 
+                <form:label path="colorDates" for="colorDates" cssClass="label label--calendar-option label--colorDates">Barva data
+                    <form:input type="color" id="colorDates" path="colorDates" cssClass="input input--color" />
+                    <form:errors path="colorDates" />
+                </form:label>
+            </div>
                 <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}" />
                 <input type="submit" class="input input--submit" value="Vytvořit" />
         </form:form>

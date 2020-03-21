@@ -24,7 +24,8 @@
     <link href="https://use.fontawesome.com/releases/v5.0.8/css/all.css" rel="stylesheet">
     <%--    <link href="${contextPath}/resources/css/form.css" rel="stylesheet">--%>
 </head>
-<body data-custom-year="${cal.year}" data-custom-type="${cal.type}" data-custom-name="${cal.name}" data-custom-design="${cal.design}">
+<body data-custom-year="${cal.year}" data-custom-type="${cal.type}" data-custom-name="${cal.name}" data-custom-design="${cal.design}"
+      data-custom-color-labels="${cal.colorLabels}" data-custom-color-dates="${cal.colorDates}">
 <header>
     <nav>
         <ul>

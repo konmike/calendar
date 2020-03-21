@@ -24,9 +24,15 @@ public class Calendar {
 //    private String lang;
     @NotNull
     private int type;
+
     @NotNull
     private int design;
 
+    @NotNull
+    private String colorLabels;
+
+    @NotNull
+    private String colorDates;
 
     @OneToMany(cascade = CascadeType.ALL)
     @OrderBy("id")
@@ -124,4 +130,19 @@ public class Calendar {
         this.design = design;
     }
 
+    public String getColorLabels() {
+        return colorLabels;
+    }
+
+    public void setColorLabels(String colorLabels) {
+        this.colorLabels = colorLabels;
+    }
+
+    public String getColorDates() {
+        return colorDates;
+    }
+
+    public void setColorDates(String colorDates) {
+        this.colorDates = colorDates;
+    }
 }

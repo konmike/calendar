@@ -1,5 +1,5 @@
 (function($) {
-
+    let body = $("body");
     let file = $("#file");
     file.attr("value","");
 
@@ -70,12 +70,40 @@
         }
     }
     let wrapper_image = $(".wrapper-image");
+    let monthLabels = $(".wrapper-dates h3");
     let labels = $(".labels");
+    let calendarTitle = $(".calendar-title");
     let dates = $(".dates");
     let item = $(".item");
-    let type = parseInt($('body').attr("data-custom-type"));
-    let design = parseInt($('body').attr("data-custom-design"));
+    let type = parseInt(body.attr("data-custom-type"));
+    let design = parseInt(body.attr("data-custom-design"));
+    let colorLabels = body.attr("data-custom-color-labels");
+    let colorDates = body.attr("data-custom-color-dates");
 
+    labels.attr("style", "color: " + colorLabels);
+    calendarTitle.attr("style", "color: " + colorLabels);
+    monthLabels.attr("style", "color: " + colorLabels);
+    dates.attr("style", "color: " + colorDates);
+
+    // $('.label--colorLabels').attr("style", "background-color: " + colorLabels);
+    // $('.label--colorDates').attr("style", "background-color: " + colorDates);
+
+
+    $('#colorLabels').change(function(){
+        let t = $("input[name='colorLabels']").val();
+        console.log("Zmena label color " + t);
+        labels.attr("style", "color: " + t);
+        calendarTitle.attr("style", "color: " + t);
+        monthLabels.attr("style", "color: " + t);
+        // this.parentNode.style.backgroundColor = t;
+    });
+
+    $('#colorDates').change(function(){
+        let t = $("input[name='colorDates']").val();
+        console.log("Zmena dates color " + t);
+        dates.attr("style", "color: " + t);
+        // this.parentNode.style.backgroundColor = t;
+    });
 
     setCalendarType(type);
 
@@ -114,9 +142,12 @@
     $(".type-of-calendar").click(function(){
         let type = $("#wrapper-type");
         let design = $("#wrapper-design");
+        let colorText = $("#wrapper-color");
         if(type.is(":hidden")){
             if(design.is(":visible"))
                 design.hide();
+            if (colorText.is(":visible"))
+                colorText.hide();
             type.css("display", "grid").hide().fadeIn(1000);
         }
         else
@@ -125,13 +156,31 @@
     $(".calendar-design").click(function(){
         let type = $("#wrapper-type");
         let design = $("#wrapper-design");
+        let colorText = $("#wrapper-color");
         if(design.is(":hidden")) {
             if (type.is(":visible"))
                 type.hide();
+            if (colorText.is(":visible"))
+                colorText.hide();
             design.css("display", "grid").hide().fadeIn(1000);
         }
         else
             design.fadeOut(1000);
+    });
+
+    $(".calendar-color-text").click(function(){
+        let type = $("#wrapper-type");
+        let design = $("#wrapper-design");
+        let colorText = $("#wrapper-color");
+        if(colorText.is(":hidden")) {
+            if (type.is(":visible"))
+                type.hide();
+            if (design.is(":visible"))
+                design.hide();
+            colorText.css("display", "grid").hide().fadeIn(1000);
+        }
+        else
+            colorText.fadeOut(1000);
     });
 
 
@@ -211,8 +260,8 @@
     $(".link--download").click(function(){
         console.log("stahni kalendar");
 
-        let type = parseInt($('body').attr("data-custom-type"));
-        let name = $('body').attr("data-custom-name");
+        let type = parseInt(body.attr("data-custom-type"));
+        let name = body.attr("data-custom-name");
         let orientation = "landscape";
         if(type === 1 || type === 2)
             orientation = "portrait";

@@ -82,6 +82,8 @@ public class CalendarController {
         System.out.println("Year: " + c.getYear());
         System.out.println("Type: " + c.getType());
         System.out.println("Design: " + c.getDesign());
+        System.out.println("Color labels: " + c.getColorLabels());
+        System.out.println("Color dates: " + c.getColorDates());
 //        System.out.println("Offset: " + c.getOffset());
 //        System.out.println("Lang: " + c.getLang());
 
@@ -272,6 +274,12 @@ public class CalendarController {
         }
         if(c.getDesign() != tmpC.getDesign()){
             c.setDesign(tmpC.getDesign());
+        }
+        if(!c.getColorLabels().equals(tmpC.getColorLabels())){
+            c.setColorLabels(tmpC.getColorLabels());
+        }
+        if(!c.getColorDates().equals(tmpC.getColorDates())){
+            c.setColorDates(tmpC.getColorDates());
         }
 
         calendarService.saveCalendar(c);

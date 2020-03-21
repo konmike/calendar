@@ -25,7 +25,8 @@
 <%--    <link href="${contextPath}/resources/css/form.css" rel="stylesheet">--%>
 
 </head>
-<body data-custom-year="${cal.year}" data-custom-type="${cal.type}" data-custom-design="${cal.design}">
+<body data-custom-year="${cal.year}" data-custom-type="${cal.type}" data-custom-design="${cal.design}"
+      data-custom-color-labels="${cal.colorLabels}" data-custom-color-dates="${cal.colorDates}">
 <header>
     <nav>
         <ul>
@@ -155,6 +156,18 @@
                     </form:label>
                     <form:errors path="design" />
                 </div>
+
+                <div id="wrapper-color" class="wrapper wrapper-color-text wrapper-color-text-update">
+                    <form:label path="colorLabels" for="colorLabels" cssClass="label label--calendar-option label--colorLabels">Barva popisků
+                        <form:input type="color" id="colorLabels" path="colorLabels" cssClass="input input--color" />
+                        <form:errors path="colorLabels" />
+                    </form:label>
+
+                    <form:label path="colorDates" for="colorDates" cssClass="label label--calendar-option label--colorDates">Barva data
+                        <form:input type="color" id="colorDates" path="colorDates" cssClass="input input--color" />
+                        <form:errors path="colorDates" />
+                    </form:label>
+                </div>
             </div>
             <div class="sidebox sidebox--upload-image">
                 <label for="file" class="label label--file">
@@ -256,6 +269,7 @@
             <a class="show-page-calendar">Jedna strana</a>
             <a class="type-of-calendar">Orientace</a>
             <a class="calendar-design">Design</a>
+            <a class="calendar-color-text">Barvy textu</a>
         </div>
     </div>
 </main>
