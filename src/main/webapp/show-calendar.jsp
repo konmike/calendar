@@ -25,7 +25,8 @@
     <%--    <link href="${contextPath}/resources/css/form.css" rel="stylesheet">--%>
 </head>
 <body data-custom-year="${cal.year}" data-custom-type="${cal.type}" data-custom-name="${cal.name}" data-custom-design="${cal.design}"
-      data-custom-color-labels="${cal.colorLabels}" data-custom-color-dates="${cal.colorDates}">
+      data-custom-color-labels="${cal.colorLabels}" data-custom-color-dates="${cal.colorDates}"
+      data-custom-color-background="${cal.backgroundColor}">
 <header>
     <nav>
         <ul>

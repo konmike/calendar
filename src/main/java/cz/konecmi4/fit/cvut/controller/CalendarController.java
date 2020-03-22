@@ -281,6 +281,9 @@ public class CalendarController {
         if(!c.getColorDates().equals(tmpC.getColorDates())){
             c.setColorDates(tmpC.getColorDates());
         }
+        if(!c.getBackgroundColor().equals(tmpC.getBackgroundColor())){
+            c.setBackgroundColor(tmpC.getBackgroundColor());
+        }
 
         calendarService.saveCalendar(c);
 

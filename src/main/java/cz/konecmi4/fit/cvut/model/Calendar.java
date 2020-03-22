@@ -34,6 +34,9 @@ public class Calendar {
     @NotNull
     private String colorDates;
 
+    @NotNull
+    private String backgroundColor;
+
     @OneToMany(cascade = CascadeType.ALL)
     @OrderBy("id")
     private Set<Image> images = new LinkedHashSet<>();
@@ -144,5 +147,13 @@ public class Calendar {
 
     public void setColorDates(String colorDates) {
         this.colorDates = colorDates;
+    }
+
+    public String getBackgroundColor() {
+        return backgroundColor;
+    }
+
+    public void setBackgroundColor(String backgroundColor) {
+        this.backgroundColor = backgroundColor;
     }
 }

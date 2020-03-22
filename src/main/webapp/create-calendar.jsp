@@ -83,7 +83,7 @@
                     <form:radiobutton path="type" value="1" id="type1" name="type" checked="checked" cssClass="radio radio--type"/>
                     <span>1</span>
                     <div class="wrapper wrapper--radio-img">
-                        <img src="${contextPath}/img/portrait-row.png" alt="Typ 1">
+                        <img src="${contextPath}/img/portrait-block.png" alt="Typ 1">
                     </div>
                 </form:label>
 
@@ -99,7 +99,7 @@
                     <form:radiobutton path="type" id="type3" value="3" name="type" cssClass="radio radio--type"/>
                     <span>3</span>
                     <div class="wrapper wrapper--radio-img">
-                        <img src="${contextPath}/img/landscape-row.png" alt="Typ 3">
+                        <img src="${contextPath}/img/landscape-block.png" alt="Typ 3">
                     </div>
                 </form:label>
 
@@ -115,6 +115,11 @@
 
             <div id="wrapper-design" class="wrapper wrapper--group-radio-create">
                 <span>Design</span>
+                <form:label path="design" for="design0" id="design" cssClass="label label--radio">
+                    <form:radiobutton path="design" id="design0" value="0" name="design" checked="true" cssClass="radio radio--design"/>
+                    <span>Vlastní</span>
+                </form:label>
+
                 <form:label path="design" for="design1" id="design" cssClass="label label--radio">
                     <form:radiobutton path="design" id="design1" value="1" name="design" cssClass="radio radio--design"/>
                     <span>1</span>
@@ -150,7 +155,7 @@
                 <form:errors path="design" />
             </div>
 
-            <div class="wrapper wrapper-color-text wrapper-color-text-create">
+            <div class="wrapper wrapper--color-text wrapper--color-text-create">
                 <form:label path="colorLabels" for="colorLabels" cssClass="label label--calendar-option label--colorLabels">Barva popisků
                     <form:input type="color" id="colorLabels" path="colorLabels" cssClass="input input--color" />
                     <form:errors path="colorLabels" />
@@ -160,10 +165,82 @@
                     <form:input type="color" id="colorDates" path="colorDates" cssClass="input input--color" />
                     <form:errors path="colorDates" />
                 </form:label>
+
+                <form:label path="backgroundColor" for="backgroundColor" cssClass="label label--calendar-option label--backgroundColor">Barva pozadí
+                    <form:input type="color" id="backgroundColor" path="backgroundColor" cssClass="input input--color" value="#FFFFFF" />
+                    <form:errors path="backgroundColor" />
+                </form:label>
             </div>
                 <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}" />
                 <input type="submit" class="input input--submit" value="Vytvořit" />
         </form:form>
+        <div class="sidebox sidebox--preview-create">
+            <div id="calendar-page-block" class="month item a4-portrait">
+                <div class="wrapper wrapper-image border"></div>
+                <div class="wrapper wrapper-dates">
+                    <h3>Leden</h3>
+                    <div class="labels">
+                        <span>PO</span>
+                        <span>ÚT</span>
+                        <span>ST</span>
+                        <span>ČT</span>
+                        <span>PÁ</span>
+                        <span>SO</span>
+                        <span>NE</span>
+                    </div>
+                    <div class="dates">
+                        <c:forEach begin="1" end="31" varStatus="date">
+                            <span>${date.index}</span>
+                        </c:forEach>
+                    </div>
+                </div>
+            </div>
+
+            <div id="calendar-page-row" class="month item a4-portrait">
+                <div class="wrapper wrapper-image border"></div>
+                <div class="wrapper wrapper-dates">
+                    <h3>Leden</h3>
+                    <div class="labels" style="grid-template-columns: repeat(31, 1fr);">
+                        <span>PO</span>
+                        <span>ÚT</span>
+                        <span>ST</span>
+                        <span>ČT</span>
+                        <span>PÁ</span>
+                        <span>SO</span>
+                        <span>NE</span>
+                        <span>PO</span>
+                        <span>ÚT</span>
+                        <span>ST</span>
+                        <span>ČT</span>
+                        <span>PÁ</span>
+                        <span>SO</span>
+                        <span>NE</span>
+                        <span>PO</span>
+                        <span>ÚT</span>
+                        <span>ST</span>
+                        <span>ČT</span>
+                        <span>PÁ</span>
+                        <span>SO</span>
+                        <span>NE</span>
+                        <span>PO</span>
+                        <span>ÚT</span>
+                        <span>ST</span>
+                        <span>ČT</span>
+                        <span>PÁ</span>
+                        <span>SO</span>
+                        <span>NE</span>
+                        <span>PO</span>
+                        <span>ÚT</span>
+                        <span>ST</span>
+                    </div>
+                    <div class="dates" style="grid-template-columns: repeat(31, 1fr);">
+                        <c:forEach begin="1" end="31" varStatus="date">
+                            <span>${date.index}</span>
+                        </c:forEach>
+                    </div>
+                </div>
+            </div>
+        </div>
     </div>
 </main>
 

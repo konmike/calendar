@@ -52,21 +52,37 @@
     $('#wrapper-type').change(function(){
         let t = parseInt($("input[name='type']:checked").val());
         console.log("Zmena na jiny typ " + t);
+        setCreatePreview(t);
         setCalendarType(t);
         setLabelDesign(t);
     });
 
+    function setCreatePreview(t){
+        let t1 = $("#calendar-page-block");
+        let t2 = $("#calendar-page-row");
+        if( (t === 1 || t === 3) ) {
+            t2.hide();
+            // t1.show();
+            t1.css("display", "grid").hide().fadeIn(1000);
+        }else{
+            t1.hide();
+            //t2.show();
+            t2.css("display", "grid").hide().fadeIn(1000);
+        }
+    }
+
     function setLabelDesign(t){
         if(t === 1 || t === 2) {
-            $("#wrapper-design .label--radio:nth-child(2)").show();
             $("#wrapper-design .label--radio:nth-child(3)").show();
-            $("#wrapper-design .label--radio:nth-child(4)").hide();
-            $("#wrapper-design .label--radio:nth-child(5)").hide();
-        }else{
-            $("#wrapper-design .label--radio:nth-child(2)").hide();
-            $("#wrapper-design .label--radio:nth-child(3)").hide();
             $("#wrapper-design .label--radio:nth-child(4)").show();
+            $("#wrapper-design .label--radio:nth-child(5)").hide();
+            $("#wrapper-design .label--radio:nth-child(6)").hide();
+        }else{
+
+            $("#wrapper-design .label--radio:nth-child(3)").hide();
+            $("#wrapper-design .label--radio:nth-child(4)").hide();
             $("#wrapper-design .label--radio:nth-child(5)").show();
+            $("#wrapper-design .label--radio:nth-child(6)").show();
         }
     }
     let wrapper_image = $(".wrapper-image");
@@ -79,12 +95,13 @@
     let design = parseInt(body.attr("data-custom-design"));
     let colorLabels = body.attr("data-custom-color-labels");
     let colorDates = body.attr("data-custom-color-dates");
+    let backgroundColor = body.attr("data-custom-color-background");
 
-    labels.attr("style", "color: " + colorLabels);
-    calendarTitle.attr("style", "color: " + colorLabels);
-    monthLabels.attr("style", "color: " + colorLabels);
-    dates.attr("style", "color: " + colorDates);
-
+    labels.css( "color", colorLabels);
+    calendarTitle.css( "color", colorLabels);
+    monthLabels.css( "color", colorDates);
+    dates.css( "color", colorDates);
+    $(".design0").css("background-color", backgroundColor);
     // $('.label--colorLabels').attr("style", "background-color: " + colorLabels);
     // $('.label--colorDates').attr("style", "background-color: " + colorDates);
 
@@ -92,29 +109,46 @@
     $('#colorLabels').change(function(){
         let t = $("input[name='colorLabels']").val();
         console.log("Zmena label color " + t);
-        labels.attr("style", "color: " + t);
-        calendarTitle.attr("style", "color: " + t);
-        monthLabels.attr("style", "color: " + t);
-        // this.parentNode.style.backgroundColor = t;
+        labels.css("color", t);
+        calendarTitle.css( "color", t);
+        monthLabels.css("color", t);
     });
-
     $('#colorDates').change(function(){
         let t = $("input[name='colorDates']").val();
         console.log("Zmena dates color " + t);
-        dates.attr("style", "color: " + t);
-        // this.parentNode.style.backgroundColor = t;
+        dates.css("color", t);
+    });
+    $('#backgroundColor').change(function(){
+        let t = $("input[name='backgroundColor']").val();
+        console.log("Zmena dates color " + t);
+        setCalendarDesign(0);
+        $(".design0").css("background-color", t);
     });
 
-    setCalendarType(type);
 
     if(isNaN(type)){
+        setCalendarType(1);
+    }else{
+        $("#wrapper-type input[value=" + type + "]").attr("checked","checked");
+        setCalendarType(type);
+    }
+
+    if(isNaN(design)){
         setLabelDesign(1);
     }else{
         setLabelDesign(type);
     }
-    item.addClass("design" + design);
-    $("#wrapper-type input[value=" + type + "]").attr("checked","checked");
-    $("#wrapper-design input[value=" + design + "]").attr("checked","checked");
+    if(isNaN(design)){
+        console.log("Design: " + design);
+        setCalendarDesign(0);
+    }else{
+        $("#wrapper-design input[value=" + design + "]").attr("checked","checked");
+        console.log("Design: " + design);
+        setCalendarDesign(type);
+    }
+    //item.addClass("design" + design);
+
+
 
     if($(".section--calendar-show-one").length !== 0){
         console.log("ano, toto je fakt tisk");
@@ -129,10 +163,29 @@
         let t = parseInt($("input[name='design']:checked").val());
         console.log("Zmena na jiny design " + t);
         setCalendarDesign(t);
+        setInputColors(t);
     });
 
+    function setInputColors(t){
+        let cL = $("#colorLabels");
+        let cD = $("#colorDates");
+        let bG = $("#backgroundColor");
+
+        
+
+        let pcL  = rgb2hex($(".design" + t + " .labels").css("color"));
+        let pcD  = rgb2hex($(".design" + t + " .dates").css("color"));
+        let pbG  = rgb2hex(item.css("background-color"));
+        console.log(pcL);
+        console.log(pcD);
+        console.log(pbG);
+        cL.attr("value", pcL);
+        cD.attr("value", pcD);
+        bG.attr("value", pbG);
+    }
     function setCalendarDesign(t){
         //let item = $(".item");
+        console.log("Design: " + t);
         item.removeClass (function (index, className) {
             return (className.match (/(^|\s)design\S+/g) || []).join("");
         });
@@ -299,5 +352,16 @@
     //     }
     // });
 
+
+    //https://stackoverflow.com/questions/1740700/how-to-get-hex-color-value-rather-than-rgb-value
+    function rgb2hex(rgb) {
+        if (/^#[0-9A-F]{6}$/i.test(rgb)) return rgb;
+
+        rgb = rgb.match(/^rgb\((\d+),\s*(\d+),\s*(\d+)\)$/);
+        function hex(x) {
+            return ("0" + parseInt(x).toString(16)).slice(-2);
+        }
+        return "#" + hex(rgb[1]) + hex(rgb[2]) + hex(rgb[3]);
+    }
 
 })( jQuery );
