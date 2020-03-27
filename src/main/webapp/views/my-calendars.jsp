@@ -19,25 +19,17 @@
     <meta charset="utf-8">
     <title>Mé kalendáře</title>
 
-    <link href="${contextPath}/resources/css/style.css" rel="stylesheet">
-    <link href="${contextPath}/resources/css/simple-lightbox.css" rel="stylesheet">
+    <link href="${contextPath}/css/index.css" rel="stylesheet">
+    <link href="${contextPath}/css/style.css" rel="stylesheet">
     <link href="https://use.fontawesome.com/releases/v5.0.8/css/all.css" rel="stylesheet">
-    <%--    <link href="${contextPath}/resources/css/form.css" rel="stylesheet">--%>
 </head>
 <body>
 <header>
-    <nav>
+    <nav id="main-menu">
         <ul>
-            <security:authorize access="hasRole('ROLE_ADMIN')">
-                <li>
-                    <a href="${contextPath}/admin/">Domů</a>
-                </li>
-            </security:authorize>
-            <security:authorize access="!hasRole('ROLE_ADMIN')">
-                <li>
-                    <a href="${contextPath}/">Domů</a>
-                </li>
-            </security:authorize>
+            <li>
+                <a href="${contextPath}/">Domů</a>
+            </li>
             <li>
                 <a href="${contextPath}/calendar/create">Nový kalendář</a>
             </li>
@@ -51,6 +43,7 @@
             </security:authorize>
         </ul>
     </nav>
+    <jsp:include page="parts/user-menu.jsp" />
 </header>
 
 <main>
@@ -80,29 +73,9 @@
     </div>
 </main>
 
-<footer>
-    <ul>
-        <li>
-            <span>Přihlášen jako ${pageContext.request.userPrincipal.name}</span>
-        </li>
-        <li>
-            <form:form id="logoutForm" method="POST" action="${contextPath}/logout">
-                <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}"/>
-                <input type="submit" value="Odhlásit se" />
-            </form:form>
-        </li>
-        <li>
-            <c:url var="updateLink" value="/user/update">
-                <c:param name="username" value="${pageContext.request.userPrincipal.name}" />
-            </c:url>
-            <a href="${updateLink}">Změnit heslo</a>
-        </li>
-    </ul>
-</footer>
-
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
-<script src="${contextPath}/resources/js/script.js"></script>
-<script src="${contextPath}/resources/js/simple-lightbox.jquery.js"></script>
+<script src="${contextPath}/js/script.js"></script>
+<script src="${contextPath}/js/menu.js"></script>
 
 </body>
 </html>

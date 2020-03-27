@@ -19,25 +19,18 @@
     <meta charset="utf-8">
     <title>Tvorba kalendáře</title>
 
-    <link href="${contextPath}/resources/css/style.css" rel="stylesheet">
+    <link href="${contextPath}/css/index.css" rel="stylesheet">
+    <link href="${contextPath}/css/style.css" rel="stylesheet">
     <link href="https://use.fontawesome.com/releases/v5.0.8/css/all.css" rel="stylesheet">
-<%--    <link href="${contextPath}/resources/css/form.css" rel="stylesheet">--%>
-
 </head>
 <body>
+<div class="se-pre-con"></div>
 <header>
-    <nav>
+    <nav id="main-menu">
         <ul>
-            <security:authorize access="hasRole('ROLE_ADMIN')">
-                <li>
-                    <a href="${contextPath}/admin/">Domů</a>
-                </li>
-            </security:authorize>
-            <security:authorize access="!hasRole('ROLE_ADMIN')">
-                <li>
-                    <a href="${contextPath}/">Domů</a>
-                </li>
-            </security:authorize>
+            <li>
+                <a href="${contextPath}/">Domů</a>
+            </li>
             <li>
                 <span class="active">Nový kalendář</span>
             </li>
@@ -51,6 +44,7 @@
             </security:authorize>
         </ul>
     </nav>
+    <jsp:include page="parts/user-menu.jsp" />
 </header>
 
 <main>
@@ -79,32 +73,32 @@
 
             <div id="wrapper-type" class="wrapper wrapper--group-radio-create">
                 <span>Typ</span>
-                <form:label path="type" for="type1" id="type" cssClass="label label--radio label--type">
-                    <form:radiobutton path="type" value="1" id="type1" name="type" checked="checked" cssClass="radio radio--type"/>
+                <form:label path="type" for="type1" id="type" cssClass="label label--radio label--radio-type">
+                    <form:radiobutton path="type" value="1" id="type1" name="type" checked="checked" cssClass="input input--radio input--radio-type"/>
                     <span>1</span>
                     <div class="wrapper wrapper--radio-img">
                         <img src="${contextPath}/img/portrait-block.png" alt="Typ 1">
                     </div>
                 </form:label>
 
-                <form:label path="type" for="type2" id="type" cssClass="label label--radio label--type">
-                    <form:radiobutton path="type" id="type2" value="2" name="type" cssClass="radio radio--type"/>
+                <form:label path="type" for="type2" id="type" cssClass="label label--radio label--radio-type">
+                    <form:radiobutton path="type" id="type2" value="2" name="type" cssClass="input input--radio input--radio-type"/>
                     <span>2</span>
                     <div class="wrapper wrapper--radio-img">
                         <img src="${contextPath}/img/portrait-row.png" alt="Typ 2">
                     </div>
                 </form:label>
 
-                <form:label path="type" for="type3" id="type" cssClass="label label--radio label--type">
-                    <form:radiobutton path="type" id="type3" value="3" name="type" cssClass="radio radio--type"/>
+                <form:label path="type" for="type3" id="type" cssClass="label label--radio label--radio-type">
+                    <form:radiobutton path="type" id="type3" value="3" name="type" cssClass="input input--radio input--radio-type"/>
                     <span>3</span>
                     <div class="wrapper wrapper--radio-img">
                         <img src="${contextPath}/img/landscape-block.png" alt="Typ 3">
                     </div>
                 </form:label>
 
-                <form:label path="type" for="type4" id="type" cssClass="label label--radio label--type">
-                    <form:radiobutton path="type" id="type4" value="4" name="type" cssClass="radio radio--type"/>
+                <form:label path="type" for="type4" id="type" cssClass="label label--radio label--radio-type">
+                    <form:radiobutton path="type" id="type4" value="4" name="type" cssClass="input input--radio input--radio-type"/>
                     <span>4</span>
                     <div class="wrapper wrapper--radio-img">
                         <img src="${contextPath}/img/landscape-row.png" alt="Typ 4">
@@ -115,37 +109,37 @@
 
             <div id="wrapper-design" class="wrapper wrapper--group-radio-create">
                 <span>Design</span>
-                <form:label path="design" for="design0" id="design" cssClass="label label--radio">
-                    <form:radiobutton path="design" id="design0" value="0" name="design" checked="true" cssClass="radio radio--design"/>
+                <form:label path="design" for="design0" id="design" cssClass="label label--radio label--radio-design">
+                    <form:radiobutton path="design" id="design0" value="0" name="design" cssClass="input input--radio input--radio-design"/>
                     <span>Vlastní</span>
                 </form:label>
 
-                <form:label path="design" for="design1" id="design" cssClass="label label--radio">
-                    <form:radiobutton path="design" id="design1" value="1" name="design" cssClass="radio radio--design"/>
+                <form:label path="design" for="design1" id="design" cssClass="label label--radio label--radio-design">
+                    <form:radiobutton path="design" id="design1" value="1" name="design" cssClass="input input--radio input--radio-design"/>
                     <span>1</span>
                     <div class="wrapper wrapper--radio-img">
                         <img src="${contextPath}/img/portrait-row.png" alt="Design 1">
                     </div>
                 </form:label>
 
-                <form:label path="design" for="design2" id="design" cssClass="label label--radio">
-                    <form:radiobutton path="design" id="design2" value="2" name="design" cssClass="radio radio--design"/>
+                <form:label path="design" for="design2" id="design" cssClass="label label--radio label--radio-design">
+                    <form:radiobutton path="design" id="design2" value="2" name="design" cssClass="input input--radio input--radio-design"/>
                     <span>2</span>
                     <div class="wrapper wrapper--radio-img">
                         <img src="${contextPath}/img/portrait-row.png" alt="Design 2">
                     </div>
                 </form:label>
 
-                <form:label path="design" for="design3" id="design" cssClass="label label--radio">
-                    <form:radiobutton path="design" id="design3" value="3" name="design" cssClass="radio radio--design"/>
+                <form:label path="design" for="design3" id="design" cssClass="label label--radio label--radio-design">
+                    <form:radiobutton path="design" id="design3" value="3" name="design" cssClass="input input--radio input--radio-design"/>
                     <span>3</span>
                     <div class="wrapper wrapper--radio-img">
                         <img src="${contextPath}/img/landscape-row.png" alt="Design 3">
                     </div>
                 </form:label>
 
-                <form:label path="design" for="design4" id="design" cssClass="label label--radio">
-                    <form:radiobutton path="design" id="design4" value="4" name="design" cssClass="radio radio--design"/>
+                <form:label path="design" for="design4" id="design" cssClass="label label--radio label--radio-design">
+                    <form:radiobutton path="design" id="design4" value="4" name="design" cssClass="input input--radio input--radio-design"/>
                     <span>4</span>
                     <div class="wrapper wrapper--radio-img">
                         <img src="${contextPath}/img/landscape-row.png" alt="Design 4">
@@ -175,9 +169,9 @@
                 <input type="submit" class="input input--submit" value="Vytvořit" />
         </form:form>
         <div class="sidebox sidebox--preview-create">
-            <div id="calendar-page-block" class="month item a4-portrait">
-                <div class="wrapper wrapper-image border"></div>
-                <div class="wrapper wrapper-dates">
+            <div id="calendar-date-block" class="month item a4-portrait">
+                <div class="wrapper wrapper--image border"></div>
+                <div class="wrapper wrapper--dates">
                     <h3>Leden</h3>
                     <div class="labels">
                         <span>PO</span>
@@ -196,9 +190,9 @@
                 </div>
             </div>
 
-            <div id="calendar-page-row" class="month item a4-portrait">
-                <div class="wrapper wrapper-image border"></div>
-                <div class="wrapper wrapper-dates">
+            <div id="calendar-date-row" class="month item a4-portrait">
+                <div class="wrapper wrapper--image border"></div>
+                <div class="wrapper wrapper--dates">
                     <h3>Leden</h3>
                     <div class="labels" style="grid-template-columns: repeat(31, 1fr);">
                         <span>PO</span>
@@ -244,29 +238,8 @@
     </div>
 </main>
 
-<footer>
-    <ul>
-        <li>
-            <span>Přihlášen jako ${pageContext.request.userPrincipal.name}</span>
-        </li>
-        <li>
-            <form:form id="logoutForm" method="POST" action="${contextPath}/logout">
-                <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}"/>
-                <input type="submit" value="Odhlásit se" />
-            </form:form>
-        </li>
-        <li>
-            <c:url var="updateLink" value="/user/update">
-                <c:param name="username" value="${pageContext.request.userPrincipal.name}" />
-            </c:url>
-            <a href="${updateLink}">Změnit heslo</a>
-        </li>
-    </ul>
-</footer>
-
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
-<script src="${contextPath}/resources/js/script.js"></script>
-
-
+<script src="${contextPath}/js/script.js"></script>
+<script src="${contextPath}/js/menu.js"></script>
 </body>
 </html>

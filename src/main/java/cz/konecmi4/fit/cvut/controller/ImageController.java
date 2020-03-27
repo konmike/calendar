@@ -51,7 +51,7 @@ public class ImageController {
         if(calId != null){
             Calendar calendar = calendarService.getCalendar(calId);
             model.addAttribute("cal", calendar);
-            return "create-calendar";
+            return "views/create-calendar";
         }
 
         /*User user = userRepository.findByUsername(principal.getName()).orElseThrow(() -> new Exception());
@@ -68,7 +68,7 @@ public class ImageController {
         model.addAttribute("cal", new Calendar());
 
 
-        return "create-calendar";
+        return "views/create-calendar";
     }
 
     @GetMapping("/files/{filename:.+}")

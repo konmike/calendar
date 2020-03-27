@@ -1,0 +1,422 @@
+form{
+  & .message{
+    color: red;
+    font-weight: 900;
+    margin: 1rem 0;
+  }
+  & .form--title{
+    margin: 0;
+    text-align: center;
+    text-transform: uppercase;
+    font-family: Verdana, Tahoma, serif;
+    font-size: 1.25rem;
+    font-weight: 900;
+    color: rgba(0, 68, 101,1);
+    padding-bottom: 1rem;
+  }
+}
+.form--login,.form--registration,.form--update, .form--calendar{
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: max-content;
+  padding: 1rem 2rem;
+}
+.form--update{
+  & .label--admin{
+    margin-bottom: 1rem;
+    & span{
+      color: rgba(0, 68, 101,1);
+      text-transform: uppercase;
+      cursor: pointer;
+    }
+  }
+}
+.form--search{
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  padding: 1rem 2rem;
+  & .input--text{
+    margin: 0 1rem 0 0;
+  }
+  & .input--submit{
+    margin: 0;
+  }
+  & .link--create-user{
+    margin: 0 0 0 1rem;
+    text-decoration: none;
+  }
+}
+.form--calendar-update {
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+  grid-template-rows: max-content;
+  width: 100%;
+  max-width: 100%;
+  height: calc(100vh - 64px);
+  & span[id="file.errors"] {
+    margin-top: 2rem;
+  }
+  & .input--checkbox{
+    display: none;
+  }
+  & .input--radio{
+    display: none;
+    &:checked + span{
+      outline: 1px solid rgba(255,215,0,1);
+      outline-offset: -2px;
+      box-shadow: 0 0 0 2pt rgba(255,215,0,1);
+    }
+  }
+  & .input--text,
+    .input--number{
+    margin: 0;
+  }
+  & .input--color{
+    /*visibility: hidden;*/
+    border: 0;
+    width: 3rem;
+    height: 2.5rem;
+    outline: none;
+  }
+  & .input--submit{
+    align-self: center;
+    grid-column: ~"2/4";
+    justify-self: center;
+    position: fixed;
+    bottom: 0;
+    right: 0;
+    margin: 0;
+    border-top: 0.1rem solid rgba(255,215,0,1);
+    border-left: 0.1rem solid rgba(255,215,0,1);
+    background: rgba(255,215,0,1);
+    border-radius: 0;
+    transition: all 0.3s;
+    &:hover{
+      border-top: 0.1rem solid rgba(0, 68, 101,1);
+      border-left: 0.1rem solid rgba(0, 68, 101,1);
+      background: white;
+    }
+  }
+  & .label--name,
+    .label--year,
+    .label--lang{
+    margin: 0 1rem 0 0;
+  }
+  & .label--radio{
+    position: relative;
+    cursor: pointer;
+    color: rgba(0, 68, 101,1);
+    grid-row: ~"2/4";
+    & span{
+      border: 0.1rem solid rgba(255,215,0,1);
+      border-radius: 0.5rem;
+    }
+
+  }
+  & .label--radio-type{
+    &:nth-child(2) span, &:nth-child(3) span{
+      padding: 0.5rem;
+      margin-right: 0.5rem;
+    }
+    &:nth-child(4) span{
+      margin-right: 0.5rem;
+    }
+    &:nth-child(4) span, &:last-child span{
+      padding: 0.5rem 1rem;
+    }
+  }
+  & .label--radio-design{
+    &:nth-child(2) span, &:nth-child(3) span, &:nth-child(4) span{
+      padding: 0.5rem;
+      margin-right: 0.5rem;
+    }
+    &:nth-child(5) span{
+      margin-right: 0.5rem;
+    }
+    &:nth-child(5) span, &:last-child span{
+      padding: 0.5rem 1rem;
+    }
+  }
+  & .label--calendar-option{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    color: rgba(0, 68, 101,1);
+    margin-right: 1rem;
+    &:last-child{
+      margin-right: 0;
+    }
+  }
+}
+.form--logout{
+  padding: 0;
+  & .input--submit{
+    text-transform: uppercase;
+    border: 0;
+    padding: 0;
+    margin: 0;
+    background: none;
+    font-family: Calibri,Arial,serif;
+    font-weight: 900;
+    font-size: inherit;
+    color: rgba(0, 68, 101,1);
+    cursor: pointer;
+    transition: all 0.3s;
+    &:hover{
+      color: rgba(167, 0, 0, 1);
+      background-color: transparent;
+    }
+  }
+}
+.form--upload-image {
+  & .input--submit{
+    margin-top: 1rem;
+  }
+}
+.form--calendar-create{
+  display: flex;
+  flex-direction: column;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: center;
+  justify-self: end;
+  padding: 1rem;
+  & .input--checkbox{
+    display: none;
+  }
+  & .input--text, .input--number{
+    margin: 0 0 0 1rem;
+  }
+  & .input--color{
+    margin-left: 0.5rem;
+    border: 0;
+    width: 3rem;
+    height: 2.5rem;
+    outline: none;
+  }
+  & .input--radio{
+    display: none;
+    &:checked + span{
+      outline: 1px solid rgba(255,215,0,1);
+      outline-offset: -2px;
+      box-shadow: 0 0 0 2pt rgba(255,215,0,1);
+    }
+  }
+  & .select--lang, .select--offset{
+    margin: 0 0 0 1rem;
+  }
+  & .label--name, .label--year, .label--lang, .label--offset{
+    margin: 0 0 1rem 0;
+  }
+  & .label--calendar-option{
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+    color: rgba(0, 68, 101,1);
+  }
+  & .label--radio{
+    position: relative;
+    cursor: pointer;
+    & span{
+      border: 0.1rem solid rgba(255,215,0,1);
+      border-radius: 0.5rem;
+    }
+  }
+  & .label--radio-type{
+    &:nth-child(2) span, &:nth-child(3) span{
+      padding: 0.5rem;
+      margin-right: 0.5rem;
+    }
+    &:nth-child(4) span{
+      margin-right: 0.5rem;
+    }
+    &:nth-child(4) span, &:last-child span{
+      padding: 0.5rem 1rem;
+    }
+  }
+  & .label--radio-design{
+    &:nth-child(2) span, &:nth-child(3) span, &:nth-child(4) span{
+      padding: 0.5rem;
+      margin-right: 0.5rem;
+    }
+    &:nth-child(5) span{
+      margin-right: 0.5rem;
+    }
+    &:nth-child(5) span, &:last-child span{
+      padding: 0.5rem 1rem;
+    }
+  }
+}
+.form-group{
+  display: flex;
+  flex-direction: column;
+  & span{
+    margin-bottom: 1rem;
+    color: red;
+    font-weight: 900;
+  }
+}
+
+span[id*=".errors"]{
+  color: red;
+  font-weight: 900;
+}
+.input::placeholder{
+  color: rgba(0, 68, 101,1);
+}
+.input--text:focus,
+.input--number:focus,
+.input--password:focus{
+  outline: 1px solid rgba(255,215,0,1);
+  outline-offset: -2px;
+  box-shadow: 0 0 0 2pt rgba(255,215,0,1);
+}
+.input--text,.input--number,.input--password{
+  border: 1px solid rgba(255,215,0,1);
+  border-radius: 0.5rem;
+  padding: 0.7rem;
+  margin-bottom: 1rem;
+  color: rgba(0, 68, 101,1);
+}
+.select {
+  display: block;
+  color: rgba(0, 68, 101,1);
+  padding: 0.7rem 1.4rem 0.7rem 0.7rem;
+  width: 100%;
+  max-width: 100%;
+  box-sizing: border-box;
+  margin: 0;
+  border: 1px solid rgba(255,215,0,1);
+  border-radius: 0.5rem;
+  -moz-appearance: none;
+  -webkit-appearance: none;
+  appearance: none;
+  background-color: #fff;
+  background-image: url('data:image/svg+xml;charset=US-ASCII,<svg%20xmlns%3D"http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg"%20width%3D"292.4"%20height%3D"292.4"><path%20fill%3D"%23007CB2"%20d%3D"M287%2069.4a17.6%2017.6%200%200%200-13-5.4H18.4c-5%200-9.3%201.8-12.9%205.4A17.6%2017.6%200%200%200%200%2082.2c0%205%201.8%209.3%205.4%2012.9l128%20127.9c3.6%203.6%207.8%205.4%2012.8%205.4s9.2-1.8%2012.8-5.4L287%2095c3.5-3.5%205.4-7.8%205.4-12.8%200-5-1.9-9.2-5.5-12.8z"%2F><%2Fsvg>');
+  background-repeat: no-repeat, repeat;
+  background-position: right 0.7rem top 50%, 0 0;
+  background-size: 0.65rem auto, 100%;
+  &::-ms-expand {
+    display: none;
+  }
+  &:focus {
+    outline: 1px solid rgba(255,215,0,1);
+    outline-offset: -2px;
+    box-shadow: 0 0 0 2px rgba(255,215,0,1);
+  }
+  & option {
+    font-weight:normal;
+    text-transform: uppercase;
+  }
+}
+.label--file{
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  cursor: pointer;
+  height: 2.5rem;
+}
+.input--file{
+  min-width: 14rem;
+  margin: 0;
+  filter: alpha(opacity=0);
+  opacity: 0;
+}
+.file--custom{
+  box-sizing: border-box;
+  position: absolute;
+  top: 0;
+  right: 0;
+  left: 0;
+  z-index: 5;
+  height: 2.5rem;
+  padding: .5rem 1rem;
+  line-height: 1.5;
+  color: rgba(0, 68, 101,1);
+  background-color: #fff;
+  border: 1px solid rgba(255,215,0,1);
+  border-radius: 0.5rem;
+  box-shadow: inset 0 0.2rem 0.4rem rgba(0,0,0,.05);
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+  &:after{
+    box-sizing: border-box;
+    content: "Načíst obrázky...";
+  }
+  &:before{
+    box-sizing: border-box;
+    position: absolute;
+    top: -0.075rem;
+    right: -0.075rem;
+    bottom: -0.075rem;
+    z-index: 6;
+    display: block;
+    content: "Vybrat";
+    height: 2.5rem;
+    padding: 0.5rem 1rem;
+    line-height: 1.5;
+    color: rgba(0, 68, 101,1);
+    font-weight: 900;
+    text-transform: uppercase;
+    background-color: transparent;
+    transition: all 0.3s;
+    border: 1px solid rgba(255,215,0,1);
+    border-radius: 0 0.5rem 0.5rem 0;
+  }
+  &:hover:before{
+    background-color: rgba(255,215,0,1);
+  }
+}
+.link--create-user,.input--submit{
+  background: transparent;
+  color: rgba(0, 68, 101,1);
+  border: 1px solid rgba(255,215,0,1);
+  border-radius: 0.5rem;
+  padding: 0.7rem;
+  margin-bottom: 1rem;
+  font-family: Calibri, Arial, serif;
+  font-size: inherit;
+  font-weight: 900;
+  text-transform: uppercase;
+  cursor: pointer;
+  transition: all 0.3s;
+}
+.link--create-user:hover,.link--create-user:focus,
+.input--submit:hover,.input--submit:focus{
+  background: rgba(255,215,0,1);
+}
+.label--item-1, .label--item-2, .label--item-3,
+.label--item-4, .label--item-5, .label--item-6,
+.label--item-7, .label--item-8, .label--item-9,
+.label--item-10, .label--item-11, .label--item-12{
+  display: none;
+}
+fieldset {
+  padding: 1rem;
+  border: none;
+  & label {
+    display: inline-block;
+    padding-right: 0.25rem;
+    margin-bottom: 0.5rem;
+    text-transform: uppercase;
+    letter-spacing: 0.6px;
+    text-align: right;
+    font-weight: 700;
+    font-size: 12px;
+    width: 100px;
+  }
+  & input, select{
+    padding: 0.25rem;
+    width: 100px;
+  }
+  & input {
+    text-align: center;
+    width: 65px;
+  }
+}

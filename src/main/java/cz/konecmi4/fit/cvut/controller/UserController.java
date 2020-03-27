@@ -8,7 +8,6 @@ import cz.konecmi4.fit.cvut.service.UserService;
 
 import cz.konecmi4.fit.cvut.validator.NewPasswordValidator;
 import cz.konecmi4.fit.cvut.validator.OldPasswordValidator;
-import cz.konecmi4.fit.cvut.validator.UpdateUserValidator;
 import cz.konecmi4.fit.cvut.validator.UserValidator;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -41,27 +40,7 @@ public class UserController {
     }
 
     @GetMapping("/users/list")
-    public String listUsers(Model model) {
-        List<User> users = userService.getUsers();
-        model.addAttribute("users", users);
-        return "admin/welcome";
-    }
-
-    @GetMapping("/user/update")
-    public String showFormForUpdate(@RequestParam("username") String username,
-                                    Model model,
-                                    Principal principal) {
-        //User theUser = userService.getUser(theId);
-        User user;
-        try {
-            user = userService.findByUsername(username).orElseThrow(Exception::new);
-        }catch (Exception e){
-            return "redirect:/welcome";
-        }
-
-        System.out.println("Uzivatel prihlaseny: " + principal.getName());
-        System.out.println("Uzivatel aktualizovany: " + user.getUsername());
-
+    public String listUsers(Model model, Principal principal) {
         Optional<User> tmp_admin = userService.findByUsername(principal.getName());
         if(tmp_admin.isPresent()){
             System.out.println("Everything OK");
@@ -70,18 +49,50 @@ public class UserController {
             return "redirect:/welcome";
         }
 
-        if(!user.getUsername().equals(principal.getName()) && !(tmp_admin.get().getAdmin())){
+        List<User> users = userService.getUsers();
+
+        model.addAttribute("users", users);
+        model.addAttribute("user", tmp_admin);
+        return "views/admin/homepage";
+    }
+
+    @GetMapping("/user/update")
+    public String showFormForUpdate(@RequestParam("id") Long id,
+                                    Model model,
+                                    Principal principal) {
+        User editUser = userService.getUser(id);
+        Optional<User> loginUser = userService.findByUsername(principal.getName());
+        if(loginUser.isPresent()){
+            System.out.println("Everything OK");
+        }else{
+            System.out.println("Mas problem, bracho.");
+            return "redirect:/welcome";
+        }
+//        User user;
+//        try {
+//            user = userService.findByUsername(username).orElseThrow(Exception::new);
+//        }catch (Exception e){
+//            return "redirect:/welcome";
+//        }
+
+        System.out.println("Uzivatel prihlaseny: " + principal.getName());
+        System.out.println("Uzivatel aktualizovany: " + editUser.getUsername());
+
+
+
+        if(!editUser.getUsername().equals(principal.getName()) && !(loginUser.get().getAdmin())){
             System.out.println("Lezes kam nemas!");
             return "redirect:/welcome";
         }
 
-        model.addAttribute("user", user);
-        return "update-user";
+        model.addAttribute("user", loginUser);
+        model.addAttribute("updateUser", editUser);
+        return "views/update-user";
     }
 
 
     @PostMapping("/updateUser")
-    public String updateUser(@ModelAttribute("user") User tmpUser,
+    public String updateUser(@ModelAttribute("updateUser") User tmpUser,
                              Principal principal,
                              BindingResult bindingResult) throws Exception {
 
@@ -118,7 +129,7 @@ public class UserController {
         if (bindingResult.hasErrors()) {
             System.out.println("Chyba validace!");
             System.out.println(bindingResult.getAllErrors());
-            return "update-user";
+            return "views/update-user";
         }
 //
 //
@@ -158,7 +169,7 @@ public class UserController {
     @GetMapping("/registration")
     public String registration(Model model) {
         model.addAttribute("user", new User());
-        return "registration";
+        return "views/registration";
     }
 
     @PostMapping("/registration")
@@ -171,7 +182,7 @@ public class UserController {
         userValidator.validate(user, bindingResult);
 
         if (bindingResult.hasErrors()) {
-            return "registration";
+            return "views/registration";
         }
 
         userService.createUser(user);
@@ -188,11 +199,11 @@ public class UserController {
         if (logout != null)
             model.addAttribute("message", "Byli jste úspěšně odhlášeni.");
 
-        return "login";
+        return "views/login";
     }
 
     @GetMapping({"/", "/welcome"})
-    public String welcome(Principal principal) throws Exception {
+    public String welcome(Model model, Principal principal) throws Exception {
         Optional<User> user = userService.getUserByName(principal.getName());
         if(user.isPresent()){
             System.out.println("Everything OK");
@@ -202,30 +213,49 @@ public class UserController {
         }
         for (Role role : user.get().getRoles()){
             if(role.getName().equals("ROLE_ADMIN")){
-                return "redirect:/admin/";
+                return "redirect:/admin";
             }
         }
 
-        return "welcome";
+        model.addAttribute("user", user);
+        return "views/homepage";
     }
 
 
     @GetMapping("/admin")
-    public String adminHome(Model model, @RequestParam(defaultValue = "") String name)
+    public String adminHome(Model model, Principal principal)
     {
-        model.addAttribute("users", userService.getUser(name));
-        return "admin/welcome";
+        Optional<User> user = userService.getUserByName(principal.getName());
+        if(user.isPresent()){
+            System.out.println("Everything OK");
+        }else{
+            System.out.println("Asi ses odhlasil");
+            return "redirect:/";
+        }
+
+        model.addAttribute("users", userService.getUsers());
+        model.addAttribute("user", user);
+        return "views/admin/homepage";
     }
 
     @GetMapping("/admin/create-user")
-    public String adminCreateUser(Model model)
+    public String adminCreateUser(Model model, Principal principal)
     {
-        model.addAttribute("user", new User());
-        return "admin/create-user";
+        Optional<User> user = userService.getUserByName(principal.getName());
+        if(user.isPresent()){
+            System.out.println("Everything OK");
+        }else{
+            System.out.println("Asi ses odhlasil");
+            return "redirect:/";
+        }
+
+        model.addAttribute("newUser", new User());
+        model.addAttribute("user", user);
+        return "views/admin/create-user";
     }
 
     @PostMapping("/admin/create-user")
-    public String adminCreateUserSave(@ModelAttribute("user") User user, BindingResult bindingResult)
+    public String adminCreateUserSave(@ModelAttribute("newUser") User user, BindingResult bindingResult)
     {
         userValidator.validate(user, bindingResult);
 
@@ -239,7 +269,7 @@ public class UserController {
     }
 
     @GetMapping("/admin/list-calendars")
-    public String showAllGallery(Model model, Principal principal)
+    public String showAllCalendars(Model model, Principal principal)
     {
         Optional<User> tmpUser = userService.getUserByName(principal.getName());
         if(tmpUser.isPresent()){
@@ -272,8 +302,9 @@ public class UserController {
 
 
         model.addAttribute("users", users);
+        model.addAttribute("user", tmpUser);
         model.addAttribute("frontPages", frontPages);
-        return "admin/list-users-calendars";
+        return "views/admin/list-users-calendars";
     }
 
 }

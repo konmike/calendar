@@ -1,0 +1,24 @@
+.border{
+  border: 0.1rem dashed rgba(0, 68, 101,1);
+  opacity: 0.8;
+  background: rgba(255,255,255,1);
+}
+.border-hover{
+  border: 0.1rem solid rgba(0, 68, 101,1);
+  background: rgba(0,0,0,0.1);
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+.border-hover:after{
+  content: "\f055";
+  font-family: "Font Awesome 5 Free", Pacifico, Arial, serif;
+  font-weight: 900;
+  font-size: 5rem;
+  color: black;
+}
+.border-no{
+  border: none;
+}

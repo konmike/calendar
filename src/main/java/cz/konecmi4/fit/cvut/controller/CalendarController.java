@@ -54,7 +54,15 @@ public class CalendarController {
     }
 
     @GetMapping()
-    public String getCalendar(@RequestParam("calId") Long calId, Model model) {
+    public String getCalendar(@RequestParam("calId") Long calId, Model model, Principal principal) {
+        Optional<User> user = userService.getUserByName(principal.getName());
+        if(user.isPresent()){
+            System.out.println("Everything OK");
+        }else{
+            System.out.println("Asi ses odhlasil");
+            return "redirect:/";
+        }
+
         Calendar calendar = calendarService.getCalendar(calId);
 
         System.out.println("Uploadnute obrazky: ");
@@ -66,13 +74,23 @@ public class CalendarController {
         //System.out.println(tmp);
 
         model.addAttribute("cal",calendar);
-        return "/show-calendar";
+        model.addAttribute("user", user);
+        return "views/show-calendar";
     }
 
     @GetMapping("/create")
-    public String getCreateCalendar(Model model){
+    public String getCreateCalendar(Model model, Principal principal){
+        Optional<User> user = userService.getUserByName(principal.getName());
+        if(user.isPresent()){
+            System.out.println("Everything OK");
+        }else{
+            System.out.println("Asi ses odhlasil");
+            return "redirect:/";
+        }
+
         model.addAttribute("cal", new Calendar());
-        return "create-calendar";
+        model.addAttribute("user", user);
+        return "views/create-calendar";
     }
 
     @PostMapping("/create")
@@ -93,7 +111,7 @@ public class CalendarController {
         if (bindingResult.hasErrors()) {
             System.out.println("Chyba validace!");
             System.out.println(bindingResult.getAllErrors());
-            return "create-calendar";
+            return "views/create-calendar";
         }
 
         Optional <User> user = userService.getUserByName(principal.getName());
@@ -147,25 +165,31 @@ public class CalendarController {
 
         System.out.println("Vsechny uvodky " + frontPages);
 
-        model.addAttribute("calendars",calendars);
-        model.addAttribute("frontPages",frontPages);
+        model.addAttribute("calendars", calendars);
+        model.addAttribute("frontPages", frontPages);
+        model.addAttribute("user", user);
 
-        return "/my-calendars";
+        return "views/my-calendars";
     }
 
     @RequestMapping("/update")
-    public String updateCalendar(@RequestParam("calId") Long calId, Model model) {
+    public String updateCalendar(@RequestParam("calId") Long calId, Model model, Principal principal) {
+        Optional<User> user = userService.getUserByName(principal.getName());
+        if(user.isPresent()){
+            System.out.println("Everything ok");
+        }else {
+            return "redirect:/";
+        }
+
         Calendar c = calendarService.getCalendar(calId);
 
         System.out.println("Update images: " + c.getImages());
         System.out.println("Select images: " + c.getSelImage());
 
-
-
         model.addAttribute("cal", c);
+        model.addAttribute("user", user);
 
-
-        return "/update-calendar";
+        return "views/update-calendar";
     }
 
     @PostMapping("/update")

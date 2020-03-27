@@ -1,0 +1,45 @@
+.section{
+
+}
+
+/* CALENDAR UPDATE PAGE */
+.section--calendar-update{
+  width: 100%;
+  max-width: 100%;
+  height: calc(100vh - 64px);
+  //display: flex;
+  //justify-content: center;
+  //align-items: center;
+  //flex-direction: column;
+}
+
+/* CALENDAR CREATE PAGE */
+.section--calendar-create{
+  width: 100%;
+  max-width: 100%;
+  margin-top: 1rem;
+  display: grid;
+  grid-template-columns: repeat(2,1fr);
+  align-items: start;
+  //height: 31.680em;
+  height: calc(100vh - 64px - 1rem);
+}
+
+/* CALENDAR SHOW ONE */
+.section--calendar-show-one{
+  margin: 0 4rem;
+
+  & #calendar{
+    flex-direction: row;
+  }
+
+  & .wrapper-image:after img{
+    opacity: 1;
+  }
+}
+.section--login, .section--registration, .section--user-create, .section--user-update{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+}

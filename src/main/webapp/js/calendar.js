@@ -60,12 +60,12 @@ function generateStructureAndFill (lspan_length, dspan_length, firstDay, item, m
 
     let labels = $('#calendar .label--item:nth-child(' + item + ') .month .labels');
     let dates = $('#calendar .label--item:nth-child(' + item + ') .month .dates');
-    let wrapper_dates = $('#calendar .label--item:nth-child(' + item + ') .month .wrapper-dates');
+    let wrapper_dates = $('#calendar .label--item:nth-child(' + item + ') .month .wrapper--dates');
 
     if(labels === null){
         labels = $('#calendar .month:nth-child(' + item + ') .labels');
         dates = $('#calendar .month:nth-child(' + item + ') .dates');
-        wrapper_dates = $('#calendar .month:nth-child(' + item + ') .wrapper-dates');
+        wrapper_dates = $('#calendar .month:nth-child(' + item + ') .wrapper--dates');
     }
 
     if(type === 2 || type === 4){
@@ -131,7 +131,7 @@ function update(settings) {
     //const offset = settings.offset;
     const type = parseInt(settings.type);
 
-    let wrapper_dates = document.getElementsByClassName("wrapper-dates");
+    let wrapper_dates = document.getElementsByClassName("wrapper--dates");
     let labels = document.getElementsByClassName("labels");
     let dates = document.getElementsByClassName("dates");
     for (let i = 0; i < labels.length; i++) {

@@ -1,4 +1,9 @@
 (function($) {
+    $(document).ready(function() {
+        // Animate loader off screen
+        $(".se-pre-con").fadeOut("slow");
+    });
+
     let body = $("body");
     let file = $("#file");
     file.attr("value","");
@@ -29,8 +34,8 @@
         //console.log(divs.length, now);
     });
     
-    $('.show-full-calendar').click(function (e) {
-        for (var i = 2; i < 15; i++){
+    $('.link--show-full-calendar').click(function (e) {
+        for (var i = 2; i < 14; i++){
             console.log($('.label--item:nth-child('+i+')'));
             $('.label--item:nth-child('+i+')').show();
         }
@@ -39,8 +44,8 @@
         $('#prev').hide();
     });
 
-    $('.show-page-calendar').click(function (e) {
-        for (var i = 2; i < 15; i++){
+    $('.link--show-page-calendar').click(function (e) {
+        for (var i = 2; i < 14; i++){
             console.log($('.label--item:nth-child('+i+')'));
             $('.label--item:nth-child('+i+')').hide();
         }
@@ -58,8 +63,8 @@
     });
 
     function setCreatePreview(t){
-        let t1 = $("#calendar-page-block");
-        let t2 = $("#calendar-page-row");
+        let t1 = $("#calendar-date-block");
+        let t2 = $("#calendar-date-row");
         if( (t === 1 || t === 3) ) {
             t2.hide();
             // t1.show();
@@ -85,8 +90,8 @@
             $("#wrapper-design .label--radio:nth-child(6)").show();
         }
     }
-    let wrapper_image = $(".wrapper-image");
-    let monthLabels = $(".wrapper-dates h3");
+    let wrapper_image = $(".wrapper--image");
+    let monthLabels = $(".wrapper--dates h3");
     let labels = $(".labels");
     let calendarTitle = $(".calendar-title");
     let dates = $(".dates");
@@ -97,11 +102,13 @@
     let colorDates = body.attr("data-custom-color-dates");
     let backgroundColor = body.attr("data-custom-color-background");
 
-    labels.css( "color", colorLabels);
-    calendarTitle.css( "color", colorLabels);
-    monthLabels.css( "color", colorDates);
-    dates.css( "color", colorDates);
-    $(".design0").css("background-color", backgroundColor);
+    if(design === 0){
+        labels.css( "color", colorLabels);
+        calendarTitle.css( "color", colorLabels);
+        monthLabels.css( "color", colorDates);
+        dates.css( "color", colorDates);
+        $(".design0").css("background-color", backgroundColor);
+    }
     // $('.label--colorLabels').attr("style", "background-color: " + colorLabels);
     // $('.label--colorDates').attr("style", "background-color: " + colorDates);
 
@@ -121,7 +128,6 @@
     $('#backgroundColor').change(function(){
         let t = $("input[name='backgroundColor']").val();
         console.log("Zmena dates color " + t);
-        setCalendarDesign(0);
         $(".design0").css("background-color", t);
     });
 
@@ -144,7 +150,7 @@
     }else{
         $("#wrapper-design input[value=" + design + "]").attr("checked","checked");
         console.log("Design: " + design);
-        setCalendarDesign(type);
+        setCalendarDesign(design);
     }
     //item.addClass("design" + design);
 
@@ -163,15 +169,31 @@
         let t = parseInt($("input[name='design']:checked").val());
         console.log("Zmena na jiny design " + t);
         setCalendarDesign(t);
-        setInputColors(t);
+        if(t === 0){
+            console.log("Zobraz custom ladeni");
+            if($(".wrapper--group-radio-update").is(":visible")){
+                $(this).hide();
+            }
+            $(".wrapper--color-text").css("display", "grid").hide().fadeIn(1000);
+
+        }else{
+            console.log("Skryj custom ladeni");
+            $(".wrapper--color-text").hide();
+            delFixColorStyle();
+        }
     });
 
+    function delFixColorStyle() {
+        labels.css("color", "");
+        dates.css("color", "");
+        monthLabels.css("color", "");
+        calendarTitle.css("color", "");
+        item.css("background-color", "");
+    }
     function setInputColors(t){
         let cL = $("#colorLabels");
         let cD = $("#colorDates");
         let bG = $("#backgroundColor");
-
-        
 
         let pcL  = rgb2hex($(".design" + t + " .labels").css("color"));
         let pcD  = rgb2hex($(".design" + t + " .dates").css("color"));
@@ -192,7 +214,7 @@
         item.addClass("design" + t);
     }
 
-    $(".type-of-calendar").click(function(){
+    $(".link--type-of-calendar").click(function(){
         let type = $("#wrapper-type");
         let design = $("#wrapper-design");
         let colorText = $("#wrapper-color");
@@ -206,7 +228,7 @@
         else
             type.fadeOut(1000);
     });
-    $(".calendar-design").click(function(){
+    $(".link--calendar-design").click(function(){
         let type = $("#wrapper-type");
         let design = $("#wrapper-design");
         let colorText = $("#wrapper-color");
@@ -221,7 +243,7 @@
             design.fadeOut(1000);
     });
 
-    $(".calendar-color-text").click(function(){
+    $(".link--calendar-color").click(function(){
         let type = $("#wrapper-type");
         let design = $("#wrapper-design");
         let colorText = $("#wrapper-color");
@@ -363,5 +385,7 @@
         }
         return "#" + hex(rgb[1]) + hex(rgb[2]) + hex(rgb[3]);
     }
+
+
 
 })( jQuery );

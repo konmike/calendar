@@ -18,14 +18,15 @@
     <meta charset="utf-8">
     <title>Přihlašovací formulář</title>
 
-    <link href="${contextPath}/resources/css/style.css" rel="stylesheet">
-<%--    <link href="${contextPath}/resources/css/form.css" rel="stylesheet">--%>
+    <link href="${contextPath}/css/index.css" rel="stylesheet">
+    <link href="${contextPath}/css/style.css" rel="stylesheet">
 </head>
 
 
 <body>
 <main>
-    <form:form method="POST" action="${contextPath}/login" class="form form--login">
+    <div class="section section--login">
+        <form:form method="POST" action="${contextPath}/login" class="form form--login">
             <span class="form--title">Přihlašovací formulář</span>
             <span class="message">${message}</span>
             <label for="username">
@@ -41,7 +42,8 @@
             <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}"/>
 
             <input type="submit" value="Přihlásit se" class="input input--submit" />
-    </form:form>
+        </form:form>
+    </div>
 </main>
 
 <footer>

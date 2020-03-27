@@ -16,25 +16,19 @@
 <html lang="cs">
 <head>
     <meta charset="utf-8">
-    <title>Admin - edit galerií</title>
+    <title>ADMIN Kalendáře všech uživatelů</title>
 
-    <link href="${contextPath}/resources/css/style.css" rel="stylesheet">
-<%--    <link href="${contextPath}/resources/css/form.css" rel="stylesheet">--%>
+    <link href="${contextPath}/css/style.css" rel="stylesheet">
+    <link href="${contextPath}/css/index.css" rel="stylesheet">
+    <link href="https://use.fontawesome.com/releases/v5.0.8/css/all.css" rel="stylesheet">
 </head>
 <body>
 <header>
-    <nav>
+    <nav id="main-menu">
         <ul>
-            <security:authorize access="hasRole('ROLE_ADMIN')">
-                <li>
-                    <a href="${contextPath}/admin/">Domů</a>
-                </li>
-            </security:authorize>
-            <security:authorize access="!hasRole('ROLE_ADMIN')">
-                <li>
-                    <a href="${contextPath}/">Domů</a>
-                </li>
-            </security:authorize>
+            <li>
+                <a href="${contextPath}/">Domů</a>
+            </li>
             <li>
                 <a href="${contextPath}/calendar/create">Nový kalendář</a>
             </li>
@@ -48,15 +42,16 @@
             </security:authorize>
         </ul>
     </nav>
+    <jsp:include page="../parts/user-menu.jsp" />
 </header>
 
 <main>
-    <c:forEach var="user" items="${users}">
-        <c:if test="${not empty user.calendars}">
-            <h3>${user.username} calendars</h3>
+    <c:forEach var="databaseUser" items="${users}">
+        <c:if test="${not empty databaseUser.calendars}">
+            <h3>${databaseUser.username} calendars</h3>
             <div class="section section--calendar-show-all">
-                <ul th:each="calendar : ${user.calendars}" class="list list--my-calendars">
-                    <c:forEach varStatus="item" items="${user.calendars}" var="calendar">
+                <ul th:each="calendar : ${databaseUser.calendars}" class="list list--my-calendars">
+                    <c:forEach varStatus="item" items="${databaseUser.calendars}" var="calendar">
                         <li class="list--item">
                             <c:choose>
                                 <c:when test="${frontPages.get(item.index).contains('null')}">
@@ -80,28 +75,7 @@
     </c:forEach>
 </main>
 
-<footer>
-    <ul>
-        <li>
-            <span>Přihlášen jako ${pageContext.request.userPrincipal.name}</span>
-        </li>
-        <li>
-            <form:form id="logoutForm" method="POST" action="${contextPath}/logout">
-                <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}"/>
-                <input type="submit" value="Odhlásit se" />
-            </form:form>
-        </li>
-        <li>
-            <c:url var="updateLink" value="/user/update">
-                <c:param name="username" value="${pageContext.request.userPrincipal.name}" />
-            </c:url>
-            <a href="${updateLink}">Změnit heslo</a>
-        </li>
-    </ul>
-</footer>
-
-
-
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>
+<script src="../../js/menu.js"></script>
 </body>
 </html>

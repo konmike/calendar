@@ -1,0 +1,188 @@
+#calendar {
+  /*width: 500px;*/
+  margin: 0;
+  display: flex;
+  flex-direction: column;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: center;
+}
+/* CALENDAR PORTRAIT FULL DATE IN BLOCK */
+.a4-portrait{
+  width: 19.656em;
+  height: 27.680em;
+  display: grid;
+  grid-template-rows: 1fr 1fr 1fr;
+  align-items: center;
+  & .wrapper-image-top-date-block{
+    height: initial;
+    min-height: 13.840em;
+    max-height: 13.840em;
+    /* width: inherit; */
+    min-width: 19.656em;
+    max-width: 19.656em;
+    grid-row: ~"1/4";
+    margin: 0 0 1rem 0;
+  }
+  & .wrapper-image-top-date-row{
+    height: initial;
+    min-height: 22.840em;
+    max-height: 22.840em;
+    /* width: inherit; */
+    min-width: 19.656em;
+    max-width: 19.656em;
+    grid-row: ~"1/4";
+    margin: 0 0 1rem 0;
+  }
+  &.item--0 .wrapper-image-top-date-block,
+   .item--0 .wrapper-image-top-date-row{
+    min-height: 24.680em;
+    max-height: 24.680em;
+    margin: 0;
+  }
+}
+
+/* CALENDAR LANDSCAPE IMAGE LEFT DATE RIGHT */
+.landscape{
+  width: 27.680em;
+  height: 19.656em;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  grid-template-rows: 1fr 1fr;
+  & .labels{
+    align-self: end;
+  }
+  & .dates{
+    align-self: start;
+  }
+  &.item--0 .calendar-title{
+    grid-column: ~"1/3";
+  }
+  & .wrapper-image-left-date-block{
+    grid-row: ~"1/3";
+    min-width: 13.840em;
+    max-width: 13.840em;
+    min-height: 19.656em;
+    max-height: 19.656em;
+    margin: 0 1rem 0 0;
+  }
+  & .wrapper-image-top-date-row{
+    grid-column: ~"1/3";
+    min-width: 27.680em;
+    max-width: 27.680em;
+    min-height: 15.656em;
+    max-height: 15.656em;
+    margin-bottom: 1rem;
+  }
+  &.item--0 .wrapper-image-left-date-block,
+   .item--0 .wrapper-image-top-date-row{
+    min-width: 27.680em;
+    max-width: 27.680em;
+    min-height: 16.656em;
+    max-height: 16.656em;
+    margin: 0;
+    grid-column: ~"1/3";
+  }
+}
+
+.wrapper-image-top-date-row + .wrapper--dates{
+  grid-column: ~"1/3";
+  display: grid;
+}
+.wrapper-image-left-date-block + .wrapper--dates{
+  grid-column: ~"2/3";
+  grid-row: ~"1/3";
+  display: grid;
+}
+.wrapper-image-top-date-block + .wrapper--dates .labels{
+  align-self: center;
+}
+.wrapper-image-top-date-block + .wrapper--dates .dates{
+  align-self: center;
+}
+.wrapper-image-top-date-row + .wrapper--dates .labels{
+  align-self: end;
+  font-size: 6px;
+}
+.wrapper-image-top-date-row + .wrapper--dates .labels + .dates{
+  align-self: end;
+  font-size: 6px;
+}
+.month .labels, .month .dates {
+  text-align: center;
+  /*grid-gap: 4px;*/
+}
+.dates-grid-block{
+  display: grid;
+  grid-template-columns: repeat(7, 1fr);
+  grid-template-rows: 1fr 1fr;
+  align-items: end;
+}
+.labels-grid-block{
+  display: grid;
+  grid-template-columns: repeat(7, 1fr);
+}
+.labels-grid-row, .dates-grid-row{
+  display: grid;
+  grid-template-columns: repeat(42, 1fr);
+  /*grid-template-rows: 1fr 1fr;*/
+}
+.wrapper--dates h3{
+  margin: 0 0 0.5rem 0;
+  text-align: center;
+  text-transform: uppercase;
+}
+.dates-grid-block span {
+  /*height: 50px;
+  font-size: 16px;
+  border: 1px solid #e6e4e4;
+  padding-right: 4px;
+  letter-spacing: -1px;*/
+  font-weight: 900;
+  height: 20px;
+}
+.dates-grid-row span{
+  font-weight: 900;
+  height: 20px;
+}
+.labels-grid-block span {
+  font-weight: 300;
+  text-align: center;
+  margin-bottom: 0.5rem;
+}
+.labels-grid-row span{
+  font-weight: 300;
+  text-align: center;
+  margin-bottom: 0.5rem;
+}
+.item{
+  display: grid;
+  grid-template-rows: 1fr 1fr 1fr;
+  align-items: center;
+  /*margin-bottom: 1rem;*/
+  padding: 1rem;
+  margin-bottom: 1rem;
+  /*border: 0.1rem dashed rgba(0, 68, 101,1);*/
+  box-shadow: 0 0 0 1px rgba(0, 0, 0, 0.1), 0 5px 5px 0 rgba(0, 0, 0, 0.1);
+}
+.item--without-image{
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+}
+.calendar-title{
+  text-transform: uppercase;
+  font-weight: 900;
+  text-align: center;
+  font-size: 1.5rem;
+  margin-top: 1rem;
+}
+.fa-file-image{
+  opacity: 0.6;
+  font-size: 8rem;
+}
+
+/* CALENDAR CREATE PAGE */
+#calendar-date-row{
+  display: none;
+}
