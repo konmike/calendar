@@ -35,9 +35,9 @@
     });
     
     $('.link--show-full-calendar').click(function (e) {
-        for (var i = 2; i < 14; i++){
-            console.log($('.label--item:nth-child('+i+')'));
-            $('.label--item:nth-child('+i+')').show();
+        for (var i = 1; i < 14; i++){
+            console.log($('#calendar .label--item:nth-child('+i+')'));
+            $('#calendar .label--item:nth-child('+i+')').show();
         }
 
         $('#next').hide();
@@ -45,11 +45,13 @@
     });
 
     $('.link--show-page-calendar').click(function (e) {
-        for (var i = 2; i < 14; i++){
-            console.log($('.label--item:nth-child('+i+')'));
-            $('.label--item:nth-child('+i+')').hide();
+        for (var i = 1; i < 14; i++){
+            console.log($('#calendar .label--item:nth-child('+i+')'));
+            $('#calendar .label--item:nth-child('+i+')').hide();
         }
 
+        $('#calendar .label--item-0').show();
+        now = 0;
         $('#next').show();
         $('#prev').show();
     });
@@ -105,9 +107,9 @@
     if(design === 0){
         labels.css( "color", colorLabels);
         calendarTitle.css( "color", colorLabels);
-        monthLabels.css( "color", colorDates);
+        monthLabels.css( "color", colorLabels);
         dates.css( "color", colorDates);
-        $(".design0").css("background-color", backgroundColor);
+        item.css("background-color", backgroundColor);
     }
     // $('.label--colorLabels').attr("style", "background-color: " + colorLabels);
     // $('.label--colorDates').attr("style", "background-color: " + colorDates);
@@ -128,7 +130,7 @@
     $('#backgroundColor').change(function(){
         let t = $("input[name='backgroundColor']").val();
         console.log("Zmena dates color " + t);
-        $(".design0").css("background-color", t);
+        item.css("background-color", t);
     });
 
 
@@ -176,10 +178,16 @@
             }
             $(".wrapper--color-text").css("display", "grid").hide().fadeIn(1000);
 
+            labels.css( "color", $("#colorLabels").val());
+            calendarTitle.css( "color", $("#colorLabels").val());
+            monthLabels.css( "color", $("#colorLabels").val());
+            dates.css( "color", $("#colorDates").val());
+            item.css("background-color", $("#backgroundColor").val());
         }else{
             console.log("Skryj custom ladeni");
             $(".wrapper--color-text").hide();
             delFixColorStyle();
+
         }
     });
 
@@ -212,6 +220,11 @@
             return (className.match (/(^|\s)design\S+/g) || []).join("");
         });
         item.addClass("design" + t);
+        if(t === 0){
+            $(".link--calendar-custom-color").show();
+        }else{
+            $(".link--calendar-custom-color").hide();
+        }
     }
 
     $(".link--type-of-calendar").click(function(){
@@ -243,7 +256,7 @@
             design.fadeOut(1000);
     });
 
-    $(".link--calendar-color").click(function(){
+    $(".link--calendar-custom-color").click(function(){
         let type = $("#wrapper-type");
         let design = $("#wrapper-design");
         let colorText = $("#wrapper-color");
