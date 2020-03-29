@@ -19,7 +19,7 @@
     object-fit: contain;
   }
   &:hover img{
-    opacity: 0.4;
+    //opacity: 0.4;
   }
 }
 .wrapper--image-after:after{
@@ -156,5 +156,24 @@
     flex-direction: row;
     justify-content: center;
     align-items: center;
+  }
+}
+.wrapper--calendar-item{
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  padding: 1rem;
+  border: 1px solid #dfe1e5;
+  color: rgba(0, 68, 101,1);
+  width: max-content;
+  transition: all 0.3s;
+  & .fa-file-image{
+    margin-bottom: 1rem;
+  }
+  &:hover .box--button-calendar-edit{
+    opacity: 1;
+    z-index: 10;
   }
 }

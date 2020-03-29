@@ -92,6 +92,48 @@
                 </tbody>
             </table>
         </div>
+        <div class="sidebox sidebox--last-calendar">
+            <ul class="list list--my-calendars">
+                <li class="list--item">
+                    <c:choose>
+                        <c:when test="${not empty lastCal.name}">
+                            <c:choose>
+                                <c:when test="${frontPage.contains('null')}">
+                                    <h3>Váš poslední vytvořený kalendář...</h3>
+                                    <div class="wrapper wrapper--calendar-item">
+                                        <i class="fas fa-file-image"></i>
+                                        <span>${lastCal.name} ${lastCal.year}</span>
+                                        <div class="box box--button box--button-calendar-edit">
+                                            <a href="${contextPath}/calendar?calId=${lastCal.id}" class="link link--display">Zobrazit</a>
+                                            <a href="${contextPath}/calendar/update?calId=${lastCal.id}" class="link link--edit">Editovat</a>
+                                            <a href="${contextPath}/calendar/delete?calId=${lastCal.id}" class="link link--delete"
+                                               onclick="if (!(confirm('Kalendář bude odstraněn, chcete určitě pokračovat?'))) return false">Smazat</a>
+                                        </div>
+                                    </div>
+                                </c:when>
+                                <c:otherwise>
+                                    <h3>Váš poslední vytvořený kalendář...</h3>
+                                    <div class="wrapper wrapper--calendar-item">
+                                        <img src="${frontPage}" alt="" />
+                                        <span>${lastCal.name} ${lastCal.year}</span>
+                                        <div class="box box--button box--button-calendar-edit">
+                                            <a href="${contextPath}/calendar?calId=${lastCal.id}" class="link link--display">Zobrazit</a>
+                                            <a href="${contextPath}/calendar/update?calId=${lastCal.id}" class="link link--edit">Editovat</a>
+                                            <a href="${contextPath}/calendar/delete?calId=${lastCal.id}" class="link link--delete"
+                                               onclick="if (!(confirm('Kalendář bude odstraněn, chcete určitě pokračovat?'))) return false">Smazat</a>
+                                        </div>
+                                    </div>
+                                </c:otherwise>
+                            </c:choose>
+                        </c:when>
+                        <c:otherwise>
+                            <h3>Doposud jste nevytvořil žádný kalendář...</h3>
+                            <a href="${contextPath}/calendar/create" class="link link--create-calendar">Vytvořit nový kalendář</a>
+                        </c:otherwise>
+                    </c:choose>
+                </li>
+            </ul>
+        </div>
     </div>
 
 </main>

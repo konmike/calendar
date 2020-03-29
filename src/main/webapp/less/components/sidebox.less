@@ -81,3 +81,65 @@
   justify-self: start;
 }
 /* ===== CALENDAR CREATE END ===== */
+.sidebox--introduction{
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  height: calc(100vh - 2rem);
+  color: #004465;
+  background-image: linear-gradient(rgba(255, 255, 255, 0.7), rgba(255, 255, 255, 0.7)),
+  url("https://cdn.pixabay.com/photo/2019/04/27/12/45/calendar-4159913_960_720.jpg");
+  background-repeat: no-repeat;
+  background-size: cover;
+  background-position: center;
+  & h1{
+    text-transform: uppercase;
+  }
+  & ol{
+    list-style-type: decimal;
+    line-height: 2rem;
+    text-transform: uppercase;
+    margin-top: 0;
+    font-weight: 900;
+  }
+  & ul li{
+    font-weight: 900;
+    line-height: 2rem;
+    text-transform: uppercase;
+    list-style-type: circle;
+  }
+}
+.sidebox--login{
+  height: calc(100vh - 2rem);
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  & .registration:after{
+    font-family: "Font Awesome 5 Free", Pacifico, Arial, serif;
+    font-weight: 900;
+    content: "\f101";
+    margin: 0 0.5rem;
+    text-transform: uppercase;
+  }
+}
+.sidebox--introduction, .sidebox--login{
+  & .link{
+    margin-bottom: 0.3rem;
+    text-decoration: none;
+    padding: 0.5rem;
+    transition: all 0.3s;
+    text-transform: uppercase;
+    font-weight: 900;
+    border-radius: 5px;
+  }
+  & .link--test-calendar, .link--registration{
+    background: rgba(255,215,0,1);
+    color: rgba(0, 68, 101,1);
+    border: 0.1rem solid rgba(255,215,0,1);
+    cursor: pointer;
+    &:hover{
+      background: #ffffff;
+      border: 0.1rem solid rgba(0,68,101,1);
+    }
+  }
+}

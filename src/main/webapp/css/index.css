@@ -8,6 +8,7 @@ body {
 }
 h2 {
   color: #004465;
+  text-align: center;
 }
 header {
   background: #ffffff;
@@ -36,7 +37,7 @@ ul {
   top: 0;
   width: 100%;
   height: 100%;
-  z-index: 9999;
+  z-index: 999999;
   background: url("../../img/preloader.gif") center no-repeat #fff;
 }
 html,
@@ -116,12 +117,12 @@ body {
   color: #004465;
 }
 .box--button {
-  position: fixed;
-  top: 150px;
   display: flex;
   flex-direction: column;
 }
 .box--button-calendar-update {
+  position: fixed;
+  top: 150px;
   right: 0;
   padding: 0 1rem 0 0;
   align-items: flex-end;
@@ -158,6 +159,8 @@ body {
   content: '\f00a';
 }
 .box--button-calendar-show {
+  position: fixed;
+  top: 150px;
   left: 0;
   justify-content: center;
   align-items: flex-start;
@@ -196,6 +199,52 @@ body {
 }
 .box--button-calendar-show .link--delete:hover {
   background: transparent;
+  color: #d43241;
+}
+.box--button-calendar-edit {
+  opacity: 0;
+  position: absolute;
+  top: 0;
+  left: 0;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.5);
+  transition: all 0.3s;
+}
+.box--button-calendar-edit .link {
+  margin-bottom: 0.3rem;
+  text-decoration: none;
+  padding: 0.5rem;
+  transition: all 0.3s;
+  width: 5rem;
+  text-transform: uppercase;
+  font-weight: 900;
+}
+.box--button-calendar-edit .link:last-child {
+  margin-bottom: 0;
+}
+.box--button-calendar-edit .link--display,
+.box--button-calendar-edit .link--edit {
+  background: #ffd700;
+  color: #004465;
+  border: 0.1rem solid #ffd700;
+  cursor: pointer;
+}
+.box--button-calendar-edit .link--display:hover,
+.box--button-calendar-edit .link--edit:hover {
+  background: #ffffff;
+  border: 0.1rem solid #004465;
+}
+.box--button-calendar-edit .link--delete {
+  background: #d43241;
+  color: white;
+  border: 0.1rem solid #d43241;
+}
+.box--button-calendar-edit .link--delete:hover {
+  border: 0.1rem solid #d43241;
+  background: #ffffff;
   color: #d43241;
 }
 #main-menu ul {
@@ -316,9 +365,6 @@ nav .active {
   max-height: inherit;
   max-width: inherit;
   object-fit: contain;
-}
-.wrapper--image:hover img {
-  opacity: 0.4;
 }
 .wrapper--image-after:after {
   font-family: "Font Awesome 5 Free", Pacifico, Arial, serif;
@@ -456,6 +502,25 @@ nav .active {
   justify-content: center;
   align-items: center;
 }
+.wrapper--calendar-item {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  padding: 1rem;
+  border: 1px solid #dfe1e5;
+  color: #004465;
+  width: max-content;
+  transition: all 0.3s;
+}
+.wrapper--calendar-item .fa-file-image {
+  margin-bottom: 1rem;
+}
+.wrapper--calendar-item:hover .box--button-calendar-edit {
+  opacity: 1;
+  z-index: 10;
+}
 /* CALENDAR UPDATE PAGE */
 .section--calendar-update {
   width: 100%;
@@ -482,14 +547,30 @@ nav .active {
 .section--calendar-show-one .wrapper-image:after img {
   opacity: 1;
 }
-.section--login,
+/* CALENDAR SHOW ALL */
+.section--calendar-show-all {
+  padding: 1rem;
+}
 .section--registration,
 .section--user-create,
-.section--user-update {
+.section--user-update,
+.section--homepage {
   display: flex;
   justify-content: center;
   align-items: center;
   flex-direction: column;
+}
+.section--admin-homepage {
+  display: flex;
+  flex-direction: row;
+  align-items: flex-start;
+  justify-content: center;
+  flex-wrap: wrap;
+}
+.section--login {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  height: 100vh;
 }
 .sidebox {
   padding: 1rem;
@@ -567,6 +648,72 @@ nav .active {
   justify-self: start;
 }
 /* ===== CALENDAR CREATE END ===== */
+.sidebox--introduction {
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  height: calc(100vh - 2rem);
+  color: #004465;
+  background-image: linear-gradient(rgba(255, 255, 255, 0.7), rgba(255, 255, 255, 0.7)), url("https://cdn.pixabay.com/photo/2019/04/27/12/45/calendar-4159913_960_720.jpg");
+  background-repeat: no-repeat;
+  background-size: cover;
+  background-position: center;
+}
+.sidebox--introduction h1 {
+  text-transform: uppercase;
+}
+.sidebox--introduction ol {
+  list-style-type: decimal;
+  line-height: 2rem;
+  text-transform: uppercase;
+  margin-top: 0;
+  font-weight: 900;
+}
+.sidebox--introduction ul li {
+  font-weight: 900;
+  line-height: 2rem;
+  text-transform: uppercase;
+  list-style-type: circle;
+}
+.sidebox--login {
+  height: calc(100vh - 2rem);
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+.sidebox--login .registration:after {
+  font-family: "Font Awesome 5 Free", Pacifico, Arial, serif;
+  font-weight: 900;
+  content: "\f101";
+  margin: 0 0.5rem;
+  text-transform: uppercase;
+}
+.sidebox--introduction .link,
+.sidebox--login .link {
+  margin-bottom: 0.3rem;
+  text-decoration: none;
+  padding: 0.5rem;
+  transition: all 0.3s;
+  text-transform: uppercase;
+  font-weight: 900;
+  border-radius: 5px;
+}
+.sidebox--introduction .link--test-calendar,
+.sidebox--login .link--test-calendar,
+.sidebox--introduction .link--registration,
+.sidebox--login .link--registration {
+  background: #ffd700;
+  color: #004465;
+  border: 0.1rem solid #ffd700;
+  cursor: pointer;
+}
+.sidebox--introduction .link--test-calendar:hover,
+.sidebox--login .link--test-calendar:hover,
+.sidebox--introduction .link--registration:hover,
+.sidebox--login .link--registration:hover {
+  background: #ffffff;
+  border: 0.1rem solid #004465;
+}
 form .message {
   color: red;
   font-weight: 900;
@@ -1072,9 +1219,20 @@ fieldset input {
 .list--my-calendars .list--item {
   margin-right: 1rem;
   margin-bottom: 1rem;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
 }
 .list--my-calendars .list--item:last-child {
   margin-right: 0;
+}
+.list--my-calendars .list--item h3 {
+  color: #004465;
+}
+.list--my-calendars .list--item .link--create-calendar {
+  text-transform: uppercase;
+  border: 1px solid #ffd700;
+  border-radius: 0.5rem;
 }
 .list--my-calendars a {
   display: flex;

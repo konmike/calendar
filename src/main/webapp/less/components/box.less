@@ -2,12 +2,12 @@
 
 }
 .box--button{
-  position: fixed;
-  top: 150px;
   display: flex;
   flex-direction: column;
 }
 .box--button-calendar-update{
+  position: fixed;
+  top: 150px;
   right: 0;
   padding: 0 1rem 0 0;
   align-items: flex-end;
@@ -43,6 +43,8 @@
 }
 
 .box--button-calendar-show{
+  position: fixed;
+  top: 150px;
   left: 0;
   justify-content: center;
   align-items: flex-start;
@@ -77,6 +79,53 @@
     border-left: none;
     &:hover{
       background: transparent;
+      color: #d43241;
+    }
+  }
+}
+.box--button-calendar-edit{
+  opacity: 0;
+  position: absolute;
+  top: 0;
+  left: 0;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0,0,0,0.5);
+  transition: all 0.3s;
+  & .link{
+    margin-bottom: 0.3rem;
+    text-decoration: none;
+    padding: 0.5rem;
+    transition: all 0.3s;
+    width: 5rem;
+    text-transform: uppercase;
+    font-weight: 900;
+    &:last-child{
+      margin-bottom: 0;
+    }
+  }
+  & .link--display,.link--edit{
+    background: rgba(255,215,0,1);
+    color: rgba(0, 68, 101,1);
+    border: 0.1rem solid rgba(255,215,0,1);
+    //border-left: none;
+    cursor: pointer;
+    &:hover{
+      background: #ffffff;
+      border: 0.1rem solid rgba(0,68,101,1);
+      //border-left: none;
+    }
+  }
+  & .link--delete{
+    background: #d43241;
+    color: white;
+    border: 0.1rem solid #d43241;
+    //border-left: none;
+    &:hover{
+      border: 0.1rem solid #d43241;
+      background: #ffffff;
       color: #d43241;
     }
   }

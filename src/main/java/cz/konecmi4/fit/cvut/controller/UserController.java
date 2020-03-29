@@ -1,6 +1,7 @@
 package cz.konecmi4.fit.cvut.controller;
 
 import cz.konecmi4.fit.cvut.model.Calendar;
+import cz.konecmi4.fit.cvut.model.Image;
 import cz.konecmi4.fit.cvut.model.Role;
 import cz.konecmi4.fit.cvut.model.User;
 import cz.konecmi4.fit.cvut.service.SecurityService;
@@ -46,7 +47,7 @@ public class UserController {
             System.out.println("Everything OK");
         }else{
             System.out.println("Mas problem, bracho.");
-            return "redirect:/welcome";
+            return "redirect:/";
         }
 
         List<User> users = userService.getUsers();
@@ -66,7 +67,7 @@ public class UserController {
             System.out.println("Everything OK");
         }else{
             System.out.println("Mas problem, bracho.");
-            return "redirect:/welcome";
+            return "redirect:/";
         }
 //        User user;
 //        try {
@@ -82,7 +83,7 @@ public class UserController {
 
         if(!editUser.getUsername().equals(principal.getName()) && !(loginUser.get().getAdmin())){
             System.out.println("Lezes kam nemas!");
-            return "redirect:/welcome";
+            return "redirect:/";
         }
 
         model.addAttribute("user", loginUser);
@@ -188,7 +189,7 @@ public class UserController {
         userService.createUser(user);
         userService.setUserRoles(user);
         securityService.autoLogin(user.getUsername(), user.getPasswordConfirm());
-        return "redirect:/welcome";
+        return "redirect:/";
     }
 
     @GetMapping("/login")
@@ -202,8 +203,8 @@ public class UserController {
         return "views/login";
     }
 
-    @GetMapping({"/", "/welcome"})
-    public String welcome(Model model, Principal principal) throws Exception {
+    @GetMapping("/")
+    public String homepage(Principal principal) {
         Optional<User> user = userService.getUserByName(principal.getName());
         if(user.isPresent()){
             System.out.println("Everything OK");
@@ -217,8 +218,7 @@ public class UserController {
             }
         }
 
-        model.addAttribute("user", user);
-        return "views/homepage";
+        return "redirect:/calendar/myCalendars";
     }
 
 
@@ -233,6 +233,16 @@ public class UserController {
             return "redirect:/";
         }
 
+        Set<Calendar> calendars = user.get().getCalendars();
+        Calendar lastCal = new Calendar();
+        String frontPage = "null";
+        if(!calendars.isEmpty()) {
+            lastCal = calendars.iterator().next();
+            frontPage = lastCal.getSelImage().get(0);
+        }
+
+        model.addAttribute("lastCal", lastCal);
+        model.addAttribute("frontPage", frontPage);
         model.addAttribute("users", userService.getUsers());
         model.addAttribute("user", user);
         return "views/admin/homepage";

@@ -26,9 +26,11 @@
 <header>
     <nav id="main-menu">
         <ul>
-            <li>
-                <a href="${contextPath}/">Domů</a>
-            </li>
+            <security:authorize access="hasRole('ROLE_ADMIN')">
+                <li>
+                    <a href="${contextPath}/admin">Domů</a>
+                </li>
+            </security:authorize>
             <li>
                 <a href="${contextPath}/calendar/create">Nový kalendář</a>
             </li>

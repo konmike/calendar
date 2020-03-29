@@ -1,8 +1,8 @@
 <%--
   Created by IntelliJ IDEA.
   User: mike
-  Date: 02.03.20
-  Time: 21:36
+  Date: 29.03.20
+  Time: 10:55
   To change this template use File | Settings | File Templates.
 --%>
 <%@ taglib prefix="spring" uri="http://www.springframework.org/tags" %>
@@ -17,16 +17,16 @@
 <html lang="cs">
 <head>
     <meta charset="utf-8">
-    <title>Editace kalendáře - ${cal.name}</title>
+    <title>Testovací návrhář - bez přihlášení</title>
 
     <link href="${contextPath}/css/index.css" rel="stylesheet">
     <link href="${contextPath}/css/style.css" rel="stylesheet">
     <link href="${contextPath}/css/simple-lightbox.css" rel="stylesheet">
     <link href="https://use.fontawesome.com/releases/v5.0.8/css/all.css" rel="stylesheet">
 </head>
-<body data-custom-year="${cal.year}" data-custom-type="${cal.type}" data-custom-design="${cal.design}"
-      data-custom-color-labels="${cal.colorLabels}" data-custom-color-dates="${cal.colorDates}"
-      data-custom-color-background="${cal.backgroundColor}">
+<body data-custom-year="" data-custom-type="" data-custom-design=""
+      data-custom-color-labels="" data-custom-color-dates=""
+      data-custom-color-background="">
 <div class="se-pre-con"></div>
 <header>
     <nav id="main-menu">
@@ -53,12 +53,11 @@
             </security:authorize>
         </ul>
     </nav>
-    <jsp:include page="parts/user-menu.jsp" />
 </header>
 
 <main>
     <div class="section section--calendar-update">
-        <form:form method="post" enctype="multipart/form-data" modelAttribute="cal" cssClass="form form--calendar-update" action="/calendar/update">
+        <form:form method="post" enctype="multipart/form-data" cssClass="form form--calendar-update" action="/calendar/update">
             <div class="sidebox sidebox--top sidebox--calendar-option">
                 <form:label path="id" for="id">
                     <form:input type="hidden" id="id" path="id" />
@@ -204,33 +203,33 @@
                                 <form:label path="selImage" for="item0" cssClass="label label--item label--item-0">
                                     <c:choose>
                                         <c:when test="${(cal.selImage.get(0).contains('null')) or (empty cal.selImage)}">
-                                        <form:checkbox path="selImage" id="item0" cssClass="input input--checkbox" value="null" checked="checked"/>
-                                        <div class="item item--0 a4-portrait">
+                                            <form:checkbox path="selImage" id="item0" cssClass="input input--checkbox" value="null" checked="checked"/>
+                                            <div class="item item--0 a4-portrait">
 
-                                            <div onclick="deleteImage(event)" class="wrapper wrapper--image border"
+                                                <div onclick="deleteImage(event)" class="wrapper wrapper--image border"
                                                      ondragenter="return dragEnter(event)"
                                                      ondrop="return dragDrop(event)"
                                                      ondragover="return dragOver(event)"
                                                      ondragleave="return dragLeave(event)"></div>
-                                            <span class="calendar-title">Kalendář ${cal.year}</span>
-                                        </div>
+                                                <span class="calendar-title">Kalendář ${cal.year}</span>
+                                            </div>
                                         </c:when>
                                         <c:otherwise>
-                                        <form:checkbox path="selImage" id="item0" cssClass="input input--checkbox" value="${cal.selImage.get(0)}" checked="checked"/>
-                                        <div class="item item--0 a4-portrait">
-                                            <div onclick="deleteImage(event)" class="wrapper wrapper--image wrapper--image-after border-no">
-                                                <img src="${cal.selImage.get(0)}" alt=""/>
+                                            <form:checkbox path="selImage" id="item0" cssClass="input input--checkbox" value="${cal.selImage.get(0)}" checked="checked"/>
+                                            <div class="item item--0 a4-portrait">
+                                                <div onclick="deleteImage(event)" class="wrapper wrapper--image wrapper--image-after border-no">
+                                                    <img src="${cal.selImage.get(0)}" alt=""/>
+                                                </div>
+                                                <span class="calendar-title">Kalendář ${cal.year}</span>
                                             </div>
-                                            <span class="calendar-title">Kalendář ${cal.year}</span>
-                                        </div>
                                         </c:otherwise>
                                     </c:choose>
                                 </form:label>
                             </c:when>
                             <c:otherwise>
                                 <form:label path="selImage" for="item${item.index}" cssClass="label label--item label--item-${item.index}">
-                                        <c:choose>
-                                            <c:when test="${(cal.selImage.get(item.index).contains('null')) or (empty cal.selImage)}">
+                                    <c:choose>
+                                        <c:when test="${(cal.selImage.get(item.index).contains('null')) or (empty cal.selImage)}">
                                             <form:checkbox path="selImage" id="item${item.index}" cssClass="input input--checkbox" value="null" checked="checked"/>
                                             <div class="month month--${item.index} item a4-portrait">
                                                 <div onclick="deleteImage(event)" class="wrapper wrapper--image border"
@@ -243,8 +242,8 @@
                                                     <div class="dates"></div>
                                                 </div>
                                             </div>
-                                            </c:when>
-                                            <c:otherwise>
+                                        </c:when>
+                                        <c:otherwise>
                                             <form:checkbox path="selImage" id="item${item.index}" cssClass="input input--checkbox" value="${cal.selImage.get(item.index)}" checked="checked"/>
                                             <div class="month month--${item.index} item a4-portrait">
                                                 <div onclick="deleteImage(event)" class="wrapper wrapper--image wrapper--image-after border-no">
@@ -255,8 +254,8 @@
                                                     <div class="dates"></div>
                                                 </div>
                                             </div>
-                                            </c:otherwise>
-                                        </c:choose>
+                                        </c:otherwise>
+                                    </c:choose>
                                 </form:label>
                             </c:otherwise>
                         </c:choose>

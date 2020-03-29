@@ -16,7 +16,7 @@
 <html lang="cs">
 <head>
     <meta charset="utf-8">
-    <title>Vítejte</title>
+    <title>Domovská stránka</title>
 
     <link href="${contextPath}/css/index.css" rel="stylesheet">
     <link href="${contextPath}/css/style.css" rel="stylesheet">
@@ -46,7 +46,9 @@
     </header>
 
     <main>
+        <div class="section section--homepage">
 
+        </div>
     </main>
 
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>

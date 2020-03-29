@@ -167,6 +167,20 @@
         }
     }
 
+    function setColorsOnChangeDesignOrType(){
+        let colLab = $("#colorLabels").val();
+        // console.log(colLab);
+        // console.log(monthLabels);
+        // console.log($(".wrapper--dates h3"));
+
+        labels.css( "color", colLab);
+        calendarTitle.css( "color", colLab);
+        //monthLabels.css( "color", colLab);
+        $(".wrapper--dates h3").css( "color", colLab);
+        dates.css( "color", $("#colorDates").val());
+        item.css("background-color", $("#backgroundColor").val());
+    }
+
     $('#wrapper-design').change(function(){
         let t = parseInt($("input[name='design']:checked").val());
         console.log("Zmena na jiny design " + t);
@@ -178,11 +192,7 @@
             }
             $(".wrapper--color-text").css("display", "grid").hide().fadeIn(1000);
 
-            labels.css( "color", $("#colorLabels").val());
-            calendarTitle.css( "color", $("#colorLabels").val());
-            monthLabels.css( "color", $("#colorLabels").val());
-            dates.css( "color", $("#colorDates").val());
-            item.css("background-color", $("#backgroundColor").val());
+            setColorsOnChangeDesignOrType();
         }else{
             console.log("Skryj custom ladeni");
             $(".wrapper--color-text").hide();
@@ -192,9 +202,10 @@
     });
 
     function delFixColorStyle() {
+        console.log("Mažu barvičky styly");
         labels.css("color", "");
         dates.css("color", "");
-        monthLabels.css("color", "");
+        $(".wrapper--dates h3").css("color", "");
         calendarTitle.css("color", "");
         item.css("background-color", "");
     }
@@ -275,7 +286,7 @@
 
     function setCalendarType(t){
         //let item = $(".item");
-
+        let design = parseInt($("input[name='design']:checked").val());
         if(t === 1 || t === 2){
             item.removeClass("landscape");
             if(!item.hasClass("a4-portrait")){
@@ -293,6 +304,10 @@
                 setWrapperImageLeftDateBlock();
             else
                 setWrapperImageTopDateRow();
+        }
+        if(design === 0){
+            console.log("Zmeni se barvy");
+            setColorsOnChangeDesignOrType();
         }
     }
 

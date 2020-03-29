@@ -27,9 +27,11 @@
 <header>
     <nav id="main-menu">
         <ul>
-            <li>
-                <a href="${contextPath}/">Domů</a>
-            </li>
+            <security:authorize access="hasRole('ROLE_ADMIN')">
+                <li>
+                    <a href="${contextPath}/admin">Domů</a>
+                </li>
+            </security:authorize>
             <li>
                 <a href="${contextPath}/calendar/create">Nový kalendář</a>
             </li>
@@ -47,28 +49,48 @@
 </header>
 
 <main>
-    <h2 class="">Mé kalendáře</h2>
     <div class="section section--calendar-show-all">
         <ul th:each="calendar : ${calendars}" class="list list--my-calendars">
-
-            <c:forEach varStatus="item" items="${calendars}" var="calendar">
-                <li class="list--item">
-                <c:choose>
-                    <c:when test="${frontPages.get(item.index).contains('null')}">
-                        <a href="${contextPath}/calendar?calId=${calendar.id}">
-                            <i class="fas fa-file-image"></i>
-                            <span>${calendar.name} ${calendar.year}</span>
-                        </a>
-                    </c:when>
-                    <c:otherwise>
-                        <a href="${contextPath}/calendar?calId=${calendar.id}">
-                            <img src="${frontPages.get(item.index)}" alt="" />
-                            <span>${calendar.name} ${calendar.year}</span>
-                        </a>
-                    </c:otherwise>
-                </c:choose>
-                </li>
-            </c:forEach>
+            <c:choose>
+                <c:when test="${not empty calendars}">
+                    <c:forEach varStatus="item" items="${calendars}" var="calendar">
+                        <li class="list--item">
+                            <c:choose>
+                                <c:when test="${frontPages.get(item.index).contains('null')}">
+                                    <div class="wrapper wrapper--calendar-item">
+                                        <i class="fas fa-file-image"></i>
+                                        <span>${calendar.name} ${calendar.year}</span>
+                                        <div class="box box--button box--button-calendar-edit">
+                                            <a href="${contextPath}/calendar?calId=${calendar.id}" class="link link--display">Zobrazit</a>
+                                            <a href="${contextPath}/calendar/update?calId=${calendar.id}" class="link link--edit">Editovat</a>
+                                            <a href="${contextPath}/calendar/delete?calId=${calendar.id}" class="link link--delete"
+                                               onclick="if (!(confirm('Kalendář bude odstraněn, chcete určitě pokračovat?'))) return false">Smazat</a>
+                                        </div>
+                                    </div>
+                                </c:when>
+                                <c:otherwise>
+                                    <div class="wrapper wrapper--calendar-item">
+                                        <img src="${frontPages.get(item.index)}" alt="" />
+                                        <span>${calendar.name} ${calendar.year}</span>
+                                        <div class="box box--button box--button-calendar-edit">
+                                            <a href="${contextPath}/calendar?calId=${calendar.id}" class="link link--display">Zobrazit</a>
+                                            <a href="${contextPath}/calendar/update?calId=${calendar.id}" class="link link--edit">Editovat</a>
+                                            <a href="${contextPath}/calendar/delete?calId=${calendar.id}" class="link link--delete"
+                                               onclick="if (!(confirm('Kalendář bude odstraněn, chcete určitě pokračovat?'))) return false">Smazat</a>
+                                        </div>
+                                    </div>
+                                </c:otherwise>
+                            </c:choose>
+                        </li>
+                    </c:forEach>
+                </c:when>
+                <c:otherwise>
+                    <li class="list--item">
+                        <h3>Doposud jste nevytvořil žádný kalendář...</h3>
+                        <a href="${contextPath}/calendar/create" class="link link--create-calendar">Vytvořit nový kalendář</a>
+                    </li>
+                </c:otherwise>
+            </c:choose>
         </ul>
     </div>
 </main>

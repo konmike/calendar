@@ -26,9 +26,11 @@
 <header>
     <nav id="main-menu">
         <ul>
-            <li>
-                <a href="${contextPath}/">Domů</a>
-            </li>
+            <security:authorize access="hasRole('ROLE_ADMIN')">
+                <li>
+                    <a href="${contextPath}/admin">Domů</a>
+                </li>
+            </security:authorize>
             <li>
                 <a href="${contextPath}/calendar/create">Nový kalendář</a>
             </li>
@@ -57,13 +59,13 @@
                                 <c:when test="${frontPages.get(item.index).contains('null')}">
                                     <a href="${contextPath}/calendar?calId=${calendar.id}">
                                         <i class="fas fa-file-image"></i>
-                                        <span>Kalendář ${calendar.year}</span>
+                                        <span>${calendar.name}</span>
                                     </a>
                                 </c:when>
                                 <c:otherwise>
                                     <a href="${contextPath}/calendar?calId=${calendar.id}">
                                         <img src="${frontPages.get(item.index)}" alt="" />
-                                        <span>Kalendář ${calendar.year}</span>
+                                        <span>${calendar.name}</span>
                                     </a>
                                 </c:otherwise>
                             </c:choose>

@@ -31,7 +31,7 @@ public class User {
     private Set<Role> roles;
 
     @OneToMany(cascade = CascadeType.ALL)
-    @OrderBy("id")
+    @OrderBy("id DESC")
     private Set<Calendar> calendars;
 
     @Column(columnDefinition = "boolean default false")
