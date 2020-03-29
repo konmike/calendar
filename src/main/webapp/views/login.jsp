@@ -44,7 +44,7 @@
             <li>Uložit</li>
             <li>Stáhnout do PC ve formátu pdf</li>
             </ol>
-            <a href="${contextPath}/test-calendar" class="link link--test-calendar">Vyzkoušejte si návrhář</a>
+            <a href="${contextPath}/calendar/test-calendar" class="link link--test-calendar">Vyzkoušejte si návrhář</a>
         </div>
         <div class="sidebox sidebox--login">
             <form:form method="POST" action="${contextPath}/login" class="form form--login">

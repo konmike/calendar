@@ -63,3 +63,13 @@ function protectCheck(ev){
     ev.target.parentElement.previousElementSibling.previousElementSibling.removeAttribute("checked");
     ev.target.parentElement.previousElementSibling.previousElementSibling.checked = false;
 }
+
+function hideImage(e){
+    if (!(confirm('Opravdu chcete obrázek smazat?')))
+        return false;
+    else{
+        e.parentElement.setAttribute("style", "display:none");
+        console.log(e.parentElement);
+        //e.target.parentElement
+    }
+}

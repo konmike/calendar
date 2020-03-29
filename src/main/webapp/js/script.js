@@ -9,9 +9,12 @@
     file.attr("value","");
 
     file.change(function(){
-        $('#redir').attr("value", "image");
-        $('.form--calendar-update').submit();
-        file.attr("value","");
+        let test = body.attr("data-custom-test");
+        if(test === "false"){
+            $('#redir').attr("value", "image");
+            $('.form--calendar-update').submit();
+            file.attr("value","");
+        }
     });
 
 

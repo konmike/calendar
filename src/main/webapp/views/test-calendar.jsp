@@ -24,173 +24,143 @@
     <link href="${contextPath}/css/simple-lightbox.css" rel="stylesheet">
     <link href="https://use.fontawesome.com/releases/v5.0.8/css/all.css" rel="stylesheet">
 </head>
-<body data-custom-year="" data-custom-type="" data-custom-design=""
+<body data-custom-year="2020" data-custom-type="1" data-custom-design=""
       data-custom-color-labels="" data-custom-color-dates=""
-      data-custom-color-background="">
+      data-custom-color-background="" data-custom-test="true">
 <div class="se-pre-con"></div>
 <header>
     <nav id="main-menu">
         <ul>
-            <security:authorize access="hasRole('ROLE_ADMIN')">
-                <li>
-                    <a href="${contextPath}/admin"
-                       onclick="if (!(confirm('Změny nemusí být uloženy, chcete přesto pokračovat?'))) return false">Domů</a>
-                </li>
-            </security:authorize>
             <li>
-                <a href="${contextPath}/calendar/create"
-                   onclick="if (!(confirm('Změny nemusí být uloženy, chcete přesto pokračovat?'))) return false">Nový kalendář</a>
+                <a href="${contextPath}/login">Přihlášení</a>
             </li>
             <li>
-                <a href="${contextPath}/calendar/myCalendars"
-                   onclick="if (!(confirm('Změny nemusí být uloženy, chcete přesto pokračovat?'))) return false">Mé kalendáře</a>
+                <a href="${contextPath}/registration">Registrace</a>
             </li>
-            <security:authorize access="hasRole('ROLE_ADMIN')">
-                <li>
-                    <a href="${contextPath}/admin/list-calendars"
-                       onclick="if (!(confirm('Změny nemusí být uloženy, chcete přesto pokračovat?'))) return false">Kalendáře</a>
-                </li>
-            </security:authorize>
         </ul>
     </nav>
 </header>
 
 <main>
     <div class="section section--calendar-update">
-        <form:form method="post" enctype="multipart/form-data" cssClass="form form--calendar-update" action="/calendar/update">
+        <form enctype="multipart/form-data" class="form form--calendar-update">
             <div class="sidebox sidebox--top sidebox--calendar-option">
-                <form:label path="id" for="id">
-                    <form:input type="hidden" id="id" path="id" />
-                </form:label>
 
-                <form:label path="images" for="images">
-                    <form:input type="hidden" id="images" path="images" />
-                </form:label>
+                <label for="name" class="label label--calendar-option label--name">Název kalendáře
+                    <input type="text" id="name" class="input input--text" placeholder="Název kalendáře" />
+                </label>
 
-                <form:label path="name" for="name" cssClass="label label--calendar-option label--name">Název kalendáře
-                    <form:input type="text" id="name" path="name" class="input input--text" placeholder="Název kalendáře" />
-                    <form:errors path="name" />
-                </form:label>
-
-                <spring:bind path="year">
-                    <label for="year" class="label label--calendar-option label--year">Rok
-                        <form:input type="number" path="year" id="year" class="input input--number" value="2020" placeholder="Rok" />
-                        <form:errors path="year" />
-                    </label>
-                </spring:bind>
+                <label for="year" class="label label--calendar-option label--year">Rok
+                    <input type="number" id="year" class="input input--number" value="2020" placeholder="Rok" />
+                </label>
 
 
                 <div id="wrapper-type" class="wrapper wrapper--group-radio-update">
                     <span>Typ</span>
-                    <form:label path="type" for="type1" id="type" cssClass="label label--radio label--radio-type">
-                        <form:radiobutton path="type" value="1" id="type1" name="type" cssClass="input input--radio input--radio-type"/>
+                    <label for="type1" class="label label--radio label--radio-type">
+                        <input type="radio" value="1" id="type1" name="type" class="input input--radio input--radio-type"/>
                         <span>1</span>
                         <div class="wrapper wrapper--radio-img">
                             <img src="${contextPath}/img/portrait-block.png" alt="Typ 1">
                         </div>
-                    </form:label>
+                    </label>
 
-                    <form:label path="type" for="type2" id="type" cssClass="label label--radio label--radio-type">
-                        <form:radiobutton path="type" id="type2" value="2" name="type" cssClass="input input--radio input--radio-type"/>
+                    <label for="type2" class="label label--radio label--radio-type">
+                        <input type="radio" id="type2" value="2" name="type" class="input input--radio input--radio-type"/>
                         <span>2</span>
                         <div class="wrapper wrapper--radio-img">
                             <img src="${contextPath}/img/portrait-row.png" alt="Typ 2">
                         </div>
-                    </form:label>
+                    </label>
 
-                    <form:label path="type" for="type3" id="type" cssClass="label label--radio label--radio-type">
-                        <form:radiobutton path="type" id="type3" value="3" name="type" cssClass="input input--radio input--radio-type"/>
+                    <label for="type3" class="label label--radio label--radio-type">
+                        <input type="radio" id="type3" value="3" name="type" class="input input--radio input--radio-type"/>
                         <span>3</span>
                         <div class="wrapper wrapper--radio-img">
                             <img src="${contextPath}/img/landscape-block.png" alt="Typ 3">
                         </div>
-                    </form:label>
+                    </label>
 
-                    <form:label path="type" for="type4" id="type" cssClass="label label--radio label--radio-type">
-                        <form:radiobutton path="type" id="type4" value="4" name="type" cssClass="input input--radio input--radio-type"/>
+                    <label for="type4" class="label label--radio label--radio-type">
+                        <input type="radio" id="type4" value="4" name="type" class="input input--radio input--radio-type"/>
                         <span>4</span>
                         <div class="wrapper wrapper--radio-img">
                             <img src="${contextPath}/img/landscape-row.png" alt="Typ 4">
                         </div>
-                    </form:label>
-                    <form:errors path="type" />
+                    </label>
                 </div>
 
                 <div id="wrapper-design" class="wrapper wrapper--group-radio-update">
                     <span>Design</span>
-                    <form:label path="design" for="design0" id="design" cssClass="label label--radio label--radio-design">
-                        <form:radiobutton path="design" id="design0" value="0" name="design" cssClass="input input--radio input--radio-design"/>
+                    <label for="design0" class="label label--radio label--radio-design">
+                        <input type="radio" id="design0" value="0" name="design" checked="checked" class="input input--radio input--radio-design"/>
                         <span>Vlastní</span>
-                    </form:label>
+                    </label>
 
-                    <form:label path="design" for="design1" id="design" cssClass="label label--radio label--radio-design">
-                        <form:radiobutton path="design" id="design1" value="1" name="design" cssClass="input input--radio input--radio-design"/>
+                    <label for="design1" class="label label--radio label--radio-design">
+                        <input type="radio" id="design1" value="1" name="design" class="input input--radio input--radio-design"/>
                         <span>1</span>
                         <div class="wrapper wrapper--radio-img">
                             <img src="${contextPath}/img/portrait-row.png" alt="Design 1">
                         </div>
-                    </form:label>
+                    </label>
 
-                    <form:label path="design" for="design2" id="design" cssClass="label label--radio label--radio-design">
-                        <form:radiobutton path="design" id="design2" value="2" name="design" cssClass="input input--radio input--radio-design"/>
+                    <label for="design2" class="label label--radio label--radio-design">
+                        <input type="radio" id="design2" value="2" name="design" class="input input--radio input--radio-design"/>
                         <span>2</span>
                         <div class="wrapper wrapper--radio-img">
                             <img src="${contextPath}/img/portrait-row.png" alt="Design 2">
                         </div>
-                    </form:label>
+                    </label>
 
-                    <form:label path="design" for="design3" id="design" cssClass="label label--radio label--radio-design">
-                        <form:radiobutton path="design" id="design3" value="3" name="design" cssClass="input input--radio input--radio-design"/>
+                    <label for="design3" class="label label--radio label--radio-design">
+                        <input type="radio" id="design3" value="3" name="design" class="input input--radio input--radio-design"/>
                         <span>3</span>
                         <div class="wrapper wrapper--radio-img">
                             <img src="${contextPath}/img/landscape-row.png" alt="Design 3">
                         </div>
-                    </form:label>
+                    </label>
 
-                    <form:label path="design" for="design4" id="design" cssClass="label label--radio label--radio-design">
-                        <form:radiobutton path="design" id="design4" value="4" name="design" cssClass="input input--radio input--radio-design"/>
+                    <label for="design4" id="design" class="label label--radio label--radio-design">
+                        <input type="radio" id="design4" value="4" name="design" class="input input--radio input--radio-design"/>
                         <span>4</span>
                         <div class="wrapper wrapper--radio-img">
                             <img src="${contextPath}/img/landscape-row.png" alt="Design 4">
                         </div>
-                    </form:label>
-                    <form:errors path="design" />
+                    </label>
+
                 </div>
 
                 <div id="wrapper-color" class="wrapper wrapper--color-text wrapper--color-text-update">
-                    <form:label path="colorLabels" for="colorLabels" cssClass="label label--calendar-option label--colorLabels">Barva popisků
-                        <form:input type="color" id="colorLabels" path="colorLabels" cssClass="input input--color" value="${cal.colorLabels}" />
-                        <form:errors path="colorLabels" />
-                    </form:label>
+                    <label for="colorLabels" class="label label--calendar-option label--colorLabels">Barva popisků
+                        <input type="color" id="colorLabels" name="colorLabels" class="input input--color" value="#000000" />
+                    </label>
 
-                    <form:label path="colorDates" for="colorDates" cssClass="label label--calendar-option label--colorDates">Barva data
-                        <form:input type="color" id="colorDates" path="colorDates" cssClass="input input--color" value="${cal.colorDates}" />
-                        <form:errors path="colorDates" />
-                    </form:label>
+                    <label for="colorDates" class="label label--calendar-option label--colorDates">Barva data
+                        <input type="color" id="colorDates" name="colorDates" class="input input--color" value="#000000" />
+                    </label>
 
-                    <form:label path="backgroundColor" for="backgroundColor" cssClass="label label--calendar-option label--backgroundColor">Barva pozadí
-                        <form:input type="color" id="backgroundColor" path="backgroundColor" cssClass="input input--color" value="${cal.backgroundColor}" />
-                        <form:errors path="backgroundColor" />
-                    </form:label>
+                    <label for="backgroundColor" class="label label--calendar-option label--backgroundColor">Barva pozadí
+                        <input type="color" id="backgroundColor" name="backgroundColor" class="input input--color" value="#FFFFFF" />
+                    </label>
                 </div>
             </div>
             <div class="sidebox sidebox--upload-image">
                 <label for="file" class="label label--file">
                     <input type="file" id="file" name="files" accept="image/*" class="input input--file" multiple />
                     <span class="file--custom"></span>
-                    <span id="file.errors" class="${fileErrors}">${fileErrors}</span>
                 </label>
 
 
                 <ul class="list list--gallery">
-                    <c:forEach var="image" items="${cal.images}" varStatus="item">
-                        <li class="list--item" >
-                            <img src="${image.path}" draggable="true" ondragstart="return dragStart(event)" width="200" alt="${image.name}" id="image${item.index}"/>
-                            <a href="${image.path}" class="link link--full-image">Zvětšit</a>
-                            <a href="${contextPath}/calendar/image/delete?calId=${cal.id}&imgId=${image.id}" class="link link--delete-image"
-                               onclick="if (!(confirm('Opravdu chcete obrázek smazat?'))) return false"> Smazat</a>
-                        </li>
-                    </c:forEach>
+<%--                    <c:forEach var="image" items="${cal.images}" varStatus="item">--%>
+<%--                        <li class="list--item" >--%>
+<%--                            <img src="${image.path}" draggable="true" ondragstart="return dragStart(event)" width="200" alt="${image.name}" id="image${item.index}"/>--%>
+<%--                            <a href="${image.path}" class="link link--full-image">Zvětšit</a>--%>
+<%--                            <a href="${contextPath}/calendar/image/delete?calId=${cal.id}&imgId=${image.id}" class="link link--delete-image"--%>
+<%--                               onclick="if (!(confirm('Opravdu chcete obrázek smazat?'))) return false"> Smazat</a>--%>
+<%--                        </li>--%>
+<%--                    </c:forEach>--%>
                 </ul>
             </div>
 
@@ -200,37 +170,21 @@
                     <c:forEach begin="0" end="12" varStatus="item">
                         <c:choose>
                             <c:when test="${item.index == '0'}">
-                                <form:label path="selImage" for="item0" cssClass="label label--item label--item-0">
-                                    <c:choose>
-                                        <c:when test="${(cal.selImage.get(0).contains('null')) or (empty cal.selImage)}">
-                                            <form:checkbox path="selImage" id="item0" cssClass="input input--checkbox" value="null" checked="checked"/>
+                                <label for="item0" class="label label--item label--item-0">
+                                            <input type="checkbox" id="item0" class="input input--checkbox" value="null" checked="checked"/>
                                             <div class="item item--0 a4-portrait">
-
                                                 <div onclick="deleteImage(event)" class="wrapper wrapper--image border"
                                                      ondragenter="return dragEnter(event)"
                                                      ondrop="return dragDrop(event)"
                                                      ondragover="return dragOver(event)"
                                                      ondragleave="return dragLeave(event)"></div>
-                                                <span class="calendar-title">Kalendář ${cal.year}</span>
+                                                <span class="calendar-title">Kalendář 2020</span>
                                             </div>
-                                        </c:when>
-                                        <c:otherwise>
-                                            <form:checkbox path="selImage" id="item0" cssClass="input input--checkbox" value="${cal.selImage.get(0)}" checked="checked"/>
-                                            <div class="item item--0 a4-portrait">
-                                                <div onclick="deleteImage(event)" class="wrapper wrapper--image wrapper--image-after border-no">
-                                                    <img src="${cal.selImage.get(0)}" alt=""/>
-                                                </div>
-                                                <span class="calendar-title">Kalendář ${cal.year}</span>
-                                            </div>
-                                        </c:otherwise>
-                                    </c:choose>
-                                </form:label>
+                                </label>
                             </c:when>
                             <c:otherwise>
-                                <form:label path="selImage" for="item${item.index}" cssClass="label label--item label--item-${item.index}">
-                                    <c:choose>
-                                        <c:when test="${(cal.selImage.get(item.index).contains('null')) or (empty cal.selImage)}">
-                                            <form:checkbox path="selImage" id="item${item.index}" cssClass="input input--checkbox" value="null" checked="checked"/>
+                                <label for="item${item.index}" class="label label--item label--item-${item.index}">
+                                            <input type="checkbox" id="item${item.index}" class="input input--checkbox" value="null" checked="checked"/>
                                             <div class="month month--${item.index} item a4-portrait">
                                                 <div onclick="deleteImage(event)" class="wrapper wrapper--image border"
                                                      ondragenter="return dragEnter(event)"
@@ -242,32 +196,18 @@
                                                     <div class="dates"></div>
                                                 </div>
                                             </div>
-                                        </c:when>
-                                        <c:otherwise>
-                                            <form:checkbox path="selImage" id="item${item.index}" cssClass="input input--checkbox" value="${cal.selImage.get(item.index)}" checked="checked"/>
-                                            <div class="month month--${item.index} item a4-portrait">
-                                                <div onclick="deleteImage(event)" class="wrapper wrapper--image wrapper--image-after border-no">
-                                                    <img src="${cal.selImage.get(item.index)}" alt=""/>
-                                                </div>
-                                                <div class="wrapper wrapper--dates">
-                                                    <div class="labels"></div>
-                                                    <div class="dates"></div>
-                                                </div>
-                                            </div>
-                                        </c:otherwise>
-                                    </c:choose>
-                                </form:label>
+                                </label>
                             </c:otherwise>
                         </c:choose>
                     </c:forEach>
-
                 </div>
                 <a id="next"></a>
             </div>
             <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}" />
             <input id="redir" type="hidden" name="redir" value="show" />
-            <input type="submit" class="input input--submit" value="Uložit a zobrazit" />
-        </form:form>
+            <a href="${contextPath}/registration" class="input input--submit"
+               onclick="if (!(confirm('Pro pokračování musíte být registrovaní, chcete si založit účet?'))) return false">Uložit a zobrazit</a>
+        </form>
         <div class="box box--button box--button-calendar-update">
             <a class="link link--show-full-calendar">Všechny strany</a>
             <a class="link link--show-page-calendar">Jedna strana</a>
@@ -282,7 +222,7 @@
 <script src="${contextPath}/js/dragAndDrop.js"></script>
 <script src="${contextPath}/js/calendar.js"></script>
 <script src="${contextPath}/js/script.js"></script>
-<script src="../js/menu.js"></script>
+<script src="${contextPath}/js/test-calendar.js"></script>
 <script src="${contextPath}/js/simple-lightbox.jquery.js"></script>
 <script>
     (function($) {

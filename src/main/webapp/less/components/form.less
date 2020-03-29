@@ -12,7 +12,6 @@ form{
     font-size: 1.25rem;
     font-weight: 900;
     color: rgba(0, 68, 101,1);
-    padding-bottom: 1rem;
   }
 }
 .form--login,.form--registration,.form--update, .form--calendar{
@@ -93,6 +92,7 @@ form{
     background: rgba(255,215,0,1);
     border-radius: 0;
     transition: all 0.3s;
+    text-decoration: none;
     &:hover{
       border-top: 0.1rem solid rgba(0, 68, 101,1);
       border-left: 0.1rem solid rgba(0, 68, 101,1);
@@ -264,6 +264,8 @@ form{
 span[id*=".errors"]{
   color: red;
   font-weight: 900;
+  background: rgba(0,0,0,0.9);
+  padding: 0.5rem;
 }
 .input::placeholder{
   color: rgba(0, 68, 101,1);

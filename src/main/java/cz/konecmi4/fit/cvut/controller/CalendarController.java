@@ -229,29 +229,16 @@ public class CalendarController {
                     continue;
                 }
 
-                if(!uploadImageValid(file)){
+                if(!uploadImageValidator.uploadImageValid(file)){
                     System.out.println("Chyba validace!");
-                    redirectAttributes.addFlashAttribute("fileErrors", "Obrázek musí být typu jpg, jpeg nebo png.");
+                    redirectAttributes.addFlashAttribute("fileErrors", "Obrázek " + name + " není typu jpg, jpeg nebo png.");
                     return "redirect:/calendar/update?calId=" + tmpC.getId();
                 }
-                if(!uploadImageSizeValid(file)){
+                if(!uploadImageValidator.uploadImageSizeValid(file)){
                     System.out.println("Chyba validace!");
-                    redirectAttributes.addFlashAttribute("fileErrors", "Obrázek musí mít minimální rozlišení 700x700.");
+                    redirectAttributes.addFlashAttribute("fileErrors", "Obrázek " + name + " nemá minimální rozlišení 700x700.");
                     return "redirect:/calendar/update?calId=" + tmpC.getId();
                 }
-//                uploadImageValidator.validate(file,bindingResult);
-//
-//                if (bindingResult.hasErrors()) {
-//                    System.out.println("Chyba validace!");
-//                    System.out.println(bindingResult.getAllErrors());
-//                    //model.addAttribute("fileErrors", "Je to blbost!!!");
-//                    return "redirect:/calendar/update?calId=" + tmpC.getId();
-//                }
-
-//                String name = file.getOriginalFilename();
-
-//                System.out.println(name);
-
 
                 String uuid = UUID.randomUUID().toString();
 
@@ -379,37 +366,8 @@ public class CalendarController {
 
     }
 
-
-//TODO vytvořit speciální validator na obrazky...
-    private boolean uploadImageValid(MultipartFile file){
-        String type = file.getContentType();
-        System.out.println("Soubor je typu " + type);
-        System.out.println("Soubor ma nazev " + file.getOriginalFilename());
-
-        if (  !(type.equals("image/png")) && !(type.equals("image/jpeg"))  ) {
-            System.out.println("Neni to png ani jpg, je to " + file.getContentType());
-            return false;
-        }
-        return true;
-    }
-    private boolean uploadImageSizeValid(MultipartFile file) throws IOException {
-
-
-        ImageInputStream iis = ImageIO.createImageInputStream(file.getInputStream());
-        Iterator<ImageReader> readers = ImageIO.getImageReaders(iis);
-
-        if (readers.hasNext()) {
-            //Get the first available ImageReader
-            ImageReader reader = readers.next();
-            reader.setInput(iis, true);
-
-            if(!(reader.getWidth(0) > 700 && reader.getHeight(0) > 700)){
-                return false;
-            }
-            System.out.println("Format : " + reader.getFormatName());
-            System.out.println("Width : " + reader.getWidth(0) + " pixels");
-            System.out.println("Height : " + reader.getHeight(0) + " pixels");
-        }
-        return true;
+    @GetMapping("/test-calendar")
+    public String testCalendar() {
+        return "views/test-calendar";
     }
 }

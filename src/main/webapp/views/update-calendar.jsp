@@ -26,7 +26,7 @@
 </head>
 <body data-custom-year="${cal.year}" data-custom-type="${cal.type}" data-custom-design="${cal.design}"
       data-custom-color-labels="${cal.colorLabels}" data-custom-color-dates="${cal.colorDates}"
-      data-custom-color-background="${cal.backgroundColor}">
+      data-custom-color-background="${cal.backgroundColor}" data-custom-test="false">
 <div class="se-pre-con"></div>
 <header>
     <nav id="main-menu">
