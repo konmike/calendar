@@ -49,7 +49,9 @@
 </header>
 
 <main>
-    <div class="section section--calendar-show-all">
+    <div id="my-calendars" class="section section--calendar-show-all slider">
+        <a href="#" class="control_next">></a>
+        <a href="#" class="control_prev"><</a>
         <ul th:each="calendar : ${calendars}" class="list list--my-calendars">
             <c:choose>
                 <c:when test="${not empty calendars}">
@@ -59,7 +61,7 @@
                                 <c:when test="${frontPages.get(item.index).contains('null')}">
                                     <div class="wrapper wrapper--calendar-item">
                                         <i class="fas fa-file-image"></i>
-                                        <span>${calendar.name} ${calendar.year}</span>
+                                        <span>${calendar.name}</span>
                                         <div class="box box--button box--button-calendar-edit">
                                             <a href="${contextPath}/calendar?calId=${calendar.id}" class="link link--display">Zobrazit</a>
                                             <a href="${contextPath}/calendar/update?calId=${calendar.id}" class="link link--edit">Editovat</a>
@@ -71,7 +73,7 @@
                                 <c:otherwise>
                                     <div class="wrapper wrapper--calendar-item">
                                         <img src="${frontPages.get(item.index)}" alt="" />
-                                        <span>${calendar.name} ${calendar.year}</span>
+                                        <span>${calendar.name}</span>
                                         <div class="box box--button box--button-calendar-edit">
                                             <a href="${contextPath}/calendar?calId=${calendar.id}" class="link link--display">Zobrazit</a>
                                             <a href="${contextPath}/calendar/update?calId=${calendar.id}" class="link link--edit">Editovat</a>
@@ -97,6 +99,7 @@
 
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
 <script src="${contextPath}/js/script.js"></script>
+<script src="${contextPath}/js/slider.js"></script>
 <script src="${contextPath}/js/menu.js"></script>
 
 </body>

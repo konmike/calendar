@@ -27,8 +27,13 @@ function dragDrop(ev) {
     //console.log()
     ev.target.prepend(document.getElementById(nodeCopy.id));
     var src = document.getElementById(nodeCopy.id).getAttribute("src");
+    console.log(src);
 
-    ev.target.parentElement.previousElementSibling.previousElementSibling.setAttribute("value", src);
+    console.log(ev.target);
+    console.log(ev.target.parentElement.previousElementSibling);
+    //console.log(ev.parentElement);
+
+    ev.target.parentElement.previousElementSibling.setAttribute("value", src);
     //ev.target.parentElement.previousElementSibling.previousElementSibling.setAttribute("checked", "checked");
     ev.target.removeAttribute("ondragenter");
     ev.target.removeAttribute("ondrop");
@@ -36,7 +41,7 @@ function dragDrop(ev) {
     ev.target.removeAttribute("ondragleave");
     ev.target.setAttribute("onclick", "deleteImage(event)");
     ev.target.classList.replace("border-hover","border-no");
-    ev.target.classList.add("wrapper-image-after");
+    ev.target.classList.add("wrapper--image-after");
     ev.target.firstElementChild.setAttribute("draggable", "false");
     ev.target.firstElementChild.removeAttribute("ondragstart");
     ev.target.firstElementChild.removeAttribute("width");
@@ -50,18 +55,23 @@ function deleteImage(ev) {
     ev.target.setAttribute("ondragover", "return dragOver(event)");
     ev.target.setAttribute("ondragleave", "return dragLeave(event)");
 
-    ev.target.parentElement.previousElementSibling.previousElementSibling.setAttribute("value", "null");
-    ev.target.parentElement.previousElementSibling.previousElementSibling.removeAttribute("checked");
-    ev.target.parentElement.previousElementSibling.previousElementSibling.checked = false;
+    console.log(ev.target.parentElement.previousElementSibling);
+    console.log(ev.target.parentElement);
+    ev.target.parentElement.previousElementSibling.setAttribute("value", "null");
+    ev.target.parentElement.previousElementSibling.removeAttribute("checked");
+    ev.target.parentElement.previousElementSibling.checked = false;
 
     ev.target.classList.replace("border-no","border");
-    ev.target.classList.remove("wrapper-image-after");
+    ev.target.classList.remove("wrapper--image-after");
     ev.target.firstElementChild.remove();
     ev.target.setAttribute("onclick", "protectCheck(event)");
 }
 function protectCheck(ev){
-    ev.target.parentElement.previousElementSibling.previousElementSibling.removeAttribute("checked");
-    ev.target.parentElement.previousElementSibling.previousElementSibling.checked = false;
+    console.log(ev.target.parentElement);
+    console.log(ev.target.parentElement.previousElementSibling);
+
+    ev.target.parentElement.previousElementSibling.removeAttribute("checked");
+    ev.target.parentElement.previousElementSibling.checked = false;
 }
 
 function hideImage(e){

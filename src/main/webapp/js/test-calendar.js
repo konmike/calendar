@@ -10,7 +10,7 @@
                 $('.list--gallery').append(
                     '<li class="list--item">' +
                     '<img src="' + e.target.result + '" class="" alt="'+ name +'" width="200" id="im' + autoId + '" draggable="true" ondragstart="dragStart(event)"/>' +
-                    '<a href="' + e.target.result +'" class="link link--full-image">Zvětšit</a>' +
+                    '<a onclick="if (!(confirm(\'Tato funkce je dostupná pouze pro registrované uživatele, chcete si založit účet?\'))) return false" class="link link--full-image">Zvětšit</a>' +
                     '<a onclick="hideImage(this)" class="link link--delete-image">Smazat</a>' +
                     '</li>');
                 //$('#blah').attr('src', e.target.result);

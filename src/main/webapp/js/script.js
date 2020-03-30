@@ -417,6 +417,15 @@
         return "#" + hex(rgb[1]) + hex(rgb[2]) + hex(rgb[3]);
     }
 
+    $.fn.preload = function() {
+        console.log("Preload image");
+        this.each(function(){
+            $('<img/>')[0].src = this;
+        });
+    };
 
+// Usage:
+
+    $(['/img/loginback.jpg']).preload();
 
 })( jQuery );

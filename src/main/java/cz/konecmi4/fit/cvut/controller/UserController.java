@@ -4,6 +4,7 @@ import cz.konecmi4.fit.cvut.model.Calendar;
 import cz.konecmi4.fit.cvut.model.Image;
 import cz.konecmi4.fit.cvut.model.Role;
 import cz.konecmi4.fit.cvut.model.User;
+import cz.konecmi4.fit.cvut.service.CalendarService;
 import cz.konecmi4.fit.cvut.service.SecurityService;
 import cz.konecmi4.fit.cvut.service.UserService;
 
@@ -16,25 +17,24 @@ import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 
 import java.security.Principal;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Optional;
-import java.util.Set;
+import java.util.*;
 
 @Controller
 public class UserController {
     private final UserService userService;
     private final SecurityService securityService;
+    private final CalendarService calendarService;
     private final UserValidator userValidator;
 
     private final OldPasswordValidator oldPasswordValidator;
     private final NewPasswordValidator newPasswordValidator;
 
-    public UserController(UserService userService, SecurityService securityService,
+    public UserController(UserService userService, SecurityService securityService, CalendarService calendarService,
                           UserValidator userValidator, OldPasswordValidator oldPasswordValidator,
                           NewPasswordValidator newPasswordValidator) {
         this.userService = userService;
         this.securityService = securityService;
+        this.calendarService = calendarService;
         this.userValidator = userValidator;
         this.oldPasswordValidator = oldPasswordValidator;
         this.newPasswordValidator = newPasswordValidator;
@@ -233,6 +233,19 @@ public class UserController {
             return "redirect:/";
         }
 
+        List<Calendar> allCalendars = new ArrayList<>();
+        allCalendars = calendarService.getAllCalendars();
+        System.out.println("Pred serazenim " + allCalendars);
+        allCalendars.sort(Comparator.comparingLong(Calendar::getId).reversed());
+        System.out.println("Po serazenim " + allCalendars);
+
+        List<Calendar> lastTenCalendars = new ArrayList<>();
+        ArrayList<String> frontPagesLastTen = new ArrayList<>();
+        for(int i = 0; i < 10; i++){
+            lastTenCalendars.add(i, allCalendars.get(i));
+            frontPagesLastTen.add(allCalendars.get(i).getSelImage().get(0));
+        }
+
         Set<Calendar> calendars = user.get().getCalendars();
         Calendar lastCal = new Calendar();
         String frontPage = "null";
@@ -245,6 +258,8 @@ public class UserController {
         model.addAttribute("frontPage", frontPage);
         model.addAttribute("users", userService.getUsers());
         model.addAttribute("user", user);
+        model.addAttribute("lastTenCal", lastTenCalendars);
+        model.addAttribute("lastTenFront", frontPagesLastTen);
         return "views/admin/homepage";
     }
 

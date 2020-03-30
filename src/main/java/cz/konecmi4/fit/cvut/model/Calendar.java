@@ -13,7 +13,9 @@ import java.util.Set;
 public class Calendar {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @OrderBy("id DESC")
     private Long id;
+
     private String name;
 
     @NotNull

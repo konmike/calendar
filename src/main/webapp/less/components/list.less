@@ -36,6 +36,7 @@
     background: rgba(255,215,0,1);
     border: 0.1rem solid rgba(255,215,0,1);
     color: rgba(0, 68, 101,1);
+    cursor: pointer;
     &:hover{
       background: white;
       border: 0.1rem solid rgba(0, 68, 101,1);
@@ -57,11 +58,11 @@
 .list--my-calendars{
   display: flex;
   flex-direction: row;
-  flex-wrap: wrap;
+  flex-wrap: nowrap;
   align-items: center;
   justify-content: center;
   margin: 0;
-  padding: 0 4rem;
+  padding: 1rem 4rem;
   list-style: none;
   & .list--item{
     margin-right: 1rem;
@@ -71,9 +72,6 @@
     align-items: center;
     &:last-child{
       margin-right: 0;
-    }
-    & h3{
-      color: #004465;
     }
     & .link--create-calendar{
       text-transform: uppercase;

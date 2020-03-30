@@ -23,6 +23,7 @@
     <link href="https://use.fontawesome.com/releases/v5.0.8/css/all.css" rel="stylesheet">
 </head>
 <body>
+<div class="se-pre-con"></div>
 <header>
     <nav id="main-menu">
         <ul>
@@ -102,7 +103,7 @@
                                     <h3>Váš poslední vytvořený kalendář...</h3>
                                     <div class="wrapper wrapper--calendar-item">
                                         <i class="fas fa-file-image"></i>
-                                        <span>${lastCal.name} ${lastCal.year}</span>
+                                        <span>${lastCal.name}</span>
                                         <div class="box box--button box--button-calendar-edit">
                                             <a href="${contextPath}/calendar?calId=${lastCal.id}" class="link link--display">Zobrazit</a>
                                             <a href="${contextPath}/calendar/update?calId=${lastCal.id}" class="link link--edit">Editovat</a>
@@ -112,7 +113,7 @@
                                     </div>
                                 </c:when>
                                 <c:otherwise>
-                                    <h3>Váš poslední vytvořený kalendář...</h3>
+                                    <h3>Váš poslední vytvořený kalendář</h3>
                                     <div class="wrapper wrapper--calendar-item">
                                         <img src="${frontPage}" alt="" />
                                         <span>${lastCal.name} ${lastCal.year}</span>
@@ -134,11 +135,53 @@
                 </li>
             </ul>
         </div>
+        <h3>Nejnovějších 10 kalendářů</h3>
+        <c:if test="${not empty lastTenCal}">
+            <div id="last-ten-cal" class="sidebox sidebox--last-ten-calendars slider">
+                <a href="#" class="control_next">></a>
+                <a href="#" class="control_prev"><</a>
+                <ul class="list list--my-calendars">
+                    <c:forEach varStatus="item" items="${lastTenCal}" var="calendar">
+                        <li class="list--item">
+                            <c:choose>
+                                <c:when test="${lastTenFront.get(item.index).contains('null')}">
+                                    <div class="wrapper wrapper--calendar-item">
+                                        <i class="fas fa-file-image"></i>
+                                        <span>${calendar.name}</span>
+                                        <div class="box box--button box--button-calendar-edit">
+                                            <a href="${contextPath}/calendar?calId=${calendar.id}" class="link link--display">Zobrazit</a>
+                                            <a href="${contextPath}/calendar/update?calId=${calendar.id}" class="link link--edit">Editovat</a>
+                                            <a href="${contextPath}/calendar/delete?calId=${calendar.id}" class="link link--delete"
+                                               onclick="if (!(confirm('Kalendář bude odstraněn, chcete určitě pokračovat?'))) return false">Smazat</a>
+                                        </div>
+                                    </div>
+                                </c:when>
+                                <c:otherwise>
+                                    <div class="wrapper wrapper--calendar-item">
+                                        <img src="${lastTenFront.get(item.index)}" alt="" />
+                                        <span>${calendar.name}</span>
+                                        <div class="box box--button box--button-calendar-edit">
+                                            <a href="${contextPath}/calendar?calId=${calendar.id}" class="link link--display">Zobrazit</a>
+                                            <a href="${contextPath}/calendar/update?calId=${calendar.id}" class="link link--edit">Editovat</a>
+                                            <a href="${contextPath}/calendar/delete?calId=${calendar.id}" class="link link--delete"
+                                               onclick="if (!(confirm('Kalendář bude odstraněn, chcete určitě pokračovat?'))) return false">Smazat</a>
+                                        </div>
+                                    </div>
+                                </c:otherwise>
+                            </c:choose>
+                        </li>
+                    </c:forEach>
+                </ul>
+            </div>
+        </c:if>
+
     </div>
 
 </main>
 
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>
+<script src="${contextPath}/js/script.js"></script>
+<script src="${contextPath}/js/slider.js"></script>
 <script src="${contextPath}/js/menu.js"></script>
 </body>
 </html>
