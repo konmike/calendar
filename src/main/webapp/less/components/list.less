@@ -4,22 +4,28 @@
   padding: 0 0 1rem 0;
   min-height: 200px;
   margin-top: 2rem;
-  /*border: 0.1rem solid rgba(0, 68, 101,1);*/
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+
   & .list--item{
-    display: grid;
-    grid-template-columns: 1fr 1fr;
+    display: flex;
+    flex-direction: column;
+    //display: grid;
+    //grid-template-columns: 1fr 1fr;
     align-items: center;
     margin-bottom: 1rem;
+    margin-right: 0.4rem;
 
     &:last-child{
-      margin-bottom: 0;
+      margin-right: 0;
     }
   }
   & img{
-    grid-column-start: 1;
-    grid-column-end: 3;
+    //grid-column-start: 1;
+    //grid-column-end: 3;
     height: auto;
-    justify-self: center;
+    //justify-self: center;
     margin: 0.5rem 0;
     cursor: grab;
   }
@@ -27,21 +33,49 @@
     font-weight: 900;
     text-transform: uppercase;
     transition: all 0.3s;
-    padding: 0.5rem;
+    //padding: 0.5rem;
+    padding: 0.2rem;
     border-radius: 0;
     justify-self: center;
     text-decoration: none;
   }
+  //& .link--full-image{
+  //  background: rgba(255,215,0,1);
+  //  border: 0.1rem solid rgba(255,215,0,1);
+  //  color: rgba(0, 68, 101,1);
+  //  cursor: pointer;
+  //  &:hover{
+  //    background: white;
+  //    border: 0.1rem solid rgba(0, 68, 101,1);
+  //  }
+  //}
   & .link--full-image{
     background: rgba(255,215,0,1);
     border: 0.1rem solid rgba(255,215,0,1);
     color: rgba(0, 68, 101,1);
     cursor: pointer;
+    margin-right: 0.2rem;
+
     &:hover{
       background: white;
       border: 0.1rem solid rgba(0, 68, 101,1);
     }
+    &:before{
+      font-family: "Font Awesome 5 Free", Pacifico, Arial, serif;
+      font-weight: 900;
+      content: "\f00e";
+    }
   }
+  //& .link--delete-image{
+  //  background: #d43241;
+  //  color: white;
+  //  border: 0.1rem solid #d43241;
+  //  cursor: pointer;
+  //  &:hover{
+  //    background: transparent;
+  //    color: #d43241;
+  //  }
+  //}
   & .link--delete-image{
     background: #d43241;
     color: white;
@@ -50,6 +84,11 @@
     &:hover{
       background: transparent;
       color: #d43241;
+    }
+    &:after{
+      font-family: "Font Awesome 5 Free", Pacifico, Arial, serif;
+      font-weight: 900;
+      content: "\f1f8";
     }
   }
 }
@@ -76,7 +115,11 @@
     & .link--create-calendar{
       text-transform: uppercase;
       border: 1px solid rgba(255,215,0,1);
+      background-color: rgba(255,215,0,1);
       border-radius: 0.5rem;
+      &:hover{
+        background-color: white;
+      }
     }
   }
   & a{

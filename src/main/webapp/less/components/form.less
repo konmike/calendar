@@ -21,7 +21,7 @@ form{
   width: max-content;
   padding: 1rem 2rem;
 }
-.form--update{
+.form--update,.form--registration{
   & .label--admin{
     margin-bottom: 1rem;
     & span{
@@ -169,6 +169,9 @@ form{
       color: rgba(167, 0, 0, 1);
       background-color: transparent;
     }
+    &:focus{
+      background: transparent;
+    }
   }
 }
 .form--upload-image {
@@ -264,7 +267,7 @@ form{
 span[id*=".errors"]{
   color: red;
   font-weight: 900;
-  background: rgba(0,0,0,0.9);
+//  background: rgba(0,0,0,0.9);
   padding: 0.5rem;
 }
 .input::placeholder{

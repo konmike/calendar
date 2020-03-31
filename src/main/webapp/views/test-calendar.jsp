@@ -20,8 +20,6 @@
     <title>Testovací návrhář - bez přihlášení</title>
 
     <link href="${contextPath}/css/index.css" rel="stylesheet">
-    <link href="${contextPath}/css/style.css" rel="stylesheet">
-    <link href="${contextPath}/css/simple-lightbox.css" rel="stylesheet">
     <link href="https://use.fontawesome.com/releases/v5.0.8/css/all.css" rel="stylesheet">
 </head>
 <body data-custom-year="2020" data-custom-type="1" data-custom-design=""
@@ -153,14 +151,6 @@
 
 
                 <ul class="list list--gallery">
-<%--                    <c:forEach var="image" items="${cal.images}" varStatus="item">--%>
-<%--                        <li class="list--item" >--%>
-<%--                            <img src="${image.path}" draggable="true" ondragstart="return dragStart(event)" width="200" alt="${image.name}" id="image${item.index}"/>--%>
-<%--                            <a href="${image.path}" class="link link--full-image">Zvětšit</a>--%>
-<%--                            <a href="${contextPath}/calendar/image/delete?calId=${cal.id}&imgId=${image.id}" class="link link--delete-image"--%>
-<%--                               onclick="if (!(confirm('Opravdu chcete obrázek smazat?'))) return false"> Smazat</a>--%>
-<%--                        </li>--%>
-<%--                    </c:forEach>--%>
                 </ul>
             </div>
 
@@ -223,13 +213,7 @@
 <script src="${contextPath}/js/calendar.js"></script>
 <script src="${contextPath}/js/script.js"></script>
 <script src="${contextPath}/js/test-calendar.js"></script>
-<script src="${contextPath}/js/simple-lightbox.jquery.js"></script>
-<script>
-    (function($) {
-        $('.list--gallery a.link--full-image').simpleLightbox({ /* options */ });
-    })( jQuery );
 
-</script>
 
 </body>
 </html>

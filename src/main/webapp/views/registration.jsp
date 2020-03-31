@@ -18,7 +18,6 @@
     <meta charset="utf-8">
     <title>Registrace nového uživatele</title>
 
-    <link href="${contextPath}/css/style.css" rel="stylesheet">
     <link href="${contextPath}/css/index.css" rel="stylesheet">
 
 </head>

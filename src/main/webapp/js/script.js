@@ -20,7 +20,11 @@
 
     file.click(function () {
        $('span[id="file.errors"]').text("");
+        $('span[id="file.errors"]').css("background-color", "transparent");
     });
+
+    if($('span[id="file.errors"]').text().length > 0)
+        $('span[id="file.errors"]').css("background-color", "rgb(0,0,0)");
 
     let labels_item = $('#calendar .label--item');
     let now = 0; // currently shown div
@@ -42,7 +46,7 @@
             console.log($('#calendar .label--item:nth-child('+i+')'));
             $('#calendar .label--item:nth-child('+i+')').show();
         }
-
+        item.css("margin-bottom","1rem");
         $('#next').hide();
         $('#prev').hide();
     });
@@ -53,6 +57,7 @@
             $('#calendar .label--item:nth-child('+i+')').hide();
         }
 
+        item.css("margin-bottom","0");
         $('#calendar .label--item-0').show();
         now = 0;
         $('#next').show();
@@ -393,17 +398,17 @@
     // TODO mohlo by fungovat, ale je potreba to domyslet
     // jine rozlozeni galerie, zmenseni obrazku...
 
-    // $(window).scroll(function(){
-    //     let heightHeader = $("header").height();
-    //     let labVis = $('.label--item:nth-child(2)').is(":visible");
-    //     console.log(labVis);
-    //     console.log(heightHeader);
-    //     if ( ($(this).scrollTop() > heightHeader) && (labVis)) {
-    //         $('.sidebox--upload-image').css({"position":"fixed", "top":"0","left":"0"});
-    //     } else {
-    //         $('.sidebox--upload-image').css("position","static");
-    //     }
-    // });
+    $(window).scroll(function(){
+        let heightHeader = $("header").height();
+        let labVis = $('.label--item:nth-child(2)').is(":visible");
+        console.log(labVis);
+        console.log(heightHeader);
+        if ( ($(this).scrollTop() > heightHeader) && (labVis)) {
+            $('.sidebox--upload-image').addClass("sidebox--upload-image-fixed");
+        } else {
+            $('.sidebox--upload-image').removeClass("sidebox--upload-image-fixed");
+        }
+    });
 
 
     //https://stackoverflow.com/questions/1740700/how-to-get-hex-color-value-rather-than-rgb-value

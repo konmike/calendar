@@ -20,7 +20,6 @@
     <title>Editace kalendáře - ${cal.name}</title>
 
     <link href="${contextPath}/css/index.css" rel="stylesheet">
-    <link href="${contextPath}/css/style.css" rel="stylesheet">
     <link href="${contextPath}/css/simple-lightbox.css" rel="stylesheet">
     <link href="https://use.fontawesome.com/releases/v5.0.8/css/all.css" rel="stylesheet">
 </head>
@@ -186,10 +185,12 @@
                 <ul class="list list--gallery">
                     <c:forEach var="image" items="${cal.images}" varStatus="item">
                         <li class="list--item" >
-                            <img src="${image.path}" draggable="true" ondragstart="return dragStart(event)" width="200" alt="${image.name}" id="image${item.index}"/>
-                            <a href="${image.path}" class="link link--full-image">Zvětšit</a>
-                            <a href="${contextPath}/calendar/image/delete?calId=${cal.id}&imgId=${image.id}" class="link link--delete-image"
-                               onclick="if (!(confirm('Opravdu chcete obrázek smazat?'))) return false"> Smazat</a>
+                            <img src="${image.path}" draggable="true" ondragstart="return dragStart(event)" width="50" alt="${image.name}" id="image${item.index}"/>
+                            <div class="wrapper wrapper--image-control">
+                                <a href="${image.path}" class="link link--full-image"></a>
+                                <a href="${contextPath}/calendar/image/delete?calId=${cal.id}&imgId=${image.id}" class="link link--delete-image"
+                                   onclick="if (!(confirm('Opravdu chcete obrázek smazat?'))) return false"></a>
+                            </div>
                         </li>
                     </c:forEach>
                 </ul>

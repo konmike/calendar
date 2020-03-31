@@ -241,9 +241,11 @@ public class UserController {
 
         List<Calendar> lastTenCalendars = new ArrayList<>();
         ArrayList<String> frontPagesLastTen = new ArrayList<>();
-        for(int i = 0; i < 10; i++){
+        for(int i = 0; i < allCalendars.size(); i++){
             lastTenCalendars.add(i, allCalendars.get(i));
             frontPagesLastTen.add(allCalendars.get(i).getSelImage().get(0));
+            if(i == 9)
+                break;
         }
 
         Set<Calendar> calendars = user.get().getCalendars();

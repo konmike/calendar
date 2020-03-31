@@ -614,10 +614,17 @@ nav .active {
 .section--user-update,
 .section--homepage {
   display: flex;
-  justify-content: center;
+  justify-content: flex-start;
   align-items: center;
   flex-direction: column;
   background-color: rgba(255, 244, 166, 0.5);
+  height: calc(100vh - 64px);
+}
+.section--registration .form--title,
+.section--user-create .form--title,
+.section--user-update .form--title,
+.section--homepage .form--title {
+  padding-bottom: 1rem;
 }
 .section--admin-homepage {
   display: flex;
@@ -674,6 +681,7 @@ nav .active {
   align-items: center;
   justify-content: center;
   padding-top: 0;
+  padding-bottom: 0;
 }
 .sidebox--calendar-preview a {
   text-decoration: none;
@@ -716,6 +724,13 @@ nav .active {
   flex-direction: column;
   flex-wrap: nowrap;
   align-items: center;
+}
+.sidebox--upload-image-fixed {
+  position: fixed;
+  top: 0;
+  left: 0;
+  height: 100vh;
+  width: 30%;
 }
 /* ====== CALENDAR UPDATE END ======= */
 /* CALENDAR CREATE PAGE */
@@ -821,10 +836,12 @@ form .form--title {
   width: max-content;
   padding: 1rem 2rem;
 }
-.form--update .label--admin {
+.form--update .label--admin,
+.form--registration .label--admin {
   margin-bottom: 1rem;
 }
-.form--update .label--admin span {
+.form--update .label--admin span,
+.form--registration .label--admin span {
   color: #004465;
   text-transform: uppercase;
   cursor: pointer;
@@ -969,6 +986,9 @@ form .form--title {
   color: #a70000;
   background-color: transparent;
 }
+.form--logout .input--submit:focus {
+  background: transparent;
+}
 .form--upload-image .input--submit {
   margin-top: 1rem;
 }
@@ -1065,7 +1085,6 @@ form .form--title {
 span[id*=".errors"] {
   color: red;
   font-weight: 900;
-  background: rgba(0, 0, 0, 0.9);
   padding: 0.5rem;
 }
 .input::placeholder {
@@ -1243,22 +1262,22 @@ fieldset input {
   padding: 0 0 1rem 0;
   min-height: 200px;
   margin-top: 2rem;
-  /*border: 0.1rem solid rgba(0, 68, 101,1);*/
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
 }
 .list--gallery .list--item {
-  display: grid;
-  grid-template-columns: 1fr 1fr;
+  display: flex;
+  flex-direction: column;
   align-items: center;
   margin-bottom: 1rem;
+  margin-right: 0.4rem;
 }
 .list--gallery .list--item:last-child {
-  margin-bottom: 0;
+  margin-right: 0;
 }
 .list--gallery img {
-  grid-column-start: 1;
-  grid-column-end: 3;
   height: auto;
-  justify-self: center;
   margin: 0.5rem 0;
   cursor: grab;
 }
@@ -1267,7 +1286,7 @@ fieldset input {
   font-weight: 900;
   text-transform: uppercase;
   transition: all 0.3s;
-  padding: 0.5rem;
+  padding: 0.2rem;
   border-radius: 0;
   justify-self: center;
   text-decoration: none;
@@ -1277,10 +1296,16 @@ fieldset input {
   border: 0.1rem solid #ffd700;
   color: #004465;
   cursor: pointer;
+  margin-right: 0.2rem;
 }
 .list--gallery .link--full-image:hover {
   background: white;
   border: 0.1rem solid #004465;
+}
+.list--gallery .link--full-image:before {
+  font-family: "Font Awesome 5 Free", Pacifico, Arial, serif;
+  font-weight: 900;
+  content: "\f00e";
 }
 .list--gallery .link--delete-image {
   background: #d43241;
@@ -1291,6 +1316,11 @@ fieldset input {
 .list--gallery .link--delete-image:hover {
   background: transparent;
   color: #d43241;
+}
+.list--gallery .link--delete-image:after {
+  font-family: "Font Awesome 5 Free", Pacifico, Arial, serif;
+  font-weight: 900;
+  content: "\f1f8";
 }
 /* CALENDAR SHOW ALL PAGE */
 .list--my-calendars {
@@ -1316,7 +1346,11 @@ fieldset input {
 .list--my-calendars .list--item .link--create-calendar {
   text-transform: uppercase;
   border: 1px solid #ffd700;
+  background-color: #ffd700;
   border-radius: 0.5rem;
+}
+.list--my-calendars .list--item .link--create-calendar:hover {
+  background-color: white;
 }
 .list--my-calendars a {
   display: flex;
@@ -1637,7 +1671,6 @@ footer ul li:last-child {
   align-items: center;
   /*margin-bottom: 1rem;*/
   padding: 1rem;
-  margin-bottom: 1rem;
   /*border: 0.1rem dashed rgba(0, 68, 101,1);*/
   box-shadow: 0 0 0 1px rgba(0, 0, 0, 0.1), 0 5px 5px 0 rgba(0, 0, 0, 0.1);
 }

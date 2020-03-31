@@ -19,12 +19,11 @@
     <title>Úvodní stránka</title>
 
     <link href="${contextPath}/css/index.css" rel="stylesheet">
-    <link href="${contextPath}/css/style.css" rel="stylesheet">
     <link href="https://use.fontawesome.com/releases/v5.0.8/css/all.css" rel="stylesheet">
 </head>
 
-
 <body>
+<div class="se-pre-con"></div>
 <main>
     <div class="section section--login">
         <div class="sidebox sidebox--introduction">
