@@ -17,7 +17,7 @@
 <html lang="cs">
 <head>
     <meta charset="utf-8">
-    <title>${cal.name} - ${cal.year}</title>
+    <title>${cal.name}</title>
 
     <link href="${contextPath}/css/index.css" rel="stylesheet">
     <link href="${contextPath}/css/simple-lightbox.css" rel="stylesheet">
@@ -52,14 +52,8 @@
 </header>
 
 <main>
-    <c:choose>
-        <c:when test="${empty cal.name}">
-            <h2 class="">${cal.year}</h2>
-        </c:when>
-        <c:otherwise>
-            <h2 class="">${cal.name} - ${cal.year}</h2>
-        </c:otherwise>
-    </c:choose>
+
+    <h2 class="">${cal.name}</h2>
 
     <div class="section section--calendar-show-one">
         <div class="box box--button box--button-calendar-show">

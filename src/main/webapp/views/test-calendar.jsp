@@ -147,6 +147,7 @@
                 <label for="file" class="label label--file">
                     <input type="file" id="file" name="files" accept="image/*" class="input input--file" multiple />
                     <span class="file--custom"></span>
+                    <span id="file.errors" class=""></span>
                 </label>
 
 
@@ -161,31 +162,33 @@
                         <c:choose>
                             <c:when test="${item.index == '0'}">
                                 <label for="item0" class="label label--item label--item-0">
-                                            <input type="checkbox" id="item0" class="input input--checkbox" value="null" checked="checked"/>
-                                            <div class="item item--0 a4-portrait">
-                                                <div onclick="deleteImage(event)" class="wrapper wrapper--image border"
-                                                     ondragenter="return dragEnter(event)"
-                                                     ondrop="return dragDrop(event)"
-                                                     ondragover="return dragOver(event)"
-                                                     ondragleave="return dragLeave(event)"></div>
-                                                <span class="calendar-title">Kalendář 2020</span>
-                                            </div>
+                                    <input type="checkbox" id="item0" class="input input--checkbox" value="null" checked="checked"/>
+                                    <input type="hidden" />
+                                    <div class="item item--0 a4-portrait">
+                                        <div onclick="deleteImage(event)" class="wrapper wrapper--image border"
+                                             ondragenter="return dragEnter(event)"
+                                             ondrop="return dragDrop(event)"
+                                             ondragover="return dragOver(event)"
+                                             ondragleave="return dragLeave(event)"></div>
+                                        <span class="calendar-title">Kalendář 2020</span>
+                                    </div>
                                 </label>
                             </c:when>
                             <c:otherwise>
                                 <label for="item${item.index}" class="label label--item label--item-${item.index}">
-                                            <input type="checkbox" id="item${item.index}" class="input input--checkbox" value="null" checked="checked"/>
-                                            <div class="month month--${item.index} item a4-portrait">
-                                                <div onclick="deleteImage(event)" class="wrapper wrapper--image border"
-                                                     ondragenter="return dragEnter(event)"
-                                                     ondrop="return dragDrop(event)"
-                                                     ondragover="return dragOver(event)"
-                                                     ondragleave="return dragLeave(event)"></div>
-                                                <div class="wrapper wrapper--dates">
-                                                    <div class="labels"></div>
-                                                    <div class="dates"></div>
-                                                </div>
-                                            </div>
+                                    <input type="checkbox" id="item${item.index}" class="input input--checkbox" value="null" checked="checked"/>
+                                    <input type="hidden" />
+                                    <div class="month month--${item.index} item a4-portrait">
+                                        <div onclick="deleteImage(event)" class="wrapper wrapper--image border"
+                                             ondragenter="return dragEnter(event)"
+                                             ondrop="return dragDrop(event)"
+                                             ondragover="return dragOver(event)"
+                                             ondragleave="return dragLeave(event)"></div>
+                                        <div class="wrapper wrapper--dates">
+                                            <div class="labels"></div>
+                                            <div class="dates"></div>
+                                        </div>
+                                    </div>
                                 </label>
                             </c:otherwise>
                         </c:choose>

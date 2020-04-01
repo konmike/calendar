@@ -1429,60 +1429,76 @@ footer ul li:last-child {
   color: #000000;
 }
 .design1 {
-  background-color: #000000;
+  background-color: #ffffff;
+  background-image: url("/img/pozadi/24.jpg");
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: cover;
 }
 .design1 .calendar-title,
 .design1 h3,
 .design1 .labels {
-  color: #ffffff;
+  color: #000000;
 }
 .design1 .labels {
   opacity: 0.6;
 }
 .design1 .dates {
-  color: #ffffff;
+  color: #000000;
 }
 .design2 {
   background-color: green;
+  background-image: url("/img/pozadi/2hd.jpg");
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: cover;
 }
 .design2 .calendar-title,
 .design2 h3,
 .design2 .labels {
-  color: yellow;
+  color: #000000;
 }
 .design2 .labels {
   opacity: 0.6;
 }
 .design2 .dates {
-  color: yellow;
+  color: #000000;
 }
 .design3 {
-  background-color: yellow;
+  background-color: #ffffff;
+  background-image: url("/img/pozadi/6hd.jpg");
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: cover;
 }
 .design3 .calendar-title,
 .design3 h3,
 .design3 .labels {
-  color: blue;
+  color: #000000;
 }
 .design3 .labels {
   opacity: 0.6;
 }
 .design3 .dates {
-  color: blue;
+  color: #000000;
 }
 .design4 {
-  background-color: blue;
+  background-color: #000000;
+  background-image: url("/img/pozadi/8hd.jpg");
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: cover;
 }
 .design4 .calendar-title,
 .design4 h3,
 .design4 .labels {
-  color: red;
+  color: #ffffff;
 }
 .design4 .labels {
   opacity: 0.6;
 }
 .design4 .dates {
-  color: white;
+  color: #ffffff;
 }
 .border {
   border: 0.1rem dashed #004465;
@@ -1491,7 +1507,7 @@ footer ul li:last-child {
 }
 .border-hover {
   border: 0.1rem solid #004465;
-  background: rgba(0, 0, 0, 0.1);
+  background: #ffffff;
   position: relative;
   display: flex;
   flex-direction: column;
@@ -1569,7 +1585,6 @@ footer ul li:last-child {
   grid-column: 1/3;
 }
 .landscape .wrapper-image-left-date-block {
-  grid-row: 1/3;
   min-width: 13.84em;
   max-width: 13.84em;
   min-height: 19.656em;
@@ -1766,8 +1781,8 @@ footer ul li:last-child {
   display: grid;
 }
 .landscape-print .wrapper-image-left-date-block {
-  min-height: 190mm !important;
-  max-height: 190mm !important;
+  min-height: 180mm !important;
+  max-height: 180mm !important;
   min-width: 138mm !important;
   max-width: 138mm !important;
   justify-self: center;

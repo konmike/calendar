@@ -27,13 +27,13 @@ function dragDrop(ev) {
     //console.log()
     ev.target.prepend(document.getElementById(nodeCopy.id));
     var src = document.getElementById(nodeCopy.id).getAttribute("src");
-    console.log(src);
+    // console.log(src);
+    // //
+    // console.log(ev.target);
+    // console.log(ev.target.parentElement.previousElementSibling);
+    // console.log(ev.parentElement);
 
-    console.log(ev.target);
-    console.log(ev.target.parentElement.previousElementSibling);
-    //console.log(ev.parentElement);
-
-    ev.target.parentElement.previousElementSibling.setAttribute("value", src);
+    ev.target.parentElement.previousElementSibling.previousElementSibling.setAttribute("value", src);
     //ev.target.parentElement.previousElementSibling.previousElementSibling.setAttribute("checked", "checked");
     ev.target.removeAttribute("ondragenter");
     ev.target.removeAttribute("ondrop");
@@ -50,36 +50,37 @@ function dragDrop(ev) {
 }
 
 function deleteImage(ev) {
+    // console.log(ev.target);
     ev.target.setAttribute("ondragenter", "return dragEnter(event)");
     ev.target.setAttribute("ondrop", "return dragDrop(event)");
     ev.target.setAttribute("ondragover", "return dragOver(event)");
     ev.target.setAttribute("ondragleave", "return dragLeave(event)");
 
-    console.log(ev.target.parentElement.previousElementSibling);
-    console.log(ev.target.parentElement);
-    ev.target.parentElement.previousElementSibling.setAttribute("value", "null");
-    ev.target.parentElement.previousElementSibling.removeAttribute("checked");
-    ev.target.parentElement.previousElementSibling.checked = false;
+    // console.log(ev.target.parentElement.previousElementSibling);
+    // console.log(ev.target.parentElement);
+    ev.target.parentElement.previousElementSibling.previousElementSibling.setAttribute("value", "null");
+    // ev.target.parentElement.previousElementSibling.removeAttribute("checked");
+    // ev.target.parentElement.previousElementSibling.checked = false;
 
     ev.target.classList.replace("border-no","border");
     ev.target.classList.remove("wrapper--image-after");
     ev.target.firstElementChild.remove();
-    ev.target.setAttribute("onclick", "protectCheck(event)");
-}
-function protectCheck(ev){
-    console.log(ev.target.parentElement);
-    console.log(ev.target.parentElement.previousElementSibling);
-
-    ev.target.parentElement.previousElementSibling.removeAttribute("checked");
-    ev.target.parentElement.previousElementSibling.checked = false;
+    // ev.target.setAttribute("onclick", "protectCheck(event)");
+    ev.preventDefault();
 }
 
 function hideImage(e){
     if (!(confirm('Opravdu chcete obrázek smazat?')))
         return false;
     else{
-        e.parentElement.setAttribute("style", "display:none");
-        console.log(e.parentElement);
+        let el = e.parentElement.parentElement;
+        el.parentNode.removeChild(el);
+        let errors = document.getElementById("file.errors");
+        errors.innerText = "";
+        errors.setAttribute("style", "background-color: transparent");
+
+        // e.parentElement.parentElement.setAttribute("style", "display:none");
+        // console.log(e.parentElement);
         //e.target.parentElement
     }
 }

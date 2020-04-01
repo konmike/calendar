@@ -395,8 +395,6 @@
         //removeCssToPrint(type);
     });
 
-    // TODO mohlo by fungovat, ale je potreba to domyslet
-    // jine rozlozeni galerie, zmenseni obrazku...
 
     $(window).scroll(function(){
         let heightHeader = $("header").height();
