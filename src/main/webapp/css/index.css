@@ -296,6 +296,24 @@ body {
 #main-menu ul li {
   margin-right: 1rem;
 }
+#main-menu ul li#help {
+  position: absolute;
+  left: 0;
+  display: flex;
+  align-items: center;
+  padding-left: 1rem;
+  cursor: pointer;
+}
+#main-menu ul li#help:after {
+  font-family: "Font Awesome 5 Free", Pacifico, Arial, serif;
+  font-weight: 900;
+  font-size: 1.5rem;
+  padding: 0 0.5rem;
+}
+#main-menu ul li#help:after {
+  content: "\f0eb";
+  color: #ffd700;
+}
 #main-menu ul li:last-child {
   margin-right: 0;
 }
@@ -458,7 +476,8 @@ nav .active {
   padding: 2px;
 }
 .wrapper--group-radio-create .label--radio:nth-child(2):hover > .wrapper--radio-img,
-.wrapper--group-radio-create .label--radio:nth-child(3):hover > .wrapper--radio-img {
+.wrapper--group-radio-create .label--radio:nth-child(3):hover > .wrapper--radio-img,
+.wrapper--group-radio-create .label--radio-design:nth-child(4):hover > .wrapper--radio-img {
   width: auto;
   height: 300px;
   position: absolute;
@@ -474,7 +493,8 @@ nav .active {
   justify-content: center;
   align-items: center;
 }
-.wrapper--group-radio-create .label--radio:nth-child(4):hover > .wrapper--radio-img,
+.wrapper--group-radio-create .label--radio-type:nth-child(4):hover > .wrapper--radio-img,
+.wrapper--group-radio-create .label--radio-design:nth-child(5):hover > .wrapper--radio-img,
 .wrapper--group-radio-create .label--radio:last-child:hover > .wrapper--radio-img {
   width: 300px;
   height: auto;
@@ -510,14 +530,16 @@ nav .active {
   height: inherit;
   padding: 2px;
 }
-.wrapper--group-radio-update .label--radio:nth-child(2):hover > .wrapper--radio-img,
-.wrapper--group-radio-update .label--radio:nth-child(3):hover > .wrapper--radio-img {
+.wrapper--group-radio-update .label--radio-type:nth-child(2):hover > .wrapper--radio-img,
+.wrapper--group-radio-update .label--radio:nth-child(3):hover > .wrapper--radio-img,
+.wrapper--group-radio-update .label--radio-design:nth-child(4):hover > .wrapper--radio-img {
   width: auto;
   height: 300px;
   left: -250px;
 }
-.wrapper--group-radio-update .label--radio:nth-child(4):hover > .wrapper--radio-img,
-.wrapper--group-radio-update .label--radio:last-child:hover > .wrapper--radio-img {
+.wrapper--group-radio-update .label--radio-type:nth-child(4):hover > .wrapper--radio-img,
+.wrapper--group-radio-update .label--radio:last-child:hover > .wrapper--radio-img,
+.wrapper--group-radio-update .label--radio-design:nth-child(5):hover > .wrapper--radio-img {
   width: 300px;
   height: auto;
   left: -320px;
@@ -525,6 +547,7 @@ nav .active {
 .wrapper--group-radio-update .label--radio:nth-child(2):hover > .wrapper--radio-img,
 .wrapper--group-radio-update .label--radio:nth-child(3):hover > .wrapper--radio-img,
 .wrapper--group-radio-update .label--radio:nth-child(4):hover > .wrapper--radio-img,
+.wrapper--group-radio-update .label--radio:nth-child(5):hover > .wrapper--radio-img,
 .wrapper--group-radio-update .label--radio:last-child:hover > .wrapper--radio-img {
   position: absolute;
   top: -40px;
@@ -1836,5 +1859,163 @@ footer ul li:last-child {
   min-width: 267mm !important;
   max-width: 267mm !important;
   justify-self: center;
+}
+.help {
+  display: none;
+}
+.section--calendar-update-test .help {
+  display: flex;
+}
+.calendar-full,
+.calendar-page,
+.calendar-type,
+.calendar-design,
+.calendar-color,
+.calendar-upload-photo,
+.calendar-move-photo,
+.calendar-finished {
+  background-color: rgba(0, 0, 0, 0.8);
+  color: #ffffff;
+  font-weight: 900;
+  font-size: 1.2rem;
+}
+.calendar-full:before,
+.calendar-page:before,
+.calendar-type:before,
+.calendar-design:before,
+.calendar-color:before,
+.calendar-upload-photo:before,
+.calendar-move-photo:before,
+.calendar-finished:before,
+.calendar-full:after,
+.calendar-page:after,
+.calendar-type:after,
+.calendar-design:after,
+.calendar-color:after,
+.calendar-upload-photo:after,
+.calendar-move-photo:after,
+.calendar-finished:after,
+.calendar-full .bigger:after,
+.calendar-page .bigger:after,
+.calendar-type .bigger:after,
+.calendar-design .bigger:after,
+.calendar-color .bigger:after,
+.calendar-upload-photo .bigger:after,
+.calendar-move-photo .bigger:after,
+.calendar-finished .bigger:after,
+.calendar-full .delete:after,
+.calendar-page .delete:after,
+.calendar-type .delete:after,
+.calendar-design .delete:after,
+.calendar-color .delete:after,
+.calendar-upload-photo .delete:after,
+.calendar-move-photo .delete:after,
+.calendar-finished .delete:after,
+.calendar-full .move:after,
+.calendar-page .move:after,
+.calendar-type .move:after,
+.calendar-design .move:after,
+.calendar-color .move:after,
+.calendar-upload-photo .move:after,
+.calendar-move-photo .move:after,
+.calendar-finished .move:after {
+  font-family: "Font Awesome 5 Free", Pacifico, Arial, serif;
+  font-weight: 900;
+  font-size: 1.5rem;
+  padding: 0 0.5rem;
+}
+.calendar-full,
+.calendar-page,
+.calendar-type,
+.calendar-design,
+.calendar-color {
+  position: absolute;
+  padding: 0.2rem;
+  align-items: center;
+}
+.calendar-full:before,
+.calendar-page:before,
+.calendar-type:before,
+.calendar-design:before,
+.calendar-color:before {
+  content: "\f0eb";
+  color: #ffd700;
+}
+.calendar-full:after,
+.calendar-page:after,
+.calendar-type:after,
+.calendar-design:after,
+.calendar-color:after {
+  content: "\f101";
+}
+.calendar-full {
+  left: -440px;
+  top: -5px;
+}
+.calendar-page {
+  left: -330px;
+  top: 32px;
+}
+.calendar-type {
+  left: -325px;
+  top: 68px;
+}
+.calendar-design {
+  left: -490px;
+  top: 103px;
+}
+.calendar-color {
+  left: -500px;
+  top: 138px;
+}
+.calendar-upload-photo {
+  position: absolute;
+  padding: 0.2rem;
+  align-items: center;
+  top: 5px;
+  right: -280px;
+}
+.calendar-upload-photo:after {
+  content: "\f0eb";
+  color: #ffd700;
+}
+.calendar-upload-photo:before {
+  content: "\f100";
+}
+.section--calendar-update-test .calendar-move-photo {
+  display: block;
+}
+.calendar-move-photo {
+  padding: 0.2rem;
+  height: min-content;
+  line-height: 2rem;
+  display: none;
+}
+.calendar-move-photo:before {
+  content: "\f0eb";
+  color: #ffd700;
+}
+.calendar-move-photo .bigger:after {
+  content: "\f00e";
+}
+.calendar-move-photo .delete:after {
+  content: "\f1f8";
+}
+.calendar-move-photo .move:after {
+  content: "\f256";
+}
+.calendar-finished {
+  position: absolute;
+  padding: 0.5rem;
+  align-items: center;
+  bottom: 60px;
+  right: 0;
+}
+.calendar-finished:before {
+  content: "\f0eb";
+  color: #ffd700;
+}
+.calendar-finished:after {
+  content: "\f103";
 }
 /*# sourceMappingURL=index.css.map */

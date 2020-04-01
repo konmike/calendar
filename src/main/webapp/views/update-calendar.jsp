@@ -30,6 +30,7 @@
 <header>
     <nav id="main-menu">
         <ul>
+            <li id="help" class="help--display">Zobrazit nápovědu</li>
             <security:authorize access="hasRole('ROLE_ADMIN')">
                 <li>
                     <a href="${contextPath}/admin"
@@ -81,7 +82,7 @@
 
 
                 <div id="wrapper-type" class="wrapper wrapper--group-radio-update">
-                    <span>Typ</span>
+                    <span>Rozvržení</span>
                     <form:label path="type" for="type1" id="type" cssClass="label label--radio label--radio-type">
                         <form:radiobutton path="type" value="1" id="type1" name="type" cssClass="input input--radio input--radio-type"/>
                         <span>1</span>
@@ -127,7 +128,7 @@
                         <form:radiobutton path="design" id="design1" value="1" name="design" cssClass="input input--radio input--radio-design"/>
                         <span>1</span>
                         <div class="wrapper wrapper--radio-img">
-                            <img src="${contextPath}/img/portrait-row.png" alt="Design 1">
+                            <img src="${contextPath}/img/design1.png" alt="Design 1">
                         </div>
                     </form:label>
 
@@ -135,7 +136,7 @@
                         <form:radiobutton path="design" id="design2" value="2" name="design" cssClass="input input--radio input--radio-design"/>
                         <span>2</span>
                         <div class="wrapper wrapper--radio-img">
-                            <img src="${contextPath}/img/portrait-row.png" alt="Design 2">
+                            <img src="${contextPath}/img/design2.png" alt="Design 2">
                         </div>
                     </form:label>
 
@@ -143,7 +144,7 @@
                         <form:radiobutton path="design" id="design3" value="3" name="design" cssClass="input input--radio input--radio-design"/>
                         <span>3</span>
                         <div class="wrapper wrapper--radio-img">
-                            <img src="${contextPath}/img/landscape-row.png" alt="Design 3">
+                            <img src="${contextPath}/img/design3.png" alt="Design 3">
                         </div>
                     </form:label>
 
@@ -151,7 +152,7 @@
                         <form:radiobutton path="design" id="design4" value="4" name="design" cssClass="input input--radio input--radio-design"/>
                         <span>4</span>
                         <div class="wrapper wrapper--radio-img">
-                            <img src="${contextPath}/img/landscape-row.png" alt="Design 4">
+                            <img src="${contextPath}/img/design4.png" alt="Design 4">
                         </div>
                     </form:label>
                     <form:errors path="design" />
@@ -179,10 +180,17 @@
                     <input type="file" id="file" name="files" accept="image/*" class="input input--file" multiple />
                     <span class="file--custom"></span>
                     <span id="file.errors" class="${fileErrors}">${fileErrors}</span>
+                    <span class="help calendar-upload-photo">Nahrejte své fotografie</span>
                 </label>
 
 
                 <ul class="list list--gallery">
+                    <span class="help-block calendar-move-photo">
+                    Vaše nahrané fotografie se objeví zde.
+                    Můžete si je prohlédnout <span class="bigger"></span>,
+                    smazat <span class="delete"></span> nebo
+                    přetáhnout <span class="move"></span> na jedno z vyznačených míst v kalendáři.</span>
+
                     <c:forEach var="image" items="${cal.images}" varStatus="item">
                         <li class="list--item" >
                             <img src="${image.path}" draggable="true" ondragstart="return dragStart(event)" width="50" alt="${image.name}" id="image${item.index}"/>
@@ -268,13 +276,23 @@
             </div>
             <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}" />
             <input id="redir" type="hidden" name="redir" value="show" />
+            <span class="help calendar-finished">Jakmile budete mít hotovo, stačí uložit a kalendář je připraven ke stažení.</span>
             <input type="submit" class="input input--submit" value="Uložit a zobrazit" />
         </form:form>
         <div class="box box--button box--button-calendar-update">
+            <span class="help calendar-full">Můžete si zobrazit všechny strany kalendáře</span>
             <a class="link link--show-full-calendar">Všechny strany</a>
+
+            <span class="help calendar-page">Nebo procházet měsíc po měsíci</span>
             <a class="link link--show-page-calendar">Jedna strana</a>
-            <a class="link link--type-of-calendar">Orientace</a>
+
+            <span class="help calendar-type">Vyberte si rozvržení data a fotografie</span>
+            <a class="link link--type-of-calendar">Rozvržení</a>
+
+            <span class="help calendar-design">Zvolte si vlastní design nebo využijte přednastavených voleb</span>
             <a class="link link--calendar-design">Design</a>
+
+            <span class="help calendar-color">Barvy kalendáře si nastavujete jen v případě vlastního designu</span>
             <a class="link link--calendar-custom-color">Barvy</a>
         </div>
     </div>

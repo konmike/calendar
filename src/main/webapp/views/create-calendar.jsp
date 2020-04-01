@@ -119,7 +119,7 @@
                     <form:radiobutton path="design" id="design1" value="1" name="design" cssClass="input input--radio input--radio-design"/>
                     <span>1</span>
                     <div class="wrapper wrapper--radio-img">
-                        <img src="${contextPath}/img/portrait-row.png" alt="Design 1">
+                        <img src="${contextPath}/img/design1.png" alt="Design 1">
                     </div>
                 </form:label>
 
@@ -127,7 +127,7 @@
                     <form:radiobutton path="design" id="design2" value="2" name="design" cssClass="input input--radio input--radio-design"/>
                     <span>2</span>
                     <div class="wrapper wrapper--radio-img">
-                        <img src="${contextPath}/img/portrait-row.png" alt="Design 2">
+                        <img src="${contextPath}/img/design2.png" alt="Design 2">
                     </div>
                 </form:label>
 
@@ -135,7 +135,7 @@
                     <form:radiobutton path="design" id="design3" value="3" name="design" cssClass="input input--radio input--radio-design"/>
                     <span>3</span>
                     <div class="wrapper wrapper--radio-img">
-                        <img src="${contextPath}/img/landscape-row.png" alt="Design 3">
+                        <img src="${contextPath}/img/design3.png" alt="Design 3">
                     </div>
                 </form:label>
 
@@ -143,7 +143,7 @@
                     <form:radiobutton path="design" id="design4" value="4" name="design" cssClass="input input--radio input--radio-design"/>
                     <span>4</span>
                     <div class="wrapper wrapper--radio-img">
-                        <img src="${contextPath}/img/landscape-row.png" alt="Design 4">
+                        <img src="${contextPath}/img/design4.png" alt="Design 4">
                     </div>
                 </form:label>
 

@@ -431,4 +431,20 @@
 
     $(['/img/loginback.jpg']).preload();
 
+    $("#help").click(function () {
+       if($(this).hasClass("help--close")){
+           $(this).removeClass("help--close");
+           $(this).addClass("help--display");
+           $(this).text("Zobrazit nápovědu");
+           $(".help").fadeOut(500);
+           $(".help-block").fadeOut(500);
+       }else{
+           $(this).removeClass("help--display");
+           $(this).addClass("help--close");
+           $(this).text("Skrýt nápovědu");
+           $(".help").css("display", "flex").hide().fadeIn(1000);
+           $(".help-block").fadeIn(1000);
+       }
+    });
+
 })( jQuery );
