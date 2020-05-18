@@ -48,28 +48,28 @@
 
 <main>
     <div class="section section--user-create">
-        <form:form method="post" modelAttribute="newUser" class="form form--registration" action="/admin/create-user">
+        <form:form method="post" modelAttribute="newUser" name="registration" class="form form--registration" action="/admin/create-user">
             <span class="form--title">Vytvoření nového uživatele</span>
             <form:hidden path="id" />
 
             <spring:bind path="username">
                 <form:input type="text" path="username" class="input input--text" placeholder="Uživatelské jméno" autofocus="true" />
-                <form:errors path="username" />
+
             </spring:bind>
 
             <spring:bind path="email">
                 <form:input type="text" path="email" class="input input--text" placeholder="E-mail" />
-                <form:errors path="email" />
+
             </spring:bind>
 
             <spring:bind path="password">
-                <form:input type="password" path="password" class="input input--password" placeholder="Heslo" />
-                <form:errors path="password" />
+                <form:input type="password" id="password" path="password" class="input input--password" placeholder="Heslo" />
+
             </spring:bind>
 
             <spring:bind path="passwordConfirm">
                 <form:input type="password" path="passwordConfirm" class="input input--password" placeholder="Potvrzení hesla" />
-                <form:errors path="passwordConfirm" />
+
             </spring:bind>
 
             <form:label path="admin" for="admin" cssClass="label label--admin">
@@ -78,11 +78,18 @@
             </form:label>
 
             <form:button class="input input--submit">Vytvořit</form:button>
+
+            <form:errors path="username" />
+            <form:errors path="email" />
+            <form:errors path="password" />
+            <form:errors path="passwordConfirm" />
         </form:form>
     </div>
 </main>
 
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>
 <script src="../../js/menu.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-validate/1.19.1/jquery.validate.min.js"></script>
+<script src="../../js/form-validation.js"></script>
 </body>
 </html>

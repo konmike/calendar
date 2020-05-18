@@ -393,6 +393,13 @@
         //alert("Kalendar " + name + " bude stazen, pokracovat?");
 
         //removeCssToPrint(type);
+
+
+        let alert = $(".download-alert").css("display", "flex").hide().fadeIn(1000);
+
+        setTimeout(function(){
+            alert.hide();
+        }, 3000);
     });
 
 

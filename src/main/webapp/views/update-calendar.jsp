@@ -58,7 +58,7 @@
 
 <main>
     <div class="section section--calendar-update">
-        <form:form method="post" enctype="multipart/form-data" modelAttribute="cal" cssClass="form form--calendar-update" action="/calendar/update">
+        <form:form method="post" name="updateCalendar" enctype="multipart/form-data" modelAttribute="cal" cssClass="form form--calendar-update" action="/calendar/update">
             <div class="sidebox sidebox--top sidebox--calendar-option">
                 <form:label path="id" for="id">
                     <form:input type="hidden" id="id" path="id" />
@@ -70,13 +70,12 @@
 
                 <form:label path="name" for="name" cssClass="label label--calendar-option label--name">Název kalendáře
                     <form:input type="text" id="name" path="name" class="input input--text" placeholder="Název kalendáře" />
-                    <form:errors path="name" />
+
                 </form:label>
 
                 <spring:bind path="year">
                     <label for="year" class="label label--calendar-option label--year">Rok
                         <form:input type="number" path="year" id="year" class="input input--number" value="2020" placeholder="Rok" />
-                        <form:errors path="year" />
                     </label>
                 </spring:bind>
 
@@ -114,7 +113,7 @@
                             <img src="${contextPath}/img/landscape-row.png" alt="Typ 4">
                         </div>
                     </form:label>
-                    <form:errors path="type" />
+
                 </div>
 
                 <div id="wrapper-design" class="wrapper wrapper--group-radio-update">
@@ -155,7 +154,7 @@
                             <img src="${contextPath}/img/design4.png" alt="Design 4">
                         </div>
                     </form:label>
-                    <form:errors path="design" />
+
                 </div>
 
                 <div id="wrapper-color" class="wrapper wrapper--color-text wrapper--color-text-update">
@@ -166,12 +165,12 @@
 
                     <form:label path="colorDates" for="colorDates" cssClass="label label--calendar-option label--colorDates">Barva data
                         <form:input type="color" id="colorDates" path="colorDates" cssClass="input input--color" value="${cal.colorDates}" />
-                        <form:errors path="colorDates" />
+
                     </form:label>
 
                     <form:label path="backgroundColor" for="backgroundColor" cssClass="label label--calendar-option label--backgroundColor">Barva pozadí
                         <form:input type="color" id="backgroundColor" path="backgroundColor" cssClass="input input--color" value="${cal.backgroundColor}" />
-                        <form:errors path="backgroundColor" />
+
                     </form:label>
                 </div>
             </div>
@@ -205,6 +204,14 @@
             </div>
 
             <div class="sidebox sidebox--calendar-preview">
+                <div id="errors">
+                    <form:errors path="name" />
+                    <form:errors path="year" />
+                    <form:errors path="type" />
+                    <form:errors path="design" />
+                    <form:errors path="colorDates" />
+                    <form:errors path="backgroundColor" />
+                </div>
                 <a id="prev"></a>
                 <div id="calendar">
                     <c:forEach begin="0" end="12" varStatus="item">
@@ -297,12 +304,12 @@
         </div>
     </div>
 </main>
-
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-validate/1.19.1/jquery.validate.min.js"></script>
 <script src="${contextPath}/js/dragAndDrop.js"></script>
 <script src="${contextPath}/js/calendar.js"></script>
 <script src="${contextPath}/js/script.js"></script>
-<script src="../js/menu.js"></script>
+<script src="${contextPath}/js/menu.js"></script>
 <script src="${contextPath}/js/simple-lightbox.jquery.js"></script>
 <script>
     (function($) {

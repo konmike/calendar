@@ -9,17 +9,17 @@ import java.util.LinkedHashSet;
 import java.util.Set;
 
 @Entity
-//@Table(name = "calendar")
+//@Table(name = "\"calendar\"")
 public class Calendar {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @OrderBy("id DESC")
+    //@OrderBy("id DESC")
     private Long id;
 
     private String name;
 
     @NotNull
-    private int year;
+    private int yearCol;
 //    @NotNull
 //    private int offset;
 //    @NotNull
@@ -71,11 +71,11 @@ public class Calendar {
     }
 
     public int getYear() {
-        return year;
+        return yearCol;
     }
 
     public void setYear(int year) {
-        this.year = year;
+        this.yearCol = year;
     }
 
 //    public int getOffset() {
@@ -158,4 +158,5 @@ public class Calendar {
     public void setBackgroundColor(String backgroundColor) {
         this.backgroundColor = backgroundColor;
     }
+
 }

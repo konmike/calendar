@@ -17,15 +17,12 @@ public class CalendarCreateValidator implements Validator {
     public void validate(Object o, Errors errors) {
         Calendar calendar = (Calendar) o;
 
-        ValidationUtils.rejectIfEmptyOrWhitespace(errors, "name", "NotEmpty");
-        ValidationUtils.rejectIfEmptyOrWhitespace(errors, "year", "NotEmpty");
-        ValidationUtils.rejectIfEmptyOrWhitespace(errors, "type", "NotEmpty");
-        ValidationUtils.rejectIfEmptyOrWhitespace(errors, "design", "NotEmpty");
-        ValidationUtils.rejectIfEmptyOrWhitespace(errors, "colorLabels", "NotEmpty");
-        ValidationUtils.rejectIfEmptyOrWhitespace(errors, "colorDates", "NotEmpty");
+
+        ValidationUtils.rejectIfEmptyOrWhitespace(errors, "year", "NotEmptyYear");
 
         if (calendar.getName().length() < 6 || calendar.getName().length() > 32) {
             errors.rejectValue("name", "size.calendar.name");
         }
+
     }
 }

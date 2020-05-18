@@ -56,21 +56,20 @@ public class CalendarController {
     @GetMapping()
     public String getCalendar(@RequestParam("calId") Long calId, Model model, Principal principal) {
         Optional<User> user = userService.getUserByName(principal.getName());
-        if(user.isPresent()){
-            System.out.println("Everything OK");
-        }else{
-            System.out.println("Asi ses odhlasil");
+        if(!user.isPresent())
             return "redirect:/";
-        }
 
         Calendar calendar = calendarService.getCalendar(calId);
+        if(!user.get().getCalendars().contains(calendar) && !user.get().getAdmin()){
+            return "views/access-denied";
+        }
 
-        System.out.println("Uploadnute obrazky: ");
-        System.out.println(calendar.getImages());
-
-
-        System.out.println("Vybrane obrazky: ");
-        System.out.println(calendar.getSelImage());
+//        System.out.println("Uploadnute obrazky: ");
+//        System.out.println(calendar.getImages());
+//
+//
+//        System.out.println("Vybrane obrazky: ");
+//        System.out.println(calendar.getSelImage());
         //System.out.println(tmp);
 
         model.addAttribute("cal",calendar);
@@ -81,12 +80,9 @@ public class CalendarController {
     @GetMapping("/create")
     public String getCreateCalendar(Model model, Principal principal){
         Optional<User> user = userService.getUserByName(principal.getName());
-        if(user.isPresent()){
-            System.out.println("Everything OK");
-        }else{
-            System.out.println("Asi ses odhlasil");
+        if(!user.isPresent())
             return "redirect:/";
-        }
+
 
         model.addAttribute("cal", new Calendar());
         model.addAttribute("user", user);
@@ -95,13 +91,13 @@ public class CalendarController {
 
     @PostMapping("/create")
     public String createCalendar(@ModelAttribute("cal") Calendar c, Principal principal, BindingResult bindingResult) {
-        System.out.println("Id: " + c.getId());
-        System.out.println("Name: " + c.getName());
-        System.out.println("Year: " + c.getYear());
-        System.out.println("Type: " + c.getType());
-        System.out.println("Design: " + c.getDesign());
-        System.out.println("Color labels: " + c.getColorLabels());
-        System.out.println("Color dates: " + c.getColorDates());
+//        System.out.println("Id: " + c.getId());
+//        System.out.println("Name: " + c.getName());
+//        System.out.println("Year: " + c.getYear());
+//        System.out.println("Type: " + c.getType());
+//        System.out.println("Design: " + c.getDesign());
+//        System.out.println("Color labels: " + c.getColorLabels());
+//        System.out.println("Color dates: " + c.getColorDates());
 //        System.out.println("Offset: " + c.getOffset());
 //        System.out.println("Lang: " + c.getLang());
 
@@ -109,8 +105,8 @@ public class CalendarController {
         calendarCreateValidator.validate(c,bindingResult);
 
         if (bindingResult.hasErrors()) {
-            System.out.println("Chyba validace!");
-            System.out.println(bindingResult.getAllErrors());
+//            System.out.println("Chyba validace!");
+//            System.out.println(bindingResult.getAllErrors());
             return "views/create-calendar";
         }
 
@@ -140,30 +136,28 @@ public class CalendarController {
     public String getCalendars(Model model, Principal principal) throws Exception
     {
         Optional<User> user = userService.getUserByName(principal.getName());
-        if(user.isPresent()){
-            System.out.println("Everything ok");
-        }else {
+        if(!user.isPresent())
             return "redirect:/";
-        }
 
-        System.out.println(user.get().getUsername());
+
+//        System.out.println(user.get().getUsername());
 
         Set<Calendar> calendars = user.get().getCalendars();
 
         ArrayList<String> frontPages = new ArrayList<>();
 
         for (Calendar cal : calendars) {
-            System.out.println("Vybrane: " + cal.getSelImage());
+//            System.out.println("Vybrane: " + cal.getSelImage());
             //never happen
 //            if(cal.getSelImage().isEmpty()){
 //                System.out.println("Sorry, je to prazdne, nekde mas chybu...");
 //                continue;
 //            }
-            System.out.println("Pridavam uvodni " + cal.getSelImage().get(0));
+//            System.out.println("Pridavam uvodni " + cal.getSelImage().get(0));
             frontPages.add(cal.getSelImage().get(0));
         }
 
-        System.out.println("Vsechny uvodky " + frontPages);
+//        System.out.println("Vsechny uvodky " + frontPages);
 
         model.addAttribute("calendars", calendars);
         model.addAttribute("frontPages", frontPages);
@@ -175,16 +169,13 @@ public class CalendarController {
     @RequestMapping("/update")
     public String updateCalendar(@RequestParam("calId") Long calId, Model model, Principal principal) {
         Optional<User> user = userService.getUserByName(principal.getName());
-        if(user.isPresent()){
-            System.out.println("Everything ok");
-        }else {
+        if(!user.isPresent())
             return "redirect:/";
-        }
 
         Calendar c = calendarService.getCalendar(calId);
 
-        System.out.println("Update images: " + c.getImages());
-        System.out.println("Select images: " + c.getSelImage());
+//        System.out.println("Update images: " + c.getImages());
+//        System.out.println("Select images: " + c.getSelImage());
 
         model.addAttribute("cal", c);
         model.addAttribute("user", user);
@@ -198,44 +189,44 @@ public class CalendarController {
                                      @ModelAttribute("cal") Calendar tmpC, BindingResult bindingResult) throws IOException {
 
         calendarCreateValidator.validate(tmpC,bindingResult);
-        //TODO nefunguje presmerovani s chybou
+
         if (bindingResult.hasErrors()) {
-            System.out.println("Chyba validace!");
-            System.out.println(bindingResult.getAllErrors());
+//            System.out.println("Chyba validace!");
+//            System.out.println(bindingResult.getAllErrors());
             return "redirect:/calendar/update?calId=" + tmpC.getId();
         }
 
         Calendar c = calendarService.getCalendar(tmpC.getId());
 
-        System.out.println(tmpC.getName());
-        System.out.println(tmpC.getYear());
+//        System.out.println(tmpC.getName());
+//        System.out.println(tmpC.getYear());
 //        System.out.println(tmpC.getLang());
 //        System.out.println(tmpC.getOffset());
-        System.out.println("Update vybrane " + tmpC.getSelImage());
-        System.out.println("Typ" + tmpC.getType());
-        System.out.println("Design" + tmpC.getDesign());
+//        System.out.println("Update vybrane " + tmpC.getSelImage());
+//        System.out.println("Typ" + tmpC.getType());
+//        System.out.println("Design" + tmpC.getDesign());
 
         if(files.length != 0){
             Set<Image> images = c.getImages();
 
             for (MultipartFile file:files) {
                 String name = file.getOriginalFilename();
-                System.out.println(name);
+//                System.out.println(name);
                 String extension = FilenameUtils.getExtension(file.getOriginalFilename());
-                System.out.println(extension);
+//                System.out.println(extension);
 
                 if(Objects.equals(name, "") && Objects.equals(extension, "")){
-                    System.out.println("Další prázdná potvora...");
+//                    System.out.println("Další prázdná potvora...");
                     continue;
                 }
 
                 if(!uploadImageValidator.uploadImageValid(file)){
-                    System.out.println("Chyba validace!");
+//                    System.out.println("Chyba validace!");
                     redirectAttributes.addFlashAttribute("fileErrors", "Obrázek " + name + " není typu jpg, jpeg nebo png.");
                     return "redirect:/calendar/update?calId=" + tmpC.getId();
                 }
                 if(!uploadImageValidator.uploadImageSizeValid(file)){
-                    System.out.println("Chyba validace!");
+//                    System.out.println("Chyba validace!");
                     redirectAttributes.addFlashAttribute("fileErrors", "Obrázek " + name + " nemá minimální rozlišení 700x700.");
                     return "redirect:/calendar/update?calId=" + tmpC.getId();
                 }
@@ -258,10 +249,10 @@ public class CalendarController {
                     int rNumber = random.nextInt(10000);
                     name = FilenameUtils.getBaseName(file.getOriginalFilename());
                     imagePath = this.rootLocation.resolve(name + "_" + rNumber + "." + extension).toString();
-                    System.out.println("Vlastni image path: " + imagePath);
+//                    System.out.println("Vlastni image path: " + imagePath);
                     Files.copy(file.getInputStream(), this.rootLocation.resolve(imagePath));
                     name = name + "_" + rNumber + "." + extension;
-                    System.out.println("Vlastni name: " + name);
+//                    System.out.println("Vlastni name: " + name);
                 }
 
                 String path = MvcUriComponentsBuilder.fromMethodName(CalendarController.class,"serveFile", name).build().toString();
@@ -320,13 +311,15 @@ public class CalendarController {
     @GetMapping("/delete")
     public String deleteCalendar(@RequestParam(name="calId") Long calId, Principal principal) throws IOException {
         Optional<User> user = userService.getUserByName(principal.getName());
-        if(user.isPresent()){
-            System.out.println("Everything ok");
-        }else {
+        if(!user.isPresent())
             return "redirect:/";
-        }
+
         Set<Long> delId = new LinkedHashSet<>();
         Calendar calendar = calendarService.getCalendar(calId);
+
+        if(!user.get().getCalendars().contains(calendar) && !user.get().getAdmin()){
+            return "views/access-denied";
+        }
 
         Set<Calendar> calendars = user.get().getCalendars();
         calendars.remove(calendar);

@@ -147,9 +147,12 @@
                                     <div class="wrapper wrapper--calendar-item">
                                         <i class="fas fa-file-image"></i>
                                         <span>${calendar.name}</span>
+<%--                                        <span>${calendar.user.username}</span>--%>
                                         <div class="box box--button box--button-calendar-edit">
                                             <a href="${contextPath}/calendar?calId=${calendar.id}" class="link link--display">Zobrazit</a>
+<%--                                            <c:if test="${calendar.user.id == user.get().id}">--%>
                                             <a href="${contextPath}/calendar/update?calId=${calendar.id}" class="link link--edit">Editovat</a>
+<%--                                            </c:if>--%>
                                             <a href="${contextPath}/calendar/delete?calId=${calendar.id}" class="link link--delete"
                                                onclick="if (!(confirm('Kalendář bude odstraněn, chcete určitě pokračovat?'))) return false">Smazat</a>
                                         </div>
@@ -159,9 +162,12 @@
                                     <div class="wrapper wrapper--calendar-item">
                                         <img src="${lastTenFront.get(item.index)}" alt="" />
                                         <span>${calendar.name}</span>
+<%--                                        <span>${calendar.user.username}</span>--%>
                                         <div class="box box--button box--button-calendar-edit">
                                             <a href="${contextPath}/calendar?calId=${calendar.id}" class="link link--display">Zobrazit</a>
+<%--                                            <c:if test="${calendar.user.id == user.get().id}">--%>
                                             <a href="${contextPath}/calendar/update?calId=${calendar.id}" class="link link--edit">Editovat</a>
+<%--                                            </c:if>--%>
                                             <a href="${contextPath}/calendar/delete?calId=${calendar.id}" class="link link--delete"
                                                onclick="if (!(confirm('Kalendář bude odstraněn, chcete určitě pokračovat?'))) return false">Smazat</a>
                                         </div>
@@ -173,9 +179,13 @@
                 </ul>
             </div>
         </c:if>
-
-    </div>
-
+        <c:if test="${empty lastTenCal}">
+        <div id="last-ten-cal" class="sidebox sidebox--last-ten-calendars slider">
+            <a href="#" class="control_next">></a>
+            <a href="#" class="control_prev"><</a>
+            <h3>Doposud nebyly vytvořeny žádné kalendáře...</h3>
+        </div>
+        </c:if>
 </main>
 
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>

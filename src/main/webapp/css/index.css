@@ -75,6 +75,22 @@ a.control_next {
   right: 0;
   border-radius: 2px 0 0 2px;
 }
+.download-alert {
+  background: rgba(255, 255, 255, 0.8);
+  position: fixed;
+  top: 0;
+  left: 0;
+  display: none;
+  width: 100%;
+  height: 100vh;
+  z-index: 9999;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  font-weight: 900;
+  font-size: 2rem;
+  color: rgba(0, 0, 0, 0.7);
+}
 html,
 body {
   font-family: Calibri,Arial,serif;
@@ -159,15 +175,16 @@ body {
   position: fixed;
   top: 150px;
   right: 0;
-  padding: 0 1rem 0 0;
+  padding: 0;
   align-items: flex-end;
 }
 .box--button-calendar-update .link {
-  margin-bottom: 1rem;
+  margin-bottom: 0.2rem;
   display: flex;
   flex-direction: row;
-  justify-content: center;
+  justify-content: space-between;
   align-items: center;
+  width: 9rem;
 }
 .box--button-calendar-update .link:last-child {
   margin-bottom: 0;
@@ -177,12 +194,30 @@ body {
 .box--button-calendar-update .link--type-of-calendar,
 .box--button-calendar-update .link--calendar-design,
 .box--button-calendar-update .link--calendar-custom-color {
-  background: white;
-  color: red;
+  background: #ffd700;
+  color: #004465;
+  border: 0.1rem solid #ffd700;
+  border-right: none;
   cursor: pointer;
+  padding: 0.5rem;
+  transition: all 0.3s;
+  text-transform: uppercase;
+  font-weight: 900;
+}
+.box--button-calendar-update .link--show-full-calendar:hover,
+.box--button-calendar-update .link--show-page-calendar:hover,
+.box--button-calendar-update .link--type-of-calendar:hover,
+.box--button-calendar-update .link--calendar-design:hover,
+.box--button-calendar-update .link--calendar-custom-color:hover {
+  background: transparent;
+  border: 0.1rem solid #004465;
+  border-right: none;
 }
 .box--button-calendar-update .link--show-full-calendar:before,
-.box--button-calendar-update .link--show-page-calendar:before {
+.box--button-calendar-update .link--show-page-calendar:before,
+.box--button-calendar-update .link--type-of-calendar:before,
+.box--button-calendar-update .link--calendar-design:before,
+.box--button-calendar-update .link--calendar-custom-color:before {
   font-family: "Font Awesome 5 Free", Pacifico, Arial, serif;
   font-weight: 900;
   margin-right: 0.5rem;
@@ -192,6 +227,15 @@ body {
 }
 .box--button-calendar-update .link--show-full-calendar:before {
   content: '\f00a';
+}
+.box--button-calendar-update .link--type-of-calendar:before {
+  content: '\f125';
+}
+.box--button-calendar-update .link--calendar-design:before {
+  content: '\f303';
+}
+.box--button-calendar-update .link--calendar-custom-color:before {
+  content: '\f043';
 }
 .box--button-calendar-show {
   position: fixed;
@@ -656,6 +700,7 @@ nav .active {
   justify-content: center;
   flex-wrap: wrap;
   background-color: rgba(255, 244, 166, 0.5);
+  min-height: calc(100vh - 64px);
 }
 .section--admin-homepage h3 {
   width: 100%;
@@ -676,6 +721,15 @@ nav .active {
   position: relative;
   height: calc(100vh - 64px);
   background-color: rgba(255, 244, 166, 0.5);
+}
+.section--custom-error {
+  width: 960px;
+  margin: 0 auto;
+  padding: 1rem;
+}
+.section--custom-error h3,
+.section--custom-error h4 {
+  color: rgba(0, 0, 0, 0.8);
 }
 .sidebox {
   padding: 1rem;
@@ -705,6 +759,8 @@ nav .active {
   justify-content: center;
   padding-top: 0;
   padding-bottom: 0;
+  height: 100%;
+  position: relative;
 }
 .sidebox--calendar-preview a {
   text-decoration: none;
@@ -1099,16 +1155,26 @@ form .form--title {
 .form-group {
   display: flex;
   flex-direction: column;
+  position: relative;
 }
 .form-group span {
   margin-bottom: 1rem;
   color: red;
   font-weight: 900;
 }
-span[id*=".errors"] {
+div#errors {
+  position: absolute;
+  top: 0;
+  left: 0;
+}
+span[id*=".errors"],
+label.error {
   color: red;
-  font-weight: 900;
+  background-color: rgba(255, 255, 255, 0.8);
+  font-weight: normal;
   padding: 0.5rem;
+  border-radius: 0.5rem;
+  margin-bottom: 0.5rem;
 }
 .input::placeholder {
   color: #004465;
@@ -1949,24 +2015,24 @@ footer ul li:last-child {
   content: "\f101";
 }
 .calendar-full {
-  left: -440px;
-  top: -5px;
+  left: -435px;
+  top: 5px;
 }
 .calendar-page {
-  left: -330px;
-  top: 32px;
+  left: -342px;
+  top: 47px;
 }
 .calendar-type {
-  left: -325px;
-  top: 68px;
+  left: -379px;
+  top: 90px;
 }
 .calendar-design {
-  left: -490px;
-  top: 103px;
+  left: -564px;
+  top: 132px;
 }
 .calendar-color {
-  left: -500px;
-  top: 138px;
+  left: -582px;
+  top: 175px;
 }
 .calendar-upload-photo {
   position: absolute;
@@ -1986,7 +2052,7 @@ footer ul li:last-child {
   display: block;
 }
 .calendar-move-photo {
-  padding: 0.2rem;
+  padding: 0.5rem 1rem;
   height: min-content;
   line-height: 2rem;
   display: none;

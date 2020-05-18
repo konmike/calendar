@@ -41,115 +41,6 @@ public class ImageController {
         this.calendarService = calendarService;
     }
 
-    @GetMapping("/")
-    public String listUploadedFiles(@RequestParam(name = "calId",required = false) Long calId, Model model, Principal principal) throws Exception {
-
-        if (principal == null) {
-            return "redirect:/find";
-        }
-
-        if(calId != null){
-            Calendar calendar = calendarService.getCalendar(calId);
-            model.addAttribute("cal", calendar);
-            return "views/create-calendar";
-        }
-
-        /*User user = userRepository.findByUsername(principal.getName()).orElseThrow(() -> new Exception());
-
-        List<String> stringss = user.getImageList().stream()
-                .map(image -> this.rootLocation.resolve(image.getName()))
-                .map(path -> MvcUriComponentsBuilder
-                        .fromMethodName(ImageController.class, "serveFile", path.getFileName().toString()).build()
-                        .toString())
-                .collect(Collectors.toList());
-        */
-
-        //model.addAttribute("files", stringss);
-        model.addAttribute("cal", new Calendar());
-
-
-        return "views/create-calendar";
-    }
-
-    @GetMapping("/files/{filename:.+}")
-    @ResponseBody
-    public ResponseEntity<Resource> serveFile(@PathVariable String filename) throws MalformedURLException {
-
-        Path file = this.rootLocation.resolve(filename);
-        Resource resource = new UrlResource(file.toUri());
-
-        return ResponseEntity
-                .ok()
-                .body(resource);
-    }
-
-    @PostMapping("/")
-    public String handleFileUpload(@RequestParam(name = "calId", required = false) Long calId, @RequestParam("files") MultipartFile[] files, RedirectAttributes redirectAttributes,
-                                   Principal principal) throws Exception {
-
-        Optional<User> user = userService.getUserByName(principal.getName());
-        Set<Calendar> calendars = null;
-
-        if(user.isPresent())
-            calendars = user.get().getCalendars();
-
-        Calendar cal = new Calendar();
-        if(calId != null){
-            cal = calendarService.getCalendar(calId);
-        }
-
-        Set<Image> images = cal.getImages();
-        System.out.println("Post Start");
-
-        if(files.length == 0){
-            System.out.println("Nic neprislo");
-        }
-
-        for (MultipartFile file:files) {
-
-            System.out.println("Post foreach");
-
-            /*if (file.getSize() == 0) {
-                return "redirect:/image/";
-            }*/
-
-            String name = file.getOriginalFilename();
-            String extension = FilenameUtils.getExtension(file.getOriginalFilename());
-            System.out.println(name);
-            //System.out.println(file.getContentType());
-            System.out.println(extension);
-
-            String uuid = UUID.randomUUID().toString();
-            //System.out.println("Ahojky, jak je?");
-
-
-            String imagePath = this.rootLocation.resolve(name).toString();
-
-            //System.out.println(imagePath);
-
-            String path = MvcUriComponentsBuilder.fromMethodName(ImageController.class,"serveFile", name).build().toString();
-            System.out.println("Real path: " + path);
-
-            System.out.println("Nevim path: " + imagePath);
-
-            images.add(new Image(name,path,extension));
-
-            if(!Files.exists(this.rootLocation.resolve(imagePath))){
-                Files.copy(file.getInputStream(), this.rootLocation.resolve(imagePath));
-            }
-        }
-
-        Long tmpId = calendarService.saveCalendar(cal);
-
-        calendars.add(cal);
-
-        user.ifPresent(userService::updateUser);
-
-        System.out.println("Post End");
-
-        return "redirect:/calendar/update?calId=" + tmpId;
-
-    }
 
     @RequestMapping("/delete")
     public String deleteImage(@RequestParam("calId") Long calId, @RequestParam("imgId") Long imgId, Principal principal) throws Exception {
@@ -160,7 +51,10 @@ public class ImageController {
         imageService.deleteImage(calendar,image);
 
         if(calendar.getImages().isEmpty()){
-            System.out.println("Mazani kalendare v deleteImage");
+//            System.out.println("Mazani kalendare v deleteImage");
+            if(!user.isPresent())
+                return "redirect:/";
+
             user.get().getCalendars().remove(calendar);
             calendarService.deleteCalendar(calId);
             userService.updateUser(user.get());
@@ -169,6 +63,5 @@ public class ImageController {
 
         calendarService.saveCalendar(calendar);
         return "redirect:/image/?calId=" + calId;
-
     }
 }

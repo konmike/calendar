@@ -1,5 +1,6 @@
 package cz.konecmi4.fit.cvut.service;
 
+import cz.konecmi4.fit.cvut.model.Role;
 import cz.konecmi4.fit.cvut.model.User;
 
 import java.util.List;
@@ -18,5 +19,6 @@ public interface UserService {
     Optional<User> getUserByName(String name);
     List < User > getUsers();
     List < User > getUser(String name);
+
     void deleteUser(Long id);
 }

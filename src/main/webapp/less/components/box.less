@@ -9,25 +9,38 @@
   position: fixed;
   top: 150px;
   right: 0;
-  padding: 0 1rem 0 0;
+  padding: 0;
   align-items: flex-end;
   & .link{
-    margin-bottom: 1rem;
+    margin-bottom: 0.2rem;
     display: flex;
     flex-direction: row;
-    justify-content: center;
+    justify-content: space-between;
     align-items: center;
+    width: 9rem;
     &:last-child{
       margin-bottom: 0;
     }
   }
   & .link--show-full-calendar, .link--show-page-calendar, .link--type-of-calendar,
     .link--calendar-design, .link--calendar-custom-color{
-    background: white;
-    color: red;
+    background: #ffd700;
+    color: #004465;
+    border: 0.1rem solid #ffd700;
+    border-right: none;
     cursor: pointer;
+    padding: 0.5rem;
+    transition: all 0.3s;
+    text-transform: uppercase;
+    font-weight: 900;
+    &:hover{
+      background: transparent;
+      border: 0.1rem solid #004465;
+      border-right: none;
+    }
   }
-  & .link--show-full-calendar, .link--show-page-calendar{
+  & .link--show-full-calendar, .link--show-page-calendar, .link--type-of-calendar,
+  .link--calendar-design, .link--calendar-custom-color{
     &:before{
       font-family: "Font Awesome 5 Free", Pacifico, Arial, serif;
       font-weight: 900;
@@ -39,6 +52,15 @@
   }
   & .link--show-full-calendar:before{
     content: '\f00a';
+  }
+  & .link--type-of-calendar:before{
+    content: '\f125';
+  }
+  & .link--calendar-design:before{
+    content: '\f303';
+  }
+  & .link--calendar-custom-color:before{
+    content: '\f043';
   }
 }
 

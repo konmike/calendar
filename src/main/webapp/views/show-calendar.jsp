@@ -52,7 +52,7 @@
 </header>
 
 <main>
-
+    <div class="download-alert"><span>Stahování kalendáře bude zahájeno automaticky...</span></div>
     <h2 class="">${cal.name}</h2>
 
     <div class="section section--calendar-show-one">

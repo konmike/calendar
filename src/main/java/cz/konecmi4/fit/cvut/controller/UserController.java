@@ -43,12 +43,9 @@ public class UserController {
     @GetMapping("/users/list")
     public String listUsers(Model model, Principal principal) {
         Optional<User> tmp_admin = userService.findByUsername(principal.getName());
-        if(tmp_admin.isPresent()){
-            System.out.println("Everything OK");
-        }else{
-            System.out.println("Mas problem, bracho.");
+        if(!tmp_admin.isPresent())
             return "redirect:/";
-        }
+
 
         List<User> users = userService.getUsers();
 
@@ -63,12 +60,9 @@ public class UserController {
                                     Principal principal) {
         User editUser = userService.getUser(id);
         Optional<User> loginUser = userService.findByUsername(principal.getName());
-        if(loginUser.isPresent()){
-            System.out.println("Everything OK");
-        }else{
-            System.out.println("Mas problem, bracho.");
+        if(!loginUser.isPresent())
             return "redirect:/";
-        }
+
 //        User user;
 //        try {
 //            user = userService.findByUsername(username).orElseThrow(Exception::new);
@@ -76,14 +70,12 @@ public class UserController {
 //            return "redirect:/welcome";
 //        }
 
-        System.out.println("Uzivatel prihlaseny: " + principal.getName());
-        System.out.println("Uzivatel aktualizovany: " + editUser.getUsername());
-
-
+//        System.out.println("Uzivatel prihlaseny: " + principal.getName());
+//        System.out.println("Uzivatel aktualizovany: " + editUser.getUsername());
 
         if(!editUser.getUsername().equals(principal.getName()) && !(loginUser.get().getAdmin())){
-            System.out.println("Lezes kam nemas!");
-            return "redirect:/";
+//            System.out.println("Lezes kam nemas!");
+            return "views/access-denied";
         }
 
         model.addAttribute("user", loginUser);
@@ -97,20 +89,20 @@ public class UserController {
                              Principal principal,
                              BindingResult bindingResult) throws Exception {
 
-        System.out.println("Uzivatel prihlaseny: " + principal.getName());
-        System.out.println("Uzivatel aktualizovany: " + tmpUser.getUsername());
+//        System.out.println("Uzivatel prihlaseny: " + principal.getName());
+//        System.out.println("Uzivatel aktualizovany: " + tmpUser.getUsername());
 
         Optional<User> realUser = userService.getUserByName(tmpUser.getUsername());
         Optional<User> loginUser = userService.getUserByName(principal.getName());
 
-        if(realUser.isPresent() && loginUser.isPresent()){
-            System.out.println("Everything OK.");
-        }else{
+        if(!realUser.isPresent())
             return "redirect:/";
-        }
+        if(!loginUser.isPresent())
+            return "redirect:/";
+
 
         if(loginUser.get().getAdmin()){
-            System.out.println("Ano, jsme admin.");
+//            System.out.println("Ano, jsme admin.");
             if(tmpUser.getNewPassword().isEmpty()){
                 if(realUser.get().getAdmin() != tmpUser.getAdmin()){
                     realUser.get().setAdmin(tmpUser.getAdmin());
@@ -120,7 +112,7 @@ public class UserController {
             }else
                 newPasswordValidator.validate(tmpUser, bindingResult);
         }else{
-            System.out.println("Ne, nejsme admin.");
+//            System.out.println("Ne, nejsme admin.");
             oldPasswordValidator.validate(tmpUser,bindingResult);
             newPasswordValidator.validate(tmpUser,bindingResult);
         }
@@ -128,8 +120,8 @@ public class UserController {
 //        System.out.println("Je nebo neni: " + user.getAdmin());
 //
         if (bindingResult.hasErrors()) {
-            System.out.println("Chyba validace!");
-            System.out.println(bindingResult.getAllErrors());
+//            System.out.println("Chyba validace!");
+//            System.out.println(bindingResult.getAllErrors());
             return "views/update-user";
         }
 //
@@ -151,18 +143,24 @@ public class UserController {
 
         userService.updateUserPassword(realUser.get());
 
-        System.out.println("Po ulozeni!");
+//        System.out.println("Po ulozeni!");
         return "/";
     }
 
     @GetMapping("/user/delete")
     public String deleteUser(@RequestParam("userId") Long id, Principal principal) {
         User delUser = userService.getUser(id);
-        if(!principal.getName().equals(delUser.getUsername())){
+        Optional<User> user = userService.getUserByName(principal.getName());
+        if(!user.isPresent())
+            return "redirect:/";
+
+        if(!principal.getName().equals(delUser.getUsername()) && user.get().getAdmin())
             userService.deleteUser(id);
-        }else{
-            System.out.println("Co, to jako zkousis?");
+        else{
+//            System.out.println("Co, to jako zkousis?");
+            return "views/access-denied";
         }
+
         return "redirect:/users/list";
     }
 
@@ -206,12 +204,9 @@ public class UserController {
     @GetMapping("/")
     public String homepage(Principal principal) {
         Optional<User> user = userService.getUserByName(principal.getName());
-        if(user.isPresent()){
-            System.out.println("Everything OK");
-        }else{
-            System.out.println("Bracho mame problem s prihlasenim");
+        if(!user.isPresent())
             return "redirect:/";
-        }
+
         for (Role role : user.get().getRoles()){
             if(role.getName().equals("ROLE_ADMIN")){
                 return "redirect:/admin";
@@ -226,18 +221,15 @@ public class UserController {
     public String adminHome(Model model, Principal principal)
     {
         Optional<User> user = userService.getUserByName(principal.getName());
-        if(user.isPresent()){
-            System.out.println("Everything OK");
-        }else{
-            System.out.println("Asi ses odhlasil");
+        if(!user.isPresent())
             return "redirect:/";
-        }
+
 
         List<Calendar> allCalendars = new ArrayList<>();
         allCalendars = calendarService.getAllCalendars();
-        System.out.println("Pred serazenim " + allCalendars);
+//        System.out.println("Pred serazenim " + allCalendars);
         allCalendars.sort(Comparator.comparingLong(Calendar::getId).reversed());
-        System.out.println("Po serazenim " + allCalendars);
+//        System.out.println("Po serazenim " + allCalendars);
 
         List<Calendar> lastTenCalendars = new ArrayList<>();
         ArrayList<String> frontPagesLastTen = new ArrayList<>();
@@ -269,12 +261,8 @@ public class UserController {
     public String adminCreateUser(Model model, Principal principal)
     {
         Optional<User> user = userService.getUserByName(principal.getName());
-        if(user.isPresent()){
-            System.out.println("Everything OK");
-        }else{
-            System.out.println("Asi ses odhlasil");
+        if(!user.isPresent())
             return "redirect:/";
-        }
 
         model.addAttribute("newUser", new User());
         model.addAttribute("user", user);
@@ -287,7 +275,7 @@ public class UserController {
         userValidator.validate(user, bindingResult);
 
         if (bindingResult.hasErrors()) {
-            return "/admin/create-user";
+            return "views/admin/create-user";
         }
 
         userService.createUser(user);
@@ -299,15 +287,12 @@ public class UserController {
     public String showAllCalendars(Model model, Principal principal)
     {
         Optional<User> tmpUser = userService.getUserByName(principal.getName());
-        if(tmpUser.isPresent()){
-            System.out.println("Everything OK");
-        }else{
-            System.out.println("Asi ses odhlasil");
+        if(!tmpUser.isPresent())
             return "redirect:/";
-        }
+
 
         if(!tmpUser.get().getAdmin()){
-            return "redirect:/";
+            return "views/access-denied";
         }
 
         List<User> users = userService.getUsers();
@@ -316,22 +301,20 @@ public class UserController {
             Set<Calendar> calendars = user.getCalendars();
 
             for (Calendar cal : calendars) {
-                System.out.println("Vybrane: " + cal.getSelImage());
+//                System.out.println("Vybrane: " + cal.getSelImage());
                 //never happen
 //            if(cal.getSelImage().isEmpty()){
 //                System.out.println("Sorry, je to prazdne, nekde mas chybu...");
 //                continue;
 //            }
-                System.out.println("Pridavam uvodni " + cal.getSelImage().get(0));
+//                System.out.println("Pridavam uvodni " + cal.getSelImage().get(0));
                 frontPages.add(cal.getSelImage().get(0));
             }
         }
-
 
         model.addAttribute("users", users);
         model.addAttribute("user", tmpUser);
         model.addAttribute("frontPages", frontPages);
         return "views/admin/list-users-calendars";
     }
-
 }
