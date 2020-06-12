@@ -1,13 +1,13 @@
 ----------------------------------------------------------------
-Mon May 18 12:17:28 CEST 2020:
-Booting Derby version The Apache Software Foundation - Apache Derby - 10.14.2.0 - (1828579): instance a816c00e-0172-2749-d0ca-00000cb97df8 
-on database directory /opt/Apache/derby-10.14/bin/BP-calendar-db with class loader java.net.URLClassLoader@37d87665 
+Tue Jun 09 11:07:45 CEST 2020:
+Booting Derby version The Apache Software Foundation - Apache Derby - 10.14.2.0 - (1828579): instance a816c00e-0172-9855-df72-0000063cb0b0 
+on database directory /opt/Apache/derby-10.14/bin/BP-calendar-db with class loader java.net.URLClassLoader@1845f0fd 
 Loaded from file:/home/mike/.m2/repository/org/apache/derby/derby/10.14.2.0/derby-10.14.2.0.jar
 java.vendor=Oracle Corporation
 java.runtime.version=1.8.0_181-b13
 user.dir=/home/mike/IdeaProjects/calendar
 os.name=Linux
 os.arch=amd64
-os.version=4.15.0-99-generic
+os.version=4.15.0-101-generic
 derby.system.home=null
 Database Class Loader started - derby.database.classpath=''
