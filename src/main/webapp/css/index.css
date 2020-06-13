@@ -41,7 +41,7 @@ ul {
   width: 100%;
   height: 100%;
   z-index: 999999;
-  background: url("../../img/preloader.gif") center no-repeat #fff;
+  background: url("../img/preloader.gif") center no-repeat #fff;
 }
 a.control_prev,
 a.control_next {
@@ -676,6 +676,9 @@ nav .active {
 .section--calendar-show-one .wrapper-image:after img {
   opacity: 1;
 }
+.section--calendar-show-all-users-calendar h3 {
+  text-align: center;
+}
 .section--registration,
 .section--user-create,
 .section--user-update,
@@ -823,7 +826,7 @@ nav .active {
   align-items: center;
   height: calc(100vh - 2rem);
   color: #004465;
-  background-image: linear-gradient(rgba(255, 255, 255, 0.7), rgba(255, 255, 255, 0.7)), url("/img/loginback.jpg");
+  background-image: linear-gradient(rgba(255, 255, 255, 0.7), rgba(255, 255, 255, 0.7)), url("../img/loginback.jpg");
   background-repeat: no-repeat;
   background-size: cover;
   background-position: center;
@@ -933,6 +936,7 @@ form .form--title {
 }
 .form--search .input--text {
   margin: 0 1rem 0 0;
+  line-height: 1.3rem;
 }
 .form--search .input--submit {
   margin: 0;
@@ -1519,7 +1523,7 @@ footer ul li:last-child {
 }
 .design1 {
   background-color: #ffffff;
-  background-image: url("/img/pozadi/24.jpg");
+  background-image: url("../img/pozadi/24.jpg");
   background-position: center;
   background-repeat: no-repeat;
   background-size: cover;
@@ -1537,7 +1541,7 @@ footer ul li:last-child {
 }
 .design2 {
   background-color: #ffffff;
-  background-image: url("/img/pozadi/2hd.jpg");
+  background-image: url("../img/pozadi/2hd.jpg");
   background-position: center;
   background-repeat: no-repeat;
   background-size: cover;
@@ -1555,7 +1559,7 @@ footer ul li:last-child {
 }
 .design3 {
   background-color: #ffffff;
-  background-image: url("/img/pozadi/6hd.jpg");
+  background-image: url("../img/pozadi/6hd.jpg");
   background-position: center;
   background-repeat: no-repeat;
   background-size: cover;
@@ -1573,7 +1577,7 @@ footer ul li:last-child {
 }
 .design4 {
   background-color: #000000;
-  background-image: url("/img/pozadi/8hd.jpg");
+  background-image: url("../img/pozadi/8hd.jpg");
   background-position: center;
   background-repeat: no-repeat;
   background-size: cover;

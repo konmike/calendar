@@ -134,7 +134,7 @@
                 </li>
             </ul>
         </div>
-        <h3>Nejnovějších 10 kalendářů</h3>
+        <h3>10 nejnovějších kalendářů</h3>
         <c:if test="${not empty lastTenCal}">
             <div id="last-ten-cal" class="sidebox sidebox--last-ten-calendars slider">
                 <a href="#" class="control_next">></a>

@@ -112,8 +112,8 @@
 
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
 <script src="http://cdnjs.cloudflare.com/ajax/libs/modernizr/2.8.3/modernizr.js"></script>
-<script src="../js/menu.js"></script>
-<script src="../js/html2pdf.bundle.min.js"></script>
+<script src="${contextPath}/js/menu.js"></script>
+<script src="${contextPath}/js/html2pdf.bundle.min.js"></script>
 <script src="${contextPath}/js/calendar.js"></script>
 <script src="${contextPath}/js/script.js"></script>
 <script src="${contextPath}/js/simple-lightbox.jquery.js"></script>

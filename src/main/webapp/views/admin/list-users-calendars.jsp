@@ -46,54 +46,61 @@
     <jsp:include page="../parts/user-menu.jsp" />
 </header>
 
+<c:set var="frontPhoto" value="0" />
+
 <main>
     <div class="section section--calendar-show-all-users-calendar">
+
     <c:forEach var="databaseUser" items="${users}" varStatus="item">
-        <c:if test="${not empty databaseUser.calendars}">
-            <div id="wrapper-calendar-${item.index}" class="wrapper wrapper--users-calendar slider">
-                <a href="#" class="control_next">></a>
-                <a href="#" class="control_prev"><</a>
-                <h3>${databaseUser.username}</h3>
-                <ul th:each="calendar : ${databaseUser.calendars}" class="list list--my-calendars">
-                    <c:forEach varStatus="item" items="${databaseUser.calendars}" var="calendar">
-                        <li class="list--item">
-                            <c:choose>
-                                <c:when test="${frontPages.get(item.index).contains('null')}">
-                                    <div class="wrapper wrapper--calendar-item">
-                                        <i class="fas fa-file-image"></i>
-                                        <span>${calendar.name}</span>
-                                        <div class="box box--button box--button-calendar-edit">
-                                            <a href="${contextPath}/calendar?calId=${calendar.id}" class="link link--display">Zobrazit</a>
-                                            <a href="${contextPath}/calendar/update?calId=${calendar.id}" class="link link--edit">Editovat</a>
-                                            <a href="${contextPath}/calendar/delete?calId=${calendar.id}" class="link link--delete"
-                                               onclick="if (!(confirm('Kalendář bude odstraněn, chcete určitě pokračovat?'))) return false">Smazat</a>
+            <c:if test="${not empty databaseUser.calendars}">
+                <div id="wrapper-calendar-${item.index}" class="wrapper wrapper--users-calendar slider">
+                    <a href="#" class="control_next">></a>
+                    <a href="#" class="control_prev"><</a>
+                    <h3>${databaseUser.username}</h3>
+                    <ul th:each="calendar : ${databaseUser.calendars}" class="list list--my-calendars">
+                        <c:forEach varStatus="itemCalendar" items="${databaseUser.calendars}" var="calendar">
+                            <li class="list--item">
+                                <c:choose>
+                                    <c:when test="${frontPages.get(frontPhoto).contains('null')}">
+                                        <div class="wrapper wrapper--calendar-item">
+                                            <i class="fas fa-file-image"></i>
+                                            <span>${calendar.name}</span>
+                                            <div class="box box--button box--button-calendar-edit">
+                                                <a href="${contextPath}/calendar?calId=${calendar.id}" class="link link--display">Zobrazit</a>
+                                                <a href="${contextPath}/calendar/update?calId=${calendar.id}" class="link link--edit">Editovat</a>
+                                                <a href="${contextPath}/calendar/delete?calId=${calendar.id}" class="link link--delete"
+                                                   onclick="if (!(confirm('Kalendář bude odstraněn, chcete určitě pokračovat?'))) return false">Smazat</a>
+                                            </div>
                                         </div>
-                                    </div>
-                                </c:when>
-                                <c:otherwise>
-                                    <div class="wrapper wrapper--calendar-item">
-                                        <img src="${frontPages.get(item.index)}" alt="" />
-                                        <span>${calendar.name}</span>
-                                        <div class="box box--button box--button-calendar-edit">
-                                            <a href="${contextPath}/calendar?calId=${calendar.id}" class="link link--display">Zobrazit</a>
-                                            <a href="${contextPath}/calendar/update?calId=${calendar.id}" class="link link--edit">Editovat</a>
-                                            <a href="${contextPath}/calendar/delete?calId=${calendar.id}" class="link link--delete"
-                                               onclick="if (!(confirm('Kalendář bude odstraněn, chcete určitě pokračovat?'))) return false">Smazat</a>
+                                    </c:when>
+                                    <c:otherwise>
+                                        <div class="wrapper wrapper--calendar-item">
+                                            <img src="${frontPages.get(frontPhoto)}" alt="" />
+                                            <span>${calendar.name}</span>
+                                            <div class="box box--button box--button-calendar-edit">
+                                                <a href="${contextPath}/calendar?calId=${calendar.id}" class="link link--display">Zobrazit</a>
+                                                <a href="${contextPath}/calendar/update?calId=${calendar.id}" class="link link--edit">Editovat</a>
+                                                <a href="${contextPath}/calendar/delete?calId=${calendar.id}" class="link link--delete"
+                                                   onclick="if (!(confirm('Kalendář bude odstraněn, chcete určitě pokračovat?'))) return false">Smazat</a>
+                                            </div>
                                         </div>
-                                    </div>
-                                </c:otherwise>
-                            </c:choose>
-                        </li>
-                    </c:forEach>
-                </ul>
-            </div>
-        </c:if>
+                                    </c:otherwise>
+                                </c:choose>
+                            </li>
+                            <c:set var="frontPhoto" value="${frontPhoto + 1}" />
+                        </c:forEach>
+                    </ul>
+                </div>
+            </c:if>
     </c:forEach>
+        <c:if test="${frontPhoto == '0'}">
+            <h3>Doposud nebyly vytvořeny žádné kalendáře...</h3>
+        </c:if>
     </div>
 </main>
 
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>
-<script src="../../js/menu.js"></script>
-<script src="../../js/slider.js"></script>
+<script src="${contextPath}/js/menu.js"></script>
+<script src="${contextPath}/js/slider.js"></script>
 </body>
 </html>

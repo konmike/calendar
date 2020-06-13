@@ -436,7 +436,7 @@
 
 // Usage:
 
-    $(['/img/loginback.jpg']).preload();
+    $(['../img/loginback.jpg']).preload();
 
     $("#help").click(function () {
        if($(this).hasClass("help--close")){

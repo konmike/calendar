@@ -58,7 +58,7 @@
 
 <main>
     <div class="section section--calendar-update">
-        <form:form method="post" name="updateCalendar" enctype="multipart/form-data" modelAttribute="cal" cssClass="form form--calendar-update" action="/calendar/update">
+        <form:form method="post" name="updateCalendar" enctype="multipart/form-data" modelAttribute="cal" cssClass="form form--calendar-update" action="${contextPath}/calendar/update">
             <div class="sidebox sidebox--top sidebox--calendar-option">
                 <form:label path="id" for="id">
                     <form:input type="hidden" id="id" path="id" />

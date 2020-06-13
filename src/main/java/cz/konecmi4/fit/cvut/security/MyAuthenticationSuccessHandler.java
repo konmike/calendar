@@ -19,9 +19,9 @@ public class MyAuthenticationSuccessHandler implements AuthenticationSuccessHand
         Set<String> roles = AuthorityUtils.authorityListToSet(authentication.getAuthorities());
 
         if (roles.contains("ROLE_ADMIN")) {
-            httpServletResponse.sendRedirect("/admin/");
+            httpServletResponse.sendRedirect("admin");
         } else {
-            httpServletResponse.sendRedirect("/");
+            httpServletResponse.sendRedirect("calendar/myCalendars");
         }
     }
 }

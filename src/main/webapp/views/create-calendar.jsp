@@ -50,7 +50,7 @@
 
 <main>
     <div class="section section--calendar-create">
-        <form:form method="post" name="createCalendar" enctype="multipart/form-data" action="/calendar/create" modelAttribute="cal" cssClass="form form--calendar-create">
+        <form:form method="post" name="createCalendar" enctype="multipart/form-data" action="${contextPath}/calendar/create" modelAttribute="cal" cssClass="form form--calendar-create">
 
                 <form:label path="id" for="id">
                     <form:input type="hidden" id="id" path="id"/>

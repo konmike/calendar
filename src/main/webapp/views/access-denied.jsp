@@ -44,7 +44,6 @@
             </security:authorize>
         </ul>
     </nav>
-    <jsp:include page="parts/user-menu.jsp" />
 </header>
 
 <main>
