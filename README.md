@@ -1,6 +1,6 @@
-<h1>Tvorba webové aplikace pro návrh a tisk nástěnných kalendářů</h1>
+# Tvorba webové aplikace pro návrh a tisk nástěnných kalendářů
 
-<h3>Vytvořte webovou aplikaci pro návrh a tisk nástěnných kalendářů.</h3>
+## Vytvořte webovou aplikaci pro návrh a tisk nástěnných kalendářů.
 <ul>
 <li>Proveďte rešerši současného stavu aplikací, umožňujících podobné úlohy.</li>
 <li>Na základě rešerše navrhněte vhodný architektonický model pro běh aplikace na aplikačním serveru.</li>
